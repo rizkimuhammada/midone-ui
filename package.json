@@ -1,0 +1,13 @@
+{
+  "name": "midone-ui",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=@midoneui/react && npm run build --workspace=@midoneui/vue",
+    "dev:react": "npm run dev --workspace=@midoneui/react",
+    "dev:vue": "npm run dev --workspace=@midoneui/vue"
+  }
+}

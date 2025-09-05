@@ -1,0 +1,27 @@
+{
+  "name": "@midoneui/core",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./styles/*": {
+      "import": "./src/styles/*.ts",
+      "types": "./src/styles/*.ts"
+    },
+    "./utils/*": {
+      "import": "./src/utils/*.ts",
+      "types": "./src/utils/*.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.5.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3"
+  }
+}
