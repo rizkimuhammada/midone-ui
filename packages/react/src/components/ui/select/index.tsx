@@ -1,5 +1,3 @@
-import { Portal } from "@ark-ui/react/portal";
-import { Select } from "@ark-ui/react/select";
 import { Button } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import { Label } from "@/components/ui/label";
@@ -22,138 +20,217 @@ import {
   selectItemIndicator,
   selectHiddenSelect,
 } from "@midoneui/core/styles/select.styles";
+import { createContext, useContext, useId } from "react";
+import * as select from "@zag-js/select";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
+import type { Api, Props, ItemGroupProps, ItemProps } from "@zag-js/select";
+import { Slot } from "@/components/ui/slot";
+
+const ApiContext = createContext<Api | null>(null);
+const ItemGroupContext = createContext<ItemGroupProps | undefined>(undefined);
+const ItemContext = createContext<ItemProps | undefined>(undefined);
 
 export function SelectRoot({
   children,
   className,
-  multiple,
+  multiple = false,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.Root<string>>) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+  const service = useMachine(select.machine, {
+    multiple,
+    ...props,
+    id: useId(),
+  });
+
+  const api = select.connect(service, normalizeProps);
+
   return (
-    <Select.Root
-      className={cn(selectRoot, className)}
-      multiple={multiple}
-      data-multiple={multiple}
-      {...props}
-    >
-      {children}
-      <SelectHiddenSelect />
-    </Select.Root>
+    <ApiContext.Provider value={api}>
+      <Slot
+        className={cn(selectRoot, className)}
+        data-multiple={multiple}
+        {...api.getRootProps()}
+        {...props}
+      >
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {children}
+            <SelectHiddenSelect />
+          </div>
+        )}
+      </Slot>
+    </ApiContext.Provider>
   );
 }
 
 export function SelectLabel({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.Label>) {
+}: React.ComponentProps<"label"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Select.Label {...props}>
-      <Label className={cn(selectLabel, className)}>{children}</Label>
-    </Select.Label>
+    <Slot {...api?.getLabelProps()} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <Label className={cn(selectLabel, className)}>{children}</Label>
+      )}
+    </Slot>
   );
 }
 
 export function SelectControl({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.Control>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Select.Control className={cn(selectControl, className)} {...props}>
-      {children}
-    </Select.Control>
+    <Slot
+      className={cn(selectControl, className)}
+      {...api?.getControlProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function SelectTrigger({
   children,
   className,
-  asChild,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.Trigger>) {
+}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Select.Trigger asChild {...props}>
+    <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
         <Button className={cn(selectTrigger, className)}>
           {children}
           <SelectClearTrigger>Clear</SelectClearTrigger>
-          <SelectIndicator>
-            <ChevronDownIcon />
-          </SelectIndicator>
+          <SelectIndicator />
         </Button>
       ) : (
         children
       )}
-    </Select.Trigger>
+    </Slot>
   );
 }
 
 export function SelectValueText({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.ValueText>) {
+}: React.ComponentProps<"input"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Select.ValueText className={cn(selectValueText, className)} {...props}>
-      {children}
-    </Select.ValueText>
+    <Slot
+      className={cn(selectValueText, className)}
+      {...api?.getValueTextProps()}
+      {...props}
+    >
+      {asChild ? (
+        children
+      ) : (
+        <div>{api?.valueAsString || props.placeholder}</div>
+      )}
+    </Slot>
   );
 }
 
 export function SelectIndicator({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.Indicator>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Select.Indicator className={cn(selectIndicator, className)} {...props}>
-      {children}
-    </Select.Indicator>
+    <Slot
+      className={cn(selectIndicator, className)}
+      {...api?.getIndicatorProps()}
+      {...props}
+    >
+      {asChild ? (
+        children
+      ) : (
+        <div>{children ?? <ChevronDownIcon className="size-3.5" />}</div>
+      )}
+    </Slot>
   );
 }
 
 export function SelectClearTrigger({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.ClearTrigger>) {
+}: React.ComponentProps<"span"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Select.ClearTrigger asChild {...props}>
-      <span className={cn(selectClearTrigger, className)}>{children}</span>
-    </Select.ClearTrigger>
+    <Slot {...api?.getClearTriggerProps()} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <span className={cn(selectClearTrigger, className)}>{children}</span>
+      )}
+    </Slot>
   );
 }
 
 export function SelectPositioner({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.Positioner>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Select.Positioner className={cn(selectPositioner, className)} {...props}>
-      {children}
-    </Select.Positioner>
+    <Slot
+      className={cn(selectPositioner, className)}
+      {...api?.getPositionerProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function SelectContent({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.Content>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
     <Portal>
       <SelectPositioner>
-        <Select.Content {...props}>
-          <Box
-            raised="single"
-            className={cn(selectContent, className)}
-            {...props}
-          >
-            <div>{children}</div>
-          </Box>
-        </Select.Content>
+        <Slot {...api?.getContentProps()} {...props}>
+          {asChild ? (
+            children
+          ) : (
+            <Box raised="single" className={cn(selectContent, className)}>
+              <div>{children}</div>
+            </Box>
+          )}
+        </Slot>
       </SelectPositioner>
     </Portal>
   );
@@ -162,77 +239,129 @@ export function SelectContent({
 export function SelectItemGroup({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.ItemGroup>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const itemGroupId = { id: useId() };
+
   return (
-    <Select.ItemGroup className={cn(selectItemGroup, className)} {...props}>
-      {children}
-    </Select.ItemGroup>
+    <ItemGroupContext.Provider value={itemGroupId}>
+      <Slot
+        className={cn(selectItemGroup, className)}
+        {...api?.getItemGroupProps(itemGroupId)}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ItemGroupContext.Provider>
   );
 }
 
 export function SelectItemGroupLabel({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.ItemGroupLabel>) {
+}: React.ComponentProps<"label"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const itemGroupId = useContext(ItemGroupContext);
+
   return (
-    <Select.ItemGroupLabel
+    <Slot
       className={cn(selectItemGroupLabel, className)}
+      {...api?.getItemGroupLabelProps({
+        htmlFor: itemGroupId?.id!,
+      })}
       {...props}
     >
-      {children}
-    </Select.ItemGroupLabel>
+      {asChild ? children : <label>{children}</label>}
+    </Slot>
   );
 }
 
 export function SelectItem({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.Item>) {
+}: React.ComponentProps<"div"> & ItemProps & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Select.Item className={cn(selectItem, className)} {...props}>
-      {children}
-      <SelectItemIndicator />
-    </Select.Item>
+    <ItemContext.Provider value={props}>
+      <Slot
+        className={cn(selectItem, className)}
+        {...api?.getItemProps(props)}
+        {...props}
+      >
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {children}
+            <SelectItemIndicator />
+          </div>
+        )}
+      </Slot>
+    </ItemContext.Provider>
   );
 }
 
 export function SelectItemText({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.ItemText>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const item = useContext(ItemContext);
+
   return (
-    <Select.ItemText className={cn(selectItemText, className)} {...props}>
-      {children}
-    </Select.ItemText>
+    <Slot
+      className={cn(selectItemText, className)}
+      {...api?.getItemTextProps(item!)}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function SelectItemIndicator({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Select.ItemIndicator>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const item = useContext(ItemContext);
+
   return (
-    <Select.ItemIndicator
+    <Slot
       className={cn(selectItemIndicator, className)}
+      {...api?.getItemIndicatorProps(item!)}
       {...props}
     >
-      {children ?? <Check className="size-3.5" />}
-    </Select.ItemIndicator>
+      {asChild ? (
+        children
+      ) : (
+        <div>{children ?? <Check className="size-3.5" />}</div>
+      )}
+    </Slot>
   );
 }
 
 export function SelectHiddenSelect({
   className,
   ...props
-}: React.ComponentProps<typeof Select.HiddenSelect>) {
+}: React.ComponentProps<"select">) {
+  const api = useContext(ApiContext);
+
   return (
-    <Select.HiddenSelect
+    <select
       className={cn(selectHiddenSelect, className)}
+      {...api?.getHiddenSelectProps()}
       {...props}
     />
   );

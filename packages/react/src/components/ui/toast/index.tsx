@@ -1,4 +1,3 @@
-import { Toast, Toaster, createToaster } from "@ark-ui/react/toast";
 import { cn } from "@midoneui/core/utils/cn";
 import {
   toastRoot,
@@ -17,8 +16,15 @@ import {
   type BoxVariants,
 } from "@midoneui/core/styles/box.styles";
 import { X } from "lucide-react";
+import * as toast from "@zag-js/toast";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
+import type { Api, Store } from "@zag-js/toast";
+import { Slot } from "@/components/ui/slot";
+import { createContext, useContext, useId } from "react";
 
-export const toaster = createToaster({
+const ApiContext = createContext<Api | null>(null);
+
+export const toaster = toast.createStore({
   placement: "bottom-end",
   overlap: true,
   gap: 24,
@@ -27,46 +33,73 @@ export const toaster = createToaster({
 export function ToastRoot({
   children,
   className,
+  asChild = false,
   filled,
   variant,
   raised = "single",
   ...props
-}: React.ComponentProps<typeof Toast.Root> & BoxVariants) {
+}: React.ComponentProps<"div"> & BoxVariants & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Toast.Root
+    <Slot
       className={cn([
         boxVariants({ filled, variant, raised, className }),
         toastRoot,
         className,
       ])}
+      {...api?.getRootProps()}
       {...props}
     >
-      {children}
-    </Toast.Root>
+      {asChild ? (
+        children
+      ) : (
+        <div>
+          <span {...api?.getGhostBeforeProps()} />
+          <div data-scope="toast" data-part="progressbar" />
+          {children}
+          <span {...api?.getGhostAfterProps()} />
+        </div>
+      )}
+    </Slot>
   );
 }
 
 export function ToastTitle({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Toast.Title>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Toast.Title className={cn(toastTitle, className)} {...props}>
-      {children}
-    </Toast.Title>
+    <Slot
+      className={cn(toastTitle, className)}
+      {...api?.getTitleProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function ToastDescription({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Toast.Description>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Toast.Description className={cn(toastDescription, className)} {...props}>
-      {children}
-    </Toast.Description>
+    <Slot
+      className={cn(toastDescription, className)}
+      {...api?.getDescriptionProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
@@ -78,16 +111,16 @@ export function ToastCloseTrigger({
   size,
   asChild,
   ...props
-}: React.ComponentProps<typeof Toast.CloseTrigger> & ButtonVariants) {
-  return !children ? (
-    <Toast.CloseTrigger asChild {...props}>
-      <Button className={cn(toastCloseTrigger, className)} {...props}>
-        <X className="size-4" />
-      </Button>
-    </Toast.CloseTrigger>
-  ) : (
-    <Toast.CloseTrigger asChild {...props}>
-      {asChild ? (
+}: React.ComponentProps<"button"> & ButtonVariants & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
+  return (
+    <Slot {...api?.getCloseTriggerProps()} {...props}>
+      {!children ? (
+        <Button className={cn(toastCloseTrigger, className)} {...props}>
+          <X className="size-4" />
+        </Button>
+      ) : asChild ? (
         children
       ) : (
         <Button
@@ -99,18 +132,69 @@ export function ToastCloseTrigger({
           {children}
         </Button>
       )}
-    </Toast.CloseTrigger>
+    </Slot>
+  );
+}
+
+export function ToastItem({
+  toastGroup,
+  serviceGroup,
+  index,
+  children,
+}: {
+  toastGroup: toast.Options<React.ReactNode>;
+  serviceGroup: toast.GroupService;
+  index: number;
+  children: (api: Api & { id?: string }) => React.ReactNode;
+}) {
+  const composedProps = { ...toastGroup, index, parent: serviceGroup };
+  const service = useMachine(toast.machine, composedProps);
+  const api = toast.connect(service, normalizeProps);
+
+  return (
+    <ApiContext.Provider value={api}>
+      {children({
+        ...api,
+        id: toastGroup.id,
+      })}
+    </ApiContext.Provider>
   );
 }
 
 export function ToasterContainer({
-  children,
   className,
-  ...props
-}: React.ComponentProps<typeof Toaster>) {
+  children,
+  toaster,
+}: {
+  className?: string;
+  children: (api: Api & { id?: string }) => React.ReactNode;
+  toaster: Store;
+}) {
+  const serviceGroup = useMachine(toast.group.machine, {
+    id: useId(),
+    store: toaster,
+  });
+  const apiGroup = toast.group.connect(serviceGroup, normalizeProps);
+
   return (
-    <Toaster className={cn(toasterContainer, className)} {...props}>
-      {children}
-    </Toaster>
+    <Portal>
+      <div
+        className={cn(toasterContainer, className)}
+        {...apiGroup.getGroupProps()}
+      >
+        {apiGroup.getToasts().map((toastGroup, index) => {
+          return (
+            <ToastItem
+              key={toastGroup.id}
+              index={index}
+              toastGroup={toastGroup}
+              serviceGroup={serviceGroup}
+            >
+              {children}
+            </ToastItem>
+          );
+        })}
+      </div>
+    </Portal>
   );
 }

@@ -1,7 +1,7 @@
-import { Popover } from "@ark-ui/react/popover";
 import { cn } from "@midoneui/core/utils/cn";
 import { ChevronDown } from "lucide-react";
 import {
+  popoverRoot,
   popoverTrigger,
   popoverPositioner,
   popoverContent,
@@ -13,13 +13,39 @@ import {
   popoverCloseTrigger,
 } from "@midoneui/core/styles/popover.styles";
 import { Button } from "@/components/ui/button";
+import {
+  buttonVariants,
+  type ButtonVariants,
+} from "@midoneui/core/styles/button.styles";
 import { Box } from "@/components/ui/box";
+import * as popover from "@zag-js/popover";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
+import type { Api, Props } from "@zag-js/popover";
+import { Slot } from "@/components/ui/slot";
+import { createContext, useContext, useId } from "react";
+
+const ApiContext = createContext<Api | null>(null);
 
 export function PopoverRoot({
   children,
+  className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Popover.Root>) {
-  return <Popover.Root {...props}>{children}</Popover.Root>;
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+  const service = useMachine(popover.machine, {
+    ...props,
+    id: useId(),
+  });
+
+  const api = popover.connect(service, normalizeProps);
+
+  return (
+    <ApiContext.Provider value={api}>
+      <Slot className={cn(popoverRoot, className)} {...props}>
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ApiContext.Provider>
+  );
 }
 
 export function PopoverTrigger({
@@ -27,9 +53,11 @@ export function PopoverTrigger({
   className,
   asChild,
   ...props
-}: React.ComponentProps<typeof Popover.Trigger>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Popover.Trigger asChild {...props}>
+    <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
         <Button className={cn(popoverTrigger, className)}>
           {children}
@@ -38,7 +66,7 @@ export function PopoverTrigger({
       ) : (
         children
       )}
-    </Popover.Trigger>
+    </Slot>
   );
 }
 
@@ -46,40 +74,66 @@ export function PopoverIndicator({
   children,
   className,
   ...props
-}: React.ComponentProps<typeof Popover.Indicator>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Popover.Indicator className={cn(popoverIndicator, className)} {...props}>
+    <Slot
+      className={cn(popoverIndicator, className)}
+      {...api?.getIndicatorProps()}
+      {...props}
+    >
       {children ?? <ChevronDown />}
-    </Popover.Indicator>
+    </Slot>
   );
 }
 
 export function PopoverPositioner({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Popover.Positioner>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Popover.Positioner className={cn(popoverPositioner, className)} {...props}>
-      {children}
-    </Popover.Positioner>
+    <Portal>
+      <Slot
+        className={cn(popoverPositioner, className)}
+        {...api?.getPositionerProps()}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </Portal>
   );
 }
 
 export function PopoverContent({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Popover.Content>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Popover.Content asChild {...props}>
-      <Box className={cn(popoverContent, className)}>
-        {children}
-        <PopoverArrow>
-          <PopoverArrowTip />
-        </PopoverArrow>
-      </Box>
-    </Popover.Content>
+    <Slot
+      className={cn(popoverContent, className)}
+      {...api?.getContentProps()}
+      {...props}
+    >
+      {asChild ? (
+        children
+      ) : (
+        <Box raised="single" className={cn(popoverContent, className)}>
+          <div>{children}</div>
+          <PopoverArrow>
+            <PopoverArrowTip />
+          </PopoverArrow>
+        </Box>
+      )}
+    </Slot>
   );
 }
 
@@ -87,11 +141,17 @@ export function PopoverArrow({
   children,
   className,
   ...props
-}: React.ComponentProps<typeof Popover.Arrow>) {
+}: React.ComponentProps<"div">) {
+  const api = useContext(ApiContext);
+
   return (
-    <Popover.Arrow className={cn(popoverArrow, className)} {...props}>
+    <div
+      className={cn(popoverArrow, className)}
+      {...api?.getArrowProps()}
+      {...props}
+    >
       {children}
-    </Popover.Arrow>
+    </div>
   );
 }
 
@@ -99,56 +159,87 @@ export function PopoverArrowTip({
   children,
   className,
   ...props
-}: React.ComponentProps<typeof Popover.ArrowTip>) {
+}: React.ComponentProps<"div">) {
+  const api = useContext(ApiContext);
+
   return (
-    <Popover.ArrowTip className={cn(popoverArrowTip, className)} {...props}>
+    <div
+      className={cn(popoverArrowTip, className)}
+      {...api?.getArrowTipProps()}
+      {...props}
+    >
       {children}
-    </Popover.ArrowTip>
+    </div>
   );
 }
 
 export function PopoverTitle({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Popover.Title>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Popover.Title className={cn(popoverTitle, className)} {...props}>
-      {children}
-    </Popover.Title>
+    <Slot
+      className={cn(popoverTitle, className)}
+      {...api?.getTitleProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function PopoverDescription({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Popover.Description>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Popover.Description
+    <Slot
       className={cn(popoverDescription, className)}
+      {...api?.getDescriptionProps()}
       {...props}
     >
-      {children}
-    </Popover.Description>
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function PopoverCloseTrigger({
   children,
   className,
+  filled,
+  variant,
+  size,
   asChild,
   ...props
-}: React.ComponentProps<typeof Popover.CloseTrigger>) {
+}: React.ComponentProps<"button"> & ButtonVariants & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Popover.CloseTrigger asChild {...props}>
-      {!asChild ? (
-        <Button className={cn(popoverCloseTrigger, className)}>
-          {children ?? "Close"}
+    <Slot {...api?.getCloseTriggerProps()} {...props}>
+      {!children ? (
+        <Button className={cn(popoverCloseTrigger, className)} {...props}>
+          Close
         </Button>
-      ) : (
+      ) : asChild ? (
         children
+      ) : (
+        <Button
+          className={cn(
+            buttonVariants({ filled, variant, size, className }),
+            className
+          )}
+        >
+          {children}
+        </Button>
       )}
-    </Popover.CloseTrigger>
+    </Slot>
   );
 }

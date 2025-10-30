@@ -1,12 +1,10 @@
-import { Portal } from "@ark-ui/react/portal";
-import { Combobox } from "@ark-ui/react/combobox";
 import { cn } from "@midoneui/core/utils/cn";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import { Label } from "@/components/ui/label";
 import { Check, ChevronsUpDownIcon } from "lucide-react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useId } from "react";
 import {
   comboboxRoot,
   comboboxLabel,
@@ -22,139 +20,187 @@ import {
   comboboxItemText,
   comboboxItemIndicator,
 } from "@midoneui/core/styles/combobox.styles";
+import * as combobox from "@zag-js/combobox";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
+import type { Api, Props, ItemGroupProps, ItemProps } from "@zag-js/combobox";
+import { Slot } from "@/components/ui/slot";
 
-const ValueContext = createContext<string[] | undefined>(undefined);
+const ApiContext = createContext<Api | null>(null);
+const ItemGroupContext = createContext<ItemGroupProps | undefined>(undefined);
+const ItemContext = createContext<ItemProps | undefined>(undefined);
 
 export function ComboboxRoot({
   children,
   className,
-  multiple,
+  multiple = false,
+  selectionBehavior = "clear",
   value,
+  asChild = false,
+  onOpenChange,
+  onInputValueChange,
+  onValueChange,
   ...props
-}: React.ComponentProps<typeof Combobox.Root<string>>) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+  const service = useMachine(combobox.machine, {
+    multiple,
+    selectionBehavior,
+    onOpenChange,
+    onInputValueChange,
+    onValueChange,
+    ...props,
+    id: useId(),
+  });
+
+  const api = combobox.connect(service, normalizeProps);
+
   return (
-    <ValueContext.Provider value={value}>
-      <Combobox.Root
-        selectionBehavior="clear"
+    <ApiContext.Provider value={api}>
+      <Slot
         className={cn(comboboxRoot, className)}
-        multiple={multiple}
         data-multiple={multiple}
+        {...api.getRootProps()}
         {...props}
       >
-        {children}
-      </Combobox.Root>
-    </ValueContext.Provider>
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ApiContext.Provider>
   );
 }
 
 export function ComboboxLabel({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.Label>) {
+}: React.ComponentProps<"label"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Combobox.Label asChild {...props}>
-      <Label className={cn(comboboxLabel, className)}>{children}</Label>
-    </Combobox.Label>
+    <Slot {...api?.getLabelProps()} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <Label className={cn(comboboxLabel, className)}>{children}</Label>
+      )}
+    </Slot>
   );
 }
 
 export function ComboboxControl({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.Control>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Combobox.Control className={cn(comboboxControl, className)} {...props}>
-      {children}
-    </Combobox.Control>
+    <Slot
+      className={cn(comboboxControl, className)}
+      {...api?.getControlProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function ComboboxInput({
   className,
   ...props
-}: React.ComponentProps<typeof Combobox.Input>) {
+}: React.ComponentProps<"input">) {
+  const api = useContext(ApiContext);
+
   return (
-    <Combobox.Input asChild {...props}>
-      <Input className={cn(comboboxInput, className)} />
-    </Combobox.Input>
+    <Input
+      className={cn(comboboxInput, className)}
+      {...api?.getInputProps()}
+      {...props}
+    />
   );
 }
 
 export function ComboboxTrigger({
   children,
   className,
-  asChild,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.Trigger>) {
-  const value = useContext(ValueContext);
+}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
 
   return (
-    <Combobox.Trigger asChild {...props}>
+    <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
         <Button className={cn(comboboxTrigger, className)}>
-          <div>
-            {value && value[0].length
-              ? value.length > 1
-                ? value.join(", ")
-                : value
-              : "Select Options..."}{" "}
-          </div>
+          <div>{api?.valueAsString || "Select Options..."}</div>
           <ComboboxClearTrigger>Clear</ComboboxClearTrigger>
           <ChevronsUpDownIcon />
         </Button>
       ) : (
         children
       )}
-    </Combobox.Trigger>
+    </Slot>
   );
 }
 
 export function ComboboxClearTrigger({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.ClearTrigger>) {
+}: React.ComponentProps<"span"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Combobox.ClearTrigger asChild {...props}>
-      <span className={cn(comboboxClearTrigger, className)}>{children}</span>
-    </Combobox.ClearTrigger>
+    <Slot {...api?.getClearTriggerProps()} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <span className={cn(comboboxClearTrigger, className)}>{children}</span>
+      )}
+    </Slot>
   );
 }
 
 export function ComboboxPositioner({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.Positioner>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Combobox.Positioner
+    <Slot
       className={cn(comboboxPositioner, className)}
+      {...api?.getPositionerProps()}
       {...props}
     >
-      {children}
-    </Combobox.Positioner>
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function ComboboxContent({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.Content>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
     <Portal>
       <ComboboxPositioner>
-        <Combobox.Content {...props}>
-          <Box
-            raised="single"
-            className={cn(comboboxContent, className)}
-            {...props}
-          >
-            <div>{children}</div>
-          </Box>
-        </Combobox.Content>
+        <Slot {...api?.getContentProps()} {...props}>
+          {asChild ? (
+            children
+          ) : (
+            <Box raised="single" className={cn(comboboxContent, className)}>
+              <div>{children}</div>
+            </Box>
+          )}
+        </Slot>
       </ComboboxPositioner>
     </Portal>
   );
@@ -163,65 +209,115 @@ export function ComboboxContent({
 export function ComboboxItemGroup({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.ItemGroup>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const itemGroupId = { id: useId() };
+
   return (
-    <Combobox.ItemGroup className={cn(comboboxItemGroup, className)} {...props}>
-      {children}
-    </Combobox.ItemGroup>
+    <ItemGroupContext.Provider value={itemGroupId}>
+      <Slot
+        className={cn(comboboxItemGroup, className)}
+        {...api?.getItemGroupProps(itemGroupId)}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ItemGroupContext.Provider>
   );
 }
 
 export function ComboboxItemGroupLabel({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.ItemGroupLabel>) {
+}: React.ComponentProps<"label"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const itemGroupId = useContext(ItemGroupContext);
+
   return (
-    <Combobox.ItemGroupLabel
+    <Slot
       className={cn(comboboxItemGroupLabel, className)}
+      {...api?.getItemGroupLabelProps({
+        htmlFor: itemGroupId?.id!,
+      })}
       {...props}
     >
-      {children}
-    </Combobox.ItemGroupLabel>
+      {asChild ? children : <label>{children}</label>}
+    </Slot>
   );
 }
 
 export function ComboboxItem({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.Item>) {
+}: React.ComponentProps<"div"> & ItemProps & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Combobox.Item className={cn(comboboxItem, className)} {...props}>
-      {children}
-    </Combobox.Item>
+    <ItemContext.Provider value={props}>
+      <Slot
+        className={cn(comboboxItem, className)}
+        {...api?.getItemProps(props)}
+        {...props}
+      >
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {children}
+            <ComboboxItemIndicator />
+          </div>
+        )}
+      </Slot>
+    </ItemContext.Provider>
   );
 }
 
 export function ComboboxItemText({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.ItemText>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const item = useContext(ItemContext);
+
   return (
-    <Combobox.ItemText className={cn(comboboxItemText, className)} {...props}>
-      {children}
-    </Combobox.ItemText>
+    <Slot
+      className={cn(comboboxItemText, className)}
+      {...api?.getItemTextProps(item!)}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function ComboboxItemIndicator({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Combobox.ItemIndicator>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const item = useContext(ItemContext);
+
   return (
-    <Combobox.ItemIndicator
+    <Slot
       className={cn(comboboxItemIndicator, className)}
+      {...api?.getItemIndicatorProps(item!)}
       {...props}
     >
-      {children ?? <Check className="size-3.5" />}
-    </Combobox.ItemIndicator>
+      {asChild ? (
+        children
+      ) : (
+        <div>{children ?? <Check className="size-3.5" />}</div>
+      )}
+    </Slot>
   );
 }

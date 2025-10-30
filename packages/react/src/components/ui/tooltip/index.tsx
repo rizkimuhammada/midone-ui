@@ -1,4 +1,3 @@
-import { Tooltip } from "@ark-ui/react/tooltip";
 import { cn } from "@midoneui/core/utils/cn";
 import {
   tooltipTrigger,
@@ -7,25 +6,32 @@ import {
   tooltipArrow,
   tooltipArrowTip,
 } from "@midoneui/core/styles/tooltip.styles";
+import { createContext, useContext, useId } from "react";
 import { Button } from "@/components/ui/button";
+import * as tooltip from "@zag-js/tooltip";
+import { useMachine, normalizeProps } from "@zag-js/react";
+import type { Api, Props } from "@zag-js/tooltip";
+import { Slot } from "@/components/ui/slot";
+
+const ApiContext = createContext<Api | null>(null);
 
 export function TooltipRoot({
   children,
   ...props
-}: React.ComponentProps<typeof Tooltip.Root>) {
-  return (
-    <Tooltip.Root
-      {...props}
-      positioning={{
-        placement: "top",
-        offset: { mainAxis: 10 },
-      }}
-      closeDelay={0}
-      openDelay={0}
-    >
-      {children}
-    </Tooltip.Root>
-  );
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+  const service = useMachine(tooltip.machine, {
+    positioning: {
+      placement: "top",
+      offset: { mainAxis: 10 },
+    },
+    closeDelay: 0,
+    openDelay: 0,
+    ...props,
+    id: useId(),
+  });
+  const api = tooltip.connect(service, normalizeProps);
+
+  return <ApiContext.Provider value={api}>{children}</ApiContext.Provider>;
 }
 
 export function TooltipTrigger({
@@ -33,65 +39,101 @@ export function TooltipTrigger({
   className,
   asChild,
   ...props
-}: React.ComponentProps<typeof Tooltip.Trigger>) {
+}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Tooltip.Trigger asChild {...props}>
+    <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
         <Button className={cn(tooltipTrigger, className)}>{children}</Button>
       ) : (
         children
       )}
-    </Tooltip.Trigger>
+    </Slot>
   );
 }
 
 export function TooltipPositioner({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Tooltip.Positioner>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Tooltip.Positioner className={cn(tooltipPositioner, className)} {...props}>
-      {children}
-    </Tooltip.Positioner>
+    <Slot
+      className={cn(tooltipPositioner, className)}
+      {...api?.getPositionerProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function TooltipContent({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Tooltip.Content>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Tooltip.Content className={cn(tooltipContent, className)} {...props}>
-      {children}
-      <TooltipArrow>
-        <TooltipArrowTip />
-      </TooltipArrow>
-    </Tooltip.Content>
+    <Slot
+      className={cn(tooltipContent, className)}
+      {...api?.getContentProps()}
+      {...props}
+    >
+      {asChild ? (
+        children
+      ) : (
+        <div>
+          {children}
+          <TooltipArrow>
+            <TooltipArrowTip />
+          </TooltipArrow>
+        </div>
+      )}
+    </Slot>
   );
 }
 
 export function TooltipArrow({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Tooltip.Arrow>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Tooltip.Arrow className={cn(tooltipArrow, className)} {...props}>
-      {children}
-    </Tooltip.Arrow>
+    <Slot
+      className={cn(tooltipArrow, className)}
+      {...api?.getArrowProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function TooltipArrowTip({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Tooltip.ArrowTip>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Tooltip.ArrowTip className={cn(tooltipArrowTip, className)} {...props}>
-      {children}
-    </Tooltip.ArrowTip>
+    <Slot
+      className={cn(tooltipArrowTip, className)}
+      {...api?.getArrowTipProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }

@@ -1,5 +1,3 @@
-import { Dialog } from "@ark-ui/react/dialog";
-import { Portal } from "@ark-ui/react/portal";
 import { cn } from "@midoneui/core/utils/cn";
 import { Box } from "@/components/ui/box";
 import { X } from "lucide-react";
@@ -17,70 +15,108 @@ import {
   buttonVariants,
   type ButtonVariants,
 } from "@midoneui/core/styles/button.styles";
+import * as dialog from "@zag-js/dialog";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
+import type { Api, Props } from "@zag-js/dialog";
+import { createContext, useContext, useId } from "react";
+import { Slot } from "@/components/ui/slot";
+
+const ApiContext = createContext<Api | null>(null);
 
 export function DialogRoot({
   children,
   ...props
-}: React.ComponentProps<typeof Dialog.Root>) {
-  return <Dialog.Root {...props}>{children}</Dialog.Root>;
+}: React.ComponentProps<"div"> & Partial<Props>) {
+  const service = useMachine(dialog.machine, { ...props, id: useId() });
+  const api = dialog.connect(service, normalizeProps);
+
+  return <ApiContext.Provider value={api}>{children}</ApiContext.Provider>;
 }
 
 export function DialogTrigger({
   children,
   className,
-  asChild,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Dialog.Trigger>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Dialog.Trigger asChild {...props}>
+    <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
         <Button className={cn(dialogTrigger, className)}>{children}</Button>
       ) : (
         children
       )}
-    </Dialog.Trigger>
+    </Slot>
   );
 }
 
 export function DialogBackdrop({
   className,
+  asChild = false,
+  children,
   ...props
-}: React.ComponentProps<typeof Dialog.Backdrop>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Dialog.Backdrop className={cn(dialogBackdrop, className)} {...props} />
+    <Slot
+      className={cn(dialogBackdrop, className)}
+      {...api?.getBackdropProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function DialogPositioner({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Dialog.Positioner>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Dialog.Positioner className={cn(dialogPositioner, className)} {...props}>
-      {children}
-    </Dialog.Positioner>
+    <Slot
+      className={cn(dialogPositioner, className)}
+      {...api?.getPositionerProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function DialogContent({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Dialog.Content>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
     <Portal>
       <DialogBackdrop />
       <DialogPositioner>
-        <Dialog.Content asChild>
-          <Box
-            raised="double"
-            className={cn(dialogContent, className)}
-            {...props}
-          >
-            <div>{children}</div>
-          </Box>
-        </Dialog.Content>
+        <Slot {...api?.getContentProps()} {...props}>
+          {asChild ? (
+            children
+          ) : (
+            <div>
+              <Box
+                raised="double"
+                className={cn(dialogContent, className)}
+                {...props}
+              >
+                <div>{children}</div>
+              </Box>
+            </div>
+          )}
+        </Slot>
       </DialogPositioner>
     </Portal>
   );
@@ -89,24 +125,38 @@ export function DialogContent({
 export function DialogTitle({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Dialog.Title>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Dialog.Title className={cn(dialogTitle, className)} {...props}>
-      {children}
-    </Dialog.Title>
+    <Slot
+      className={cn(dialogTitle, className)}
+      {...api?.getTitleProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function DialogDescription({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Dialog.Description>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Dialog.Description className={cn(dialogDescription, className)} {...props}>
-      {children}
-    </Dialog.Description>
+    <Slot
+      className={cn(dialogDescription, className)}
+      {...props}
+      {...api?.getDescriptionProps()}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
@@ -118,16 +168,16 @@ export function DialogCloseTrigger({
   size,
   asChild,
   ...props
-}: React.ComponentProps<typeof Dialog.CloseTrigger> & ButtonVariants) {
-  return !children ? (
-    <Dialog.CloseTrigger asChild {...props}>
-      <Button className={cn(dialogCloseTrigger, className)} {...props}>
-        <X className="size-4" />
-      </Button>
-    </Dialog.CloseTrigger>
-  ) : (
-    <Dialog.CloseTrigger asChild {...props}>
-      {asChild ? (
+}: React.ComponentProps<"button"> & ButtonVariants & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
+  return (
+    <Slot {...api?.getCloseTriggerProps()} {...props}>
+      {!children ? (
+        <Button className={cn(dialogCloseTrigger, className)} {...props}>
+          <X className="size-4" />
+        </Button>
+      ) : asChild ? (
         children
       ) : (
         <Button
@@ -139,6 +189,6 @@ export function DialogCloseTrigger({
           {children}
         </Button>
       )}
-    </Dialog.CloseTrigger>
+    </Slot>
   );
 }

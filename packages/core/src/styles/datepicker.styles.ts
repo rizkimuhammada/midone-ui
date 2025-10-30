@@ -15,10 +15,11 @@ export const datePickerView = "flex flex-col gap-2";
 export const datePickerViewControl = "flex";
 export const datePickerPresetTrigger = "";
 export const datePickerPrevTrigger =
-  "px-2 py-1.5 rounded-md hover:bg-foreground/5 cursor-pointer [&>svg]:size-4 [&>svg]:stroke-[1.5]";
-export const datePickerViewTrigger = "mx-auto";
+  "px-2.5 py-1.5 rounded-lg hover:bg-foreground/5 cursor-pointer [&>svg]:size-4 [&>svg]:stroke-[1.5]";
+export const datePickerViewTrigger =
+  "mx-auto px-4 py-1.5 rounded-lg hover:bg-foreground/5 cursor-pointer [&>svg]:size-4 [&>svg]:stroke-[1.5]";
 export const datePickerNextTrigger =
-  "px-2 py-1.5 rounded-md hover:bg-foreground/5 cursor-pointer [&>svg]:size-4 [&>svg]:stroke-[1.5]";
+  "px-2.5 py-1.5 rounded-lg hover:bg-foreground/5 cursor-pointer [&>svg]:size-4 [&>svg]:stroke-[1.5]";
 export const datePickerRangeText = "mx-auto font-medium";
 export const datePickerTable =
   "w-full text-center border-separate border-spacing-y-2 border-spacing-x-1.5";
@@ -28,4 +29,4 @@ export const datePickerTableHeader = "font-normal opacity-70";
 export const datePickerTableBody = "";
 export const datePickerTableCell = "";
 export const datePickerTableCellTrigger =
-  "px-1.5 py-1 rounded-md hover:bg-foreground/5 cursor-pointer data-[selected]:bg-foreground/70 data-[in-range]:bg-foreground/10 data-[selected]:text-background data-[disabled]:opacity-70";
+  "px-1.5 py-1 rounded-lg hover:bg-foreground/5 cursor-pointer data-[selected]:bg-foreground/70 data-[in-range]:bg-foreground/10 data-[selected]:text-background data-[disabled]:opacity-70";

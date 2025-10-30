@@ -1,4 +1,3 @@
-import { Accordion } from "@ark-ui/react/accordion";
 import { ChevronDownIcon } from "lucide-react";
 import {
   accordionRootVariants,
@@ -6,83 +5,136 @@ import {
   accordionTrigger,
   accordionItemIndicator,
   accordionContent,
-  type AccordionRootVariants,
-  type AccordionItemVariants,
 } from "@midoneui/core/styles/accordion.styles";
+import {
+  boxVariants,
+  type BoxVariants,
+} from "@midoneui/core/styles/box.styles";
 import { cn } from "@midoneui/core/utils/cn";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useId } from "react";
+import * as accordion from "@zag-js/accordion";
+import type { Api, Props, ItemProps } from "@zag-js/accordion";
+import { Slot } from "@/components/ui/slot";
+import { useMachine, normalizeProps } from "@zag-js/react";
 
 const VariantContext = createContext<"default" | "boxed" | null>(null);
+const ApiContext = createContext<Api | null>(null);
+const ItemContext = createContext<ItemProps | null>(null);
 
 export function AccordionRoot({
   children,
   className,
   variant = "default",
+  asChild = false,
+  collapsible = true,
   ...props
-}: React.ComponentProps<typeof Accordion.Root> & AccordionRootVariants) {
+}: React.ComponentProps<"div"> &
+  Partial<Props> & { variant?: "default" | "boxed"; asChild?: boolean }) {
+  const service = useMachine(accordion.machine, {
+    collapsible,
+    ...props,
+    id: useId(),
+  });
+  const api = accordion.connect(service, normalizeProps);
+
   return (
     <VariantContext.Provider value={variant}>
-      <Accordion.Root
-        collapsible
-        className={cn([
-          className,
-          accordionRootVariants({ variant, className }),
-        ])}
-        {...props}
-      >
-        {children}
-      </Accordion.Root>
+      <ApiContext.Provider value={api}>
+        <Slot
+          className={cn([
+            className,
+            accordionRootVariants({ variant, className }),
+          ])}
+          {...api.getRootProps()}
+          {...props}
+        >
+          {asChild ? children : <div>{children}</div>}
+        </Slot>
+      </ApiContext.Provider>
     </VariantContext.Provider>
   );
 }
 
 export function AccordionItem({
   children,
+  filled,
+  raised,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Accordion.Item> & AccordionItemVariants) {
+}: React.ComponentProps<"div"> &
+  BoxVariants &
+  ItemProps & { asChild?: boolean }) {
   const variant = useContext(VariantContext);
+  const api = useContext(ApiContext);
+
   return (
-    <Accordion.Item
-      className={cn([className, accordionItemVariants({ variant, className })])}
-      {...props}
-    >
-      {children}
-    </Accordion.Item>
+    <ItemContext.Provider value={props}>
+      <Slot
+        className={cn([
+          className,
+          variant == "boxed"
+            ? boxVariants({ filled, variant: "default", raised, className })
+            : "",
+          accordionItemVariants({ variant, className }),
+        ])}
+        {...api?.getItemProps(props)}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ItemContext.Provider>
   );
 }
 
 export function AccordionTrigger({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Accordion.ItemTrigger>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const item = useContext(ItemContext);
+
   return (
-    <Accordion.ItemTrigger
+    <Slot
       className={cn([className, accordionTrigger])}
+      {...api?.getItemTriggerProps(item!)}
       {...props}
     >
-      {children}
-      <Accordion.ItemIndicator
-        className={cn([className, accordionItemIndicator])}
-      >
-        <ChevronDownIcon />
-      </Accordion.ItemIndicator>
-    </Accordion.ItemTrigger>
+      {asChild ? (
+        children
+      ) : (
+        <button>
+          {children}
+          <div
+            {...api?.getItemIndicatorProps(item!)}
+            className={accordionItemIndicator}
+          >
+            <ChevronDownIcon />
+          </div>
+        </button>
+      )}
+    </Slot>
   );
 }
 
 export function AccordionContent({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Accordion.ItemContent>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const item = useContext(ItemContext);
+
   return (
-    <Accordion.ItemContent
+    <Slot
       className={cn([className, accordionContent])}
+      {...api?.getItemContentProps(item!)}
       {...props}
     >
-      {children}
-    </Accordion.ItemContent>
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }

@@ -34,7 +34,7 @@ function Main() {
               ))}
             </CarouselIndicatorGroup>
             <CarouselItemGroup>
-              {images.map((image, index) => (
+              {images.map((_image, index) => (
                 <CarouselItem
                   key={index}
                   index={index}

@@ -1,4 +1,4 @@
-import { Carousel } from "@ark-ui/react/carousel";
+import { createContext, useContext, useId } from "react";
 import { cn } from "@midoneui/core/utils/cn";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,81 +13,134 @@ import {
 } from "@midoneui/core/styles/carousel.styles";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Box } from "../box";
+import * as carousel from "@zag-js/carousel";
+import { useMachine, normalizeProps } from "@zag-js/react";
+import type { Api, IndicatorProps, ItemProps, Props } from "@zag-js/carousel";
+import { Slot } from "@/components/ui/slot";
+
+const ApiContext = createContext<Api | null>(null);
 
 export function CarouselRoot({
   children,
   className,
+  defaultPage,
+  slideCount,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Carousel.Root>) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+  const service = useMachine(carousel.machine, {
+    defaultPage,
+    slideCount,
+    ...props,
+    id: useId(),
+  });
+  const api = carousel.connect(service, normalizeProps);
+
   return (
-    <Carousel.Root className={cn(carouselRoot, className)} {...props}>
-      {children}
-    </Carousel.Root>
+    <ApiContext.Provider value={api}>
+      <Slot
+        className={cn(carouselRoot, className)}
+        {...api.getRootProps()}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ApiContext.Provider>
   );
 }
 
 export function CarouselControl({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Carousel.Control>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Carousel.Control className={cn(carouselControl, className)} {...props}>
-      {children}
-    </Carousel.Control>
+    <Slot
+      className={cn(carouselControl, className)}
+      {...api?.getControlProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function CarouselPrevTrigger({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Carousel.PrevTrigger>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Carousel.PrevTrigger asChild {...props}>
-      <Button className={cn(carouselPrevTrigger, className)}>
-        {children ?? <ArrowLeft />}
-      </Button>
-    </Carousel.PrevTrigger>
+    <Slot {...api?.getPrevTriggerProps()} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <Button className={cn(carouselPrevTrigger, className)}>
+          {children ?? <ArrowLeft />}
+        </Button>
+      )}
+    </Slot>
   );
 }
 
 export function CarouselNextTrigger({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Carousel.NextTrigger>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Carousel.NextTrigger asChild {...props}>
-      <Button className={cn(carouselNextTrigger, className)}>
-        {children ?? <ArrowRight />}
-      </Button>
-    </Carousel.NextTrigger>
+    <Slot {...api?.getNextTriggerProps()} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <Button className={cn(carouselNextTrigger, className)}>
+          {children ?? <ArrowRight />}
+        </Button>
+      )}
+    </Slot>
   );
 }
 
 export function CarouselIndicatorGroup({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Carousel.IndicatorGroup>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Carousel.IndicatorGroup
+    <Slot
       className={cn(carouselIndicatorGroup, className)}
+      {...api?.getIndicatorGroupProps()}
       {...props}
     >
-      {children}
-    </Carousel.IndicatorGroup>
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function CarouselIndicator({
   className,
+  asChild = false,
+  index,
   ...props
-}: React.ComponentProps<typeof Carousel.Indicator>) {
+}: React.ComponentProps<"button"> & { asChild?: boolean } & IndicatorProps) {
+  const api = useContext(ApiContext);
+
   return (
-    <Carousel.Indicator
+    <button
       className={cn(carouselIndicator, className)}
+      {...api?.getIndicatorProps({ index })}
       {...props}
     />
   );
@@ -96,23 +149,38 @@ export function CarouselIndicator({
 export function CarouselItemGroup({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Carousel.ItemGroup>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Carousel.ItemGroup className={cn(carouselItemGroup, className)} {...props}>
-      {children}
-    </Carousel.ItemGroup>
+    <Slot
+      className={cn(carouselItemGroup, className)}
+      {...api?.getItemGroupProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function CarouselItem({
   children,
   className,
+  asChild = false,
+  index,
   ...props
-}: React.ComponentProps<typeof Carousel.Item>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean } & ItemProps) {
+  const api = useContext(ApiContext);
+
   return (
-    <Carousel.Item asChild {...props}>
-      <Box className={cn(carouselItem, className)}>{children}</Box>
-    </Carousel.Item>
+    <Slot {...api?.getItemProps({ index })} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <Box className={cn(carouselItem, className)}>{children}</Box>
+      )}
+    </Slot>
   );
 }

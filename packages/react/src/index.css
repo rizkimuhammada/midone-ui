@@ -69,3 +69,30 @@ select {
     @apply bg-chevron-light;
   }
 }
+
+@keyframes presence-enter {
+  from {
+    scale: 0.9;
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes presence-exit {
+  to {
+    opacity: 0;
+    scale: 0.9;
+  }
+}
+
+[data-scope="presence"][data-state="open"] {
+  animation: presence-enter 0.15s ease-out;
+}
+
+[data-scope="presence"][data-state="closed"] {
+  animation: presence-exit 0.1s ease-in;
+}

@@ -6,10 +6,10 @@ import {
 } from "@midoneui/core/styles/box.styles";
 
 const props = defineProps<
-  {
+  BoxVariants & {
     class?: string;
-    [key: string]: any;
-  } & BoxVariants
+    filled?: boolean;
+  }
 >();
 </script>
 

@@ -1,4 +1,3 @@
-import { Slider } from "@ark-ui/react/slider";
 import { cn } from "@midoneui/core/utils/cn";
 import { Label } from "@/components/ui/label";
 import {
@@ -13,90 +12,167 @@ import {
   sliderMarkerGroup,
   sliderMarker,
 } from "@midoneui/core/styles/slider.styles";
+import { createContext, useContext, useId } from "react";
+import * as slider from "@zag-js/slider";
+import type { Api, Props, ThumbProps, MarkerProps } from "@zag-js/slider";
+import { Slot } from "@/components/ui/slot";
+import { useMachine, normalizeProps } from "@zag-js/react";
+
+const ApiContext = createContext<Api | null>(null);
+const ThumbContext = createContext<ThumbProps | null>(null);
 
 export function SliderRoot({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Slider.Root>) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+  const service = useMachine(slider.machine, {
+    ...props,
+    id: useId(),
+  });
+  const api = slider.connect(service, normalizeProps);
+
   return (
-    <Slider.Root className={cn(sliderRoot, className)} {...props}>
-      {children}
-    </Slider.Root>
+    <ApiContext.Provider value={api}>
+      <Slot
+        className={cn(sliderRoot, className)}
+        {...api?.getRootProps()}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ApiContext.Provider>
   );
 }
 
 export function SliderLabel({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Slider.Label>) {
+}: React.ComponentProps<"span"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Slider.Label asChild {...props}>
-      <Label className={cn(sliderLabel, className)}>{children}</Label>
-    </Slider.Label>
+    <Slot {...api?.getLabelProps()} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <Label className={cn(sliderLabel, className)}>{children}</Label>
+      )}
+    </Slot>
   );
 }
 
 export function SliderValueText({
+  children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Slider.ValueText>) {
+}: React.ComponentProps<"output"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Slider.ValueText className={cn(sliderValueText, className)} {...props} />
+    <Slot
+      className={cn(sliderValueText, className)}
+      {...api?.getValueTextProps()}
+      {...props}
+    >
+      {asChild ? children : <output>{api?.value.at(0)}</output>}
+    </Slot>
   );
 }
 
 export function SliderControl({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Slider.Control>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Slider.Control className={cn(sliderControl, className)} {...props}>
-      {children}
-    </Slider.Control>
+    <Slot
+      className={cn(sliderControl, className)}
+      {...api?.getControlProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function SliderTrack({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Slider.Track>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Slider.Track className={cn(sliderTrack, className)} {...props}>
-      {children}
-    </Slider.Track>
+    <Slot
+      className={cn(sliderTrack, className)}
+      {...api?.getTrackProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function SliderRange({
+  children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Slider.Range>) {
-  return <Slider.Range className={cn(sliderRange, className)} {...props} />;
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
+  return (
+    <Slot
+      className={cn(sliderRange, className)}
+      {...api?.getRangeProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
+  );
 }
 
 export function SliderThumb({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Slider.Thumb>) {
+}: React.ComponentProps<"div"> & ThumbProps & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Slider.Thumb className={cn(sliderThumb, className)} {...props}>
-      {children}
-    </Slider.Thumb>
+    <ThumbContext.Provider value={props}>
+      <Slot
+        className={cn(sliderThumb, className)}
+        {...api?.getThumbProps(props)}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ThumbContext.Provider>
   );
 }
 
 export function SliderHiddenInput({
   className,
   ...props
-}: React.ComponentProps<typeof Slider.HiddenInput>) {
+}: React.ComponentProps<"input">) {
+  const api = useContext(ApiContext);
+  const thumbProps = useContext(ThumbContext);
+
   return (
-    <Slider.HiddenInput
+    <input
       className={cn(sliderHiddenInput, className)}
+      {...api?.getHiddenInputProps(thumbProps!)}
       {...props}
     />
   );
@@ -105,23 +181,37 @@ export function SliderHiddenInput({
 export function SliderMarkerGroup({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Slider.MarkerGroup>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Slider.MarkerGroup className={cn(sliderMarkerGroup, className)} {...props}>
-      {children}
-    </Slider.MarkerGroup>
+    <Slot
+      className={cn(sliderMarkerGroup, className)}
+      {...api?.getMarkerGroupProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function SliderMarker({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Slider.Marker>) {
+}: React.ComponentProps<"div"> & MarkerProps & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Slider.Marker className={cn(sliderMarker, className)} {...props}>
-      {children}
-    </Slider.Marker>
+    <Slot
+      className={cn(sliderMarker, className)}
+      {...api?.getMarkerProps(props)}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }

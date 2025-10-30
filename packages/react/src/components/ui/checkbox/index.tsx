@@ -1,4 +1,3 @@
-import { Checkbox } from "@ark-ui/react/checkbox";
 import { CheckIcon } from "lucide-react";
 import { cn } from "@midoneui/core/utils/cn";
 import {
@@ -9,67 +8,111 @@ import {
   checkboxHiddenInput,
 } from "@midoneui/core/styles/checkbox.styles";
 import { label } from "@midoneui/core/styles/label.styles";
+import * as checkbox from "@zag-js/checkbox";
+import { useMachine, normalizeProps } from "@zag-js/react";
+import { createContext, useContext, useId } from "react";
+import type { Api, Props } from "@zag-js/checkbox";
+import { Slot } from "@/components/ui/slot";
+
+const ApiContext = createContext<Api | null>(null);
 
 export function CheckboxRoot({
   children,
   className,
   ...props
-}: React.ComponentProps<typeof Checkbox.Root>) {
+}: React.ComponentProps<"label"> & Partial<Props>) {
+  const service = useMachine(checkbox.machine, { ...props, id: useId() });
+  const api = checkbox.connect(service, normalizeProps);
+
   return (
-    <Checkbox.Root {...props} className={cn(checkboxRoot, className)}>
-      {children}
-      <CheckboxHiddenInput />
-    </Checkbox.Root>
+    <ApiContext.Provider value={api}>
+      <label
+        {...api.getRootProps()}
+        {...props}
+        className={cn(checkboxRoot, className)}
+      >
+        {children}
+        <CheckboxHiddenInput />
+      </label>
+    </ApiContext.Provider>
   );
 }
 
 export function CheckboxLabel({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Checkbox.Label>) {
+}: React.ComponentProps<"span"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Checkbox.Label
+    <Slot
       className={cn([label, checkboxLabel, className])}
+      {...api?.getLabelProps()}
       {...props}
     >
-      {children}
-    </Checkbox.Label>
+      {asChild ? children : <span>{children}</span>}
+    </Slot>
   );
 }
 
 export function CheckboxControl({
+  children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Checkbox.Control>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Checkbox.Control className={cn(checkboxControl, className)} {...props}>
-      <CheckboxIndicator>
-        <CheckIcon />
-      </CheckboxIndicator>
-    </Checkbox.Control>
+    <Slot
+      className={cn(checkboxControl, className)}
+      {...api?.getControlProps()}
+      {...props}
+    >
+      {asChild ? (
+        children
+      ) : (
+        <div>
+          <CheckboxIndicator>
+            <CheckIcon />
+          </CheckboxIndicator>
+        </div>
+      )}
+    </Slot>
   );
 }
 
 export function CheckboxIndicator({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Checkbox.Indicator>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Checkbox.Indicator className={cn(checkboxIndicator, className)} {...props}>
-      {children}
-    </Checkbox.Indicator>
+    <Slot
+      className={cn(checkboxIndicator, className)}
+      {...api?.getIndicatorProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function CheckboxHiddenInput({
   className,
   ...props
-}: React.ComponentProps<typeof Checkbox.HiddenInput>) {
+}: React.ComponentProps<"input">) {
+  const api = useContext(ApiContext);
+
   return (
-    <Checkbox.HiddenInput
+    <input
       className={cn(checkboxHiddenInput, className)}
+      {...api?.getHiddenInputProps()}
       {...props}
     />
   );

@@ -317,7 +317,7 @@ function Main() {
                   <DatePickerRangeText />
                   <DatePickerNextTrigger />
                 </DatePickerViewControl>
-                <div style={{ display: "flex", gap: "10px" }}>
+                <DatePickerView view="day" className="flex-row">
                   {/* First month */}
                   <DatePickerContext>
                     {(datePicker) => (
@@ -383,7 +383,7 @@ function Main() {
                       );
                     }}
                   </DatePickerContext>
-                </div>
+                </DatePickerView>
               </DatePickerContent>
             </DatePickerPositioner>
           </DatePickerRoot>

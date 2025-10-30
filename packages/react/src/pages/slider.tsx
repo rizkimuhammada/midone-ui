@@ -16,7 +16,7 @@ function Main() {
     <div className="flex flex-col gap-20">
       <div className="grid grid-cols-2">
         <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-          <SliderRoot className="w-72" defaultValue={[20]}>
+          <SliderRoot className="w-72" value={[20]}>
             <SliderLabel>Max Items</SliderLabel>
             <SliderControl>
               <SliderTrack>
@@ -32,7 +32,7 @@ function Main() {
           </SliderRoot>
         </div>
         <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-          <SliderRoot className="w-72" defaultValue={[20, 80]}>
+          <SliderRoot className="w-72" value={[20, 80]}>
             <SliderLabel>Price Range</SliderLabel>
             <SliderControl>
               <SliderTrack>

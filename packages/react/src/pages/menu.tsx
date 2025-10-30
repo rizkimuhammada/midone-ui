@@ -24,8 +24,8 @@ function Main() {
     <div className="flex flex-col gap-20">
       <div className="grid grid-cols-2">
         <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-          <MenuRoot>
-            <MenuTrigger className="w-56">Open menu</MenuTrigger>
+          <MenuRoot className="w-56">
+            <MenuTrigger>Open menu</MenuTrigger>
             <MenuPositioner>
               <MenuContent>
                 <MenuItem value="react">React</MenuItem>
@@ -37,8 +37,8 @@ function Main() {
           </MenuRoot>
         </div>
         <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-          <MenuRoot>
-            <MenuTrigger className="w-56">Open menu</MenuTrigger>
+          <MenuRoot className="w-56">
+            <MenuTrigger>Open menu</MenuTrigger>
             <MenuPositioner>
               <MenuContent>
                 <MenuItem value="react">React</MenuItem>
@@ -55,8 +55,8 @@ function Main() {
           </MenuRoot>
         </div>
         <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-          <MenuRoot>
-            <MenuTrigger className="w-56">Open menu</MenuTrigger>
+          <MenuRoot className="w-56">
+            <MenuTrigger>Open menu</MenuTrigger>
             <MenuPositioner>
               <MenuContent>
                 <MenuItem shortcut="⇧⌘P" value="react">
@@ -83,8 +83,8 @@ function Main() {
           </MenuRoot>
         </div>
         <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-          <MenuRoot>
-            <MenuTrigger className="w-56">Open menu</MenuTrigger>
+          <MenuRoot className="w-56">
+            <MenuTrigger>Open menu</MenuTrigger>
             <MenuPositioner>
               <MenuContent>
                 <MenuItem shortcut="⇧⌘P" value="react">
@@ -126,35 +126,35 @@ function Main() {
           </MenuRoot>
         </div>
         <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-          <MenuRoot>
-            <MenuTrigger className="w-56">Open menu</MenuTrigger>
+          <MenuRoot className="w-56">
+            <MenuTrigger>Open menu</MenuTrigger>
             <MenuPositioner>
               <MenuContent>
                 <MenuCheckboxItem
                   checked={react}
                   onCheckedChange={setReact}
-                  value="false"
+                  value="checked"
                 >
                   React
                 </MenuCheckboxItem>
                 <MenuCheckboxItem
                   checked={solid}
                   onCheckedChange={setSolid}
-                  value="false"
+                  value="checked"
                 >
                   Solid
                 </MenuCheckboxItem>
                 <MenuCheckboxItem
                   checked={vue}
                   onCheckedChange={setVue}
-                  value="false"
+                  value="checked"
                 >
                   Vue
                 </MenuCheckboxItem>
                 <MenuCheckboxItem
                   checked={svelte}
                   onCheckedChange={setSvelte}
-                  value="false"
+                  value="checked"
                 >
                   Svelte
                 </MenuCheckboxItem>
@@ -163,17 +163,21 @@ function Main() {
           </MenuRoot>
         </div>
         <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-          <MenuRoot>
-            <MenuTrigger className="w-56">Open menu</MenuTrigger>
+          <MenuRoot className="w-56">
+            <MenuTrigger>Open menu</MenuTrigger>
             <MenuPositioner>
               <MenuContent>
-                <MenuRadioItemGroup
-                  value={value}
-                  onValueChange={(e) => setValue(e.value)}
-                >
+                <MenuRadioItemGroup>
                   <MenuItemGroupLabel>Frameworks</MenuItemGroupLabel>
                   {["React", "Solid", "Vue", "Svelte"].map((framework) => (
-                    <MenuRadioItem key={framework} value={framework}>
+                    <MenuRadioItem
+                      key={framework}
+                      value={framework}
+                      checked={framework == value}
+                      onCheckedChange={(checked) =>
+                        checked ? setValue(framework) : ""
+                      }
+                    >
                       {framework}
                     </MenuRadioItem>
                   ))}

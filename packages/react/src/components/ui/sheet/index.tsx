@@ -1,5 +1,3 @@
-import { Dialog as Sheet } from "@ark-ui/react/dialog";
-import { Portal } from "@ark-ui/react/portal";
 import { cn } from "@midoneui/core/utils/cn";
 import { Box } from "@/components/ui/box";
 import { X } from "lucide-react";
@@ -17,72 +15,113 @@ import {
   buttonVariants,
   type ButtonVariants,
 } from "@midoneui/core/styles/button.styles";
+import * as dialog from "@zag-js/dialog";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
+import type { Api, Props } from "@zag-js/dialog";
+import { createContext, useContext, useId } from "react";
+import { Slot } from "@/components/ui/slot";
+
+const ApiContext = createContext<Api | null>(null);
 
 export function SheetRoot({
   children,
   ...props
-}: React.ComponentProps<typeof Sheet.Root>) {
-  return <Sheet.Root {...props}>{children}</Sheet.Root>;
+}: React.ComponentProps<"div"> & Partial<Props>) {
+  const service = useMachine(dialog.machine, { ...props, id: useId() });
+  const api = dialog.connect(service, normalizeProps);
+
+  return <ApiContext.Provider value={api}>{children}</ApiContext.Provider>;
 }
 
 export function SheetTrigger({
   children,
   className,
-  asChild,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Sheet.Trigger>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Sheet.Trigger asChild {...props}>
+    <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
         <Button className={cn(sheetTrigger, className)}>{children}</Button>
       ) : (
         children
       )}
-    </Sheet.Trigger>
+    </Slot>
   );
 }
 
 export function SheetBackdrop({
   className,
+  asChild = false,
+  children,
   ...props
-}: React.ComponentProps<typeof Sheet.Backdrop>) {
-  return <Sheet.Backdrop className={cn(sheetBackdrop, className)} {...props} />;
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
+  return (
+    <Slot
+      className={cn(sheetBackdrop, className)}
+      {...api?.getBackdropProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
+  );
 }
 
 export function SheetPositioner({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Sheet.Positioner>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Sheet.Positioner className={cn(sheetPositioner, className)} {...props}>
-      {children}
-    </Sheet.Positioner>
+    <Slot
+      className={cn(sheetPositioner, className)}
+      {...api?.getPositionerProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function SheetContent({
   children,
   className,
+  asChild = false,
   side = "right",
   ...props
-}: React.ComponentProps<typeof Sheet.Content> & {
+}: React.ComponentProps<"div"> & {
+  asChild?: boolean;
   side?: "top" | "right" | "bottom" | "left";
 }) {
+  const api = useContext(ApiContext);
+
   return (
     <Portal>
       <SheetBackdrop />
       <SheetPositioner>
-        <Sheet.Content asChild>
-          <Box
-            raised="double"
-            data-side={side}
-            className={cn(sheetContent, className)}
-            {...props}
-          >
-            <div>{children}</div>
-          </Box>
-        </Sheet.Content>
+        <Slot {...api?.getContentProps()} {...props}>
+          {asChild ? (
+            children
+          ) : (
+            <div>
+              <Box
+                raised="double"
+                data-side={side}
+                className={cn(sheetContent, className)}
+                {...props}
+              >
+                <div>{children}</div>
+              </Box>
+            </div>
+          )}
+        </Slot>
       </SheetPositioner>
     </Portal>
   );
@@ -91,24 +130,38 @@ export function SheetContent({
 export function SheetTitle({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Sheet.Title>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Sheet.Title className={cn(sheetTitle, className)} {...props}>
-      {children}
-    </Sheet.Title>
+    <Slot
+      className={cn(sheetTitle, className)}
+      {...api?.getTitleProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function SheetDescription({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Sheet.Description>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Sheet.Description className={cn(sheetDescription, className)} {...props}>
-      {children}
-    </Sheet.Description>
+    <Slot
+      className={cn(sheetDescription, className)}
+      {...props}
+      {...api?.getDescriptionProps()}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
@@ -120,16 +173,16 @@ export function SheetCloseTrigger({
   size,
   asChild,
   ...props
-}: React.ComponentProps<typeof Sheet.CloseTrigger> & ButtonVariants) {
-  return !children ? (
-    <Sheet.CloseTrigger asChild {...props}>
-      <Button className={cn(sheetCloseTrigger, className)} {...props}>
-        <X className="size-4" />
-      </Button>
-    </Sheet.CloseTrigger>
-  ) : (
-    <Sheet.CloseTrigger asChild {...props}>
-      {asChild ? (
+}: React.ComponentProps<"button"> & ButtonVariants & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
+  return (
+    <Slot {...api?.getCloseTriggerProps()} {...props}>
+      {!children ? (
+        <Button className={cn(sheetCloseTrigger, className)} {...props}>
+          <X className="size-4" />
+        </Button>
+      ) : asChild ? (
         children
       ) : (
         <Button
@@ -141,6 +194,6 @@ export function SheetCloseTrigger({
           {children}
         </Button>
       )}
-    </Sheet.CloseTrigger>
+    </Slot>
   );
 }

@@ -1,11 +1,23 @@
-import { DatePicker } from "@ark-ui/react/date-picker";
 import { Input } from "@/components/ui/input";
 import { Box } from "@/components/ui/box";
 import { Button } from "@/components/ui/button";
 import { input } from "@midoneui/core/styles/input.styles";
 import { Label } from "@/components/ui/label";
 import { cn } from "@midoneui/core/utils/cn";
-import { Calendar, MoveLeft, MoveRight } from "lucide-react";
+import { createContext, useContext, useId } from "react";
+import * as datepicker from "@zag-js/date-picker";
+import type {
+  Api,
+  Props,
+  PresetTriggerProps,
+  DayTableCellProps,
+  TableCellProps,
+  ViewProps,
+  InputProps,
+} from "@zag-js/date-picker";
+import { Slot } from "@/components/ui/slot";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
+import { Calendar, MoveLeft, MoveRight, X } from "lucide-react";
 import {
   datePickerRoot,
   datePickerLabel,
@@ -33,50 +45,101 @@ import {
   datePickerTableCellTrigger,
 } from "@midoneui/core/styles/datepicker.styles";
 
+const ApiContext = createContext<Api | null>(null);
+const ViewContext = createContext<ViewProps | null>(null);
+const CellContext = createContext<DayTableCellProps | TableCellProps | null>(
+  null
+);
+
 export function DatePickerRoot({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof DatePicker.Root>) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+  const service = useMachine(datepicker.machine, {
+    ...props,
+    id: useId(),
+  });
+  const api = datepicker.connect(service, normalizeProps);
+
   return (
-    <DatePicker.Root className={cn(datePickerRoot, className)} {...props}>
-      {children}
-    </DatePicker.Root>
+    <ApiContext.Provider value={api}>
+      <Slot
+        className={cn(datePickerRoot, className)}
+        {...api.getRootProps()}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ApiContext.Provider>
   );
+}
+
+export function DatePickerContext({
+  children,
+}: {
+  children: (api: Api) => React.ReactNode;
+}) {
+  const api = useContext(ApiContext);
+
+  return children(api!);
 }
 
 export function DatePickerLabel({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof DatePicker.Label>) {
+}: React.ComponentProps<"label"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.Label asChild {...props}>
-      <Label className={cn(datePickerLabel, className)}>{children}</Label>
-    </DatePicker.Label>
+    <Slot {...api?.getLabelProps()} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <Label className={cn(datePickerLabel, className)}>{children}</Label>
+      )}
+    </Slot>
   );
 }
 
 export function DatePickerControl({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof DatePicker.Control>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.Control className={cn(datePickerControl, className)} {...props}>
-      {children}
-    </DatePicker.Control>
+    <Slot
+      className={cn(datePickerControl, className)}
+      {...api?.getControlProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function DatePickerInput({
+  children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof DatePicker.Input>) {
+}: React.ComponentProps<"input"> & InputProps & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.Input asChild {...props}>
-      <Input className={cn(datePickerInput, className)} />
-    </DatePicker.Input>
+    <Slot {...api?.getInputProps(props)} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <Input className={cn(datePickerInput, className)} />
+      )}
+    </Slot>
   );
 }
 
@@ -85,17 +148,19 @@ export function DatePickerTrigger({
   asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.Trigger>) {
+}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.Trigger asChild {...props}>
-      {asChild ? (
-        children
-      ) : (
+    <Slot {...api?.getTriggerProps()} {...props}>
+      {!asChild ? (
         <Button className={cn(datePickerTrigger, className)}>
           {!children ? <Calendar /> : children}
         </Button>
+      ) : (
+        children
       )}
-    </DatePicker.Trigger>
+    </Slot>
   );
 }
 
@@ -104,101 +169,145 @@ export function DatePickerClearTrigger({
   asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.ClearTrigger>) {
+}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.ClearTrigger asChild {...props}>
-      {asChild ? (
-        children
-      ) : (
+    <Slot {...api?.getClearTriggerProps()} {...props}>
+      {!asChild ? (
         <Button className={cn(datePickerClearTrigger, className)}>
-          {!children ? <Calendar /> : children}
+          {!children ? <X /> : children}
         </Button>
+      ) : (
+        children
       )}
-    </DatePicker.ClearTrigger>
+    </Slot>
   );
 }
 
 export function DatePickerPositioner({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.Positioner>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.Positioner
-      className={cn(datePickerPositioner, className)}
-      {...props}
-    >
-      {children}
-    </DatePicker.Positioner>
+    <Portal>
+      <Slot
+        className={cn(datePickerPositioner, className)}
+        {...api?.getPositionerProps()}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </Portal>
   );
 }
 
 export function DatePickerContent({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.Content>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.Content asChild {...props}>
-      <Box
-        raised="single"
-        className={cn(datePickerContent, className)}
-        {...props}
-      >
-        <div>{children}</div>
-      </Box>
-    </DatePicker.Content>
+    <Slot {...api?.getContentProps()} {...props}>
+      {asChild ? (
+        children
+      ) : (
+        <Box raised="single" className={cn(datePickerContent, className)}>
+          <div>{children}</div>
+        </Box>
+      )}
+    </Slot>
   );
 }
 
 export function DatePickerYearSelect({
+  children,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.YearSelect>) {
+}: React.ComponentProps<"select">) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.YearSelect
+    <select
       className={cn(input, datePickerYearSelect, className)}
+      {...api?.getYearSelectProps()}
       {...props}
-    />
+    >
+      {api?.getYears().map((year, i) => (
+        <option key={i} value={year.value}>
+          {year.label}
+        </option>
+      ))}
+    </select>
   );
 }
 
 export function DatePickerMonthSelect({
+  children,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.MonthSelect>) {
+}: React.ComponentProps<"select">) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.MonthSelect
+    <select
       className={cn(input, datePickerMonthSelect, className)}
+      {...api?.getMonthSelectProps()}
       {...props}
-    />
+    >
+      {api?.getMonths().map((month, i) => (
+        <option key={i} value={month.value}>
+          {month.label}
+        </option>
+      ))}
+    </select>
   );
 }
 
 export function DatePickerView({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.View>) {
+}: React.ComponentProps<"div"> & ViewProps & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.View className={cn(datePickerView, className)} {...props}>
-      {children}
-    </DatePicker.View>
+    <ViewContext.Provider value={props}>
+      <Slot
+        className={cn(datePickerView, className)}
+        {...api?.getViewProps(props)}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ViewContext.Provider>
   );
 }
 
 export function DatePickerViewControl({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.ViewControl>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.ViewControl
+    <Slot
       className={cn(datePickerViewControl, className)}
+      {...api?.getViewControlProps()}
       {...props}
     >
-      {children}
-    </DatePicker.ViewControl>
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
@@ -207,177 +316,251 @@ export function DatePickerPresetTrigger({
   asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.PresetTrigger>) {
+}: React.ComponentProps<"button"> &
+  PresetTriggerProps & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.PresetTrigger asChild {...props}>
-      {asChild ? (
-        children
-      ) : (
+    <Slot {...api?.getPresetTriggerProps(props)} {...props}>
+      {!asChild ? (
         <Button className={cn(datePickerPresetTrigger, className)}>
           {children}
         </Button>
+      ) : (
+        children
       )}
-    </DatePicker.PresetTrigger>
+    </Slot>
   );
 }
 
 export function DatePickerPrevTrigger({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.PrevTrigger>) {
+}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.PrevTrigger
-      className={cn(datePickerPrevTrigger, className)}
-      {...props}
-    >
-      {!children ? <MoveLeft /> : children}
-    </DatePicker.PrevTrigger>
+    <Slot {...api?.getPrevTriggerProps()} {...props}>
+      {!asChild ? (
+        <button className={cn(datePickerPrevTrigger, className)}>
+          {!children ? <MoveLeft /> : children}
+        </button>
+      ) : (
+        children
+      )}
+    </Slot>
   );
 }
 
 export function DatePickerViewTrigger({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.ViewTrigger>) {
+}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.ViewTrigger
-      className={cn(datePickerViewTrigger, className)}
-      {...props}
-    >
-      {children}
-    </DatePicker.ViewTrigger>
+    <Slot {...api?.getViewTriggerProps()} {...props}>
+      {!asChild ? (
+        <button className={cn(datePickerViewTrigger, className)}>
+          {children}
+        </button>
+      ) : (
+        children
+      )}
+    </Slot>
   );
 }
 
 export function DatePickerNextTrigger({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.NextTrigger>) {
+}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.NextTrigger
-      className={cn(datePickerNextTrigger, className)}
-      {...props}
-    >
-      {!children ? <MoveRight /> : children}
-    </DatePicker.NextTrigger>
+    <Slot {...api?.getNextTriggerProps()} {...props}>
+      {!asChild ? (
+        <button className={cn(datePickerNextTrigger, className)}>
+          {!children ? <MoveRight /> : children}
+        </button>
+      ) : (
+        children
+      )}
+    </Slot>
   );
 }
 
 export function DatePickerRangeText({
+  children,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.RangeText>) {
+}: React.ComponentProps<"div">) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.RangeText
+    <div
       className={cn(datePickerRangeText, className)}
+      {...api?.getRangeTextProps()}
       {...props}
-    />
+    >
+      {api?.visibleRangeText.start}
+    </div>
   );
 }
 
 export function DatePickerTable({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.Table>) {
+}: React.ComponentProps<"table"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.Table className={cn(datePickerTable, className)} {...props}>
-      {children}
-    </DatePicker.Table>
+    <Slot
+      className={cn(datePickerTable, className)}
+      {...api?.getTableProps()}
+      {...props}
+    >
+      {asChild ? children : <table>{children}</table>}
+    </Slot>
   );
 }
 
 export function DatePickerTableHead({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.TableHead>) {
+}: React.ComponentProps<"thead"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.TableHead
+    <Slot
       className={cn(datePickerTableHead, className)}
+      {...api?.getTableProps()}
       {...props}
     >
-      {children}
-    </DatePicker.TableHead>
+      {asChild ? children : <thead>{children}</thead>}
+    </Slot>
   );
 }
 
 export function DatePickerTableRow({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.TableRow>) {
+}: React.ComponentProps<"tr"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.TableRow
+    <Slot
       className={cn(datePickerTableRow, className)}
+      {...api?.getTableRowProps()}
       {...props}
     >
-      {children}
-    </DatePicker.TableRow>
+      {asChild ? children : <tr>{children}</tr>}
+    </Slot>
   );
 }
 
 export function DatePickerTableHeader({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.TableHeader>) {
+}: React.ComponentProps<"th"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.TableHeader
+    <Slot
       className={cn(datePickerTableHeader, className)}
+      {...api?.getTableHeadProps()}
       {...props}
     >
-      {children}
-    </DatePicker.TableHeader>
+      {asChild ? children : <th>{children}</th>}
+    </Slot>
   );
 }
 
 export function DatePickerTableBody({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.TableBody>) {
+}: React.ComponentProps<"tbody"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <DatePicker.TableBody
+    <Slot
       className={cn(datePickerTableBody, className)}
+      {...api?.getTableHeadProps()}
       {...props}
     >
-      {children}
-    </DatePicker.TableBody>
+      {asChild ? children : <tbody>{children}</tbody>}
+    </Slot>
   );
 }
 
 export function DatePickerTableCell({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.TableCell>) {
+}: React.ComponentProps<"td"> &
+  (DayTableCellProps | TableCellProps) & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const viewContext = useContext(ViewContext);
+
   return (
-    <DatePicker.TableCell
-      className={cn(datePickerTableCell, className)}
-      {...props}
-    >
-      {children}
-    </DatePicker.TableCell>
+    <CellContext.Provider value={props}>
+      <Slot
+        className={cn(datePickerTableCell, className)}
+        {...(viewContext?.view === "day"
+          ? api?.getDayTableCellProps(props as DayTableCellProps)
+          : viewContext?.view === "month"
+          ? api?.getMonthTableCellProps(props as TableCellProps)
+          : viewContext?.view === "year"
+          ? api?.getYearTableCellProps(props as TableCellProps)
+          : undefined)}
+        {...props}
+      >
+        {asChild ? children : <td>{children}</td>}
+      </Slot>
+    </CellContext.Provider>
   );
 }
 
 export function DatePickerTableCellTrigger({
   children,
+  asChild,
   className,
   ...props
-}: React.ComponentProps<typeof DatePicker.TableCellTrigger>) {
+}: React.ComponentProps<"td"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const viewContext = useContext(ViewContext);
+  const cellContext = useContext(CellContext);
+
   return (
-    <DatePicker.TableCellTrigger
+    <Slot
       className={cn(datePickerTableCellTrigger, className)}
+      {...(viewContext?.view === "day"
+        ? api?.getDayTableCellTriggerProps(cellContext as DayTableCellProps)
+        : viewContext?.view === "month"
+        ? api?.getMonthTableCellTriggerProps(cellContext as TableCellProps)
+        : viewContext?.view === "year"
+        ? api?.getYearTableCellTriggerProps(cellContext as TableCellProps)
+        : undefined)}
       {...props}
     >
-      {children}
-    </DatePicker.TableCellTrigger>
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
-
-export const DatePickerContext = DatePicker.Context;

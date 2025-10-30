@@ -1,5 +1,5 @@
 import {
-  Pagination,
+  PaginationContext,
   PaginationRoot,
   PaginationItem,
   PaginationPrevTrigger,
@@ -14,7 +14,7 @@ function Main() {
         <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
           <PaginationRoot count={5000} pageSize={10} siblingCount={2}>
             <PaginationPrevTrigger>Previous</PaginationPrevTrigger>
-            <Pagination.Context>
+            <PaginationContext>
               {(pagination) =>
                 pagination.pages.map((page, index) =>
                   page.type === "page" ? (
@@ -26,7 +26,7 @@ function Main() {
                   )
                 )
               }
-            </Pagination.Context>
+            </PaginationContext>
             <PaginationNextTrigger>Next</PaginationNextTrigger>
           </PaginationRoot>
         </div>

@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
 export const boxVariants = cva(
-  "[--color:var(--color-transparent)] shadow-sm border border-foreground/20 rounded-xl p-5 outline-none relative",
+  "[--color:var(--color-transparent)] shadow-sm border border-foreground/20 rounded-xl p-5 outline-none relative before:absolute after:absolute",
   {
     variants: {
       filled: {
@@ -21,12 +21,12 @@ export const boxVariants = cva(
       raised: {
         single: [
           "mb-2.5",
-          "before:absolute before:inset-x-2 before:h-2.5 before:bg-(--color)/20 before:-bottom-2.5 before:rounded-b-xl before:border-x before:border-b before:border-(--color)/40 before:z-[-1] before:shadow-sm before:opacity-60",
+          "before:inset-x-2 before:h-2.5 before:bg-(--color)/20 before:-bottom-2.5 before:rounded-b-xl before:border-x before:border-b before:border-(--color)/40 before:z-[-1] before:shadow-sm before:opacity-60",
         ],
         double: [
           "mb-4",
-          "before:absolute before:inset-x-2 before:h-2.5 before:bg-(--color)/20 before:-bottom-2.5 before:rounded-b-xl before:border-x before:border-b before:border-(--color)/40 before:z-[-1] before:shadow-sm before:opacity-60",
-          "after:absolute after:inset-x-4.5 after:h-[0.5rem] after:bg-(--color)/20 after:-bottom-[1.1rem] after:rounded-b-xl after:border-x after:border-b after:border-(--color)/40 after:z-[-1] after:shadow-sm after:opacity-40",
+          "before:inset-x-2 before:h-2.5 before:bg-(--color)/20 before:-bottom-2.5 before:rounded-b-xl before:border-x before:border-b before:border-(--color)/40 before:z-[-1] before:shadow-sm before:opacity-60",
+          "after:inset-x-4.5 after:h-[0.5rem] after:bg-(--color)/20 after:-bottom-[1.1rem] after:rounded-b-xl after:border-x after:border-b after:border-(--color)/40 after:z-[-1] after:shadow-sm after:opacity-40",
         ],
       },
     },

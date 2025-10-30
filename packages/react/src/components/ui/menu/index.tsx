@@ -1,5 +1,3 @@
-import { Menu } from "@ark-ui/react/menu";
-import { Portal } from "@ark-ui/react/portal";
 import { cn } from "@midoneui/core/utils/cn";
 import { Button } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
@@ -13,23 +11,44 @@ import {
   menuSeparator,
   menuRadioItemGroup,
   menuItemGroupLabel,
+  menuRoot,
 } from "@midoneui/core/styles/menu.styles";
+import * as menu from "@zag-js/menu";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
+import type { Api, Props, OptionItemProps, ItemProps } from "@zag-js/menu";
+import { Slot } from "@/components/ui/slot";
+import { createContext, useContext, useId } from "react";
+
+const ApiContext = createContext<Api | null>(null);
 
 export function MenuRoot({
   children,
+  className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Menu.Root>) {
-  return <Menu.Root {...props}>{children}</Menu.Root>;
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+  const service = useMachine(menu.machine, { ...props, id: useId() });
+  const api = menu.connect(service, normalizeProps);
+
+  return (
+    <ApiContext.Provider value={api}>
+      <Slot className={cn(menuRoot, className)} {...props}>
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ApiContext.Provider>
+  );
 }
 
 export function MenuTrigger({
   children,
   className,
-  asChild,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Menu.Trigger>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Menu.Trigger asChild {...props}>
+    <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
         <Button className={cn(menuTrigger, className)}>
           {children}
@@ -38,7 +57,7 @@ export function MenuTrigger({
       ) : (
         children
       )}
-    </Menu.Trigger>
+    </Slot>
   );
 }
 
@@ -46,24 +65,37 @@ export function MenuIndicator({
   children,
   className,
   ...props
-}: React.ComponentProps<typeof Menu.Indicator>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Menu.Indicator className={cn(menuIndicator, className)} {...props}>
+    <Slot
+      className={cn(menuIndicator, className)}
+      {...api?.getIndicatorProps()}
+      {...props}
+    >
       {children ?? <ChevronDown />}
-    </Menu.Indicator>
+    </Slot>
   );
 }
 
 export function MenuPositioner({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Menu.Positioner>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
     <Portal>
-      <Menu.Positioner className={cn(menuPositioner, className)} {...props}>
-        {children}
-      </Menu.Positioner>
+      <Slot
+        className={cn(menuPositioner, className)}
+        {...api?.getPositionerProps()}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
     </Portal>
   );
 }
@@ -71,14 +103,25 @@ export function MenuPositioner({
 export function MenuContent({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Menu.Content>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Menu.Content asChild>
-      <Box raised="single" className={cn(menuContent, className)} {...props}>
-        <div>{children}</div>
-      </Box>
-    </Menu.Content>
+    <Slot
+      className={cn(menuContent, className)}
+      {...api?.getContentProps()}
+      {...props}
+    >
+      {asChild ? (
+        children
+      ) : (
+        <Box raised="single" className={cn(menuContent, className)}>
+          <div>{children}</div>
+        </Box>
+      )}
+    </Slot>
   );
 }
 
@@ -86,28 +129,46 @@ export function MenuItem({
   children,
   shortcut,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Menu.Item> & {
-  shortcut?: string;
-}) {
+}: React.ComponentProps<"div"> &
+  ItemProps & {
+    shortcut?: string;
+    asChild?: boolean;
+  }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Menu.Item className={cn(menuItem, className)} {...props}>
+    <Slot
+      className={cn(menuItem, className)}
+      {...api?.getItemProps(props)}
+      {...props}
+    >
       <div>{children}</div>
       <div>{shortcut}</div>
-    </Menu.Item>
+    </Slot>
   );
 }
 
 export function MenuTriggerItem({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Menu.TriggerItem>) {
+}: React.ComponentProps<"div"> & {
+  asChild?: boolean;
+}) {
+  const api = useContext(ApiContext);
+
   return (
-    <Menu.TriggerItem className={cn(menuItem, className)} {...props}>
+    <Slot
+      className={cn(menuItem, className)}
+      {...api?.getTriggerItemProps(api)}
+      {...props}
+    >
       <div>{children}</div>
       <ChevronRight />
-    </Menu.TriggerItem>
+    </Slot>
   );
 }
 
@@ -115,50 +176,60 @@ export function MenuCheckboxItem({
   children,
   shortcut,
   className,
+  asChild = false,
+  type = "checkbox",
   ...props
-}: React.ComponentProps<typeof Menu.CheckboxItem> & {
-  shortcut?: string;
-}) {
+}: React.ComponentProps<"div"> &
+  Omit<OptionItemProps, "type"> & {
+    asChild?: boolean;
+    shortcut?: string;
+    type?: OptionItemProps["type"];
+  }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Menu.CheckboxItem className={cn(menuItem, className)} {...props}>
+    <Slot
+      className={cn(menuItem, className)}
+      {...api?.getOptionItemProps({
+        ...props,
+        type,
+      })}
+      {...props}
+    >
       <div>
-        <Menu.ItemIndicator asChild>
+        <span {...api?.getItemIndicatorProps(props)}>
           <Check />
-        </Menu.ItemIndicator>
+        </span>
         {children}
       </div>
       <div>{shortcut}</div>
-    </Menu.CheckboxItem>
+    </Slot>
   );
 }
 
 export function MenuRadioItemGroup({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Menu.RadioItemGroup>) {
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
   return (
-    <Menu.RadioItemGroup
-      className={cn(menuRadioItemGroup, className)}
-      {...props}
-    >
-      {children}
-    </Menu.RadioItemGroup>
+    <Slot className={cn(menuRadioItemGroup, className)} {...props}>
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function MenuItemGroupLabel({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Menu.ItemGroupLabel>) {
+}: React.ComponentProps<"label"> & { asChild?: boolean }) {
   return (
-    <Menu.ItemGroupLabel
-      className={cn(menuItemGroupLabel, className)}
-      {...props}
-    >
-      {children}
-    </Menu.ItemGroupLabel>
+    <Slot className={cn(menuItemGroupLabel, className)} {...props}>
+      {asChild ? children : <label>{children}</label>}
+    </Slot>
   );
 }
 
@@ -166,27 +237,51 @@ export function MenuRadioItem({
   children,
   shortcut,
   className,
+  type = "radio",
   ...props
-}: React.ComponentProps<typeof Menu.RadioItem> & {
-  shortcut?: string;
-}) {
+}: React.ComponentProps<"div"> &
+  Omit<OptionItemProps, "type"> & {
+    asChild?: boolean;
+    shortcut?: string;
+    type?: OptionItemProps["type"];
+  }) {
+  const api = useContext(ApiContext);
+
   return (
-    <Menu.RadioItem className={cn(menuItem, className)} {...props}>
+    <Slot
+      className={cn(menuItem, className)}
+      {...api?.getOptionItemProps({
+        ...props,
+        type,
+      })}
+      {...props}
+    >
       <div>
-        <Menu.ItemIndicator asChild>
+        <span {...api?.getItemIndicatorProps(props)}>
           <Dot />
-        </Menu.ItemIndicator>
+        </span>
         {children}
       </div>
       <div>{shortcut}</div>
-    </Menu.RadioItem>
+    </Slot>
   );
 }
 
 export function MenuSeparator({
   children,
   className,
+  asChild = false,
   ...props
-}: React.ComponentProps<typeof Menu.Separator>) {
-  return <Menu.Separator className={cn(menuSeparator, className)} {...props} />;
+}: React.ComponentProps<"hr"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
+  return (
+    <Slot
+      className={cn(menuSeparator, className)}
+      {...api?.getSeparatorProps()}
+      {...props}
+    >
+      {asChild ? children : <hr>{children}</hr>}
+    </Slot>
+  );
 }

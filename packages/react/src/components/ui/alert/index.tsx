@@ -11,8 +11,8 @@ import {
   type BoxVariants,
 } from "@midoneui/core/styles/box.styles";
 import { useState, useContext, createContext } from "react";
-import { Presence } from "@ark-ui/react/presence";
-import { Box } from "../box";
+import { Presence } from "@/components/ui/presence";
+import { Slot } from "@/components/ui/slot";
 
 const PresentContext = createContext<{
   present: boolean;
@@ -26,7 +26,7 @@ export function AlertRoot({
   variant,
   raised,
   ...rest
-}: React.ComponentProps<typeof Presence> & BoxVariants) {
+}: React.ComponentProps<"div"> & BoxVariants) {
   const [present, setPresent] = useState(true);
 
   return (
@@ -37,15 +37,14 @@ export function AlertRoot({
       }}
     >
       <Presence
-        asChild
-        present={present}
         className={cn(
           boxVariants({ filled, variant, raised, className }),
           alertRoot
         )}
         {...rest}
+        present={present}
       >
-        <Box>{children}</Box>
+        {children}
       </Presence>
     </PresentContext.Provider>
   );
@@ -54,43 +53,50 @@ export function AlertRoot({
 export function AlertTitle({
   className,
   children,
+  asChild = false,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & {
+  asChild?: boolean;
+}) {
   return (
-    <div className={cn([className, alertTitle])} {...props}>
-      {children}
-    </div>
+    <Slot className={cn([className, alertTitle])} {...props}>
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function AlertDescription({
   className,
   children,
+  asChild = false,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & {
+  asChild?: boolean;
+}) {
   return (
-    <div className={cn([className, alertDescription])} {...props}>
-      {children}
-    </div>
+    <Slot className={cn([className, alertDescription])} {...props}>
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
 
 export function AlertCloseTrigger({
   className,
   children,
+  asChild = false,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & {
+  asChild?: boolean;
+}) {
   const context = useContext(PresentContext);
 
   return (
-    children ?? (
-      <div
-        className={cn([className, alertCloseTrigger])}
-        {...props}
-        onClick={() => context?.setPresent(false)}
-      >
-        <X />
-      </div>
-    )
+    <Slot
+      className={cn([className, alertCloseTrigger])}
+      {...props}
+      onClick={() => context?.setPresent(false)}
+    >
+      {asChild ? children : <div>{children ?? <X />}</div>}
+    </Slot>
   );
 }

@@ -18,13 +18,13 @@ export const menuItem = [
   "data-disabled:opacity-50 data-disabled:hover:bg-background data-disabled:cursor-not-allowed",
 
   // Checkbox
-  "[&[data-type=checkbox]>div:nth-of-type(1)]:ps-7 [&[data-type=checkbox]>div:nth-of-type(1)>svg]:stroke-3 [&[data-type=checkbox]>div:nth-of-type(1)]:before:absolute [&[data-type=checkbox]>div:nth-of-type(1)]:before:size-4 [&[data-type=checkbox]>div:nth-of-type(1)]:before:border [&[data-type=checkbox]>div:nth-of-type(1)]:before:shadow [&[data-type=checkbox]>div:nth-of-type(1)]:before:border-foreground/20 [&[data-type=checkbox]>div:nth-of-type(1)]:before:rounded-md [&[data-type=checkbox]>div:nth-of-type(1)]:before:inset-y-0 [&[data-type=checkbox]>div:nth-of-type(1)]:before:my-auto [&[data-type=checkbox]>div:nth-of-type(1)]:before:start-0",
+  "[&[data-type=checkbox]>div:nth-of-type(1)]:ps-7 [&[data-type=checkbox]>div:nth-of-type(1)_svg]:stroke-3 [&[data-type=checkbox]>div:nth-of-type(1)]:before:absolute [&[data-type=checkbox]>div:nth-of-type(1)]:before:size-4 [&[data-type=checkbox]>div:nth-of-type(1)]:before:border [&[data-type=checkbox]>div:nth-of-type(1)]:before:shadow [&[data-type=checkbox]>div:nth-of-type(1)]:before:border-foreground/20 [&[data-type=checkbox]>div:nth-of-type(1)]:before:rounded-md [&[data-type=checkbox]>div:nth-of-type(1)]:before:inset-y-0 [&[data-type=checkbox]>div:nth-of-type(1)]:before:my-auto [&[data-type=checkbox]>div:nth-of-type(1)]:before:start-0",
 
   // Radio
-  "[&[data-type=radio]>div:nth-of-type(1)]:ps-7 [&[data-type=radio]>div:nth-of-type(1)>svg]:stroke-10 [&[data-type=radio]>div:nth-of-type(1)]:before:absolute [&[data-type=radio]>div:nth-of-type(1)]:before:size-4 [&[data-type=radio]>div:nth-of-type(1)]:before:border [&[data-type=radio]>div:nth-of-type(1)]:before:shadow [&[data-type=radio]>div:nth-of-type(1)]:before:border-foreground/20 [&[data-type=radio]>div:nth-of-type(1)]:before:rounded-full [&[data-type=radio]>div:nth-of-type(1)]:before:inset-y-0 [&[data-type=radio]>div:nth-of-type(1)]:before:my-auto [&[data-type=radio]>div:nth-of-type(1)]:before:start-0",
+  "[&[data-type=radio]>div:nth-of-type(1)]:ps-7 [&[data-type=radio]>div:nth-of-type(1)_svg]:stroke-10 [&[data-type=radio]>div:nth-of-type(1)]:before:absolute [&[data-type=radio]>div:nth-of-type(1)]:before:size-4 [&[data-type=radio]>div:nth-of-type(1)]:before:border [&[data-type=radio]>div:nth-of-type(1)]:before:shadow [&[data-type=radio]>div:nth-of-type(1)]:before:border-foreground/20 [&[data-type=radio]>div:nth-of-type(1)]:before:rounded-full [&[data-type=radio]>div:nth-of-type(1)]:before:inset-y-0 [&[data-type=radio]>div:nth-of-type(1)]:before:my-auto [&[data-type=radio]>div:nth-of-type(1)]:before:start-0",
 
   // Checkbox & radio svg
-  "[&>div:nth-of-type(1)]:relative [&>div:nth-of-type(1)>svg]:absolute [&>div:nth-of-type(1)>svg]:start-0.5 [&>div:nth-of-type(1)>svg]:inset-y-0 [&>div:nth-of-type(1)>svg]:my-auto [&>div:nth-of-type(1)>svg]:size-3",
+  "[&>div:nth-of-type(1)]:relative [&>div:nth-of-type(1)_svg]:absolute [&>div:nth-of-type(1)_svg]:start-0.5 [&>div:nth-of-type(1)_svg]:inset-y-0 [&>div:nth-of-type(1)_svg]:my-auto [&>div:nth-of-type(1)_svg]:size-3",
 ];
 export const menuRadioItemGroup = "flex flex-col gap-3";
 export const menuItemGroupLabel =

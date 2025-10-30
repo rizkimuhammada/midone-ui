@@ -12,12 +12,11 @@ export const accordionRootVariants = cva("flex flex-col", {
     variant: "default",
   },
 });
-export const accordionItemVariants = cva("group border", {
+export const accordionItemVariants = cva("group", {
   variants: {
     variant: {
-      default:
-        "border-transparent border-b-foreground/10 last:border-b-transparent",
-      boxed: "px-4 border-foreground/15 rounded-xl",
+      default: "border-b border-b-foreground/10 last:border-b-transparent",
+      boxed: "py-0 px-4",
     },
   },
   defaultVariants: {
