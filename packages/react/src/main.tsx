@@ -6,10 +6,8 @@ import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <div className="p-5 sm:p-20">
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   </StrictMode>
 );

@@ -6,7 +6,7 @@ export const comboboxInput = "flex-none";
 export const comboboxTrigger = "w-full [&>div]:truncate [&>svg]:ms-auto";
 export const comboboxClearTrigger =
   "text-danger/90 cursor-pointer text-xs hidden ms-1";
-export const comboboxPositioner = "!w-auto";
+export const comboboxPositioner = "!z-50 !w-auto";
 export const comboboxContent =
   "min-w-(--reference-width) p-0 z-(--layer-index) [&>div]:p-4 [&>div]:max-h-78 [&>div]:overflow-y-auto [&>div]:flex [&>div]:flex-col [&>div]:gap-5";
 export const comboboxItemGroup = "flex flex-col gap-3";

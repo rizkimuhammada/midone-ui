@@ -23,11 +23,30 @@
   --color-background: var(--color-slate-50);
   --color-foreground: var(--color-slate-900);
 
+  --background-image-accent: url("./assets/images/accent.svg");
+  --background-image-noise: url("./assets/images/noise.png");
+
   --background-image-chevron-dark: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>');
   --background-image-chevron-light: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>');
 
   --font-jetbrains-mono: "JetBrains Mono", monospace;
   --font-instrument-sans: "Instrument Sans", sans-serif;
+}
+
+.dark {
+  --color-primary: var(--color-blue-600);
+  --color-primary-foreground: var(--color-slate-400);
+  --color-success: var(--color-green-500);
+  --color-success-foreground: var(--color-slate-300);
+  --color-danger: var(--color-rose-500);
+  --color-danger-foreground: var(--color-slate-300);
+  --color-pending: var(--color-orange-500);
+  --color-pending-foreground: var(--color-slate-300);
+  --color-warning: var(--color-yellow-500);
+  --color-warning-foreground: var(--color-slate-300);
+
+  --color-background: var(--color-black);
+  --color-foreground: var(--color-white);
 }
 
 @utility container {
@@ -43,20 +62,20 @@
 }
 
 body {
-  @apply font-instrument-sans bg-background overflow-x-hidden bg-fixed antialiased text-sm text-foreground tracking-wider text-foreground/70;
+  @apply font-instrument-sans bg-background overflow-x-hidden bg-fixed antialiased text-foreground text-foreground text-sm;
   background-image: repeating-linear-gradient(
       0deg,
-      --alpha(var(--color-foreground) / 5%) 0,
-      --alpha(var(--color-foreground) / 5%) 1px,
+      --alpha(var(--color-foreground) / 6%) 0,
+      --alpha(var(--color-foreground) / 6%) 1px,
       transparent 1px,
-      transparent 35rem
+      transparent 10rem
     ),
     repeating-linear-gradient(
       90deg,
-      --alpha(var(--color-foreground) / 5%) 0,
-      --alpha(var(--color-foreground) / 5%) 1px,
+      --alpha(var(--color-foreground) / 6%) 0,
+      --alpha(var(--color-foreground) / 6%) 1px,
       transparent 1px,
-      transparent 35rem
+      transparent 10rem
     );
 }
 

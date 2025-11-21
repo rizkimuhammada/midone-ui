@@ -8,7 +8,7 @@ import {
 } from "@midoneui/core/styles/avatar.styles";
 import * as avatar from "@zag-js/avatar";
 import { useMachine, normalizeProps } from "@zag-js/react";
-import type { Api } from "@zag-js/avatar";
+import type { Api, Props } from "@zag-js/avatar";
 import { Slot } from "@/components/ui/slot";
 
 const ApiContext = createContext<Api | null>(null);
@@ -19,8 +19,10 @@ export function AvatarRoot({
   bordered,
   asChild = false,
   ...props
-}: React.ComponentProps<"div"> & AvatarRootVariants & { asChild?: boolean }) {
-  const service = useMachine(avatar.machine, { id: useId() });
+}: React.ComponentProps<"div"> &
+  AvatarRootVariants &
+  Partial<Props> & { asChild?: boolean }) {
+  const service = useMachine(avatar.machine, { ...props, id: useId() });
   const api = avatar.connect(service, normalizeProps);
 
   return (

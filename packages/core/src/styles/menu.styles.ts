@@ -1,7 +1,7 @@
 export const menuRoot = "w-full";
 export const menuTrigger = "w-full";
 export const menuIndicator = "ms-auto transition data-[state=open]:rotate-180";
-export const menuPositioner = "";
+export const menuPositioner = "!z-50";
 export const menuContent =
   "min-w-46 w-(--reference-width) p-0 z-(--layer-index) [&>div]:flex [&>div]:flex-col [&>div]:gap-2.5 [&>div]:p-4 [&>div]:max-h-78 [&>div]:overflow-y-auto";
 export const menuItem = [

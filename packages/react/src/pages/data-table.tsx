@@ -1,3 +1,4 @@
+import { MoveUpRight } from "lucide-react";
 import * as React from "react";
 import {
   type ColumnDef,
@@ -32,6 +33,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Wrapper,
+  Title,
+  Subtitle,
+  Menu,
+  Preview,
+  SectionTitle,
+  SectionContent,
+  InstallPackage,
+  PreviewCode,
+  ApiButton,
+} from "@/components/docs";
 
 const data: Payment[] = [
   {
@@ -201,125 +214,461 @@ function Main() {
   });
 
   return (
-    <div className="flex flex-col gap-20">
-      <div className="grid grid-cols-2">
-        <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-          <div className="w-full">
-            <div className="flex items-center py-4">
-              <Input
-                placeholder="Filter emails..."
-                value={
-                  (table.getColumn("email")?.getFilterValue() as string) ?? ""
-                }
-                onChange={(event) =>
-                  table.getColumn("email")?.setFilterValue(event.target.value)
-                }
-                className="max-w-80"
-              />
-              <MenuRoot>
-                <MenuTrigger className="ms-auto w-auto">
-                  Show Columns
-                </MenuTrigger>
-                <MenuPositioner>
-                  <MenuContent>
-                    {table
-                      .getAllColumns()
-                      .filter((column) => column.getCanHide())
-                      .map((column) => {
-                        return (
-                          <MenuCheckboxItem
-                            key={column.id}
-                            className="capitalize"
-                            checked={column.getIsVisible()}
-                            onCheckedChange={(value) =>
-                              column.toggleVisibility(!!value)
-                            }
-                            value={column.id}
-                          >
-                            {column.id}
-                          </MenuCheckboxItem>
-                        );
-                      })}
-                  </MenuContent>
-                </MenuPositioner>
-              </MenuRoot>
+    <>
+      <Wrapper>
+        <div className="flex flex-col gap-20">
+          <div>
+            <Title>Datatable</Title>
+            <Subtitle>
+              A structured table that helps users view, sort, and manage data in
+              an organized way.
+            </Subtitle>
+            <div className="flex gap-3 mt-5">
+              <ApiButton
+                target="_blank"
+                href="https://zagjs.com/components/react/accordion"
+              >
+                Docs <MoveUpRight className="stroke-1 size-3" />
+              </ApiButton>
+              <ApiButton
+                target="_blank"
+                href="https://zagjs.com/components/react/accordion#methods-and-properties"
+              >
+                Api Reference <MoveUpRight className="stroke-1 size-3" />
+              </ApiButton>
             </div>
-            <div className="relative -me-2">
-              <Table variant="boxed">
-                <TableHeader>
-                  {table.getHeaderGroups().map((headerGroup) => (
-                    <TableRow key={headerGroup.id}>
-                      {headerGroup.headers.map((header) => {
-                        return (
-                          <TableHead key={header.id}>
-                            {header.isPlaceholder
-                              ? null
-                              : flexRender(
-                                  header.column.columnDef.header,
-                                  header.getContext()
-                                )}
-                          </TableHead>
-                        );
-                      })}
-                    </TableRow>
-                  ))}
-                </TableHeader>
-                <TableBody>
-                  {table.getRowModel().rows?.length ? (
-                    table.getRowModel().rows.map((row) => (
-                      <TableRow
-                        key={row.id}
-                        data-state={row.getIsSelected() && "selected"}
-                      >
-                        {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id}>
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
+            <Preview>
+              {() => ({
+                preview: (
+                  <>
+                    <div className="w-full">
+                      <div className="flex items-center py-4 gap-3">
+                        <Input
+                          placeholder="Filter emails..."
+                          value={
+                            (table
+                              .getColumn("email")
+                              ?.getFilterValue() as string) ?? ""
+                          }
+                          onChange={(event) =>
+                            table
+                              .getColumn("email")
+                              ?.setFilterValue(event.target.value)
+                          }
+                          className="max-w-80"
+                        />
+                        <MenuRoot>
+                          <MenuTrigger className="ms-auto w-auto">
+                            Show Columns
+                          </MenuTrigger>
+                          <MenuPositioner>
+                            <MenuContent>
+                              {table
+                                .getAllColumns()
+                                .filter((column) => column.getCanHide())
+                                .map((column) => {
+                                  return (
+                                    <MenuCheckboxItem
+                                      key={column.id}
+                                      className="capitalize"
+                                      checked={column.getIsVisible()}
+                                      onCheckedChange={(value) =>
+                                        column.toggleVisibility(!!value)
+                                      }
+                                      value={column.id}
+                                    >
+                                      {column.id}
+                                    </MenuCheckboxItem>
+                                  );
+                                })}
+                            </MenuContent>
+                          </MenuPositioner>
+                        </MenuRoot>
+                      </div>
+                      <div className="relative -me-2">
+                        <Table variant="boxed">
+                          <TableHeader>
+                            {table.getHeaderGroups().map((headerGroup) => (
+                              <TableRow key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => {
+                                  return (
+                                    <TableHead key={header.id}>
+                                      {header.isPlaceholder
+                                        ? null
+                                        : flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext()
+                                          )}
+                                    </TableHead>
+                                  );
+                                })}
+                              </TableRow>
+                            ))}
+                          </TableHeader>
+                          <TableBody>
+                            {table.getRowModel().rows?.length ? (
+                              table.getRowModel().rows.map((row) => (
+                                <TableRow
+                                  key={row.id}
+                                  data-state={row.getIsSelected() && "selected"}
+                                >
+                                  {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id}>
+                                      {flexRender(
+                                        cell.column.columnDef.cell,
+                                        cell.getContext()
+                                      )}
+                                    </TableCell>
+                                  ))}
+                                </TableRow>
+                              ))
+                            ) : (
+                              <TableRow>
+                                <TableCell
+                                  colSpan={columns.length}
+                                  className="h-24 text-center"
+                                >
+                                  No results.
+                                </TableCell>
+                              </TableRow>
                             )}
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    ))
-                  ) : (
-                    <TableRow>
-                      <TableCell
-                        colSpan={columns.length}
-                        className="h-24 text-center"
-                      >
-                        No results.
-                      </TableCell>
-                    </TableRow>
+                          </TableBody>
+                        </Table>
+                      </div>
+                      <div className="flex items-center justify-end space-x-2 py-4">
+                        <div className="text-muted-foreground flex-1 text-xs">
+                          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                          {table.getFilteredRowModel().rows.length} row(s)
+                          selected.
+                        </div>
+                        <div className="space-x-2">
+                          <Button
+                            size="sm"
+                            onClick={() => table.previousPage()}
+                            disabled={!table.getCanPreviousPage()}
+                          >
+                            Previous
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={() => table.nextPage()}
+                            disabled={!table.getCanNextPage()}
+                          >
+                            Next
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ),
+                code: (
+                  <PreviewCode>
+                    {`
+<div className="w-full">
+  <div className="flex items-center py-4 gap-3">
+    <Input
+      placeholder="Filter emails..."
+      value={
+        (table.getColumn("email")?.getFilterValue() as string) ?? ""
+      }
+      onChange={(event) =>
+        table.getColumn("email")?.setFilterValue(event.target.value)
+      }
+      className="max-w-80"
+    />
+    <MenuRoot>
+      <MenuTrigger className="ms-auto w-auto">
+        Show Columns
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          {table
+            .getAllColumns()
+            .filter((column) => column.getCanHide())
+            .map((column) => {
+              return (
+                <MenuCheckboxItem
+                  key={column.id}
+                  className="capitalize"
+                  checked={column.getIsVisible()}
+                  onCheckedChange={(value) =>
+                    column.toggleVisibility(!!value)
+                  }
+                  value={column.id}
+                >
+                  {column.id}
+                </MenuCheckboxItem>
+              );
+            })}
+        </MenuContent>
+      </MenuPositioner>
+    </MenuRoot>
+  </div>
+  <div className="relative -me-2">
+    <Table variant="boxed">
+      <TableHeader>
+        {table.getHeaderGroups().map((headerGroup) => (
+          <TableRow key={headerGroup.id}>
+            {headerGroup.headers.map((header) => {
+              return (
+                <TableHead key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </TableHead>
+              );
+            })}
+          </TableRow>
+        ))}
+      </TableHeader>
+      <TableBody>
+        {table.getRowModel().rows?.length ? (
+          table.getRowModel().rows.map((row) => (
+            <TableRow
+              key={row.id}
+              data-state={row.getIsSelected() && "selected"}
+            >
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id}>
+                  {flexRender(
+                    cell.column.columnDef.cell,
+                    cell.getContext()
                   )}
-                </TableBody>
-              </Table>
-            </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
-              <div className="text-muted-foreground flex-1 text-sm">
-                {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                {table.getFilteredRowModel().rows.length} row(s) selected.
-              </div>
-              <div className="space-x-2">
-                <Button
-                  size="sm"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  Previous
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  Next
-                </Button>
-              </div>
-            </div>
+                </TableCell>
+              ))}
+            </TableRow>
+          ))
+        ) : (
+          <TableRow>
+            <TableCell
+              colSpan={columns.length}
+              className="h-24 text-center"
+            >
+              No results.
+            </TableCell>
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
+  </div>
+  <div className="flex items-center justify-end space-x-2 py-4">
+    <div className="text-muted-foreground flex-1 text-xs">
+      {table.getFilteredSelectedRowModel().rows.length} of{" "}
+      {table.getFilteredRowModel().rows.length} row(s) selected.
+    </div>
+    <div className="space-x-2">
+      <Button
+        size="sm"
+        onClick={() => table.previousPage()}
+        disabled={!table.getCanPreviousPage()}
+      >
+        Previous
+      </Button>
+      <Button
+        size="sm"
+        onClick={() => table.nextPage()}
+        disabled={!table.getCanNextPage()}
+      >
+        Next
+      </Button>
+    </div>
+  </div>
+</div>
+                `}
+                  </PreviewCode>
+                ),
+              })}
+            </Preview>
+          </div>
+          <div id="installation">
+            <SectionTitle>Installation</SectionTitle>
+            <SectionContent>Install the following dependencies:</SectionContent>
+            <InstallPackage>add @zag-js/react @zag-js/accordion</InstallPackage>
+            <SectionContent>
+              Copy and paste the following code into your project.
+            </SectionContent>
+            <PreviewCode title="components/ui/accordion/index.tsx">
+              {`
+import { ChevronDownIcon } from "lucide-react";
+import {
+  accordionRootVariants,
+  accordionItemVariants,
+  accordionTrigger,
+  accordionItemIndicator,
+  accordionContent,
+} from "@midoneui/core/styles/accordion.styles";
+import {
+  boxVariants,
+  type BoxVariants,
+} from "@midoneui/core/styles/box.styles";
+import { cn } from "@midoneui/core/utils/cn";
+import { createContext, useContext, useId } from "react";
+import * as accordion from "@zag-js/accordion";
+import type { Api, Props, ItemProps } from "@zag-js/accordion";
+import { Slot } from "@/components/ui/slot";
+import { useMachine, normalizeProps } from "@zag-js/react";
+
+const VariantContext = createContext<"default" | "boxed" | null>(null);
+const ApiContext = createContext<Api | null>(null);
+const ItemContext = createContext<ItemProps | null>(null);
+
+export function AccordionRoot({
+  children,
+  className,
+  variant = "default",
+  asChild = false,
+  collapsible = true,
+  ...props
+}: React.ComponentProps<"div"> &
+  Partial<Props> & { variant?: "default" | "boxed"; asChild?: boolean }) {
+  const service = useMachine(accordion.machine, {
+    collapsible,
+    ...props,
+    id: useId(),
+  });
+  const api = accordion.connect(service, normalizeProps);
+
+  return (
+    <VariantContext.Provider value={variant}>
+      <ApiContext.Provider value={api}>
+        <Slot
+          className={cn([
+            className,
+            accordionRootVariants({ variant, className }),
+          ])}
+          {...api.getRootProps()}
+          {...props}
+        >
+          {asChild ? children : <div>{children}</div>}
+        </Slot>
+      </ApiContext.Provider>
+    </VariantContext.Provider>
+  );
+}
+
+export function AccordionItem({
+  children,
+  filled,
+  raised,
+  className,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"div"> &
+  BoxVariants &
+  ItemProps & { asChild?: boolean }) {
+  const variant = useContext(VariantContext);
+  const api = useContext(ApiContext);
+
+  return (
+    <ItemContext.Provider value={props}>
+      <Slot
+        className={cn([
+          className,
+          variant == "boxed"
+            ? boxVariants({ filled, variant: "default", raised, className })
+            : "",
+          accordionItemVariants({ variant, className }),
+        ])}
+        {...api?.getItemProps(props)}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </ItemContext.Provider>
+  );
+}
+
+export function AccordionTrigger({
+  children,
+  className,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const item = useContext(ItemContext);
+
+  return (
+    <Slot
+      className={cn([className, accordionTrigger])}
+      {...api?.getItemTriggerProps(item!)}
+      {...props}
+    >
+      {asChild ? (
+        children
+      ) : (
+        <button>
+          {children}
+          <div
+            {...api?.getItemIndicatorProps(item!)}
+            className={accordionItemIndicator}
+          >
+            <ChevronDownIcon />
+          </div>
+        </button>
+      )}
+    </Slot>
+  );
+}
+
+export function AccordionContent({
+  children,
+  className,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const item = useContext(ItemContext);
+
+  return (
+    <Slot
+      className={cn([className, accordionContent])}
+      {...api?.getItemContentProps(item!)}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
+  );
+}
+              `}
+            </PreviewCode>
+            <SectionContent>
+              Update the import paths to match your project setup.
+            </SectionContent>
+          </div>
+          <div id="usage">
+            <SectionTitle>Usage</SectionTitle>
+            <PreviewCode>
+              {`
+import {
+  CheckboxRoot,
+  CheckboxLabel,
+  CheckboxControl,
+} from "@/components/ui/checkbox";
+              `}
+            </PreviewCode>
+            <PreviewCode>
+              {`
+<CheckboxRoot>
+  <CheckboxControl />
+  <CheckboxLabel>Accept terms and conditions</CheckboxLabel>
+</CheckboxRoot>
+              `}
+            </PreviewCode>
           </div>
         </div>
-      </div>
-    </div>
+      </Wrapper>
+      <Menu>
+        <a className="hover:text-foreground py-1.5" href="#installation">
+          Installation
+        </a>
+        <a className="hover:text-foreground py-1.5" href="#usage">
+          Usage
+        </a>
+      </Menu>
+    </>
   );
 }
 

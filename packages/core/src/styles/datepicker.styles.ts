@@ -4,7 +4,7 @@ export const datePickerControl = "flex gap-2.5";
 export const datePickerInput = "";
 export const datePickerTrigger = "";
 export const datePickerClearTrigger = "";
-export const datePickerPositioner = "!w-auto";
+export const datePickerPositioner = "!z-50 !w-auto";
 export const datePickerContent =
   "min-w-(--reference-width) p-0 z-(--layer-index) [&>div]:p-4 [&>div]:grid [&>div]:grid-cols-2 [&>div]:gap-x-2.5 [&>div]:gap-y-3 [&>div>div]:col-span-2";
 export const datePickerYearSelect =

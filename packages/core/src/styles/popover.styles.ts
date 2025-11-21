@@ -1,6 +1,6 @@
 export const popoverRoot = "";
 export const popoverTrigger = "";
-export const popoverPositioner = "";
+export const popoverPositioner = "!z-50";
 export const popoverContent =
   "min-w-46 w-(--reference-width) z-(--layer-index)";
 export const popoverArrow = "[--arrow-size:10px]";

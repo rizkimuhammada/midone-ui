@@ -1,3 +1,4 @@
+import { MoveUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   toaster,
@@ -7,35 +8,368 @@ import {
   ToastDescription,
   ToastCloseTrigger,
 } from "@/components/ui/toast";
+import {
+  Wrapper,
+  Title,
+  Subtitle,
+  Menu,
+  Preview,
+  SectionTitle,
+  SectionContent,
+  InstallPackage,
+  PreviewCode,
+  ApiButton,
+} from "@/components/docs";
 
 function Main() {
   return (
-    <div className="flex flex-col gap-20">
-      <div className="grid grid-cols-2">
-        <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-          <Button
-            onClick={() =>
-              toaster.create({
-                title: "Event has been created",
-                description: "Sunday, December 03, 2023 at 9:00 AM",
-                type: "info",
-              })
-            }
-          >
-            Show Toast
-          </Button>
-          <ToasterContainer toaster={toaster}>
-            {(toast) => (
-              <ToastRoot key={toast.id}>
-                <ToastTitle>{toast.title}</ToastTitle>
-                <ToastDescription>{toast.description}</ToastDescription>
-                <ToastCloseTrigger />
-              </ToastRoot>
-            )}
-          </ToasterContainer>
+    <>
+      <Wrapper>
+        <div className="flex flex-col gap-20">
+          <div>
+            <Title>Toast</Title>
+            <Subtitle>
+              A small notification that pops up briefly to share quick updates
+              or alerts without interrupting the user.
+            </Subtitle>
+            <div className="flex gap-3 mt-5">
+              <ApiButton
+                target="_blank"
+                href="https://zagjs.com/components/react/toast"
+              >
+                Docs <MoveUpRight className="stroke-1 size-3" />
+              </ApiButton>
+              <ApiButton
+                target="_blank"
+                href="https://zagjs.com/components/react/toast#methods-and-properties"
+              >
+                Api Reference <MoveUpRight className="stroke-1 size-3" />
+              </ApiButton>
+            </div>
+            <Preview>
+              {() => ({
+                preview: (
+                  <>
+                    <Button
+                      onClick={() =>
+                        toaster.create({
+                          title: "Event has been created",
+                          description: "Sunday, December 03, 2023 at 9:00 AM",
+                          type: "info",
+                        })
+                      }
+                    >
+                      Show Toast
+                    </Button>
+                    <ToasterContainer toaster={toaster}>
+                      {(toast) => (
+                        <ToastRoot key={toast.id}>
+                          <ToastTitle>{toast.title}</ToastTitle>
+                          <ToastDescription>
+                            {toast.description}
+                          </ToastDescription>
+                          <ToastCloseTrigger />
+                        </ToastRoot>
+                      )}
+                    </ToasterContainer>
+                  </>
+                ),
+                code: (
+                  <PreviewCode>
+                    {`
+<Button
+  onClick={() =>
+    toaster.create({
+      title: "Event has been created",
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+      type: "info",
+    })
+  }
+>
+  Show Toast
+</Button>
+<ToasterContainer toaster={toaster}>
+  {(toast) => (
+    <ToastRoot key={toast.id}>
+      <ToastTitle>{toast.title}</ToastTitle>
+      <ToastDescription>{toast.description}</ToastDescription>
+      <ToastCloseTrigger />
+    </ToastRoot>
+  )}
+</ToasterContainer>
+                `}
+                  </PreviewCode>
+                ),
+              })}
+            </Preview>
+          </div>
+          <div id="installation">
+            <SectionTitle>Installation</SectionTitle>
+            <SectionContent>Install the following dependencies:</SectionContent>
+            <InstallPackage>add @zag-js/react @zag-js/toast</InstallPackage>
+            <SectionContent>
+              Copy and paste the following code into your project.
+            </SectionContent>
+            <PreviewCode title="components/ui/toast/index.tsx">
+              {`
+import { cn } from "@midoneui/core/utils/cn";
+import {
+  toastRoot,
+  toastTitle,
+  toastDescription,
+  toastCloseTrigger,
+  toasterContainer,
+} from "@midoneui/core/styles/toast.styles";
+import { Button } from "@/components/ui/button";
+import {
+  buttonVariants,
+  type ButtonVariants,
+} from "@midoneui/core/styles/button.styles";
+import {
+  boxVariants,
+  type BoxVariants,
+} from "@midoneui/core/styles/box.styles";
+import { X } from "lucide-react";
+import * as toast from "@zag-js/toast";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
+import type { Api, Store } from "@zag-js/toast";
+import { Slot } from "@/components/ui/slot";
+import { createContext, useContext, useId } from "react";
+
+const ApiContext = createContext<Api | null>(null);
+
+export const toaster = toast.createStore({
+  placement: "bottom-end",
+  overlap: true,
+  gap: 24,
+});
+
+export function ToastRoot({
+  children,
+  className,
+  asChild = false,
+  filled,
+  variant,
+  raised = "single",
+  ...props
+}: React.ComponentProps<"div"> & BoxVariants & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
+  return (
+    <Slot
+      className={cn([
+        boxVariants({ filled, variant, raised, className }),
+        toastRoot,
+        className,
+      ])}
+      {...api?.getRootProps()}
+      {...props}
+    >
+      {asChild ? (
+        children
+      ) : (
+        <div>
+          <span {...api?.getGhostBeforeProps()} />
+          <div data-scope="toast" data-part="progressbar" />
+          {children}
+          <span {...api?.getGhostAfterProps()} />
         </div>
+      )}
+    </Slot>
+  );
+}
+
+export function ToastTitle({
+  children,
+  className,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
+  return (
+    <Slot
+      className={cn(toastTitle, className)}
+      {...api?.getTitleProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
+  );
+}
+
+export function ToastDescription({
+  children,
+  className,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
+  return (
+    <Slot
+      className={cn(toastDescription, className)}
+      {...api?.getDescriptionProps()}
+      {...props}
+    >
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
+  );
+}
+
+export function ToastCloseTrigger({
+  children,
+  className,
+  filled,
+  variant,
+  size,
+  asChild,
+  ...props
+}: React.ComponentProps<"button"> & ButtonVariants & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+
+  return (
+    <Slot {...api?.getCloseTriggerProps()} {...props}>
+      {!children ? (
+        <Button className={cn(toastCloseTrigger, className)} {...props}>
+          <X className="size-4" />
+        </Button>
+      ) : asChild ? (
+        children
+      ) : (
+        <Button
+          className={cn(
+            buttonVariants({ filled, variant, size, className }),
+            className
+          )}
+        >
+          {children}
+        </Button>
+      )}
+    </Slot>
+  );
+}
+
+export function ToastItem({
+  toastGroup,
+  serviceGroup,
+  index,
+  children,
+}: {
+  toastGroup: toast.Options<React.ReactNode>;
+  serviceGroup: toast.GroupService;
+  index: number;
+  children: (api: Api & { id?: string }) => React.ReactNode;
+}) {
+  const composedProps = { ...toastGroup, index, parent: serviceGroup };
+  const service = useMachine(toast.machine, composedProps);
+  const api = toast.connect(service, normalizeProps);
+
+  return (
+    <ApiContext.Provider value={api}>
+      {children({
+        ...api,
+        id: toastGroup.id,
+      })}
+    </ApiContext.Provider>
+  );
+}
+
+export function ToasterContainer({
+  className,
+  children,
+  toaster,
+}: {
+  className?: string;
+  children: (api: Api & { id?: string }) => React.ReactNode;
+  toaster: Store;
+}) {
+  const serviceGroup = useMachine(toast.group.machine, {
+    id: useId(),
+    store: toaster,
+  });
+  const apiGroup = toast.group.connect(serviceGroup, normalizeProps);
+
+  return (
+    <Portal>
+      <div
+        className={cn(toasterContainer, className)}
+        {...apiGroup.getGroupProps()}
+      >
+        {apiGroup.getToasts().map((toastGroup, index) => {
+          return (
+            <ToastItem
+              key={toastGroup.id}
+              index={index}
+              toastGroup={toastGroup}
+              serviceGroup={serviceGroup}
+            >
+              {children}
+            </ToastItem>
+          );
+        })}
       </div>
-    </div>
+    </Portal>
+  );
+}
+              `}
+            </PreviewCode>
+            <SectionContent>
+              Update the import paths to match your project setup.
+            </SectionContent>
+          </div>
+          <div id="usage">
+            <SectionTitle>Usage</SectionTitle>
+            <PreviewCode>
+              {`
+import {
+  toaster,
+  ToasterContainer,
+  ToastRoot,
+  ToastTitle,
+  ToastDescription,
+  ToastCloseTrigger,
+} from "@/components/ui/toast";
+              `}
+            </PreviewCode>
+            <PreviewCode>
+              {`
+<Button
+  onClick={() =>
+    toaster.create({
+      title: "Event has been created",
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+      type: "info",
+    })
+  }
+>
+  Show Toast
+</Button>
+<ToasterContainer toaster={toaster}>
+  {(toast) => (
+    <ToastRoot key={toast.id}>
+      <ToastTitle>{toast.title}</ToastTitle>
+      <ToastDescription>
+        {toast.description}
+      </ToastDescription>
+      <ToastCloseTrigger />
+    </ToastRoot>
+  )}
+</ToasterContainer>
+              `}
+            </PreviewCode>
+          </div>
+        </div>
+      </Wrapper>
+      <Menu>
+        <a className="hover:text-foreground py-1.5" href="#installation">
+          Installation
+        </a>
+        <a className="hover:text-foreground py-1.5" href="#usage">
+          Usage
+        </a>
+      </Menu>
+    </>
   );
 }
 

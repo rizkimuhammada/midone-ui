@@ -8,7 +8,7 @@ export const selectIndicator =
   "ms-auto transition data-[state=open]:rotate-180";
 export const selectClearTrigger =
   "text-danger/90 cursor-pointer text-xs hidden ms-1";
-export const selectPositioner = "!w-auto";
+export const selectPositioner = "!z-50 !w-auto";
 export const selectContent =
   "min-w-(--reference-width) p-0 z-(--layer-index) [&>div]:p-4 [&>div]:max-h-78 [&>div]:overflow-y-auto [&>div]:flex [&>div]:flex-col [&>div]:gap-5";
 export const selectItemGroup = "flex flex-col gap-3";
