@@ -8,7 +8,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@midoneui/core/*": ["packages/core/src/*"]
     }
   }
 }
