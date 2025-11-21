@@ -1,20 +1,4 @@
-import { MoveUpRight } from "lucide-react";
-import {
-  CheckboxRoot,
-  CheckboxLabel,
-  CheckboxControl,
-} from "@/components/ui/checkbox";
-import {
-  Wrapper,
-  Title,
-  Subtitle,
-  Menu,
-  Preview,
-  SectionTitle,
-  SectionContent,
-  InstallPackage,
-  PreviewCode,
-} from "@/components/docs";
+import { Wrapper, Title, Subtitle, Menu } from "@/components/docs";
 
 function Main() {
   return (

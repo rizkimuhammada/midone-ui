@@ -1,4 +1,3 @@
-import { MoveUpRight } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Wrapper,
@@ -8,9 +7,7 @@ import {
   Preview,
   SectionTitle,
   SectionContent,
-  InstallPackage,
   PreviewCode,
-  ApiButton,
 } from "@/components/docs";
 
 function Main() {

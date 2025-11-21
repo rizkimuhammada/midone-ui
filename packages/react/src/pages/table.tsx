@@ -1,4 +1,3 @@
-import { MoveUpRight } from "lucide-react";
 import {
   Table,
   TableHeader,
@@ -18,9 +17,7 @@ import {
   Preview,
   SectionTitle,
   SectionContent,
-  InstallPackage,
   PreviewCode,
-  ApiButton,
 } from "@/components/docs";
 
 function Main() {
