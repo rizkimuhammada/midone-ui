@@ -1,4 +1,3 @@
-import { MoveUpRight } from "lucide-react";
 import { CircleGauge } from "lucide-react";
 import { Box } from "@/components/ui/box";
 import {
@@ -9,9 +8,7 @@ import {
   Preview,
   SectionTitle,
   SectionContent,
-  InstallPackage,
   PreviewCode,
-  ApiButton,
 } from "@/components/docs";
 
 function Main() {

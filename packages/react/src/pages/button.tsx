@@ -1,4 +1,3 @@
-import { MoveUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LoaderCircle, Copy, Scissors, Trash, SquarePlus } from "lucide-react";
 import {
@@ -9,9 +8,7 @@ import {
   Preview,
   SectionTitle,
   SectionContent,
-  InstallPackage,
   PreviewCode,
-  ApiButton,
 } from "@/components/docs";
 
 function Main() {

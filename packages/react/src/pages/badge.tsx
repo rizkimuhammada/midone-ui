@@ -1,4 +1,3 @@
-import { MoveUpRight } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -9,9 +8,7 @@ import {
   Preview,
   SectionTitle,
   SectionContent,
-  InstallPackage,
   PreviewCode,
-  ApiButton,
 } from "@/components/docs";
 
 function Main() {
