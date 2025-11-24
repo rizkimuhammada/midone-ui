@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 import { MobileMenuContext } from "../../App";
 import { X } from "lucide-react";
 
-function Main() {
+function Main({ className }: React.ComponentProps<"div">) {
   const { showMenu, setShowMenu } = useContext(MobileMenuContext);
   const menus = [
     {
@@ -162,17 +162,18 @@ function Main() {
   return (
     <div
       className={twMerge([
-        "before:fixed before:absolute before:w-screen before:left-0 before:top-0 before:h-screen before:bg-background/5 before:backdrop-blur before:z-[-1]",
-        "after:fixed after:absolute after:inset-0 after:bg-background/80 after:border-r after:border-primary/30 lg:after:backdrop-none after:z-[-1]",
-        "h-[calc(100vh-14rem)] overflow-y-auto pt-10 top-0 left-0 fixed flex flex-col gap-10 text-foreground/50 w-70 lg:w-[25%] xl:w-[15%] lg:top-30 bottom-0 lg:pt-0 lg:pt-10 pl-10 z-60 -ml-[100%] transition-[margin] lg:left-auto lg:ml-0 before:hidden after:hidden [&.active]:ml-0 [&.active]:after:block [&.active]:before:block [&.active]:lg:before:hidden [&.active]:lg:after:hidden",
+        "before:fixed before:w-screen before:left-0 before:top-0 before:h-screen before:bg-background/5 before:backdrop-blur before:z-[-1]",
+        "after:fixed after:w-70 after:inset-0 after:bg-background/80 after:border-r after:border-foreground/15 lg:after:backdrop-none after:z-[-1]",
+        "h-screen pb-10 sm:h-[calc(100vh-14rem)] overflow-y-auto pt-10 top-0 left-0 fixed flex flex-col gap-10 text-foreground/50 w-70 lg:w-[25%] xl:w-[15%] lg:top-30 bottom-0 lg:pt-0 lg:pt-10 pl-10 z-[99999] -ml-[100%] transition-[margin] lg:left-auto lg:ml-0 before:hidden after:hidden [&.active]:ml-0 [&.active]:after:block [&.active]:before:block [&.active]:lg:before:hidden [&.active]:lg:after:hidden",
         showMenu && "active",
+        className,
       ])}
     >
       <div
         onClick={() => setShowMenu(false)}
-        className="absolute top-0 right-0 -mr-14 mt-8 cursor-pointer text-foreground lg:hidden"
+        className="absolute top-0 right-0 mt-8 cursor-pointer text-foreground lg:hidden border-s border-y border-white/20 z-[9999] py-1 px-2"
       >
-        <X className="size-6" />
+        <X className="size-5" />
       </div>
       <div className="flex flex-col">
         <div className="font-medium text-foreground mb-2">Getting Started</div>

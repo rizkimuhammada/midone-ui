@@ -8,8 +8,8 @@ function Main() {
           <div>
             <Title>How to Use</Title>
             <Subtitle>
-              A vertically stacked set of interactive headings that each reveal
-              a section of content.
+              An overview of how to set up, customize, and interact with the
+              component.
             </Subtitle>
           </div>
         </div>

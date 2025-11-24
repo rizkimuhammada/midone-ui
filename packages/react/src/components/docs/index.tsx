@@ -15,7 +15,7 @@ function Wrapper({ children }: React.PropsWithChildren) {
   return (
     <div
       className={cn([
-        "p-7 sm:p-10 lg:px-20 lg:py-14 sm:mx-10 lg:ml-0 xl:mr-0 col-span-10 xl:col-span-8 border border-foreground/20 bg-background/50 mb-10 relative",
+        "p-7 sm:p-10 lg:px-20 lg:py-14 sm:mx-10 lg:ml-0 xl:mr-0 col-span-10 xl:col-span-8 border-x sm:border-y border-foreground/20 bg-background/50 mb-10 relative",
         "before:absolute before:inset-0 before:bg-background/50 before:z-[-1]",
       ])}
     >

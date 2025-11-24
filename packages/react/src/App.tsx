@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { Github } from "lucide-react";
+import { Github, Zap } from "lucide-react";
 import { Frame } from "@/components/ui/frame";
 import { Outlet, Link } from "react-router";
 
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <MobileMenuContext.Provider value={{ showMenu, setShowMenu }}>
-      <div className="min-h-screen">
+      <div className="min-h-screen w-screen overflow-hidden">
         <div className="before:fixed before:inset-x-0 before:top-0 before:h-80 before:bg-gradient-to-b before:from-black/50 before:to-transparent before:z-[-1]">
           <div className="h-20 flex fixed top-0 inset-x-0 z-70 [&_svg]:drop-shadow-xl [&_svg]:drop-shadow-foreground">
             <div className="size-full relative">
@@ -44,7 +44,7 @@ function App() {
               />
             </div>
             <div className="size-full container relative flex-none flex before:absolute before:w-px before:h-screen before:bg-foreground/20 before:-ms-12.5 before:top-18">
-              <div className="size-full flex-none flex items-center w-48 relative ps-5">
+              <div className="size-full flex-none hidden lg:flex items-center w-48 relative ps-5">
                 <Frame
                   className={twMerge([
                     "[--color-frame-1-stroke:--alpha(var(--color-foreground)/65%)]",
@@ -73,7 +73,7 @@ function App() {
                   Midone UI.
                 </Link>
               </div>
-              <div className="size-full relative">
+              <div className="size-full relative hidden lg:block">
                 <Frame
                   className={twMerge([
                     "[--color-frame-1-stroke:--alpha(var(--color-foreground)/65%)]",
@@ -96,7 +96,7 @@ function App() {
                   )}
                 />
               </div>
-              <div className="size-full relative bg-brown-500 flex items-center justify-center gap-10 px-24 -ms-px">
+              <div className="size-full relative bg-brown-500 flex items-center justify-center gap-10 px-18 lg:px-24 -ms-px">
                 <Frame
                   className={twMerge([
                     "[--color-frame-1-stroke:--alpha(var(--color-foreground)/65%)]",
@@ -119,31 +119,44 @@ function App() {
                   )}
                 />
                 <Link
+                  to="/"
+                  className="-mt-4 text-shadow-md text-shadow-foreground/20 font-medium text-base relative lg:hidden"
+                >
+                  Midone UI.
+                </Link>
+                <Link
                   to="/docs"
-                  className="-mt-4 opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
+                  className="-mt-4 hidden lg:block opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
                 >
                   Docs
                 </Link>
                 <Link
                   to="/components"
-                  className="-mt-4 opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
+                  className="-mt-4 hidden lg:block opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
                 >
                   Components
                 </Link>
                 <Link
                   to="/blocks"
-                  className="-mt-4 opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
+                  className="-mt-4 hidden lg:block opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
                 >
                   Blocks
                 </Link>
                 <Link
                   to="/templates"
-                  className="-mt-4 opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
+                  className="-mt-4 hidden lg:block opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
                 >
                   Templates
                 </Link>
+                <div
+                  onClick={() => setShowMenu(true)}
+                  className="-mt-4 ms-auto flex items-center gap-2 lg:hidden relative cursor-pointer"
+                >
+                  <Zap className="size-4" />
+                  Menu
+                </div>
               </div>
-              <div className="size-full relative -me-px">
+              <div className="size-full relative hidden lg:block -me-px">
                 <Frame
                   className={twMerge([
                     "[--color-frame-1-stroke:--alpha(var(--color-foreground)/65%)]",
@@ -166,7 +179,7 @@ function App() {
                   )}
                 />
               </div>
-              <div className="justify-end w-44 h-full relative flex-none flex items-center gap-3 pe-5">
+              <div className="justify-end w-44 h-full relative flex-none hidden lg:flex items-center gap-3 pe-5">
                 <Frame
                   className={twMerge([
                     "[--color-frame-1-stroke:--alpha(var(--color-foreground)/65%)]",
@@ -217,17 +230,17 @@ function App() {
               />
             </div>
           </div>
-          <div className="container mx-auto px-4 sm:px-0 mt-20">
+          <div className="container mx-auto px-4 sm:px-20 2xl:px-0 mt-20">
             <div className="mx-5">
               <Outlet />
-              <div className="flex py-8 relative before:bg-accent before:bg-size-[50%] before:bg-center before:bg-no-repeat before:absolute before:inset-0 before:mt-[2%] before:-ms-[80%] before:blur-2xl dark:before:opacity-65">
+              <div className="flex-col sm:flex-row gap-2 items-center flex py-8 relative before:bg-accent before:bg-size-[50%] before:bg-center before:bg-no-repeat before:absolute before:inset-0 before:mt-[2%] before:-ms-[80%] before:blur-2xl dark:before:opacity-65">
                 <div className="-mx-[1000%] inset-x-0 top-0 border-t border-foreground/15 absolute"></div>
                 <div className="relative">
                   <span className="opacity-70">A project by</span>{" "}
                   <a href="">Left4code</a>{" "}
                   <span className="opacity-70">team</span>
                 </div>
-                <div className="ms-auto flex gap-5 relative">
+                <div className="sm:ms-auto flex gap-5 relative">
                   <a href="">Docs</a>
                   <a href="">Github</a>
                   <a href="">Twitter</a>

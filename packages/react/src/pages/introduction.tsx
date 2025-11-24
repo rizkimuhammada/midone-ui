@@ -8,8 +8,8 @@ function Main() {
           <div>
             <Title>Introduction</Title>
             <Subtitle>
-              A vertically stacked set of interactive headings that each reveal
-              a section of content.
+              A brief overview of the component and how it fits into your
+              workflow.
             </Subtitle>
           </div>
         </div>
