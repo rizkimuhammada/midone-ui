@@ -44,7 +44,7 @@ function App() {
               />
             </div>
             <div className="size-full container relative flex-none flex before:absolute before:w-px before:h-screen before:bg-foreground/20 before:-ms-12.5 before:top-18">
-              <div className="size-full flex-none hidden lg:flex items-center w-48 relative ps-5">
+              <div className="size-full flex-none hidden lg:flex items-center w-48 relative ps-10 2xl:ps-5">
                 <Frame
                   className={twMerge([
                     "[--color-frame-1-stroke:--alpha(var(--color-foreground)/65%)]",
@@ -131,16 +131,10 @@ function App() {
                   Docs
                 </Link>
                 <Link
-                  to="/components"
+                  to="/docs/accordion"
                   className="-mt-4 hidden lg:block opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
                 >
                   Components
-                </Link>
-                <Link
-                  to="/blocks"
-                  className="-mt-4 hidden lg:block opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
-                >
-                  Blocks
                 </Link>
                 <Link
                   to="/templates"
@@ -179,7 +173,7 @@ function App() {
                   )}
                 />
               </div>
-              <div className="justify-end w-44 h-full relative flex-none hidden lg:flex items-center gap-3 pe-5">
+              <div className="justify-end w-44 h-full relative flex-none hidden lg:flex items-center gap-3 pe-10 2xl:pe-5">
                 <Frame
                   className={twMerge([
                     "[--color-frame-1-stroke:--alpha(var(--color-foreground)/65%)]",
@@ -201,9 +195,13 @@ function App() {
                     '[{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-1-stroke)","fill":"var(--color-frame-1-fill)"},"path":[["M","0","0"],["L","50% + 88","0"],["L","100% + 0","100% - 5"],["L","16","100% - 10"],["L","0","100% - 56"],["L","0","0"]]}]'
                   )}
                 />
-                <span className="flex items-center gap-2 -mt-4">
+                <a
+                  href="https://github.com/rizkimuhammada/midone-ui"
+                  target="_blank"
+                  className="flex items-center gap-2 -mt-4 relative"
+                >
                   <Github className="size-4 !drop-shadow-none" /> Github
-                </span>
+                </a>
               </div>
             </div>
             <div className="size-full relative">
@@ -230,7 +228,7 @@ function App() {
               />
             </div>
           </div>
-          <div className="container mx-auto px-4 sm:px-20 2xl:px-0 mt-20">
+          <div className="container mx-auto px-4 2xl:px-0 mt-20">
             <div className="mx-5">
               <Outlet />
               <div className="flex-col sm:flex-row gap-2 items-center flex py-8 relative before:bg-accent before:bg-size-[50%] before:bg-center before:bg-no-repeat before:absolute before:inset-0 before:mt-[2%] before:-ms-[80%] before:blur-2xl dark:before:opacity-65">
