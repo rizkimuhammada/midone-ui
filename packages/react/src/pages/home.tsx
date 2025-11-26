@@ -2,6 +2,7 @@ import Menu from "@/components/menu";
 import { CosmicButton } from "@/components/cosmic-button";
 import structure from "@/assets/images/structure.svg";
 import layer from "@/assets/images/layer.svg";
+import { Link } from "react-router";
 
 function Main() {
   return (
@@ -27,9 +28,11 @@ function Main() {
               the Midone Design System, Zag.js, and Tailwind CSS.
             </span>
           </div>
-          <CosmicButton className="w-60 mt-5 sm:mt-10">
-            Get Started
-          </CosmicButton>
+          <Link to="/docs">
+            <CosmicButton className="w-60 mt-5 sm:mt-10">
+              Get Started
+            </CosmicButton>
+          </Link>
         </div>
         <div className="relative mx-auto lg:mx-0">
           <img
@@ -37,7 +40,7 @@ function Main() {
             src={structure}
           />
         </div>
-        <div className="w-1.5 hidden lg:block absolute inset-x-0 mx-auto bottom-0 flex flex-col gap-1">
+        <div className="w-1.5 hidden absolute inset-x-0 mx-auto bottom-0 lg:flex flex-col gap-1">
           <div className="shadow-md shadow-foreground/50 h-6 bg-foreground/30 border border-foreground/80 mb-1"></div>
           <div className="shadow-md shadow-foreground/50 size-1.5 bg-foreground/30 border border-foreground/80"></div>
           <div className="shadow-md shadow-foreground/50 size-1.5 bg-foreground/30 border border-foreground/80"></div>
@@ -134,7 +137,9 @@ function Main() {
               been easier.
             </span>
           </div>
-          <CosmicButton className="w-60 mt-10">Get Started</CosmicButton>
+          <Link to="/docs">
+            <CosmicButton className="w-60 mt-10">Get Started</CosmicButton>
+          </Link>
         </div>
       </div>
       <div className="lg:hidden">
