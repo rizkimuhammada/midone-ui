@@ -1,17 +1,27 @@
 <script lang="ts" setup>
-import { Combobox, type ComboboxClearTriggerProps } from "@ark-ui/vue/combobox";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { comboboxClearTrigger } from "@midoneui/core/styles/combobox.styles";
+import type { Api } from "@zag-js/combobox";
+import { inject } from "vue";
 
-const props = defineProps<ComboboxClearTriggerProps & {
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
   class?: string;
+  asChild?: boolean;
 }>();
+
+const api = inject<Api>("comboboxApi");
 </script>
 
 <template>
-  <Combobox.ClearTrigger v-bind="props" as-child>
-    <span :class="cn(comboboxClearTrigger, props.class)">
+  <Slot v-bind="{ ...props, ...$attrs, ...api?.getClearTriggerProps() }">
+    <slot v-if="asChild" />
+    <span :class="cn(comboboxClearTrigger, className)" v-else>
       <slot />
     </span>
-  </Combobox.ClearTrigger>
+  </Slot>
 </template>

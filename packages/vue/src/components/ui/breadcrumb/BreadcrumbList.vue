@@ -2,13 +2,13 @@
 import { cn } from "@midoneui/core/utils/cn";
 import { breadcrumbList } from "@midoneui/core/styles/breadcrumb.styles";
 
-const props = defineProps<{
+const { class: className, ...props } = defineProps<{
   class?: string;
 }>();
 </script>
 
 <template>
-  <ol :class="cn(breadcrumbList, props.class)" v-bind="props">
+  <ol :class="cn(className, breadcrumbList)" v-bind="{ ...props, ...$attrs }">
     <slot />
   </ol>
 </template>

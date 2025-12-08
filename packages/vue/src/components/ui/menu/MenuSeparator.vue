@@ -1,15 +1,33 @@
 <script lang="ts" setup>
-import { Menu, type MenuSeparatorProps } from "@ark-ui/vue/menu";
+import type { Api } from "@zag-js/menu";
 import { cn } from "@midoneui/core/utils/cn";
 import { menuSeparator } from "@midoneui/core/styles/menu.styles";
+import { inject } from "vue";
 
-const props = defineProps<
-  MenuSeparatorProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("menuApi");
 </script>
 
 <template>
-  <Menu.Separator :class="cn(menuSeparator, props.class)" v-bind="props" />
+  <Slot
+    :class="cn(menuSeparator, className)"
+    v-bind="{
+      ...props,
+      ...$attrs,
+      ...api?.getSeparatorProps(),
+    }"
+  >
+    <slot v-if="asChild" />
+    <hr v-else>
+      <slot />
+    </hr>
+  </Slot>
 </template>

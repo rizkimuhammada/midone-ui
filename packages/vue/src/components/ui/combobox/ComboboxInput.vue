@@ -1,16 +1,20 @@
 <script lang="ts" setup>
-import { Combobox, type ComboboxInputProps } from "@ark-ui/vue/combobox";
 import { cn } from "@midoneui/core/utils/cn";
 import { comboboxInput } from "@midoneui/core/styles/combobox.styles";
 import { Input } from "@/components/ui/input";
+import type { Api } from "@zag-js/combobox";
+import { inject } from "vue";
 
-const props = defineProps<ComboboxInputProps & {
+const { class: className, ...props } = defineProps<{
   class?: string;
 }>();
+
+const api = inject<Api>("comboboxApi");
 </script>
 
 <template>
-  <Combobox.Input v-bind="props" as-child>
-    <Input :class="cn(comboboxInput, props.class)" />
-  </Combobox.Input>
+  <Input
+    :class="cn(comboboxInput, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getInputProps() }"
+  />
 </template>

@@ -1,15 +1,32 @@
 <script lang="ts" setup>
-import { Combobox, type ComboboxItemProps } from "@ark-ui/vue/combobox";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { comboboxItem } from "@midoneui/core/styles/combobox.styles";
+import type { ItemProps } from "@zag-js/combobox";
+import type { Api } from "@zag-js/combobox";
+import { provide, inject } from "vue";
+import { ComboboxItemIndicator } from ".";
 
-const props = defineProps<ComboboxItemProps & {
-  class?: string;
-}>();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<ItemProps & { class?: string; asChild?: boolean }>();
+
+const api = inject<Api>("comboboxApi");
+
+provide("comboboxItem", props);
 </script>
 
 <template>
-  <Combobox.Item :class="cn(comboboxItem, props.class)" v-bind="props">
-    <slot />
-  </Combobox.Item>
+  <Slot
+    :class="cn(comboboxItem, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getItemProps(props) }"
+  >
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot />
+      <ComboboxItemIndicator />
+    </div>
+  </Slot>
 </template>

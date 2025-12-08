@@ -1,22 +1,34 @@
 <script lang="ts" setup>
 import { type Api } from "@zag-js/menu";
 import { cn } from "@midoneui/core/utils/cn";
-import { inject, type ComputedRef } from "vue";
+import { inject } from "vue";
 import { menuPositioner } from "@midoneui/core/styles/menu.styles";
+import { Slot } from "@/components/ui/slot";
 
-interface Props {
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
   class?: string;
-}
+  asChild?: boolean;
+}>();
 
-const { class: className, ...props } = defineProps<Props>();
-const api = inject<ComputedRef<Api>>("menuApi");
+const api = inject<Api>("menuApi");
+
+console.log("cok");
 </script>
 
 <template>
-  <div
-    v-bind="{ ...api?.getPositionerProps(), ...props, ...$attrs }"
-    :class="cn(menuPositioner, className)"
-  >
-    <slot />
-  </div>
+  <Teleport to="body">
+    <Slot
+      :class="cn(menuPositioner, className)"
+      v-bind="{ ...props, ...$attrs, ...api?.getPositionerProps() }"
+    >
+      <slot v-if="asChild" />
+      <div v-else>
+        <slot />
+      </div>
+    </Slot>
+  </Teleport>
 </template>

@@ -1,6 +1,6 @@
 export { default as MenuRoot } from "./MenuRoot.vue";
 export { default as MenuTrigger } from "./MenuTrigger.vue";
-export { default as MenuIndicator } from "./MenuPositioner.vue";
+export { default as MenuIndicator } from "./MenuIndicator.vue";
 export { default as MenuPositioner } from "./MenuPositioner.vue";
 export { default as MenuContent } from "./MenuContent.vue";
 export { default as MenuItem } from "./MenuItem.vue";

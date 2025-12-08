@@ -11,17 +11,12 @@ import type { Api, ItemProps } from "@zag-js/accordion";
 
 const {
   class: className,
-  asChild,
+  asChild = false,
   ...props
-} = withDefaults(
-  defineProps<{
-    class?: string;
-    asChild?: boolean;
-  }>(),
-  {
-    asChild: false,
-  }
-);
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
 
 const api = inject<Api>("accordionApi");
 const item = inject<ItemProps>("accordionItem");

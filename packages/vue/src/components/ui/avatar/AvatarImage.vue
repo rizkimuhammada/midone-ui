@@ -1,13 +1,19 @@
 <script lang="ts" setup>
-import { Avatar, type AvatarImageProps } from "@ark-ui/vue/avatar";
 import { cn } from "@midoneui/core/utils/cn";
 import { avatarImage } from "@midoneui/core/styles/avatar.styles";
+import { inject } from "vue";
+import type { Api } from "@zag-js/avatar";
 
-const props = defineProps<AvatarImageProps & {
+const { class: className, ...props } = defineProps<{
   class?: string;
 }>();
+
+const api = inject<Api>("avatarApi");
 </script>
 
 <template>
-  <Avatar.Image :class="cn(avatarImage, props.class)" v-bind="props" />
+  <img
+    :class="cn(avatarImage, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getImageProps() }"
+  />
 </template>

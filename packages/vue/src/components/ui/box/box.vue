@@ -5,7 +5,13 @@ import {
   type BoxVariants,
 } from "@midoneui/core/styles/box.styles";
 
-const props = defineProps<
+const {
+  class: className,
+  filled,
+  variant,
+  raised,
+  ...props
+} = defineProps<
   BoxVariants & {
     class?: string;
     filled?: boolean;
@@ -15,18 +21,8 @@ const props = defineProps<
 
 <template>
   <div
-    :class="
-      cn(
-        boxVariants({
-          filled: props.filled,
-          variant: props.variant,
-          raised: props.raised,
-          className: props.class,
-        }),
-        props.class
-      )
-    "
-    v-bind="props"
+    :class="cn(boxVariants({ filled, variant, raised, className }), className)"
+    v-bind="{ ...props, ...$attrs }"
   >
     <slot />
   </div>

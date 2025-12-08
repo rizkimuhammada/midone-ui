@@ -9,24 +9,17 @@ import { Slot } from "@/components/ui/slot";
 
 const {
   class: className,
-  variant,
-  asChild,
-  collapsible,
+  variant = "default",
+  asChild = false,
+  collapsible = true,
   ...props
-} = withDefaults(
-  defineProps<
-    Partial<Props> & {
-      class?: string;
-      variant?: "default" | "boxed";
-      asChild?: boolean;
-    }
-  >(),
-  {
-    variant: "default",
-    asChild: false,
-    collapsible: true,
+} = defineProps<
+  Partial<Props> & {
+    class?: string;
+    variant?: "default" | "boxed";
+    asChild?: boolean;
   }
-);
+>();
 
 const service = useMachine(accordion.machine, {
   collapsible,

@@ -1,14 +1,26 @@
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
+import { Slot } from "@/components/ui/slot";
 import { alertDescription } from "@midoneui/core/styles/alert.styles";
 
-const props = defineProps<{
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
   class?: string;
+  asChild?: boolean;
 }>();
 </script>
 
 <template>
-  <div :class="cn([props.class, alertDescription])" v-bind="props">
-    <slot />
-  </div>
+  <Slot
+    :class="cn([className, alertDescription])"
+    v-bind="{ ...props, ...$attrs }"
+  >
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot />
+    </div>
+  </Slot>
 </template>

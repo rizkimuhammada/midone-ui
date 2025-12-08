@@ -1,19 +1,35 @@
 <script lang="ts" setup>
-import { Checkbox, type CheckboxRootProps } from "@ark-ui/vue/checkbox";
 import { cn } from "@midoneui/core/utils/cn";
 import { checkboxRoot } from "@midoneui/core/styles/checkbox.styles";
-import CheckboxHiddenInput from "./CheckboxHiddenInput.vue";
+import * as checkbox from "@zag-js/checkbox";
+import { useMachine, normalizeProps } from "@zag-js/vue";
+import type { Api, Props } from "@zag-js/checkbox";
+import { CheckboxHiddenInput } from ".";
+import { computed, provide } from "vue";
 
-const props = defineProps<
-  CheckboxRootProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  checked = undefined,
+  ...props
+} = defineProps<Partial<Props> & { class?: string }>();
+
+const service = useMachine(checkbox.machine, {
+  ...props,
+  checked,
+  id: crypto.randomUUID(),
+});
+
+const api = computed(() => checkbox.connect(service, normalizeProps));
+
+provide("checkboxApi", api);
 </script>
 
 <template>
-  <Checkbox.Root :class="cn(checkboxRoot, props.class)" v-bind="props">
+  <label
+    :class="cn(checkboxRoot, className)"
+    v-bind="{ ...props, ...$attrs, ...api.getRootProps() }"
+  >
     <slot />
     <CheckboxHiddenInput />
-  </Checkbox.Root>
+  </label>
 </template>

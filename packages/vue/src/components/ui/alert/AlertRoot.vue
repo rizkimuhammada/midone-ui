@@ -5,16 +5,16 @@ import {
   boxVariants,
   type BoxVariants,
 } from "@midoneui/core/styles/box.styles";
-import { Presence, type PresenceProps } from "@ark-ui/vue/presence";
+import { Presence } from "@/components/ui/presence";
 import { ref, provide } from "vue";
 
-const props = defineProps<
-  PresenceProps &
-    BoxVariants & {
-      class?: string;
-      filled?: boolean;
-    }
->();
+const {
+  class: className,
+  filled,
+  variant,
+  raised,
+  ...rest
+} = defineProps<BoxVariants & { class?: string; filled?: boolean }>();
 
 const present = ref(true);
 const setPresent = (value: boolean) => {
@@ -29,15 +29,15 @@ provide("alertPresent", { present, setPresent });
     :class="
       cn(
         boxVariants({
-          filled: props.filled,
-          variant: props.variant,
-          raised: props.raised,
-          className: props.class,
+          filled,
+          variant,
+          raised,
+          className,
         }),
         alertRoot
       )
     "
-    v-bind="props"
+    v-bind="rest"
     :present="present"
   >
     <slot />

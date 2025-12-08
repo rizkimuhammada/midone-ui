@@ -1,21 +1,31 @@
 <script lang="ts" setup>
-import { Carousel, type CarouselPrevTriggerProps } from "@ark-ui/vue/carousel";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-vue-next";
 import { carouselPrevTrigger } from "@midoneui/core/styles/carousel.styles";
+import type { Api } from "@zag-js/carousel";
+import { inject } from "vue";
 
-const props = defineProps<CarouselPrevTriggerProps & {
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
   class?: string;
+  asChild?: boolean;
 }>();
+
+const api = inject<Api>("carouselApi");
 </script>
 
 <template>
-  <Carousel.PrevTrigger v-bind="props" as-child>
-    <Button :class="cn(carouselPrevTrigger, props.class)">
-      <slot>
-        <ArrowLeft />
-      </slot>
+  <Slot v-bind="{ ...props, ...$attrs, ...api.getPrevTriggerProps() }">
+    <slot v-if="asChild" />
+    <Button v-else :class="cn(carouselPrevTrigger, className)">
+      <slot v-if="$slots.default" />
+      <ArrowLeft v-else />
     </Button>
-  </Carousel.PrevTrigger>
+    <slot />
+  </Slot>
 </template>

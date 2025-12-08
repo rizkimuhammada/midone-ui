@@ -1,20 +1,26 @@
 <script lang="ts" setup>
-import { Menu, type MenuItemGroupLabelProps } from "@ark-ui/vue/menu";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { menuItemGroupLabel } from "@midoneui/core/styles/menu.styles";
 
-const props = defineProps<
-  MenuItemGroupLabelProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
 </script>
 
 <template>
-  <Menu.ItemGroupLabel
-    :class="cn(menuItemGroupLabel, props.class)"
-    v-bind="props"
+  <Slot
+    :class="cn(menuItemGroupLabel, className)"
+    v-bind="{ ...props, ...$attrs }"
   >
-    <slot />
-  </Menu.ItemGroupLabel>
+    <slot v-if="asChild" />
+    <label v-else>
+      <slot />
+    </label>
+  </Slot>
 </template>

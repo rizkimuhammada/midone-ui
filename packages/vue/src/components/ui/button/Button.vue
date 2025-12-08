@@ -5,7 +5,13 @@ import {
   type ButtonVariants,
 } from "@midoneui/core/styles/button.styles";
 
-const props = defineProps<
+const {
+  class: className,
+  filled,
+  variant,
+  size,
+  ...props
+} = defineProps<
   ButtonVariants & {
     class?: string;
     filled?: boolean;
@@ -15,18 +21,8 @@ const props = defineProps<
 
 <template>
   <button
-    :class="
-      cn(
-        buttonVariants({
-          filled: props.filled,
-          variant: props.variant,
-          size: props.size,
-          className: props.class,
-        }),
-        props.class
-      )
-    "
-    v-bind="props"
+    v-bind="{ ...props, ...$attrs }"
+    :class="cn(buttonVariants({ filled, variant, size, className }), className)"
   >
     <slot />
   </button>

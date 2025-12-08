@@ -1,29 +1,34 @@
 <script lang="ts" setup>
 import * as menu from "@zag-js/menu";
-import { type Api } from "@zag-js/menu";
+import type { Props } from "@zag-js/menu";
 import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
-import { computed, provide, type ComputedRef } from "vue";
+import { computed, provide } from "vue";
 import { menuRoot } from "@midoneui/core/styles/menu.styles";
 
-const service = useMachine(menu.machine, { id: crypto.randomUUID() });
+const {
+  class: className,
+  asChild = false,
+  open = undefined,
+  ...props
+} = defineProps<Partial<Props> & { class?: string; asChild?: boolean }>();
+
+const service = useMachine(menu.machine, {
+  ...props,
+  open,
+  id: crypto.randomUUID(),
+});
 const api = computed(() => menu.connect(service, normalizeProps));
 
-interface Props {
-  class?: string;
-  asChild?: boolean;
-}
-
-const { class: className, ...props } = defineProps<Props>();
-provide<ComputedRef<Api>>("menuApi", api);
+provide("menuApi", api);
 </script>
 
 <template>
-  <Slot v-bind="{ ...props, ...$attrs }">
-    <div v-if="!props.asChild" :class="cn(menuRoot, className)">
+  <Slot :class="cn(menuRoot, className)" v-bind="{ ...props, ...$attrs }">
+    <slot v-if="asChild" />
+    <div v-else>
       <slot />
     </div>
-    <slot v-else />
   </Slot>
 </template>

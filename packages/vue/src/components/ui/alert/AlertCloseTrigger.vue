@@ -1,26 +1,35 @@
 <script lang="ts" setup>
 import { X } from "lucide-vue-next";
 import { cn } from "@midoneui/core/utils/cn";
+import { Slot } from "@/components/ui/slot";
 import { alertCloseTrigger } from "@midoneui/core/styles/alert.styles";
 import { inject } from "vue";
 
-const props = defineProps<{
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
   class?: string;
+  asChild?: boolean;
 }>();
 
-const context = inject<{ present: any; setPresent: (value: boolean) => void } | null>("alertPresent", null);
+const context = inject<{
+  present: boolean;
+  setPresent: (value: boolean) => void;
+} | null>("alertPresent", null);
 </script>
 
 <template>
-  <div
-    v-if="!$slots.default"
-    :class="cn([props.class, alertCloseTrigger])"
-    v-bind="props"
+  <Slot
+    :class="cn([className, alertCloseTrigger])"
+    v-bind="{ ...props, ...$attrs }"
     @click="context?.setPresent(false)"
   >
-    <X />
-  </div>
-  <div v-else :class="cn([props.class, alertCloseTrigger])" v-bind="props">
-    <slot />
-  </div>
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot v-if="$slots.default" />
+      <X v-else />
+    </div>
+  </Slot>
 </template>

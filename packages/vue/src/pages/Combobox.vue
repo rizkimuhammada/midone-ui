@@ -10,7 +10,6 @@ import {
   ComboboxItemGroupLabel,
   ComboboxItem,
   ComboboxItemText,
-  ComboboxItemIndicator,
 } from "@/components/ui/combobox";
 import { ref } from "vue";
 import { useListCollection, type Combobox } from "@ark-ui/vue/combobox";
@@ -119,7 +118,6 @@ const collectionTimezone = useListCollection({
                 :item="item"
               >
                 <ComboboxItemText>{{ item }}</ComboboxItemText>
-                <ComboboxItemIndicator />
               </ComboboxItem>
             </ComboboxItemGroup>
           </ComboboxContent>
@@ -150,7 +148,6 @@ const collectionTimezone = useListCollection({
                 :item="item"
               >
                 <ComboboxItemText>{{ item }}</ComboboxItemText>
-                <ComboboxItemIndicator />
               </ComboboxItem>
             </ComboboxItemGroup>
           </ComboboxContent>
@@ -184,7 +181,6 @@ const collectionTimezone = useListCollection({
                 :item="timezoneItem.value"
               >
                 <ComboboxItemText>{{ timezoneItem.label }}</ComboboxItemText>
-                <ComboboxItemIndicator />
               </ComboboxItem>
             </ComboboxItemGroup>
           </ComboboxContent>

@@ -1,15 +1,30 @@
 <script lang="ts" setup>
-import { Carousel, type CarouselIndicatorGroupProps } from "@ark-ui/vue/carousel";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { carouselIndicatorGroup } from "@midoneui/core/styles/carousel.styles";
+import type { Api, IndicatorProps } from "@zag-js/carousel";
+import { inject } from "vue";
 
-const props = defineProps<CarouselIndicatorGroupProps & {
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
   class?: string;
+  asChild?: boolean;
 }>();
+
+const api = inject<Api>("carouselApi");
 </script>
 
 <template>
-  <Carousel.IndicatorGroup :class="cn(carouselIndicatorGroup, props.class)" v-bind="props">
-    <slot />
-  </Carousel.IndicatorGroup>
+  <Slot
+    :class="cn(carouselIndicatorGroup, className)"
+    v-bind="{ ...props, ...$attrs, ...api.getIndicatorGroupProps() }"
+  >
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot />
+    </div>
+  </Slot>
 </template>

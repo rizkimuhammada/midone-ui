@@ -1,37 +1,32 @@
 <script lang="ts" setup>
-import { Combobox, type ComboboxTriggerProps } from "@ark-ui/vue/combobox";
 import { cn } from "@midoneui/core/utils/cn";
 import { Button } from "@/components/ui/button";
 import { ChevronsUpDownIcon } from "lucide-vue-next";
-import { inject } from "vue";
 import { comboboxTrigger } from "@midoneui/core/styles/combobox.styles";
-import { ComboboxClearTrigger } from "./index";
+import { ComboboxClearTrigger } from ".";
+import type { Api } from "@zag-js/combobox";
+import { inject } from "vue";
+import { Slot } from "@/components/ui/slot";
 
-const props = defineProps<
-  ComboboxTriggerProps & {
-    class?: string;
-    asChild?: boolean;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
 
-const value = inject<string[] | undefined>("comboboxValue", undefined);
+const api = inject<Api>("comboboxApi");
 </script>
 
 <template>
-  <Combobox.Trigger v-bind="props" as-child>
-    <template v-if="!props.asChild">
-      <Button :class="cn(comboboxTrigger, props.class)">
-        <div>
-          {{
-            value && value[0]?.length ? value.join(", ") : "Select Options..."
-          }}
-        </div>
-        <ComboboxClearTrigger>Clear</ComboboxClearTrigger>
-        <ChevronsUpDownIcon />
-      </Button>
-    </template>
-    <template v-else>
-      <slot />
-    </template>
-  </Combobox.Trigger>
+  <Slot v-bind="{ ...props, ...$attrs, ...api?.getTriggerProps() }">
+    <Button v-if="!asChild" :class="cn(comboboxTrigger, className)">
+      <div>{{ api?.valueAsString || "Select Options..." }}</div>
+      <ComboboxClearTrigger>Clear</ComboboxClearTrigger>
+      <ChevronsUpDownIcon />
+    </Button>
+    <slot v-else />
+  </Slot>
 </template>

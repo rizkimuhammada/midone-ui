@@ -1,18 +1,29 @@
 <script lang="ts" setup>
-import { Carousel, type CarouselItemProps } from "@ark-ui/vue/carousel";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { Box } from "@/components/ui/box";
 import { carouselItem } from "@midoneui/core/styles/carousel.styles";
+import type { Api, ItemProps } from "@zag-js/carousel";
+import { inject } from "vue";
 
-const props = defineProps<CarouselItemProps & {
-  class?: string;
-}>();
+const {
+  class: className,
+  asChild = false,
+  index,
+  ...props
+} = defineProps<
+  {
+    class?: string;
+    asChild?: boolean;
+  } & ItemProps
+>();
+
+const api = inject<Api>("carouselApi");
 </script>
 
 <template>
-  <Carousel.Item v-bind="props" as-child>
-    <Box :class="cn(carouselItem, props.class)">
-      <slot />
-    </Box>
-  </Carousel.Item>
+  <Slot v-bind="{ ...props, ...$attrs, ...api.getItemProps({ index }) }">
+    <slot v-if="asChild" />
+    <Box v-else :class="cn(carouselItem, className)"><slot /></Box>
+  </Slot>
 </template>

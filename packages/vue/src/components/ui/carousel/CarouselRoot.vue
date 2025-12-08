@@ -1,15 +1,40 @@
 <script lang="ts" setup>
-import { Carousel, type CarouselRootProps } from "@ark-ui/vue/carousel";
+import * as carousel from "@zag-js/carousel";
+import { useMachine, normalizeProps } from "@zag-js/vue";
+import type { Api, IndicatorProps, ItemProps, Props } from "@zag-js/carousel";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { carouselRoot } from "@midoneui/core/styles/carousel.styles";
+import { computed, provide } from "vue";
 
-const props = defineProps<CarouselRootProps & {
-  class?: string;
-}>();
+const {
+  class: className,
+  defaultPage,
+  slideCount,
+  asChild = false,
+  ...props
+} = defineProps<Partial<Props> & { asChild?: boolean; class?: string }>();
+
+const service = useMachine(carousel.machine, {
+  defaultPage,
+  slideCount,
+  ...props,
+  id: crypto.randomUUID(),
+});
+
+const api = computed(() => carousel.connect(service, normalizeProps));
+
+provide("carouselApi", api);
 </script>
 
 <template>
-  <Carousel.Root :class="cn(carouselRoot, props.class)" v-bind="props">
-    <slot />
-  </Carousel.Root>
+  <Slot
+    :class="cn(carouselRoot, className)"
+    v-bind="{ ...props, ...$attrs, ...api.getRootProps() }"
+  >
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot />
+    </div>
+  </Slot>
 </template>

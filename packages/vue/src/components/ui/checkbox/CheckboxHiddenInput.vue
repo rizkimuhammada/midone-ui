@@ -1,16 +1,19 @@
 <script lang="ts" setup>
-import { Checkbox, type CheckboxHiddenInputProps } from "@ark-ui/vue/checkbox";
+import type { Api } from "@zag-js/checkbox";
 import { cn } from "@midoneui/core/utils/cn";
 import { checkboxHiddenInput } from "@midoneui/core/styles/checkbox.styles";
+import { inject } from "vue";
 
-const props = defineProps<CheckboxHiddenInputProps & {
+const { class: className, ...props } = defineProps<{
   class?: string;
 }>();
+
+const api = inject<Api>("checkboxApi");
 </script>
 
 <template>
-  <Checkbox.HiddenInput
-    :class="cn(checkboxHiddenInput, props.class)"
-    v-bind="props"
+  <input
+    :class="cn(checkboxHiddenInput, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getHiddenInputProps() }"
   />
 </template>

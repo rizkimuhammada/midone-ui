@@ -1,15 +1,33 @@
 <script lang="ts" setup>
-import { Combobox, type ComboboxItemGroupProps } from "@ark-ui/vue/combobox";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { comboboxItemGroup } from "@midoneui/core/styles/combobox.styles";
+import type { Api } from "@zag-js/combobox";
+import { provide, inject } from "vue";
 
-const props = defineProps<ComboboxItemGroupProps & {
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
   class?: string;
+  asChild?: boolean;
 }>();
+
+const api = inject<Api>("comboboxApi");
+const itemGroupId = { id: crypto.randomUUID() };
+
+provide("comboboxItemGroupId", itemGroupId);
 </script>
 
 <template>
-  <Combobox.ItemGroup :class="cn(comboboxItemGroup, props.class)" v-bind="props">
-    <slot />
-  </Combobox.ItemGroup>
+  <Slot
+    :class="cn(comboboxItemGroup, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getItemGroupProps(itemGroupId) }"
+  >
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot />
+    </div>
+  </Slot>
 </template>

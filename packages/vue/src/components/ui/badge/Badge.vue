@@ -5,7 +5,12 @@ import {
   type BadgeVariants,
 } from "@midoneui/core/styles/badge.styles";
 
-const props = defineProps<
+const {
+  class: className,
+  filled,
+  variant,
+  ...props
+} = defineProps<
   BadgeVariants & {
     class?: string;
     filled?: boolean;
@@ -15,16 +20,8 @@ const props = defineProps<
 
 <template>
   <span
-    :class="
-      cn(
-        badgeVariants({
-          filled: props.filled,
-          variant: props.variant,
-          className: props.class,
-        })
-      )
-    "
-    v-bind="props"
+    :class="cn(badgeVariants({ filled, variant, className }, className))"
+    v-bind="{ ...props, ...$attrs }"
   >
     <slot />
   </span>

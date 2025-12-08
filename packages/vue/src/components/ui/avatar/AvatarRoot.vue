@@ -1,21 +1,54 @@
 <script lang="ts" setup>
-import { Avatar, type AvatarRootProps } from "@ark-ui/vue/avatar";
+import * as avatar from "@zag-js/avatar";
+import { provide, computed } from "vue";
+import { useMachine, normalizeProps } from "@zag-js/vue";
+import type { Props } from "@zag-js/avatar";
 import { cn } from "@midoneui/core/utils/cn";
 import {
   avatarRootVariants,
   type AvatarRootVariants,
 } from "@midoneui/core/styles/avatar.styles";
+import { Slot } from "@/components/ui/slot";
 
-const props = defineProps<AvatarRootProps & AvatarRootVariants & {
-  class?: string;
-}>();
+const {
+  class: className,
+  bordered,
+  asChild = false,
+  ...props
+} = defineProps<
+  AvatarRootVariants &
+    Partial<Props> & {
+      class?: string;
+      asChild?: boolean;
+    }
+>();
+
+const service = useMachine(avatar.machine, {
+  ...props,
+  id: crypto.randomUUID(),
+});
+
+const api = computed(() => avatar.connect(service, normalizeProps));
+
+provide("avatarApi", api);
 </script>
 
 <template>
-  <Avatar.Root
-    :class="cn(avatarRootVariants({ bordered: props.bordered, className: props.class }), props.class)"
-    v-bind="props"
+  <Slot
+    :class="
+      cn(
+        avatarRootVariants({
+          bordered,
+          className,
+        }),
+        className
+      )
+    "
+    v-bind="{ ...props, ...$attrs, ...api.getRootProps() }"
   >
-    <slot />
-  </Avatar.Root>
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot />
+    </div>
+  </Slot>
 </template>

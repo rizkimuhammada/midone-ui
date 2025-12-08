@@ -1,15 +1,30 @@
 <script lang="ts" setup>
-import { Checkbox, type CheckboxIndicatorProps } from "@ark-ui/vue/checkbox";
+import { Slot } from "@/components/ui/slot";
+import type { Api } from "@zag-js/checkbox";
 import { cn } from "@midoneui/core/utils/cn";
 import { checkboxIndicator } from "@midoneui/core/styles/checkbox.styles";
+import { inject } from "vue";
 
-const props = defineProps<CheckboxIndicatorProps & {
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  asChild?: boolean;
   class?: string;
 }>();
+
+const api = inject<Api>("checkboxApi");
 </script>
 
 <template>
-  <Checkbox.Indicator :class="cn(checkboxIndicator, props.class)" v-bind="props">
-    <slot />
-  </Checkbox.Indicator>
+  <Slot
+    :class="cn(checkboxIndicator, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getIndicatorProps() }"
+  >
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot />
+    </div>
+  </Slot>
 </template>

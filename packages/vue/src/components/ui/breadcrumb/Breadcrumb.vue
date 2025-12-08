@@ -13,8 +13,9 @@ import {
   MenuContent,
   MenuItem,
 } from "@/components/ui/menu";
+import { BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from ".";
 
-const props = defineProps<{
+const { class: className, ...props } = defineProps<{
   class?: string;
   items: string[];
 }>();
@@ -24,51 +25,49 @@ const props = defineProps<{
   <nav
     aria-label="breadcrumb"
     data-slot="breadcrumb"
-    :class="cn(props.class)"
-    v-bind="props"
+    v-bind="{ ...props, ...$attrs }"
+    :class="cn(className)"
   >
-    <ol :class="cn(breadcrumbList)">
-      <template v-if="props.items.length <= 3">
-        <template v-for="(item, key) in props.items" :key="key">
-          <li :class="cn(breadcrumbItem)">
-            <a :class="cn(breadcrumbLink)">{{ item }}</a>
-          </li>
-          <ChevronRight v-if="key < props.items.length - 1" />
-        </template>
+    <BreadcrumbList>
+      <template v-if="items.length <= 3">
+        <BreadcrumbItem v-for="(item, key) in items">
+          <BreadcrumbLink>{{ item }}</BreadcrumbLink>
+        </BreadcrumbItem>
+        <ChevronRight v-if="key < items.length - 1" />
       </template>
       <template v-else>
-        <li :class="cn(breadcrumbItem)">
-          <a :class="cn(breadcrumbLink)">{{ props.items[0] }}</a>
-        </li>
+        <BreadcrumbItem>
+          <BreadcrumbLink>{{ items[0] }}</BreadcrumbLink>
+        </BreadcrumbItem>
         <ChevronRight />
-        <li :class="cn(breadcrumbItem)">
+        <BreadcrumbItem>
           <MenuRoot>
-            <MenuTrigger as-child>
-              <a :class="cn(breadcrumbLink)">
+            <MenuTrigger asChild>
+              <BreadcrumbLink>
                 <Ellipsis />
-              </a>
+              </BreadcrumbLink>
             </MenuTrigger>
             <MenuPositioner>
               <MenuContent>
                 <MenuItem
-                  v-for="(item, itemKey) in props.items.slice(1, -2)"
-                  :key="itemKey"
+                  v-for="(item, itemKey) in items.slice(1, -2)"
                   :value="item"
+                  :key="itemKey"
                 >
                   {{ item }}
                 </MenuItem>
               </MenuContent>
             </MenuPositioner>
           </MenuRoot>
-        </li>
+        </BreadcrumbItem>
         <ChevronRight />
-        <template v-for="(item, index) in props.items.slice(-2)" :key="index">
-          <li :class="cn(breadcrumbItem)">
-            <a :class="cn(breadcrumbLink)">{{ item }}</a>
-          </li>
+        <template v-for="(item, index) in items.slice(-2)">
+          <BreadcrumbItem>
+            <BreadcrumbLink>{{ item }}</BreadcrumbLink>
+          </BreadcrumbItem>
           <ChevronRight v-if="index < 1" />
         </template>
       </template>
-    </ol>
+    </BreadcrumbList>
   </nav>
 </template>

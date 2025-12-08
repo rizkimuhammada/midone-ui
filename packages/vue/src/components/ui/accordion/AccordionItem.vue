@@ -13,17 +13,11 @@ const {
   filled,
   raised,
   class: className,
-  asChild,
+  asChild = false,
   ...props
-} = withDefaults(
-  defineProps<
-    BoxVariants & ItemProps & { class?: string; asChild?: boolean }
-  >(),
-  {
-    asChild: false,
-    disabled: false,
-  }
-);
+} = defineProps<
+  BoxVariants & ItemProps & { class?: string; asChild?: boolean }
+>();
 
 const variant = inject<"default" | "boxed">("accordionVariant", "default");
 const api = inject<Api>("accordionApi");
