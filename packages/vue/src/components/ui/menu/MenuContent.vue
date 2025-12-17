@@ -6,7 +6,11 @@ import { Box } from "@/components/ui/box";
 import { Slot } from "@/components/ui/slot";
 import { menuContent } from "@midoneui/core/styles/menu.styles";
 
-const { class: className, ...props } = defineProps<{
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
   class?: string;
   asChild?: boolean;
 }>();

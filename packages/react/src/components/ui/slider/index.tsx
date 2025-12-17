@@ -79,7 +79,7 @@ export function SliderValueText({
       {...api?.getValueTextProps()}
       {...props}
     >
-      {asChild ? children : <output>{api?.value.at(0)}</output>}
+      {asChild ? children : <output>{api?.value?.[0]}</output>}
     </Slot>
   );
 }

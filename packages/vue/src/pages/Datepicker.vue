@@ -26,13 +26,12 @@ import {
   DatePickerTableCellTrigger,
   DatePickerContext,
 } from "@/components/ui/datepicker";
-import { DatePicker } from "@ark-ui/vue/date-picker";
 import { Badge } from "@/components/ui/badge";
 import { Box } from "@/components/ui/box";
 </script>
 
 <template>
-  <div class="flex flex-col gap-20">
+  <!-- <div class="flex flex-col gap-20">
     <div class="grid grid-cols-2">
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
@@ -484,5 +483,121 @@ import { Box } from "@/components/ui/box";
         </DatePickerRoot>
       </div>
     </div>
-  </div>
+  </div> -->
+  <DatePickerRoot class="w-84">
+    <DatePickerLabel>Basic</DatePickerLabel>
+    <DatePickerControl>
+      <DatePickerInput />
+      <DatePickerTrigger />
+      <DatePickerClearTrigger>Clear</DatePickerClearTrigger>
+    </DatePickerControl>
+    <DatePickerPositioner>
+      <DatePickerContent>
+        <DatePickerYearSelect />
+        <DatePickerMonthSelect />
+        <DatePickerView view="day">
+          <DatePickerContext v-slot="{ datePicker }">
+            <DatePickerViewControl>
+              <DatePickerPrevTrigger />
+              <DatePickerViewTrigger>
+                <DatePickerRangeText />
+              </DatePickerViewTrigger>
+              <DatePickerNextTrigger />
+            </DatePickerViewControl>
+            <DatePickerTable>
+              <DatePickerTableHead>
+                <DatePickerTableRow>
+                  <DatePickerTableHeader
+                    v-for="(weekDay, id) in datePicker?.weekDays"
+                    :key="id"
+                  >
+                    {{ weekDay.short }}
+                  </DatePickerTableHeader>
+                </DatePickerTableRow>
+              </DatePickerTableHead>
+              <DatePickerTableBody>
+                <DatePickerTableRow
+                  v-for="(week, id) in datePicker?.weeks"
+                  :key="id"
+                >
+                  <DatePickerTableCell
+                    v-for="(day, id) in week"
+                    :key="id"
+                    :value="day"
+                  >
+                    <DatePickerTableCellTrigger>
+                      {{ day.day }}
+                    </DatePickerTableCellTrigger>
+                  </DatePickerTableCell>
+                </DatePickerTableRow>
+              </DatePickerTableBody>
+            </DatePickerTable>
+          </DatePickerContext>
+        </DatePickerView>
+        <DatePickerView view="month">
+          <DatePickerContext v-slot="{ datePicker }">
+            <DatePickerViewControl>
+              <DatePickerPrevTrigger />
+              <DatePickerViewTrigger>
+                <DatePickerRangeText />
+              </DatePickerViewTrigger>
+              <DatePickerNextTrigger />
+            </DatePickerViewControl>
+            <DatePickerTable>
+              <DatePickerTableBody>
+                <DatePickerTableRow
+                  v-for="(months, id) in datePicker?.getMonthsGrid({
+                    columns: 4,
+                    format: 'short',
+                  })"
+                  :key="id"
+                >
+                  <DatePickerTableCell
+                    v-for="(month, id) in months"
+                    :key="id"
+                    :value="month.value"
+                  >
+                    <DatePickerTableCellTrigger>
+                      {{ month.label }}
+                    </DatePickerTableCellTrigger>
+                  </DatePickerTableCell>
+                </DatePickerTableRow>
+              </DatePickerTableBody>
+            </DatePickerTable>
+          </DatePickerContext>
+        </DatePickerView>
+        <DatePickerView view="year">
+          <DatePickerContext v-slot="{ datePicker }">
+            <DatePickerViewControl>
+              <DatePickerPrevTrigger />
+              <DatePickerViewTrigger>
+                <DatePickerRangeText />
+              </DatePickerViewTrigger>
+              <DatePickerNextTrigger />
+            </DatePickerViewControl>
+            <DatePickerTable>
+              <DatePickerTableBody>
+                <DatePickerTableRow
+                  v-for="(years, id) in datePicker?.getYearsGrid({
+                    columns: 4,
+                  })"
+                  :key="id"
+                >
+                  <DatePickerTableCell
+                    v-for="(year, id) in years"
+                    :key="id"
+                    :value="year.value"
+                  >
+                    <DatePickerTableCellTrigger>
+                      {{ year.label }}
+                    </DatePickerTableCellTrigger>
+                  </DatePickerTableCell>
+                </DatePickerTableRow>
+              </DatePickerTableBody>
+            </DatePickerTable>
+          </DatePickerContext>
+        </DatePickerView>
+      </DatePickerContent>
+    </DatePickerPositioner>
+  </DatePickerRoot>
 </template>

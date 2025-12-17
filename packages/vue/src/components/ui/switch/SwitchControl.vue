@@ -1,17 +1,31 @@
 <script lang="ts" setup>
-import { Switch } from "@ark-ui/vue/switch";
 import { cn } from "@midoneui/core/utils/cn";
 import { switchControl } from "@midoneui/core/styles/switch.styles";
-import SwitchThumb from "./SwitchThumb.vue";
+import { SwitchThumb } from ".";
+import type { Api } from "@zag-js/switch";
+import { inject } from "vue";
+import { Slot } from "@/components/ui/slot";
 
-const props = defineProps<{
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
   class?: string;
-  [key: string]: any;
+  asChild?: boolean;
 }>();
+
+const api = inject<Api>("switchApi");
 </script>
 
 <template>
-  <Switch.Control :class="cn(switchControl, props.class)" v-bind="props">
-    <SwitchThumb />
-  </Switch.Control>
+  <Slot
+    :class="cn(switchControl, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getControlProps() }"
+  >
+    <slot v-if="asChild" />
+    <span v-else>
+      <SwitchThumb />
+    </span>
+  </Slot>
 </template>

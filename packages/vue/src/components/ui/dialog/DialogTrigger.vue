@@ -1,25 +1,28 @@
 <script lang="ts" setup>
-import { Dialog, type DialogTriggerProps } from "@ark-ui/vue/dialog";
 import { cn } from "@midoneui/core/utils/cn";
 import { dialogTrigger } from "@midoneui/core/styles/dialog.styles";
 import { Button } from "@/components/ui/button";
+import type { Api } from "@zag-js/dialog";
+import { inject } from "vue";
+import { Slot } from "@/components/ui/slot";
 
-const props = defineProps<
-  DialogTriggerProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("dialogApi");
 </script>
 
 <template>
-  <Dialog.Trigger v-bind="props" v-slot="slotProps">
-    <template v-if="!props.asChild">
-      <Button :class="cn(dialogTrigger, props.class)" v-bind="slotProps">
-        <slot />
-      </Button>
-    </template>
-    <template v-else>
-      <slot v-bind="slotProps" />
-    </template>
-  </Dialog.Trigger>
+  <Slot v-bind="{ ...props, ...$attrs, ...api?.getTriggerProps() }">
+    <Button v-if="!asChild" :class="cn(dialogTrigger, className)">
+      <slot />
+    </Button>
+    <slot v-else />
+  </Slot>
 </template>

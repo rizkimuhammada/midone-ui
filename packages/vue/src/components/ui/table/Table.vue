@@ -7,7 +7,7 @@ import {
 import { provide, computed } from "vue";
 import TableContainer from "./TableContainer.vue";
 
-const props = defineProps<
+const { class: className, ...props } = defineProps<
   TableVariants & {
     class?: string;
   }
@@ -25,17 +25,8 @@ provide(
 <template>
   <TableContainer>
     <table
-      :class="
-        cn(
-          tableVariants({
-            variant: props.variant,
-            raised: props.raised,
-            className: props.class,
-          }),
-          props.class
-        )
-      "
-      v-bind="props"
+      :class="cn(tableVariants({ variant, raised, className }), className)"
+      v-bind="{ ...props }"
     >
       <slot />
     </table>

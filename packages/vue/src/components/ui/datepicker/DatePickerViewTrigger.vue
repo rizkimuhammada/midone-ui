@@ -1,23 +1,30 @@
 <script lang="ts" setup>
-import {
-  DatePicker,
-  type DatePickerViewTriggerProps,
-} from "@ark-ui/vue/date-picker";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerViewTrigger } from "@midoneui/core/styles/datepicker.styles";
+import type { Api } from "@zag-js/date-picker";
+import { inject } from "vue";
 
-const props = defineProps<
-  DatePickerViewTriggerProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <DatePicker.ViewTrigger
-    :class="cn(datePickerViewTrigger, props.class)"
-    v-bind="props"
+  <Slot
+    :class="cn(datePickerViewTrigger, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getViewTriggerProps(props) }"
   >
-    <slot />
-  </DatePicker.ViewTrigger>
+    <button v-if="!asChild" :class="cn(datePickerViewTrigger, className)">
+      <slot />
+    </button>
+    <slot v-else />
+  </Slot>
 </template>

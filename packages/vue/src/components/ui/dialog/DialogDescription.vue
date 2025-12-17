@@ -1,20 +1,30 @@
 <script lang="ts" setup>
-import { Dialog, type DialogDescriptionProps } from "@ark-ui/vue/dialog";
 import { cn } from "@midoneui/core/utils/cn";
 import { dialogDescription } from "@midoneui/core/styles/dialog.styles";
+import type { Api } from "@zag-js/dialog";
+import { inject } from "vue";
+import { Slot } from "@/components/ui/slot";
 
-const props = defineProps<
-  DialogDescriptionProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("dialogApi");
 </script>
 
 <template>
-  <Dialog.Description
-    :class="cn(dialogDescription, props.class)"
-    v-bind="props"
+  <Slot
+    :class="cn(dialogDescription, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getDescriptionProps() }"
   >
-    <slot />
-  </Dialog.Description>
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot />
+    </div>
+  </Slot>
 </template>

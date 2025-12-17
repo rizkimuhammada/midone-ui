@@ -8,7 +8,6 @@ import { inject } from "vue";
 
 const { class: className, ...props } = defineProps<{
   class?: string;
-  asChild?: boolean;
 }>();
 
 const api = inject<Api>("menuApi");

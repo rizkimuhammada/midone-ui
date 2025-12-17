@@ -1,17 +1,24 @@
 <script lang="ts" setup>
-import { Switch } from "@ark-ui/vue/switch";
 import { cn } from "@midoneui/core/utils/cn";
 import { switchHiddenInput } from "@midoneui/core/styles/switch.styles";
+import type { Api } from "@zag-js/switch";
+import { inject } from "vue";
 
-const props = defineProps<{
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
   class?: string;
-  [key: string]: any;
+  asChild?: boolean;
 }>();
+
+const api = inject<Api>("switchApi");
 </script>
 
 <template>
-  <Switch.HiddenInput
-    :class="cn(switchHiddenInput, props.class)"
-    v-bind="props"
+  <input
+    :class="cn(switchHiddenInput, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getHiddenInputProps() }"
   />
 </template>

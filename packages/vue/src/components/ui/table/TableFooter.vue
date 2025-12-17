@@ -2,13 +2,13 @@
 import { cn } from "@midoneui/core/utils/cn";
 import { tableFooter } from "@midoneui/core/styles/table.styles";
 
-const props = defineProps<{
+const { class: className, ...props } = defineProps<{
   class?: string;
 }>();
 </script>
 
 <template>
-  <tfoot :class="cn(tableFooter, props.class)" v-bind="props">
+  <tfoot :class="cn(tableFooter, className)" v-bind="{ ...props }">
     <slot />
   </tfoot>
 </template>

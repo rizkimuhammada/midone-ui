@@ -1,50 +1,52 @@
 <script lang="ts" setup>
-import { Dialog, type DialogCloseTriggerProps } from "@ark-ui/vue/dialog";
 import { cn } from "@midoneui/core/utils/cn";
 import { dialogCloseTrigger } from "@midoneui/core/styles/dialog.styles";
 import { Button } from "@/components/ui/button";
+import type { Api } from "@zag-js/dialog";
 import {
   buttonVariants,
   type ButtonVariants,
 } from "@midoneui/core/styles/button.styles";
 import { X } from "lucide-vue-next";
+import { inject } from "vue";
+import { Slot } from "@/components/ui/slot";
 
-const props = defineProps<
-  DialogCloseTriggerProps &
-    ButtonVariants & {
-      class?: string;
-    }
+const {
+  class: className,
+  filled,
+  variant,
+  size,
+  asChild = false,
+  ...props
+} = defineProps<
+  ButtonVariants & {
+    class?: string;
+    asChild?: boolean;
+  }
 >();
+
+const api = inject<Api>("dialogApi");
 </script>
 
 <template>
-  <Dialog.CloseTrigger v-bind="props" v-slot="slotProps">
-    <template v-if="!$slots.default">
-      <Button :class="cn(dialogCloseTrigger, props.class)" v-bind="slotProps">
-        <X class="size-4" />
+  <Slot v-bind="{ ...props, ...$attrs, ...api?.getCloseTriggerProps() }">
+    <Button
+      v-if="!$slots.default"
+      :class="cn(dialogCloseTrigger, className)"
+      v-bind="{ ...props }"
+    >
+      <X class="size-4" />
+    </Button>
+    <template v-else>
+      <slot v-if="asChild" />
+      <Button
+        v-else
+        :class="
+          cn(buttonVariants({ filled, variant, size, className }), className)
+        "
+      >
+        <slot />
       </Button>
     </template>
-    <template v-else>
-      <template v-if="props.asChild">
-        <slot v-bind="slotProps" />
-      </template>
-      <template v-else>
-        <Button
-          :class="
-            cn(
-              buttonVariants({
-                filled: props.filled,
-                variant: props.variant,
-                size: props.size,
-                className: props.class,
-              }),
-              props.class
-            )
-          "
-        >
-          <slot />
-        </Button>
-      </template>
-    </template>
-  </Dialog.CloseTrigger>
+  </Slot>
 </template>

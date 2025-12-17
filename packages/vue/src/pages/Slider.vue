@@ -1,15 +1,33 @@
 <script lang="ts" setup>
-// Note: ${page} component needs to be implemented first
+import {
+  SliderRoot,
+  SliderLabel,
+  SliderValueText,
+  SliderControl,
+  SliderTrack,
+  SliderRange,
+  SliderThumb,
+  SliderHiddenInput,
+  SliderMarkerGroup,
+  SliderMarker,
+} from "@/components/ui/slider";
 </script>
 
 <template>
-  <div class="flex flex-col gap-20">
-    <div class="grid grid-cols-2">
-      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div class="text-sm text-muted-foreground">
-          ${page} component - Coming soon
-        </div>
-      </div>
+  <SliderRoot class="w-72" :defaultValue="[20]">
+    <SliderLabel>Max Items</SliderLabel>
+    <SliderControl>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderThumb :index="0">
+        <SliderHiddenInput />
+      </SliderThumb>
+    </SliderControl>
+    <div
+      class="flex items-center text-xs gap-1 font-medium justify-center opacity-70"
+    >
+      <SliderValueText /> Items
     </div>
-  </div>
+  </SliderRoot>
 </template>

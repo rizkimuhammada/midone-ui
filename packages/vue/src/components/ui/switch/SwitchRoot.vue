@@ -1,18 +1,39 @@
 <script lang="ts" setup>
-import { Switch } from "@ark-ui/vue/switch";
+import * as zagSwitch from "@zag-js/switch";
+import type { Props } from "@zag-js/switch";
 import { cn } from "@midoneui/core/utils/cn";
 import { switchRoot } from "@midoneui/core/styles/switch.styles";
-import SwitchHiddenInput from "./SwitchHiddenInput.vue";
+import { SwitchHiddenInput } from ".";
+import { normalizeProps, useMachine } from "@zag-js/vue";
+import { computed, provide } from "vue";
+import { Slot } from "@/components/ui/slot";
 
-const props = defineProps<{
-  class?: string;
-  [key: string]: any;
-}>();
+const {
+  class: className,
+  asChild = false,
+  checked = undefined,
+  ...props
+} = defineProps<Partial<Props> & { class?: string; asChild?: boolean }>();
+
+const service = useMachine(zagSwitch.machine, {
+  ...props,
+  checked,
+  id: crypto.randomUUID(),
+});
+const api = computed(() => zagSwitch.connect(service, normalizeProps));
+
+provide("switchApi", api);
 </script>
 
 <template>
-  <Switch.Root :class="cn(switchRoot, props.class)" v-bind="props">
-    <slot />
-    <SwitchHiddenInput />
-  </Switch.Root>
+  <Slot
+    :class="cn(switchRoot, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getRootProps() }"
+  >
+    <slot v-if="asChild" />
+    <label v-else>
+      <slot />
+      <SwitchHiddenInput />
+    </label>
+  </Slot>
 </template>

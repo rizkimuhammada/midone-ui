@@ -1,34 +1,30 @@
 <script lang="ts" setup>
-import {
-  DatePicker,
-  type DatePickerClearTriggerProps,
-} from "@ark-ui/vue/date-picker";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerClearTrigger } from "@midoneui/core/styles/datepicker.styles";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "lucide-vue-next";
+import type { Api } from "@zag-js/date-picker";
+import { inject } from "vue";
+import { X } from "lucide-vue-next";
 
-const props = defineProps<
-  DatePickerClearTriggerProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <DatePicker.ClearTrigger v-bind="props" as-child>
-    <template v-if="props.asChild">
-      <slot />
-    </template>
-    <template v-else>
-      <Button :class="cn(datePickerClearTrigger, props.class)">
-        <template v-if="!$slots.default">
-          <Calendar />
-        </template>
-        <template v-else>
-          <slot />
-        </template>
-      </Button>
-    </template>
-  </DatePicker.ClearTrigger>
+  <Slot v-bind="{ ...props, ...$attrs, ...api?.getClearTriggerProps() }">
+    <Button v-if="!asChild" :class="cn(datePickerClearTrigger, className)">
+      <X v-if="!$slots.default" />
+      <slot v-else />
+    </Button>
+    <slot v-else />
+  </Slot>
 </template>

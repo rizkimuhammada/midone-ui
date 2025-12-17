@@ -1,29 +1,29 @@
 <script lang="ts" setup>
-import {
-  DatePicker,
-  type DatePickerNextTriggerProps,
-} from "@ark-ui/vue/date-picker";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerNextTrigger } from "@midoneui/core/styles/datepicker.styles";
 import { MoveRight } from "lucide-vue-next";
+import type { Api } from "@zag-js/date-picker";
+import { inject } from "vue";
 
-const props = defineProps<
-  DatePickerNextTriggerProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <DatePicker.NextTrigger
-    :class="cn(datePickerNextTrigger, props.class)"
-    v-bind="props"
-  >
-    <template v-if="!$slots.default">
-      <MoveRight />
-    </template>
-    <template v-else>
-      <slot />
-    </template>
-  </DatePicker.NextTrigger>
+  <Slot v-bind="{ ...props, ...$attrs, ...api?.getNextTriggerProps() }">
+    <button v-if="!asChild" :class="cn(datePickerNextTrigger, className)">
+      <MoveRight v-if="!$slots.default" />
+      <slot v-else />
+    </button>
+    <slot v-else />
+  </Slot>
 </template>

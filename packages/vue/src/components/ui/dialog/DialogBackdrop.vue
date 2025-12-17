@@ -1,15 +1,30 @@
 <script lang="ts" setup>
-import { Dialog, type DialogBackdropProps } from "@ark-ui/vue/dialog";
 import { cn } from "@midoneui/core/utils/cn";
 import { dialogBackdrop } from "@midoneui/core/styles/dialog.styles";
+import type { Api } from "@zag-js/dialog";
+import { inject } from "vue";
+import { Slot } from "@/components/ui/slot";
 
-const props = defineProps<
-  DialogBackdropProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("dialogApi");
 </script>
 
 <template>
-  <Dialog.Backdrop :class="cn(dialogBackdrop, props.class)" v-bind="props" />
+  <Slot
+    :class="cn(dialogBackdrop, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getBackdropProps() }"
+  >
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot />
+    </div>
+  </Slot>
 </template>

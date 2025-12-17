@@ -2,12 +2,11 @@
 import { cn } from "@midoneui/core/utils/cn";
 import { textarea } from "@midoneui/core/styles/textarea.styles";
 
-const props = defineProps<{
+const { class: className, ...props } = defineProps<{
   class?: string;
-  [key: string]: any;
 }>();
 </script>
 
 <template>
-  <textarea :class="cn(textarea, props.class)" v-bind="props" />
+  <textarea :class="cn(textarea, className)" v-bind="{ ...props }" />
 </template>

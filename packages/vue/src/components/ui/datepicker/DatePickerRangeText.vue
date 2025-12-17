@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import {
-  DatePicker,
-  type DatePickerRangeTextProps,
-} from "@ark-ui/vue/date-picker";
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerRangeText } from "@midoneui/core/styles/datepicker.styles";
+import type { Api } from "@zag-js/date-picker";
+import { inject } from "vue";
 
-const props = defineProps<
-  DatePickerRangeTextProps & {
-    class?: string;
-  }
->();
+const { class: className, ...props } = defineProps<{
+  class?: string;
+}>();
+
+const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <DatePicker.RangeText
-    :class="cn(datePickerRangeText, props.class)"
-    v-bind="props"
-  />
+  <div
+    :class="cn(datePickerRangeText, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getRangeTextProps() }"
+  >
+    {{ api?.visibleRangeText.start }}
+  </div>
 </template>

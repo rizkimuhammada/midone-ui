@@ -1,22 +1,29 @@
 <script lang="ts" setup>
-import {
-  DatePicker,
-  type DatePickerYearSelectProps,
-} from "@ark-ui/vue/date-picker";
 import { cn } from "@midoneui/core/utils/cn";
 import { input } from "@midoneui/core/styles/input.styles";
 import { datePickerYearSelect } from "@midoneui/core/styles/datepicker.styles";
+import type { Api } from "@zag-js/date-picker";
+import { inject } from "vue";
 
-const props = defineProps<
-  DatePickerYearSelectProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <DatePicker.YearSelect
-    :class="cn(input, datePickerYearSelect, props.class)"
-    v-bind="props"
-  />
+  <select
+    :class="cn(input, datePickerYearSelect, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getYearSelectProps() }"
+  >
+    <option v-for="(year, i) in api?.getYears()" :key="i" :value="year.value">
+      {{ year.label }}
+    </option>
+  </select>
 </template>

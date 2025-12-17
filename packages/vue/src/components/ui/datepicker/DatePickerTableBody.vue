@@ -1,23 +1,30 @@
 <script lang="ts" setup>
-import {
-  DatePicker,
-  type DatePickerTableBodyProps,
-} from "@ark-ui/vue/date-picker";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerTableBody } from "@midoneui/core/styles/datepicker.styles";
+import type { Api } from "@zag-js/date-picker";
+import { inject } from "vue";
 
-const props = defineProps<
-  DatePickerTableBodyProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <DatePicker.TableBody
-    :class="cn(datePickerTableBody, props.class)"
-    v-bind="props"
+  <Slot
+    :class="cn(datePickerTableBody, className)"
+    v-bind="{ ...props, ...$attrs, ...api?.getTableHeadProps() }"
   >
-    <slot />
-  </DatePicker.TableBody>
+    <slot v-if="asChild" />
+    <tbody v-else>
+      <slot />
+    </tbody>
+  </Slot>
 </template>

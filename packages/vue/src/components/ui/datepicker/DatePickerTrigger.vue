@@ -1,34 +1,30 @@
 <script lang="ts" setup>
-import {
-  DatePicker,
-  type DatePickerTriggerProps,
-} from "@ark-ui/vue/date-picker";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerTrigger } from "@midoneui/core/styles/datepicker.styles";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "lucide-vue-next";
+import type { Api } from "@zag-js/date-picker";
+import { inject } from "vue";
 
-const props = defineProps<
-  DatePickerTriggerProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <DatePicker.Trigger v-bind="props" as-child>
-    <template v-if="props.asChild">
-      <slot />
-    </template>
-    <template v-else>
-      <Button :class="cn(datePickerTrigger, props.class)">
-        <template v-if="!$slots.default">
-          <Calendar />
-        </template>
-        <template v-else>
-          <slot />
-        </template>
-      </Button>
-    </template>
-  </DatePicker.Trigger>
+  <Slot v-bind="{ ...props, ...$attrs, ...api?.getTriggerProps() }">
+    <Button v-if="!asChild" :class="cn(datePickerTrigger, className)">
+      <Calendar v-if="!$slots.default" />
+      <slot v-else />
+    </Button>
+    <slot v-else />
+  </Slot>
 </template>

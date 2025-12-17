@@ -15,8 +15,6 @@ const {
 }>();
 
 const api = inject<Api>("menuApi");
-
-console.log("cok");
 </script>
 
 <template>

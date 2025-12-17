@@ -444,7 +444,7 @@ export function DatePickerTableHead({
   return (
     <Slot
       className={cn(datePickerTableHead, className)}
-      {...api?.getTableProps()}
+      {...api?.getTableHeadProps()}
       {...props}
     >
       {asChild ? children : <thead>{children}</thead>}
@@ -482,7 +482,7 @@ export function DatePickerTableHeader({
   return (
     <Slot
       className={cn(datePickerTableHeader, className)}
-      {...api?.getTableHeadProps()}
+      {...api?.getTableHeaderProps()}
       {...props}
     >
       {asChild ? children : <th>{children}</th>}

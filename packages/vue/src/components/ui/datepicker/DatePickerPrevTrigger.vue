@@ -1,30 +1,30 @@
 <script lang="ts" setup>
-import {
-  DatePicker,
-  type DatePickerPrevTriggerProps,
-} from "@ark-ui/vue/date-picker";
+import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerPrevTrigger } from "@midoneui/core/styles/datepicker.styles";
 import { MoveLeft } from "lucide-vue-next";
+import type { Api } from "@zag-js/date-picker";
+import { inject } from "vue";
 
-const props = defineProps<
-  DatePickerPrevTriggerProps & {
-    class?: string;
-  }
->();
+const {
+  class: className,
+  asChild = false,
+  ...props
+} = defineProps<{
+  class?: string;
+  asChild?: boolean;
+}>();
+
+const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <DatePicker.PrevTrigger
-    :class="cn(datePickerPrevTrigger, props.class)"
-    v-bind="props"
-  >
-    <template v-if="!$slots.default">
-      <MoveLeft />
-    </template>
-    <template v-else>
-      <slot />
-    </template>
-  </DatePicker.PrevTrigger>
+  <Slot v-bind="{ ...props, ...$attrs, ...api?.getPrevTriggerProps() }">
+    <button v-if="!asChild" :class="cn(datePickerPrevTrigger, className)">
+      <MoveLeft v-if="!$slots.default" />
+      <slot v-else />
+    </button>
+    <slot v-else />
+  </Slot>
 </template>
 ```

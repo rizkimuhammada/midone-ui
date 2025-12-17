@@ -3,7 +3,7 @@ import { cn } from "@midoneui/core/utils/cn";
 import { tableCellVariants } from "@midoneui/core/styles/table.styles";
 import { inject } from "vue";
 
-const props = defineProps<{
+const { class: className, ...props } = defineProps<{
   class?: string;
 }>();
 
@@ -18,10 +18,8 @@ const variant = inject<
 
 <template>
   <td
-    :class="
-      cn(tableCellVariants({ ...variant, className: props.class }), props.class)
-    "
-    v-bind="props"
+    :class="cn(tableCellVariants({ ...variant, className }), className)"
+    v-bind="{ ...props }"
   >
     <slot />
   </td>

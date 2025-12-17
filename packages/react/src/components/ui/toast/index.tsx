@@ -142,7 +142,7 @@ export function ToastItem({
   index,
   children,
 }: {
-  toastGroup: toast.Options<React.ReactNode>;
+  toastGroup: toast.Options;
   serviceGroup: toast.GroupService;
   index: number;
   children: (api: Api & { id?: string }) => React.ReactNode;

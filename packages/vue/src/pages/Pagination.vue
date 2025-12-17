@@ -1,15 +1,25 @@
 <script lang="ts" setup>
-// Note: ${page} component needs to be implemented first
+import {
+  PaginationContext,
+  PaginationRoot,
+  PaginationItem,
+  PaginationPrevTrigger,
+  PaginationNextTrigger,
+  PaginationEllipsis,
+} from "@/components/ui/pagination";
 </script>
 
 <template>
-  <div class="flex flex-col gap-20">
-    <div class="grid grid-cols-2">
-      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div class="text-sm text-muted-foreground">
-          ${page} component - Coming soon
-        </div>
-      </div>
-    </div>
-  </div>
+  <PaginationRoot :count="5000" :pageSize="10" :siblingCount="2">
+    <PaginationPrevTrigger>Previous</PaginationPrevTrigger>
+    <PaginationContext v-slot="{ pagination }">
+      <template v-for="(page, index) in pagination?.pages" :key="index">
+        <PaginationItem v-if="page.type === 'page'" v-bind="{ ...page }">
+          {{ page.value }}
+        </PaginationItem>
+        <PaginationEllipsis v-else :index="index" />
+      </template>
+    </PaginationContext>
+    <PaginationNextTrigger>Next</PaginationNextTrigger>
+  </PaginationRoot>
 </template>

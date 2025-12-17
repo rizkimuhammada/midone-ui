@@ -22,4 +22,4 @@ export { default as DatePickerTableHeader } from "./DatePickerTableHeader.vue";
 export { default as DatePickerTableBody } from "./DatePickerTableBody.vue";
 export { default as DatePickerTableCell } from "./DatePickerTableCell.vue";
 export { default as DatePickerTableCellTrigger } from "./DatePickerTableCellTrigger.vue";
-export { DatePickerContext } from "@ark-ui/vue/date-picker";
+export { default as DatePickerContext } from "./DatePickerContext.vue";

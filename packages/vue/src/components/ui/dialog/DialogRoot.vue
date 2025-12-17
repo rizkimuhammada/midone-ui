@@ -1,11 +1,34 @@
 <script lang="ts" setup>
-import { Dialog } from "@ark-ui/vue/dialog";
+import { provide, computed } from "vue";
+import * as dialog from "@zag-js/dialog";
+import type { Props } from "@zag-js/dialog";
+import { useMachine, normalizeProps } from "@zag-js/vue";
 
-const props = defineProps();
+const {
+  class: className,
+  asChild = false,
+  open = undefined,
+  closeOnInteractOutside = undefined,
+  ...props
+} = defineProps<
+  Partial<Props> & {
+    class?: string;
+    asChild?: boolean;
+  }
+>();
+
+const service = useMachine(dialog.machine, {
+  ...props,
+  open,
+  closeOnInteractOutside,
+  id: crypto.randomUUID(),
+});
+
+const api = computed(() => dialog.connect(service, normalizeProps));
+
+provide("dialogApi", api);
 </script>
 
 <template>
-  <Dialog.Root v-bind="props">
-    <slot />
-  </Dialog.Root>
+  <slot />
 </template>
