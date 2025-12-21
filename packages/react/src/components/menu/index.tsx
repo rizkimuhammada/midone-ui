@@ -186,7 +186,6 @@ function Main({ className }: React.ComponentProps<"div">) {
               isActive && "text-foreground",
             ])
           }
-          end
         >
           Introduction
         </NavLink>

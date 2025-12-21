@@ -234,9 +234,9 @@ function App() {
               <div className="flex-col sm:flex-row gap-2 items-center flex py-8 relative before:bg-accent before:bg-size-[50%] before:bg-center before:bg-no-repeat before:absolute before:inset-0 before:mt-[2%] before:-ms-[80%] before:blur-2xl dark:before:opacity-65">
                 <div className="-mx-[1000%] inset-x-0 top-0 border-t border-foreground/15 absolute"></div>
                 <div className="relative">
-                  <span className="opacity-70">A project by</span>{" "}
-                  <a href="">Left4code</a>{" "}
-                  <span className="opacity-70">team</span>
+                  <span className="opacity-70">A project by </span>
+                  <a href="">Left4code</a>
+                  <span className="opacity-70"> team</span>
                 </div>
                 <div className="sm:ms-auto flex gap-5 relative">
                   <a href="">Docs</a>
