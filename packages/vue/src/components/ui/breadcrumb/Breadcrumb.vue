@@ -2,11 +2,6 @@
 import { cn } from "@midoneui/core/utils/cn";
 import { ChevronRight, Ellipsis } from "lucide-vue-next";
 import {
-  breadcrumbList,
-  breadcrumbItem,
-  breadcrumbLink,
-} from "@midoneui/core/styles/breadcrumb.styles";
-import {
   MenuRoot,
   MenuTrigger,
   MenuPositioner,
@@ -30,10 +25,12 @@ const { class: className, ...props } = defineProps<{
   >
     <BreadcrumbList>
       <template v-if="items.length <= 3">
-        <BreadcrumbItem v-for="(item, key) in items">
-          <BreadcrumbLink>{{ item }}</BreadcrumbLink>
-        </BreadcrumbItem>
-        <ChevronRight v-if="key < items.length - 1" />
+        <template v-for="(item, key) in items">
+          <BreadcrumbItem>
+            <BreadcrumbLink>{{ item }}</BreadcrumbLink>
+          </BreadcrumbItem>
+          <ChevronRight v-if="key < items.length - 1" />
+        </template>
       </template>
       <template v-else>
         <BreadcrumbItem>

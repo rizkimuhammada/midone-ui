@@ -20,7 +20,7 @@ const api = inject<Api>("carouselApi");
 <template>
   <Slot
     :class="cn(carouselControl, className)"
-    v-bind="{ ...props, ...$attrs, ...api.getControlProps() }"
+    v-bind="{ ...props, ...$attrs, ...api?.getControlProps() }"
   >
     <slot v-if="asChild" />
     <div v-else>

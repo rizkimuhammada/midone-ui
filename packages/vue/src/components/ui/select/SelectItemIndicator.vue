@@ -3,6 +3,7 @@ import { cn } from "@midoneui/core/utils/cn";
 import { selectItemIndicator } from "@midoneui/core/styles/select.styles";
 import { Slot } from "@/components/ui/slot";
 import type { Api, ItemProps } from "@zag-js/select";
+import { Check } from "lucide-vue-next";
 import { inject } from "vue";
 
 const {

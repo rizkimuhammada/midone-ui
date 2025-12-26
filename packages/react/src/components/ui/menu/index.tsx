@@ -188,7 +188,7 @@ export function MenuCheckboxItem({
   const api = useContext(ApiContext);
 
   return (
-    <Slot
+    <div
       className={cn(menuItem, className)}
       {...api?.getOptionItemProps({
         ...props,
@@ -203,7 +203,7 @@ export function MenuCheckboxItem({
         {children}
       </div>
       <div>{shortcut}</div>
-    </Slot>
+    </div>
   );
 }
 
@@ -248,7 +248,7 @@ export function MenuRadioItem({
   const api = useContext(ApiContext);
 
   return (
-    <Slot
+    <div
       className={cn(menuItem, className)}
       {...api?.getOptionItemProps({
         ...props,
@@ -263,7 +263,7 @@ export function MenuRadioItem({
         {children}
       </div>
       <div>{shortcut}</div>
-    </Slot>
+    </div>
   );
 }
 

@@ -3,7 +3,7 @@ import { cn } from "@midoneui/core/utils/cn";
 import { checkboxRoot } from "@midoneui/core/styles/checkbox.styles";
 import * as checkbox from "@zag-js/checkbox";
 import { useMachine, normalizeProps } from "@zag-js/vue";
-import type { Api, Props } from "@zag-js/checkbox";
+import type { Props } from "@zag-js/checkbox";
 import { CheckboxHiddenInput } from ".";
 import { computed, provide } from "vue";
 

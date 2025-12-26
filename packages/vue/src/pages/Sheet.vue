@@ -56,6 +56,34 @@ import { SquareX, Save, ExternalLink } from "lucide-vue-next";
           </SheetRoot>
         </div>
       </div>
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
+        <div class="text-sm text-muted-foreground">
+          <SheetRoot>
+            <SheetTrigger>Custom Close</SheetTrigger>
+            <SheetContent>
+              <SheetTitle>Share Link</SheetTitle>
+              <SheetDescription>
+                Anyone who has this link will be able to view this.
+              </SheetDescription>
+              <div class="grid gap-4 mt-2">
+                <Input
+                  id="name-1"
+                  name="name"
+                  defaultValue="https://midone-ui.com/docs/installation"
+                />
+              </div>
+              <div class="flex gap-2 mt-5">
+                <SheetCloseTrigger>
+                  <ExternalLink />
+                  Share Link
+                </SheetCloseTrigger>
+              </div>
+            </SheetContent>
+          </SheetRoot>
+        </div>
+      </div>
     </div>
   </div>
 </template>

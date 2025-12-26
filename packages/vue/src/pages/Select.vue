@@ -95,24 +95,80 @@ const collectionTimezone = select.collection({
 </script>
 
 <template>
-  <SelectRoot class="w-56" :collection="collection">
-    <SelectLabel>Single</SelectLabel>
-    <SelectControl>
-      <SelectTrigger>
-        <SelectValueText placeholder="Select a Framework" />
-      </SelectTrigger>
-    </SelectControl>
-    <SelectContent>
-      <SelectItemGroup>
-        <SelectItemGroupLabel> Frameworks </SelectItemGroupLabel>
-        <SelectItem
-          v-for="item in collection.items"
-          :key="item.code"
-          :item="item"
-        >
-          <SelectItemText>{{ item.label }}</SelectItemText>
-        </SelectItem>
-      </SelectItemGroup>
-    </SelectContent>
-  </SelectRoot>
+  <div class="flex flex-col gap-20">
+    <div class="grid grid-cols-2">
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
+        <SelectRoot class="w-56" :collection="collection">
+          <SelectLabel>Single</SelectLabel>
+          <SelectControl>
+            <SelectTrigger>
+              <SelectValueText placeholder="Select a Framework" />
+            </SelectTrigger>
+          </SelectControl>
+          <SelectContent>
+            <SelectItemGroup>
+              <SelectItemGroupLabel> Frameworks </SelectItemGroupLabel>
+              <SelectItem
+                v-for="item in collection.items"
+                :key="item.code"
+                :item="item"
+              >
+                <SelectItemText>{{ item.label }}</SelectItemText>
+              </SelectItem>
+            </SelectItemGroup>
+          </SelectContent>
+        </SelectRoot>
+      </div>
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
+        <SelectRoot class="w-56" :collection="collection" multiple>
+          <SelectLabel>Multiple</SelectLabel>
+          <SelectControl>
+            <SelectTrigger>
+              <SelectValueText placeholder="Select a Framework" />
+            </SelectTrigger>
+          </SelectControl>
+          <SelectContent>
+            <SelectItemGroup>
+              <SelectItemGroupLabel> Frameworks </SelectItemGroupLabel>
+              <SelectItem
+                v-for="item in collection.items"
+                :key="item.code"
+                :item="item"
+              >
+                <SelectItemText>{{ item.label }}</SelectItemText>
+              </SelectItem>
+            </SelectItemGroup>
+          </SelectContent>
+        </SelectRoot>
+      </div>
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
+        <SelectRoot class="w-56" :collection="collectionTimezone" multiple>
+          <SelectLabel>Scrollable</SelectLabel>
+          <SelectControl>
+            <SelectTrigger>
+              <SelectValueText placeholder="Select a Timezone" />
+            </SelectTrigger>
+          </SelectControl>
+          <SelectContent>
+            <SelectItemGroup v-for="item in timezoneData" :key="item.label">
+              <SelectItemGroupLabel>{{ item.label }}</SelectItemGroupLabel>
+              <SelectItem
+                v-for="timezoneItem in item.items"
+                :key="timezoneItem.value"
+                :item="timezoneItem.value"
+              >
+                <SelectItemText>{{ timezoneItem.label }}</SelectItemText>
+              </SelectItem>
+            </SelectItemGroup>
+          </SelectContent>
+        </SelectRoot>
+      </div>
+    </div>
+  </div>
 </template>

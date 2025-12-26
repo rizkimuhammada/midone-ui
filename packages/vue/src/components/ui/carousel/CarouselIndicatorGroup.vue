@@ -2,7 +2,7 @@
 import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { carouselIndicatorGroup } from "@midoneui/core/styles/carousel.styles";
-import type { Api, IndicatorProps } from "@zag-js/carousel";
+import type { Api } from "@zag-js/carousel";
 import { inject } from "vue";
 
 const {
@@ -20,7 +20,7 @@ const api = inject<Api>("carouselApi");
 <template>
   <Slot
     :class="cn(carouselIndicatorGroup, className)"
-    v-bind="{ ...props, ...$attrs, ...api.getIndicatorGroupProps() }"
+    v-bind="{ ...props, ...$attrs, ...api?.getIndicatorGroupProps() }"
   >
     <slot v-if="asChild" />
     <div v-else>

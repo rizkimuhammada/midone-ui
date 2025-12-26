@@ -20,7 +20,7 @@ const api = inject<Api>("carouselApi");
 </script>
 
 <template>
-  <Slot v-bind="{ ...props, ...$attrs, ...api.getNextTriggerProps() }">
+  <Slot v-bind="{ ...props, ...$attrs, ...api?.getNextTriggerProps() }">
     <slot v-if="asChild" />
     <Button v-else :class="cn(carouselNextTrigger, className)">
       <slot v-if="$slots.default" />

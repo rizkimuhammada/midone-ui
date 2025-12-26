@@ -276,7 +276,7 @@ function PreviewCode({
       </div>
       <div
         className={twMerge([
-          "text-xs px-5 border-t border-foreground/20 overflow-x-auto overflow-y-hidden before:h-80 before:absolute before:bg-gradient-to-b before:from-transparent before:to-background/80 before:inset-x-0 before:bottom-0",
+          "text-xs px-5 border-t border-foreground/20 overflow-x-auto overflow-y-hidden before:h-3/4 before:absolute before:bg-gradient-to-b before:from-transparent before:to-background/80 before:inset-x-0 before:bottom-0",
           expand && "max-h-auto before:hidden",
           !expand && "max-h-100",
           !title && "-mt-13 border-0",

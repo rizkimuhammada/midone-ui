@@ -27,4 +27,3 @@ const api = inject<Api>("datepickerApi");
     <slot v-else />
   </Slot>
 </template>
-```

@@ -11,13 +11,16 @@ function Main() {
         <div className="relative flex flex-col items-center lg:items-start gap-5 h-full justify-center after:hidden 2xl:after:block after:w-1 after:h-16 after:bg-foreground/20 after:absolute after:-start-17 after:-ms-px after:inset-y-0 after:my-auto">
           <div className="text-3xl/9 md:text-3xl/12 lg:text-[2.6rem]/14 2xl:text-5xl/15 text-center lg:text-start">
             <span className="2xl:block">
-              Build <span className="bg-foreground/15 px-1">faster</span> with
+              Build <span className="bg-foreground/15 px-1">Faster</span> with
               Midone UI.{" "}
             </span>
             <span className="2xl:block">An open-source collection </span>
             <span className="2xl:block">
               of UI components for{" "}
-              <span className="bg-foreground/15 px-1">React</span>.
+              <span className="px-1 2xl:block w-fit">
+                <span className="bg-foreground/15">React</span> and{" "}
+                <span className="bg-foreground/15">Vue</span>.
+              </span>
             </span>
           </div>
           <div className="text-lg 2xl:text-2xl/9 opacity-60 text-center lg:text-start">

@@ -22,7 +22,7 @@ const api = inject<Api>("carouselApi");
 </script>
 
 <template>
-  <Slot v-bind="{ ...props, ...$attrs, ...api.getItemProps({ index }) }">
+  <Slot v-bind="{ ...props, ...$attrs, ...api?.getItemProps({ index }) }">
     <slot v-if="asChild" />
     <Box v-else :class="cn(carouselItem, className)"><slot /></Box>
   </Slot>

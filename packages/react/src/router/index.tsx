@@ -1,7 +1,7 @@
-import { useRoutes } from "react-router";
+import { Navigate, useRoutes } from "react-router";
 import Home from "../pages/home";
 import Docs from "../pages/docs";
-import Introduction from "../pages/introduction";
+import Introduction from "../pages/accordion";
 import HowToUse from "../pages/how-to-use";
 import Accordion from "../pages/accordion";
 import Alert from "../pages/alert";
@@ -46,7 +46,8 @@ function Router() {
           path: "/docs",
           element: <Docs />,
           children: [
-            { path: "", element: <Introduction /> },
+            { path: "", element: <Navigate to="/docs/introduction" replace /> },
+            { path: "introduction", element: <Introduction /> },
             { path: "how-to-use", element: <HowToUse /> },
             { path: "accordion", element: <Accordion /> },
             { path: "alert", element: <Alert /> },

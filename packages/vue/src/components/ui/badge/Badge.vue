@@ -20,7 +20,7 @@ const {
 
 <template>
   <span
-    :class="cn(badgeVariants({ filled, variant, className }, className))"
+    :class="cn(badgeVariants({ filled, variant, className }))"
     v-bind="{ ...props, ...$attrs }"
   >
     <slot />

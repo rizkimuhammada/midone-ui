@@ -3,7 +3,6 @@ import type { Api, OptionItemProps } from "@zag-js/menu";
 import { cn } from "@midoneui/core/utils/cn";
 import { Dot } from "lucide-vue-next";
 import { menuItem } from "@midoneui/core/styles/menu.styles";
-import { Slot } from "@/components/ui/slot";
 import { inject } from "vue";
 
 const {
@@ -25,7 +24,7 @@ const api = inject<Api>("menuApi");
 </script>
 
 <template>
-  <Slot
+  <div
     :class="cn(menuItem, className)"
     v-bind="{
       ...props,
@@ -43,5 +42,5 @@ const api = inject<Api>("menuApi");
       <slot />
     </div>
     <div>{{ shortcut }}</div>
-  </Slot>
+  </div>
 </template>

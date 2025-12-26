@@ -286,7 +286,7 @@ const table = useVueTable({
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
         <div class="w-full">
-          <div class="flex items-center py-4">
+          <div class="flex items-center py-4 gap-3">
             <Input
               placeholder="Filter emails..."
               :value="(table.getColumn('email')?.getFilterValue() as string) ?? ''"

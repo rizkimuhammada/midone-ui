@@ -20,7 +20,7 @@ const api = inject<Api>("carouselApi");
 <template>
   <Slot
     :class="cn(carouselItemGroup, className)"
-    v-bind="{ ...props, ...$attrs, ...api.getItemGroupProps() }"
+    v-bind="{ ...props, ...$attrs, ...api?.getItemGroupProps() }"
   >
     <slot v-if="asChild" />
     <div v-else>

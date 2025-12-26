@@ -5,32 +5,30 @@ import {
   MenuPositioner,
   MenuContent,
   MenuItem,
-  // MenuCheckboxItem,
-  // MenuSeparator,
-  // MenuTriggerItem,
-  // MenuRadioItemGroup,
-  // MenuItemGroupLabel,
-  // MenuRadioItem,
+  MenuCheckboxItem,
+  MenuSeparator,
+  MenuTriggerItem,
+  MenuRadioItemGroup,
+  MenuItemGroupLabel,
+  MenuRadioItem,
 } from "@/components/ui/menu";
 import { ref } from "vue";
-import { Slot } from "@/components/ui/slot";
-import { Button } from "@/components/ui/button";
 
 const react = ref(false);
 const solid = ref(false);
 const vue = ref(false);
 const svelte = ref(false);
-const value = ref("react");
+const value = ref("React");
 </script>
 
 <template>
-  <!-- <div class="flex flex-col gap-20">
+  <div class="flex flex-col gap-20">
     <div class="grid grid-cols-2">
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <MenuRoot>
-          <MenuTrigger class="w-56">Open menu</MenuTrigger>
+        <MenuRoot class="w-56">
+          <MenuTrigger>Open menu</MenuTrigger>
           <MenuPositioner>
             <MenuContent>
               <MenuItem value="react">React</MenuItem>
@@ -44,8 +42,8 @@ const value = ref("react");
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <MenuRoot>
-          <MenuTrigger class="w-56">Open menu</MenuTrigger>
+        <MenuRoot class="w-56">
+          <MenuTrigger>Open menu</MenuTrigger>
           <MenuPositioner>
             <MenuContent>
               <MenuItem value="react">React</MenuItem>
@@ -64,8 +62,8 @@ const value = ref("react");
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <MenuRoot>
-          <MenuTrigger class="w-56">Open menu</MenuTrigger>
+        <MenuRoot class="w-56">
+          <MenuTrigger>Open menu</MenuTrigger>
           <MenuPositioner>
             <MenuContent>
               <MenuItem shortcut="⇧⌘P" value="react"> React </MenuItem>
@@ -84,8 +82,8 @@ const value = ref("react");
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <MenuRoot>
-          <MenuTrigger class="w-56">Open menu</MenuTrigger>
+        <MenuRoot class="w-56">
+          <MenuTrigger>Open menu</MenuTrigger>
           <MenuPositioner>
             <MenuContent>
               <MenuItem shortcut="⇧⌘P" value="react"> React </MenuItem>
@@ -115,20 +113,36 @@ const value = ref("react");
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <MenuRoot>
-          <MenuTrigger class="w-56">Open menu</MenuTrigger>
+        <MenuRoot class="w-56">
+          <MenuTrigger>Open menu</MenuTrigger>
           <MenuPositioner>
             <MenuContent>
-              <MenuCheckboxItem v-model:checked="react" value="false">
+              <MenuCheckboxItem
+                :checked="react"
+                :onCheckedChange="(checked) => (react = checked)"
+                value="checked"
+              >
                 React
               </MenuCheckboxItem>
-              <MenuCheckboxItem v-model:checked="solid" value="false">
+              <MenuCheckboxItem
+                :checked="solid"
+                :onCheckedChange="(checked) => (solid = checked)"
+                value="checked"
+              >
                 Solid
               </MenuCheckboxItem>
-              <MenuCheckboxItem v-model:checked="vue" value="false">
+              <MenuCheckboxItem
+                :checked="vue"
+                :onCheckedChange="(checked) => (vue = checked)"
+                value="checked"
+              >
                 Vue
               </MenuCheckboxItem>
-              <MenuCheckboxItem v-model:checked="svelte" value="false">
+              <MenuCheckboxItem
+                :checked="svelte"
+                :onCheckedChange="(checked) => (svelte = checked)"
+                value="checked"
+              >
                 Svelte
               </MenuCheckboxItem>
             </MenuContent>
@@ -138,16 +152,20 @@ const value = ref("react");
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <MenuRoot>
-          <MenuTrigger class="w-56">Open menu</MenuTrigger>
+        <MenuRoot class="w-56">
+          <MenuTrigger>Open menu</MenuTrigger>
           <MenuPositioner>
             <MenuContent>
-              <MenuRadioItemGroup v-model="value">
+              <MenuRadioItemGroup>
                 <MenuItemGroupLabel>Frameworks</MenuItemGroupLabel>
                 <MenuRadioItem
                   v-for="framework in ['React', 'Solid', 'Vue', 'Svelte']"
                   :key="framework"
                   :value="framework"
+                  :checked="framework == value"
+                  :onCheckedChange="
+                    (checked) => (checked ? (value = framework) : '')
+                  "
                 >
                   {{ framework }}
                 </MenuRadioItem>
@@ -157,16 +175,5 @@ const value = ref("react");
         </MenuRoot>
       </div>
     </div>
-  </div> -->
-  <MenuRoot>
-    <MenuTrigger>Open menu</MenuTrigger>
-    <MenuPositioner>
-      <MenuContent>
-        <MenuItem value="edit">Edit</MenuItem>
-        <MenuItem value="Duplicate">Duplicate</MenuItem>
-        <MenuItem value="delete">Delete</MenuItem>
-        <MenuItem value="export">Export...</MenuItem>
-      </MenuContent>
-    </MenuPositioner>
-  </MenuRoot>
+  </div>
 </template>

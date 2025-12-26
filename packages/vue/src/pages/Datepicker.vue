@@ -31,7 +31,7 @@ import { Box } from "@/components/ui/box";
 </script>
 
 <template>
-  <!-- <div class="flex flex-col gap-20">
+  <div class="flex flex-col gap-20">
     <div class="grid grid-cols-2">
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
@@ -49,7 +49,7 @@ import { Box } from "@/components/ui/box";
                 <DatePickerYearSelect />
                 <DatePickerMonthSelect />
                 <DatePickerView view="day">
-                  <DatePickerContext v-slot="api">
+                  <DatePickerContext v-slot="{ datePicker }">
                     <DatePickerViewControl>
                       <DatePickerPrevTrigger />
                       <DatePickerViewTrigger>
@@ -61,7 +61,7 @@ import { Box } from "@/components/ui/box";
                       <DatePickerTableHead>
                         <DatePickerTableRow>
                           <DatePickerTableHeader
-                            v-for="(weekDay, id) in api.weekDays"
+                            v-for="(weekDay, id) in datePicker?.weekDays"
                             :key="id"
                           >
                             {{ weekDay.short }}
@@ -70,7 +70,7 @@ import { Box } from "@/components/ui/box";
                       </DatePickerTableHead>
                       <DatePickerTableBody>
                         <DatePickerTableRow
-                          v-for="(week, id) in api.weeks"
+                          v-for="(week, id) in datePicker?.weeks"
                           :key="id"
                         >
                           <DatePickerTableCell
@@ -88,7 +88,7 @@ import { Box } from "@/components/ui/box";
                   </DatePickerContext>
                 </DatePickerView>
                 <DatePickerView view="month">
-                  <DatePickerContext v-slot="api">
+                  <DatePickerContext v-slot="{ datePicker }">
                     <DatePickerViewControl>
                       <DatePickerPrevTrigger />
                       <DatePickerViewTrigger>
@@ -99,7 +99,7 @@ import { Box } from "@/components/ui/box";
                     <DatePickerTable>
                       <DatePickerTableBody>
                         <DatePickerTableRow
-                          v-for="(months, id) in api.getMonthsGrid({
+                          v-for="(months, id) in datePicker?.getMonthsGrid({
                             columns: 4,
                             format: 'short',
                           })"
@@ -120,7 +120,7 @@ import { Box } from "@/components/ui/box";
                   </DatePickerContext>
                 </DatePickerView>
                 <DatePickerView view="year">
-                  <DatePickerContext v-slot="api">
+                  <DatePickerContext v-slot="{ datePicker }">
                     <DatePickerViewControl>
                       <DatePickerPrevTrigger />
                       <DatePickerViewTrigger>
@@ -131,7 +131,7 @@ import { Box } from "@/components/ui/box";
                     <DatePickerTable>
                       <DatePickerTableBody>
                         <DatePickerTableRow
-                          v-for="(years, id) in api.getYearsGrid({
+                          v-for="(years, id) in datePicker?.getYearsGrid({
                             columns: 4,
                           })"
                           :key="id"
@@ -182,7 +182,7 @@ import { Box } from "@/components/ui/box";
               <DatePickerYearSelect />
               <DatePickerMonthSelect />
               <DatePickerView view="day">
-                <DatePickerContext v-slot="api">
+                <DatePickerContext v-slot="{ datePicker }">
                   <DatePickerViewControl>
                     <DatePickerPrevTrigger />
                     <DatePickerViewTrigger>
@@ -194,7 +194,7 @@ import { Box } from "@/components/ui/box";
                     <DatePickerTableHead>
                       <DatePickerTableRow>
                         <DatePickerTableHeader
-                          v-for="(weekDay, id) in api.weekDays"
+                          v-for="(weekDay, id) in datePicker?.weekDays"
                           :key="id"
                         >
                           {{ weekDay.short }}
@@ -203,7 +203,7 @@ import { Box } from "@/components/ui/box";
                     </DatePickerTableHead>
                     <DatePickerTableBody>
                       <DatePickerTableRow
-                        v-for="(week, id) in api.weeks"
+                        v-for="(week, id) in datePicker?.weeks"
                         :key="id"
                       >
                         <DatePickerTableCell
@@ -221,7 +221,7 @@ import { Box } from "@/components/ui/box";
                 </DatePickerContext>
               </DatePickerView>
               <DatePickerView view="month">
-                <DatePickerContext v-slot="api">
+                <DatePickerContext v-slot="{ datePicker }">
                   <DatePickerViewControl>
                     <DatePickerPrevTrigger />
                     <DatePickerViewTrigger>
@@ -232,7 +232,7 @@ import { Box } from "@/components/ui/box";
                   <DatePickerTable>
                     <DatePickerTableBody>
                       <DatePickerTableRow
-                        v-for="(months, id) in api.getMonthsGrid({
+                        v-for="(months, id) in datePicker?.getMonthsGrid({
                           columns: 4,
                           format: 'short',
                         })"
@@ -253,7 +253,7 @@ import { Box } from "@/components/ui/box";
                 </DatePickerContext>
               </DatePickerView>
               <DatePickerView view="year">
-                <DatePickerContext v-slot="api">
+                <DatePickerContext v-slot="{ datePicker }">
                   <DatePickerViewControl>
                     <DatePickerPrevTrigger />
                     <DatePickerViewTrigger>
@@ -264,7 +264,9 @@ import { Box } from "@/components/ui/box";
                   <DatePickerTable>
                     <DatePickerTableBody>
                       <DatePickerTableRow
-                        v-for="(years, id) in api.getYearsGrid({ columns: 4 })"
+                        v-for="(years, id) in datePicker?.getYearsGrid({
+                          columns: 4,
+                        })"
                         :key="id"
                       >
                         <DatePickerTableCell
@@ -305,12 +307,12 @@ import { Box } from "@/components/ui/box";
                 <DatePickerNextTrigger />
               </DatePickerViewControl>
               <DatePickerView view="day" class="flex-row">
-                <DatePickerContext v-slot="api">
+                <DatePickerContext v-slot="{ datePicker }">
                   <DatePickerTable>
                     <DatePickerTableHead>
                       <DatePickerTableRow>
                         <DatePickerTableHeader
-                          v-for="(weekDay, id) in api.weekDays"
+                          v-for="(weekDay, id) in datePicker?.weekDays"
                           :key="id"
                         >
                           {{ weekDay.short }}
@@ -319,7 +321,7 @@ import { Box } from "@/components/ui/box";
                     </DatePickerTableHead>
                     <DatePickerTableBody>
                       <DatePickerTableRow
-                        v-for="(week, id) in api.weeks"
+                        v-for="(week, id) in datePicker?.weeks"
                         :key="id"
                       >
                         <DatePickerTableCell
@@ -335,12 +337,12 @@ import { Box } from "@/components/ui/box";
                     </DatePickerTableBody>
                   </DatePickerTable>
                 </DatePickerContext>
-                <DatePickerContext v-slot="api">
+                <DatePickerContext v-slot="{ datePicker }">
                   <DatePickerTable>
                     <DatePickerTableHead>
                       <DatePickerTableRow>
                         <DatePickerTableHeader
-                          v-for="(weekDay, id) in api.weekDays"
+                          v-for="(weekDay, id) in datePicker?.weekDays"
                           :key="id"
                         >
                           {{ weekDay.short }}
@@ -349,7 +351,9 @@ import { Box } from "@/components/ui/box";
                     </DatePickerTableHead>
                     <DatePickerTableBody>
                       <DatePickerTableRow
-                        v-for="(week, id) in api.getOffset({ months: 1 }).weeks"
+                        v-for="(week, id) in datePicker?.getOffset({
+                          months: 1,
+                        }).weeks"
                         :key="id"
                       >
                         <DatePickerTableCell
@@ -357,7 +361,7 @@ import { Box } from "@/components/ui/box";
                           :key="id"
                           :value="day"
                           :visible-range="
-                            api.getOffset({ months: 1 }).visibleRange
+                            datePicker?.getOffset({ months: 1 }).visibleRange
                           "
                         >
                           <DatePickerTableCellTrigger>
@@ -380,7 +384,7 @@ import { Box } from "@/components/ui/box";
           <DatePickerInput class="w-84 mx-auto" />
           <Box raised="single" class="mx-auto">
             <DatePickerView view="day">
-              <DatePickerContext v-slot="api">
+              <DatePickerContext v-slot="{ datePicker }">
                 <DatePickerViewControl>
                   <DatePickerPrevTrigger />
                   <DatePickerViewTrigger>
@@ -392,7 +396,7 @@ import { Box } from "@/components/ui/box";
                   <DatePickerTableHead>
                     <DatePickerTableRow>
                       <DatePickerTableHeader
-                        v-for="(weekDay, id) in api.weekDays"
+                        v-for="(weekDay, id) in datePicker?.weekDays"
                         :key="id"
                       >
                         {{ weekDay.short }}
@@ -401,7 +405,7 @@ import { Box } from "@/components/ui/box";
                   </DatePickerTableHead>
                   <DatePickerTableBody>
                     <DatePickerTableRow
-                      v-for="(week, id) in api.weeks"
+                      v-for="(week, id) in datePicker?.weeks"
                       :key="id"
                     >
                       <DatePickerTableCell
@@ -419,7 +423,7 @@ import { Box } from "@/components/ui/box";
               </DatePickerContext>
             </DatePickerView>
             <DatePickerView view="month">
-              <DatePickerContext v-slot="api">
+              <DatePickerContext v-slot="{ datePicker }">
                 <DatePickerViewControl>
                   <DatePickerPrevTrigger />
                   <DatePickerViewTrigger>
@@ -430,7 +434,7 @@ import { Box } from "@/components/ui/box";
                 <DatePickerTable>
                   <DatePickerTableBody>
                     <DatePickerTableRow
-                      v-for="(months, id) in api.getMonthsGrid({
+                      v-for="(months, id) in datePicker?.getMonthsGrid({
                         columns: 4,
                         format: 'short',
                       })"
@@ -451,7 +455,7 @@ import { Box } from "@/components/ui/box";
               </DatePickerContext>
             </DatePickerView>
             <DatePickerView view="year">
-              <DatePickerContext v-slot="api">
+              <DatePickerContext v-slot="{ datePicker }">
                 <DatePickerViewControl>
                   <DatePickerPrevTrigger />
                   <DatePickerViewTrigger>
@@ -462,7 +466,9 @@ import { Box } from "@/components/ui/box";
                 <DatePickerTable>
                   <DatePickerTableBody>
                     <DatePickerTableRow
-                      v-for="(years, id) in api.getYearsGrid({ columns: 4 })"
+                      v-for="(years, id) in datePicker?.getYearsGrid({
+                        columns: 4,
+                      })"
                       :key="id"
                     >
                       <DatePickerTableCell
@@ -483,121 +489,5 @@ import { Box } from "@/components/ui/box";
         </DatePickerRoot>
       </div>
     </div>
-  </div> -->
-  <DatePickerRoot class="w-84">
-    <DatePickerLabel>Basic</DatePickerLabel>
-    <DatePickerControl>
-      <DatePickerInput />
-      <DatePickerTrigger />
-      <DatePickerClearTrigger>Clear</DatePickerClearTrigger>
-    </DatePickerControl>
-    <DatePickerPositioner>
-      <DatePickerContent>
-        <DatePickerYearSelect />
-        <DatePickerMonthSelect />
-        <DatePickerView view="day">
-          <DatePickerContext v-slot="{ datePicker }">
-            <DatePickerViewControl>
-              <DatePickerPrevTrigger />
-              <DatePickerViewTrigger>
-                <DatePickerRangeText />
-              </DatePickerViewTrigger>
-              <DatePickerNextTrigger />
-            </DatePickerViewControl>
-            <DatePickerTable>
-              <DatePickerTableHead>
-                <DatePickerTableRow>
-                  <DatePickerTableHeader
-                    v-for="(weekDay, id) in datePicker?.weekDays"
-                    :key="id"
-                  >
-                    {{ weekDay.short }}
-                  </DatePickerTableHeader>
-                </DatePickerTableRow>
-              </DatePickerTableHead>
-              <DatePickerTableBody>
-                <DatePickerTableRow
-                  v-for="(week, id) in datePicker?.weeks"
-                  :key="id"
-                >
-                  <DatePickerTableCell
-                    v-for="(day, id) in week"
-                    :key="id"
-                    :value="day"
-                  >
-                    <DatePickerTableCellTrigger>
-                      {{ day.day }}
-                    </DatePickerTableCellTrigger>
-                  </DatePickerTableCell>
-                </DatePickerTableRow>
-              </DatePickerTableBody>
-            </DatePickerTable>
-          </DatePickerContext>
-        </DatePickerView>
-        <DatePickerView view="month">
-          <DatePickerContext v-slot="{ datePicker }">
-            <DatePickerViewControl>
-              <DatePickerPrevTrigger />
-              <DatePickerViewTrigger>
-                <DatePickerRangeText />
-              </DatePickerViewTrigger>
-              <DatePickerNextTrigger />
-            </DatePickerViewControl>
-            <DatePickerTable>
-              <DatePickerTableBody>
-                <DatePickerTableRow
-                  v-for="(months, id) in datePicker?.getMonthsGrid({
-                    columns: 4,
-                    format: 'short',
-                  })"
-                  :key="id"
-                >
-                  <DatePickerTableCell
-                    v-for="(month, id) in months"
-                    :key="id"
-                    :value="month.value"
-                  >
-                    <DatePickerTableCellTrigger>
-                      {{ month.label }}
-                    </DatePickerTableCellTrigger>
-                  </DatePickerTableCell>
-                </DatePickerTableRow>
-              </DatePickerTableBody>
-            </DatePickerTable>
-          </DatePickerContext>
-        </DatePickerView>
-        <DatePickerView view="year">
-          <DatePickerContext v-slot="{ datePicker }">
-            <DatePickerViewControl>
-              <DatePickerPrevTrigger />
-              <DatePickerViewTrigger>
-                <DatePickerRangeText />
-              </DatePickerViewTrigger>
-              <DatePickerNextTrigger />
-            </DatePickerViewControl>
-            <DatePickerTable>
-              <DatePickerTableBody>
-                <DatePickerTableRow
-                  v-for="(years, id) in datePicker?.getYearsGrid({
-                    columns: 4,
-                  })"
-                  :key="id"
-                >
-                  <DatePickerTableCell
-                    v-for="(year, id) in years"
-                    :key="id"
-                    :value="year.value"
-                  >
-                    <DatePickerTableCellTrigger>
-                      {{ year.label }}
-                    </DatePickerTableCellTrigger>
-                  </DatePickerTableCell>
-                </DatePickerTableRow>
-              </DatePickerTableBody>
-            </DatePickerTable>
-          </DatePickerContext>
-        </DatePickerView>
-      </DatePickerContent>
-    </DatePickerPositioner>
-  </DatePickerRoot>
+  </div>
 </template>

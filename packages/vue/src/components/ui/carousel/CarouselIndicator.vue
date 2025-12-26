@@ -22,6 +22,6 @@ const api = inject<Api>("carouselApi");
 <template>
   <button
     :class="cn(carouselIndicator, className)"
-    v-bind="{ ...props, ...$attrs, ...api.getIndicatorProps({ index }) }"
+    v-bind="{ ...props, ...$attrs, ...api?.getIndicatorProps({ index }) }"
   />
 </template>
