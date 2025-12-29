@@ -271,10 +271,18 @@ const table = useVueTable({
     }
   },
   state: {
-    sorting: sorting.value,
-    columnFilters: columnFilters.value,
-    columnVisibility: columnVisibility.value,
-    rowSelection: rowSelection.value,
+    get sorting() {
+      return sorting.value;
+    },
+    get columnFilters() {
+      return columnFilters.value;
+    },
+    get columnVisibility() {
+      return columnVisibility.value;
+    },
+    get rowSelection() {
+      return rowSelection.value;
+    },
   },
 });
 </script>
@@ -304,7 +312,7 @@ const table = useVueTable({
                     :key="column.id"
                     class="capitalize"
                     :checked="column.getIsVisible()"
-                    @checked-change="(value: any) => column.toggleVisibility(!!value)"
+                    :onCheckedChange="(value: any) => column.toggleVisibility(!!value)"
                     :value="column.id"
                   >
                     {{ column.id }}
@@ -324,12 +332,11 @@ const table = useVueTable({
                     v-for="header in headerGroup.headers"
                     :key="header.id"
                   >
-                    <template v-if="!header.isPlaceholder">
-                      <FlexRender
-                        :column="header.column"
-                        :context="header.getContext()"
-                      />
-                    </template>
+                    <FlexRender
+                      v-if="!header.isPlaceholder"
+                      :render="header.column.columnDef.header"
+                      :props="header.getContext()"
+                    />
                   </TableHead>
                 </TableRow>
               </TableHeader>
@@ -345,8 +352,8 @@ const table = useVueTable({
                       :key="cell.id"
                     >
                       <FlexRender
-                        :column="cell.column"
-                        :context="cell.getContext()"
+                        :render="cell.column.columnDef.cell"
+                        :props="cell.getContext()"
                       />
                     </TableCell>
                   </TableRow>

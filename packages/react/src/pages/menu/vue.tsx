@@ -477,6 +477,7 @@ const api = inject<Api>("menuApi");
 import type { Api } from "@zag-js/menu";
 import { cn } from "@midoneui/core/utils/cn";
 import { menuSeparator } from "@midoneui/core/styles/menu.styles";
+import { Slot } from "@/components/ui/slot";
 import { inject } from "vue";
 
 const {
