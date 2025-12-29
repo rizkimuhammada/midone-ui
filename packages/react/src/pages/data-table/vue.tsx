@@ -458,7 +458,7 @@ function Main() {
       <div id="installation">
         <SectionTitle>Installation</SectionTitle>
         <SectionContent>Install the following dependencies:</SectionContent>
-        <InstallPackage>add @zag-js/react @zag-js/accordion</InstallPackage>
+        <InstallPackage>add @tanstack/vue-table</InstallPackage>
         <SectionContent>
           Copy and paste the following code into your project.
         </SectionContent>

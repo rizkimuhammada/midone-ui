@@ -62,11 +62,14 @@ const {
   ...props
 } = defineProps<Partial<Props> & { class?: string }>();
 
-const service = useMachine(checkbox.machine, {
-  ...props,
-  checked,
-  id: crypto.randomUUID(),
-});
+const service = useMachine(
+  checkbox.machine,
+  computed(() => ({
+    ...props,
+    checked,
+    id: crypto.randomUUID(),
+  }))
+);
 
 const api = computed(() => checkbox.connect(service, normalizeProps));
 

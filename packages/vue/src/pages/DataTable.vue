@@ -90,7 +90,7 @@ const columns: ColumnDef<Payment>[] = [
           checked:
             table.getIsAllPageRowsSelected() ||
             (table.getIsSomePageRowsSelected() && "indeterminate"),
-          onCheckedChange: (value: any) =>
+          onCheckedChange: (value) =>
             table.toggleAllPageRowsSelected(!!value.checked),
         },
         {
@@ -103,7 +103,7 @@ const columns: ColumnDef<Payment>[] = [
         CheckboxRoot,
         {
           checked: row.getIsSelected(),
-          onCheckedChange: (value: any) => row.toggleSelected(!!value.checked),
+          onCheckedChange: (value) => row.toggleSelected(!!value.checked),
         },
         {
           default: () => h(CheckboxControl, { "aria-label": "Select all" }),
@@ -312,7 +312,9 @@ const table = useVueTable({
                     :key="column.id"
                     class="capitalize"
                     :checked="column.getIsVisible()"
-                    :onCheckedChange="(value: any) => column.toggleVisibility(!!value)"
+                    :onCheckedChange="
+                      (value) => column.toggleVisibility(!!value)
+                    "
                     :value="column.id"
                   >
                     {{ column.id }}
