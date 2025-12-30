@@ -11,15 +11,15 @@ function Main() {
         <div className="relative flex flex-col items-center lg:items-start gap-5 h-full justify-center after:hidden 2xl:after:block after:w-1 after:h-16 after:bg-foreground/20 after:absolute after:-start-17 after:-ms-px after:inset-y-0 after:my-auto">
           <div className="text-3xl/9 md:text-3xl/12 lg:text-[2.6rem]/14 2xl:text-5xl/15 text-center lg:text-start">
             <span className="2xl:block">
-              Build <span className="bg-foreground/15 px-1">Faster</span> with
+              Build <span className="bg-foreground/15 px-1">faster</span> with
               Midone UI.{" "}
             </span>
             <span className="2xl:block">An open-source collection </span>
             <span className="2xl:block">
               of UI components for{" "}
               <span className="px-1 2xl:block w-fit">
-                <span className="bg-foreground/15">React</span> and{" "}
-                <span className="bg-foreground/15">Vue</span>.
+                <span className="bg-foreground/15">react</span> and{" "}
+                <span className="bg-foreground/15">vue</span>.
               </span>
             </span>
           </div>
@@ -28,7 +28,7 @@ function Main() {
               Beautiful UI components for React, lovingly crafted with{" "}
             </span>
             <span className="2xl:block">
-              the Midone Design System, Zag.js, and Tailwind CSS.
+              the Midone Design System and Tailwind CSS.
             </span>
           </div>
           <Link to="/docs">
@@ -58,63 +58,59 @@ function Main() {
             <div className="text-xl opacity-50">Meet Midone UI</div>
             <div className="text-3xl lg:text-4xl/13 mt-6">
               <span className="2xl:block">
-                Simplify the process of building{" "}
+                Build interfaces faster with less
               </span>
-              <span>beautiful user interfaces</span>
+              <span>friction across your projects</span>
             </div>
           </div>
-          <div className="text-lg 2xl:text-xl/7 opacity-70 lg:ms-auto pt-5 lg:pt-20">
-            <span className="2xl:block">
-              Midone UI is a professionally designed design system for Figma{" "}
-            </span>
-            <span className="2xl:block">
-              and an open-source React UI library that combines Zag.js UI{" "}
-            </span>
-            <span className="2xl:block">primitives and Tailwind CSS. </span>
-            <span className="2xl:block">
-              Enjoy a growing collection of pre-built, easy-to-use,{" "}
-            </span>
-            <span className="2xl:block">
-              customizable components that can be copied and pasted into{" "}
-            </span>
-            <span className="2xl:block">your React projects. </span>
+          <div className="text-lg 2xl:text-xl/9 opacity-70 lg:ms-auto pt-5 lg:pt-20">
+            Midone UI helps you focus on building features, not wiring
+            components. A thoughtfully designed UI kit for React and Vue, built
+            on Tailwind CSS and modern UI primitives—clean, consistent, and
+            ready for real projects.
           </div>
         </div>
         <div className="grid md:grid-cols-2 2xl:grid-cols-3 gap-10 mt-20 xl:mt-40 relative before:bg-accent before:bg-size-[40%] before:bg-center before:bg-no-repeat before:absolute before:inset-0 before:-mt-[10%] before:-me-[80%] before:blur-2xl dark:before:opacity-40">
           <div className="border border-foreground/15 w-full p-7 lg:p-10 relative before:inset-0 before:mt-3 before:-mb-3 before:-ms-3 before:me-3 before:absolute before:bg-foreground/7 before:backdrop-blur-xl before:z-[-1]">
             <div className="text-xl">Fast & Modern</div>
             <div className="opacity-60 text-base mt-2">
-              Stop building from scratch and save time with a component library
+              Carefully structured components that follow modern frontend
+              patterns, so you can move fast without sacrificing quality.
             </div>
           </div>
           <div className="border border-foreground/15 w-full p-7 lg:p-10 relative before:inset-0 before:mt-3 before:-mb-3 before:-ms-3 before:me-3 before:absolute before:bg-foreground/7 before:backdrop-blur-xl before:z-[-1]">
-            <div className="text-xl">Accessible</div>
+            <div className="text-xl">Accessible by Default</div>
             <div className="opacity-60 text-base mt-2">
-              Stop building from scratch and save time with a component library
+              Built with accessibility in mind, using proven UI primitives to
+              ensure better keyboard and screen reader support.
             </div>
           </div>
           <div className="border border-foreground/15 w-full p-7 lg:p-10 relative before:inset-0 before:mt-3 before:-mb-3 before:-ms-3 before:me-3 before:absolute before:bg-foreground/7 before:backdrop-blur-xl before:z-[-1]">
-            <div className="text-xl">Customizable</div>
+            <div className="text-xl">Fully Customizable</div>
             <div className="opacity-60 text-base mt-2">
-              Stop building from scratch and save time with a component library
+              Styling stays in your control. Extend, override, or adapt
+              components easily using Tailwind CSS.
             </div>
           </div>
           <div className="border border-foreground/15 w-full p-7 lg:p-10 relative before:inset-0 before:mt-3 before:-mb-3 before:-ms-3 before:me-3 before:absolute before:bg-foreground/7 before:backdrop-blur-xl before:z-[-1]">
-            <div className="text-xl">Dark Mode</div>
+            <div className="text-xl">Dark Mode Ready</div>
             <div className="opacity-60 text-base mt-2">
-              Stop building from scratch and save time with a component library
+              First-class dark mode support with consistent colors and tokens
+              across components.
             </div>
           </div>
           <div className="border border-foreground/15 w-full p-7 lg:p-10 relative before:inset-0 before:mt-3 before:-mb-3 before:-ms-3 before:me-3 before:absolute before:bg-foreground/7 before:backdrop-blur-xl before:z-[-1]">
-            <div className="text-xl">Typescript</div>
+            <div className="text-xl">TypeScript Friendly</div>
             <div className="opacity-60 text-base mt-2">
-              Stop building from scratch and save time with a component library
+              Strongly typed APIs for a better development experience and fewer
+              surprises at runtime.
             </div>
           </div>
           <div className="border border-foreground/15 w-full p-7 lg:p-10 relative before:inset-0 before:mt-3 before:-mb-3 before:-ms-3 before:me-3 before:absolute before:bg-foreground/7 before:backdrop-blur-xl before:z-[-1]">
-            <div className="text-xl">Expert Design</div>
+            <div className="text-xl">Production-Oriented Design</div>
             <div className="opacity-60 text-base mt-2">
-              Stop building from scratch and save time with a component library
+              Designed for real dashboards and applications—not just demos.
+              Practical layouts, sensible defaults, and scalable patterns.
             </div>
           </div>
         </div>
@@ -124,21 +120,12 @@ function Main() {
         <div className="flex flex-col items-center relative">
           <img className="size-31" src={layer} />
           <div className="text-3xl lg:text-4xl/13 mt-5">
-            Start your Journey Today
+            Start building with Midone UI
           </div>
-          <div className="opacity-60 text-lg 2xl:text-xl/7 text-center mt-7">
-            <span className="2xl:block">
-              Unleash the power of UiPress, a lightning-fast, feature-rich
-              builder designed for excellence. With{" "}
-            </span>
-            <span className="2xl:block">
-              over 50 intuitive blocks, smart patterns for easy reuse, global
-              styles for brand consistency, and{" "}
-            </span>
-            <span className="2xl:block">
-              a user-friendly interface, crafting stunning dashboards has never
-              been easier.
-            </span>
+          <div className="opacity-60 text-lg 2xl:text-xl/7 text-center mt-7 max-w-[60rem]">
+            Explore a growing collection of reusable components designed to fit
+            naturally into modern React and Vue projects. Copy what you need,
+            customize when necessary, and stay focused on shipping your product.
           </div>
           <Link to="/docs">
             <CosmicButton className="w-60 mt-10">Get Started</CosmicButton>
