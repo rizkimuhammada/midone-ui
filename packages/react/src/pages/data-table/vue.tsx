@@ -336,119 +336,408 @@ function Main() {
             code: (
               <PreviewCode>
                 {`
-<div className="w-full">
-  <div className="flex items-center py-4 gap-3">
-    <Input
-      placeholder="Filter emails..."
-      value={
-        (table.getColumn("email")?.getFilterValue() as string) ?? ""
-      }
-      onChange={(event) =>
-        table.getColumn("email")?.setFilterValue(event.target.value)
-      }
-      className="max-w-80"
-    />
-    <MenuRoot>
-      <MenuTrigger className="ms-auto w-auto">
-        Show Columns
-      </MenuTrigger>
-      <MenuPositioner>
-        <MenuContent>
-          {table
-            .getAllColumns()
-            .filter((column) => column.getCanHide())
-            .map((column) => {
-              return (
-                <MenuCheckboxItem
-                  key={column.id}
-                  className="capitalize"
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(value) =>
-                    column.toggleVisibility(!!value)
-                  }
-                  value={column.id}
+<script lang="ts" setup>
+import { ref, h } from "vue";
+import {
+  type ColumnDef,
+  type ColumnFiltersState,
+  FlexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  type SortingState,
+  useVueTable,
+  type VisibilityState,
+} from "@tanstack/vue-table";
+import { ArrowUpDown, MoreVertical } from "lucide-vue-next";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { CheckboxRoot, CheckboxControl } from "@/components/ui/checkbox";
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem,
+  MenuCheckboxItem,
+} from "@/components/ui/menu";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+export type Payment = {
+  id: string;
+  amount: number;
+  status: "pending" | "processing" | "success" | "failed";
+  badge: "success" | "pending" | "danger";
+  email: string;
+};
+
+const data: Payment[] = [
+  {
+    id: "m5gr84i9",
+    amount: 316,
+    status: "success",
+    badge: "success",
+    email: "ken99@example.com",
+  },
+  {
+    id: "3u1reuv4",
+    amount: 242,
+    status: "success",
+    badge: "success",
+    email: "Abe45@example.com",
+  },
+  {
+    id: "derv1ws0",
+    amount: 837,
+    status: "processing",
+    badge: "pending",
+    email: "Monserrat44@example.com",
+  },
+  {
+    id: "5kma53ae",
+    amount: 874,
+    status: "success",
+    badge: "success",
+    email: "Silas22@example.com",
+  },
+  {
+    id: "bhqecj4p",
+    amount: 721,
+    status: "failed",
+    badge: "danger",
+    email: "carmella@example.com",
+  },
+];
+
+const columns: ColumnDef<Payment>[] = [
+  {
+    id: "select",
+    header: ({ table }) => {
+      return h(
+        CheckboxRoot,
+        {
+          checked:
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate"),
+          onCheckedChange: (value) =>
+            table.toggleAllPageRowsSelected(!!value.checked),
+        },
+        {
+          default: () => h(CheckboxControl, { "aria-label": "Select all" }),
+        }
+      );
+    },
+    cell: ({ row }) => {
+      return h(
+        CheckboxRoot,
+        {
+          checked: row.getIsSelected(),
+          onCheckedChange: (value) => row.toggleSelected(!!value.checked),
+        },
+        {
+          default: () => h(CheckboxControl, { "aria-label": "Select all" }),
+        }
+      );
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      return h(
+        Badge,
+        {
+          variant: row.original.badge,
+          class: "capitalize",
+        },
+        {
+          default: () => row.getValue("status"),
+        }
+      );
+    },
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => {
+      return h(
+        "div",
+        {
+          onClick: () => column.toggleSorting(column.getIsSorted() === "asc"),
+          class: "flex gap-2 items-center cursor-pointer",
+        },
+        ["Email", h(ArrowUpDown, { class: "size-3" })]
+      );
+    },
+    cell: ({ row }) => {
+      return h("div", { class: "lowercase" }, row.getValue("email"));
+    },
+  },
+  {
+    accessorKey: "amount",
+    header: () => h("div", { class: "text-right" }, "Amount"),
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("amount"));
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(amount);
+      return h("div", { class: "text-right font-medium" }, formatted);
+    },
+  },
+  {
+    id: "actions",
+    enableHiding: false,
+    header: () => h("div", { class: "text-center" }, "Actions"),
+    cell: ({ row }) => {
+      const payment = row.original;
+      return h(
+        MenuRoot,
+        {},
+        {
+          default: () => [
+            h(
+              MenuTrigger,
+              { asChild: true },
+              {
+                default: () =>
+                  h("div", { class: "cursor-pointer flex justify-center" }, [
+                    h("span", { class: "sr-only" }, "Open menu"),
+                    h(MoreVertical, { class: "size-4 opacity-70" }),
+                  ]),
+              }
+            ),
+            h(
+              MenuPositioner,
+              {},
+              {
+                default: () =>
+                  h(
+                    MenuContent,
+                    {},
+                    {
+                      default: () => [
+                        h(
+                          MenuItem,
+                          {
+                            value: "copy",
+                            onClick: () =>
+                              navigator.clipboard.writeText(payment.id),
+                          },
+                          {
+                            default: () => "Copy payment ID",
+                          }
+                        ),
+                        h(
+                          MenuItem,
+                          { value: "view-cust" },
+                          {
+                            default: () => "View Customer",
+                          }
+                        ),
+                        h(
+                          MenuItem,
+                          { value: "view-pay" },
+                          {
+                            default: () => "View Payment",
+                          }
+                        ),
+                      ],
+                    }
+                  ),
+              }
+            ),
+          ],
+        }
+      );
+    },
+  },
+];
+
+const sorting = ref<SortingState>([]);
+const columnFilters = ref<ColumnFiltersState>([]);
+const columnVisibility = ref<VisibilityState>({});
+const rowSelection = ref({});
+
+const table = useVueTable({
+  get data() {
+    return data;
+  },
+  get columns() {
+    return columns;
+  },
+  onSortingChange: (updaterOrValue) => {
+    if (typeof updaterOrValue === "function") {
+      sorting.value = updaterOrValue(sorting.value);
+    } else {
+      sorting.value = updaterOrValue;
+    }
+  },
+  onColumnFiltersChange: (updaterOrValue) => {
+    if (typeof updaterOrValue === "function") {
+      columnFilters.value = updaterOrValue(columnFilters.value);
+    } else {
+      columnFilters.value = updaterOrValue;
+    }
+  },
+  getCoreRowModel: getCoreRowModel(),
+  getPaginationRowModel: getPaginationRowModel(),
+  getSortedRowModel: getSortedRowModel(),
+  getFilteredRowModel: getFilteredRowModel(),
+  onColumnVisibilityChange: (updaterOrValue) => {
+    if (typeof updaterOrValue === "function") {
+      columnVisibility.value = updaterOrValue(columnVisibility.value);
+    } else {
+      columnVisibility.value = updaterOrValue;
+    }
+  },
+  onRowSelectionChange: (updaterOrValue) => {
+    if (typeof updaterOrValue === "function") {
+      rowSelection.value = updaterOrValue(rowSelection.value);
+    } else {
+      rowSelection.value = updaterOrValue;
+    }
+  },
+  state: {
+    get sorting() {
+      return sorting.value;
+    },
+    get columnFilters() {
+      return columnFilters.value;
+    },
+    get columnVisibility() {
+      return columnVisibility.value;
+    },
+    get rowSelection() {
+      return rowSelection.value;
+    },
+  },
+});
+</script>
+
+<template>
+  <div class="flex flex-col gap-20">
+    <div class="grid grid-cols-2">
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
+        <div class="w-full">
+          <div class="flex items-center py-4 gap-3">
+            <Input
+              placeholder="Filter emails..."
+              :value="(table.getColumn('email')?.getFilterValue() as string) ?? ''"
+              @input="(event: Event) => table.getColumn('email')?.setFilterValue((event.target as HTMLInputElement).value)"
+              class="max-w-80"
+            />
+            <MenuRoot>
+              <MenuTrigger class="ms-auto w-auto"> Show Columns </MenuTrigger>
+              <MenuPositioner>
+                <MenuContent>
+                  <MenuCheckboxItem
+                    v-for="column in table
+                      .getAllColumns()
+                      .filter((column) => column.getCanHide())"
+                    :key="column.id"
+                    class="capitalize"
+                    :checked="column.getIsVisible()"
+                    :onCheckedChange="
+                      (value) => column.toggleVisibility(!!value)
+                    "
+                    :value="column.id"
+                  >
+                    {{ column.id }}
+                  </MenuCheckboxItem>
+                </MenuContent>
+              </MenuPositioner>
+            </MenuRoot>
+          </div>
+          <div class="relative -me-2">
+            <Table variant="boxed">
+              <TableHeader>
+                <TableRow
+                  v-for="headerGroup in table.getHeaderGroups()"
+                  :key="headerGroup.id"
                 >
-                  {column.id}
-                </MenuCheckboxItem>
-              );
-            })}
-        </MenuContent>
-      </MenuPositioner>
-    </MenuRoot>
-  </div>
-  <div className="relative -me-2">
-    <Table variant="boxed">
-      <TableHeader>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              return (
-                <TableHead key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </TableHead>
-              );
-            })}
-          </TableRow>
-        ))}
-      </TableHeader>
-      <TableBody>
-        {table.getRowModel().rows?.length ? (
-          table.getRowModel().rows.map((row) => (
-            <TableRow
-              key={row.id}
-              data-state={row.getIsSelected() && "selected"}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext()
-                  )}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))
-        ) : (
-          <TableRow>
-            <TableCell
-              colSpan={columns.length}
-              className="h-24 text-center"
-            >
-              No results.
-            </TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
-  </div>
-  <div className="flex items-center justify-end space-x-2 py-4">
-    <div className="text-muted-foreground flex-1 text-xs">
-      {table.getFilteredSelectedRowModel().rows.length} of{" "}
-      {table.getFilteredRowModel().rows.length} row(s) selected.
-    </div>
-    <div className="space-x-2">
-      <Button
-        size="sm"
-        onClick={() => table.previousPage()}
-        disabled={!table.getCanPreviousPage()}
-      >
-        Previous
-      </Button>
-      <Button
-        size="sm"
-        onClick={() => table.nextPage()}
-        disabled={!table.getCanNextPage()}
-      >
-        Next
-      </Button>
+                  <TableHead
+                    v-for="header in headerGroup.headers"
+                    :key="header.id"
+                  >
+                    <FlexRender
+                      v-if="!header.isPlaceholder"
+                      :render="header.column.columnDef.header"
+                      :props="header.getContext()"
+                    />
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <template v-if="table.getRowModel().rows?.length">
+                  <TableRow
+                    v-for="row in table.getRowModel().rows"
+                    :key="row.id"
+                    :data-state="row.getIsSelected() && 'selected'"
+                  >
+                    <TableCell
+                      v-for="cell in row.getVisibleCells()"
+                      :key="cell.id"
+                    >
+                      <FlexRender
+                        :render="cell.column.columnDef.cell"
+                        :props="cell.getContext()"
+                      />
+                    </TableCell>
+                  </TableRow>
+                </template>
+                <template v-else>
+                  <TableRow>
+                    <TableCell
+                      :colspan="columns.length"
+                      class="h-24 text-center"
+                    >
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                </template>
+              </TableBody>
+            </Table>
+          </div>
+          <div class="flex items-center justify-end space-x-2 py-4">
+            <div class="text-muted-foreground flex-1 text-sm">
+              {{ table.getFilteredSelectedRowModel().rows.length }} of
+              {{ table.getFilteredRowModel().rows.length }} row(s) selected.
+            </div>
+            <div class="space-x-2">
+              <Button
+                size="sm"
+                @click="table.previousPage()"
+                :disabled="!table.getCanPreviousPage()"
+              >
+                Previous
+              </Button>
+              <Button
+                size="sm"
+                @click="table.nextPage()"
+                :disabled="!table.getCanNextPage()"
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</template>
                 `}
               </PreviewCode>
             ),
@@ -458,175 +747,454 @@ function Main() {
       <div id="installation">
         <SectionTitle>Installation</SectionTitle>
         <SectionContent>Install the following dependencies:</SectionContent>
-        <InstallPackage>add @tanstack/vue-table</InstallPackage>
-        <SectionContent>
-          Copy and paste the following code into your project.
-        </SectionContent>
-        <PreviewCode title="components/ui/accordion/index.ts">
-          {`
-      import { ChevronDownIcon } from "lucide-react";
-      import {
-        accordionRootVariants,
-        accordionItemVariants,
-        accordionTrigger,
-        accordionItemIndicator,
-        accordionContent,
-      } from "@midoneui/core/styles/accordion.styles";
-      import {
-        boxVariants,
-        type BoxVariants,
-      } from "@midoneui/core/styles/box.styles";
-      import { cn } from "@midoneui/core/utils/cn";
-      import { createContext, useContext, useId } from "react";
-      import * as accordion from "@zag-js/accordion";
-      import type { Api, Props, ItemProps } from "@zag-js/accordion";
-      import { Slot } from "@/components/ui/slot";
-      import { useMachine, normalizeProps } from "@zag-js/react";
-      
-      const VariantContext = createContext<"default" | "boxed" | null>(null);
-      const ApiContext = createContext<Api | null>(null);
-      const ItemContext = createContext<ItemProps | null>(null);
-      
-      export function AccordionRoot({
-        children,
-        className,
-        variant = "default",
-        asChild = false,
-        collapsible = true,
-        ...props
-      }: React.ComponentProps<"div"> &
-        Partial<Props> & { variant?: "default" | "boxed"; asChild?: boolean }) {
-        const service = useMachine(accordion.machine, {
-          collapsible,
-          ...props,
-          id: useId(),
-        });
-        const api = accordion.connect(service, normalizeProps);
-      
-        return (
-          <VariantContext.Provider value={variant}>
-            <ApiContext.Provider value={api}>
-              <Slot
-                className={cn([
-                  className,
-                  accordionRootVariants({ variant, className }),
-                ])}
-                {...api.getRootProps()}
-                {...props}
-              >
-                {asChild ? children : <div>{children}</div>}
-              </Slot>
-            </ApiContext.Provider>
-          </VariantContext.Provider>
-        );
-      }
-      
-      export function AccordionItem({
-        children,
-        filled,
-        raised,
-        className,
-        asChild = false,
-        ...props
-      }: React.ComponentProps<"div"> &
-        BoxVariants &
-        ItemProps & { asChild?: boolean }) {
-        const variant = useContext(VariantContext);
-        const api = useContext(ApiContext);
-      
-        return (
-          <ItemContext.Provider value={props}>
-            <Slot
-              className={cn([
-                className,
-                variant == "boxed"
-                  ? boxVariants({ filled, variant: "default", raised, className })
-                  : "",
-                accordionItemVariants({ variant, className }),
-              ])}
-              {...api?.getItemProps(props)}
-              {...props}
-            >
-              {asChild ? children : <div>{children}</div>}
-            </Slot>
-          </ItemContext.Provider>
-        );
-      }
-      
-      export function AccordionTrigger({
-        children,
-        className,
-        asChild = false,
-        ...props
-      }: React.ComponentProps<"div"> & { asChild?: boolean }) {
-        const api = useContext(ApiContext);
-        const item = useContext(ItemContext);
-      
-        return (
-          <Slot
-            className={cn([className, accordionTrigger])}
-            {...api?.getItemTriggerProps(item!)}
-            {...props}
-          >
-            {asChild ? (
-              children
-            ) : (
-              <button>
-                {children}
-                <div
-                  {...api?.getItemIndicatorProps(item!)}
-                  className={accordionItemIndicator}
-                >
-                  <ChevronDownIcon />
-                </div>
-              </button>
-            )}
-          </Slot>
-        );
-      }
-      
-      export function AccordionContent({
-        children,
-        className,
-        asChild = false,
-        ...props
-      }: React.ComponentProps<"div"> & { asChild?: boolean }) {
-        const api = useContext(ApiContext);
-        const item = useContext(ItemContext);
-      
-        return (
-          <Slot
-            className={cn([className, accordionContent])}
-            {...api?.getItemContentProps(item!)}
-            {...props}
-          >
-            {asChild ? children : <div>{children}</div>}
-          </Slot>
-        );
-      }
-                    `}
-        </PreviewCode>
-        <SectionContent>
-          Update the import paths to match your project setup.
-        </SectionContent>
+        <InstallPackage className="mb-0">
+          add @tanstack/vue-table
+        </InstallPackage>
       </div>
       <div id="usage">
         <SectionTitle>Usage</SectionTitle>
         <PreviewCode>
           {`
-      import {
-        CheckboxRoot,
-        CheckboxLabel,
-        CheckboxControl,
-      } from "@/components/ui/checkbox";
+import { ref, h } from "vue";
+import {
+  type ColumnDef,
+  type ColumnFiltersState,
+  FlexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  type SortingState,
+  useVueTable,
+  type VisibilityState,
+} from "@tanstack/vue-table";
+import { ArrowUpDown, MoreVertical } from "lucide-vue-next";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { CheckboxRoot, CheckboxControl } from "@/components/ui/checkbox";
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem,
+  MenuCheckboxItem,
+} from "@/components/ui/menu";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
                     `}
         </PreviewCode>
         <PreviewCode>
           {`
-      <CheckboxRoot>
-        <CheckboxControl />
-        <CheckboxLabel>Accept terms and conditions</CheckboxLabel>
-      </CheckboxRoot>
+<script lang="ts" setup>
+import { ref, h } from "vue";
+import {
+  type ColumnDef,
+  type ColumnFiltersState,
+  FlexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  type SortingState,
+  useVueTable,
+  type VisibilityState,
+} from "@tanstack/vue-table";
+import { ArrowUpDown, MoreVertical } from "lucide-vue-next";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { CheckboxRoot, CheckboxControl } from "@/components/ui/checkbox";
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem,
+  MenuCheckboxItem,
+} from "@/components/ui/menu";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+export type Payment = {
+  id: string;
+  amount: number;
+  status: "pending" | "processing" | "success" | "failed";
+  badge: "success" | "pending" | "danger";
+  email: string;
+};
+
+const data: Payment[] = [
+  {
+    id: "m5gr84i9",
+    amount: 316,
+    status: "success",
+    badge: "success",
+    email: "ken99@example.com",
+  },
+  {
+    id: "3u1reuv4",
+    amount: 242,
+    status: "success",
+    badge: "success",
+    email: "Abe45@example.com",
+  },
+  {
+    id: "derv1ws0",
+    amount: 837,
+    status: "processing",
+    badge: "pending",
+    email: "Monserrat44@example.com",
+  },
+  {
+    id: "5kma53ae",
+    amount: 874,
+    status: "success",
+    badge: "success",
+    email: "Silas22@example.com",
+  },
+  {
+    id: "bhqecj4p",
+    amount: 721,
+    status: "failed",
+    badge: "danger",
+    email: "carmella@example.com",
+  },
+];
+
+const columns: ColumnDef<Payment>[] = [
+  {
+    id: "select",
+    header: ({ table }) => {
+      return h(
+        CheckboxRoot,
+        {
+          checked:
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate"),
+          onCheckedChange: (value) =>
+            table.toggleAllPageRowsSelected(!!value.checked),
+        },
+        {
+          default: () => h(CheckboxControl, { "aria-label": "Select all" }),
+        }
+      );
+    },
+    cell: ({ row }) => {
+      return h(
+        CheckboxRoot,
+        {
+          checked: row.getIsSelected(),
+          onCheckedChange: (value) => row.toggleSelected(!!value.checked),
+        },
+        {
+          default: () => h(CheckboxControl, { "aria-label": "Select all" }),
+        }
+      );
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      return h(
+        Badge,
+        {
+          variant: row.original.badge,
+          class: "capitalize",
+        },
+        {
+          default: () => row.getValue("status"),
+        }
+      );
+    },
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => {
+      return h(
+        "div",
+        {
+          onClick: () => column.toggleSorting(column.getIsSorted() === "asc"),
+          class: "flex gap-2 items-center cursor-pointer",
+        },
+        ["Email", h(ArrowUpDown, { class: "size-3" })]
+      );
+    },
+    cell: ({ row }) => {
+      return h("div", { class: "lowercase" }, row.getValue("email"));
+    },
+  },
+  {
+    accessorKey: "amount",
+    header: () => h("div", { class: "text-right" }, "Amount"),
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("amount"));
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(amount);
+      return h("div", { class: "text-right font-medium" }, formatted);
+    },
+  },
+  {
+    id: "actions",
+    enableHiding: false,
+    header: () => h("div", { class: "text-center" }, "Actions"),
+    cell: ({ row }) => {
+      const payment = row.original;
+      return h(
+        MenuRoot,
+        {},
+        {
+          default: () => [
+            h(
+              MenuTrigger,
+              { asChild: true },
+              {
+                default: () =>
+                  h("div", { class: "cursor-pointer flex justify-center" }, [
+                    h("span", { class: "sr-only" }, "Open menu"),
+                    h(MoreVertical, { class: "size-4 opacity-70" }),
+                  ]),
+              }
+            ),
+            h(
+              MenuPositioner,
+              {},
+              {
+                default: () =>
+                  h(
+                    MenuContent,
+                    {},
+                    {
+                      default: () => [
+                        h(
+                          MenuItem,
+                          {
+                            value: "copy",
+                            onClick: () =>
+                              navigator.clipboard.writeText(payment.id),
+                          },
+                          {
+                            default: () => "Copy payment ID",
+                          }
+                        ),
+                        h(
+                          MenuItem,
+                          { value: "view-cust" },
+                          {
+                            default: () => "View Customer",
+                          }
+                        ),
+                        h(
+                          MenuItem,
+                          { value: "view-pay" },
+                          {
+                            default: () => "View Payment",
+                          }
+                        ),
+                      ],
+                    }
+                  ),
+              }
+            ),
+          ],
+        }
+      );
+    },
+  },
+];
+
+const sorting = ref<SortingState>([]);
+const columnFilters = ref<ColumnFiltersState>([]);
+const columnVisibility = ref<VisibilityState>({});
+const rowSelection = ref({});
+
+const table = useVueTable({
+  get data() {
+    return data;
+  },
+  get columns() {
+    return columns;
+  },
+  onSortingChange: (updaterOrValue) => {
+    if (typeof updaterOrValue === "function") {
+      sorting.value = updaterOrValue(sorting.value);
+    } else {
+      sorting.value = updaterOrValue;
+    }
+  },
+  onColumnFiltersChange: (updaterOrValue) => {
+    if (typeof updaterOrValue === "function") {
+      columnFilters.value = updaterOrValue(columnFilters.value);
+    } else {
+      columnFilters.value = updaterOrValue;
+    }
+  },
+  getCoreRowModel: getCoreRowModel(),
+  getPaginationRowModel: getPaginationRowModel(),
+  getSortedRowModel: getSortedRowModel(),
+  getFilteredRowModel: getFilteredRowModel(),
+  onColumnVisibilityChange: (updaterOrValue) => {
+    if (typeof updaterOrValue === "function") {
+      columnVisibility.value = updaterOrValue(columnVisibility.value);
+    } else {
+      columnVisibility.value = updaterOrValue;
+    }
+  },
+  onRowSelectionChange: (updaterOrValue) => {
+    if (typeof updaterOrValue === "function") {
+      rowSelection.value = updaterOrValue(rowSelection.value);
+    } else {
+      rowSelection.value = updaterOrValue;
+    }
+  },
+  state: {
+    get sorting() {
+      return sorting.value;
+    },
+    get columnFilters() {
+      return columnFilters.value;
+    },
+    get columnVisibility() {
+      return columnVisibility.value;
+    },
+    get rowSelection() {
+      return rowSelection.value;
+    },
+  },
+});
+</script>
+
+<template>
+  <div class="flex flex-col gap-20">
+    <div class="grid grid-cols-2">
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
+        <div class="w-full">
+          <div class="flex items-center py-4 gap-3">
+            <Input
+              placeholder="Filter emails..."
+              :value="(table.getColumn('email')?.getFilterValue() as string) ?? ''"
+              @input="(event: Event) => table.getColumn('email')?.setFilterValue((event.target as HTMLInputElement).value)"
+              class="max-w-80"
+            />
+            <MenuRoot>
+              <MenuTrigger class="ms-auto w-auto"> Show Columns </MenuTrigger>
+              <MenuPositioner>
+                <MenuContent>
+                  <MenuCheckboxItem
+                    v-for="column in table
+                      .getAllColumns()
+                      .filter((column) => column.getCanHide())"
+                    :key="column.id"
+                    class="capitalize"
+                    :checked="column.getIsVisible()"
+                    :onCheckedChange="
+                      (value) => column.toggleVisibility(!!value)
+                    "
+                    :value="column.id"
+                  >
+                    {{ column.id }}
+                  </MenuCheckboxItem>
+                </MenuContent>
+              </MenuPositioner>
+            </MenuRoot>
+          </div>
+          <div class="relative -me-2">
+            <Table variant="boxed">
+              <TableHeader>
+                <TableRow
+                  v-for="headerGroup in table.getHeaderGroups()"
+                  :key="headerGroup.id"
+                >
+                  <TableHead
+                    v-for="header in headerGroup.headers"
+                    :key="header.id"
+                  >
+                    <FlexRender
+                      v-if="!header.isPlaceholder"
+                      :render="header.column.columnDef.header"
+                      :props="header.getContext()"
+                    />
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <template v-if="table.getRowModel().rows?.length">
+                  <TableRow
+                    v-for="row in table.getRowModel().rows"
+                    :key="row.id"
+                    :data-state="row.getIsSelected() && 'selected'"
+                  >
+                    <TableCell
+                      v-for="cell in row.getVisibleCells()"
+                      :key="cell.id"
+                    >
+                      <FlexRender
+                        :render="cell.column.columnDef.cell"
+                        :props="cell.getContext()"
+                      />
+                    </TableCell>
+                  </TableRow>
+                </template>
+                <template v-else>
+                  <TableRow>
+                    <TableCell
+                      :colspan="columns.length"
+                      class="h-24 text-center"
+                    >
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                </template>
+              </TableBody>
+            </Table>
+          </div>
+          <div class="flex items-center justify-end space-x-2 py-4">
+            <div class="text-muted-foreground flex-1 text-sm">
+              {{ table.getFilteredSelectedRowModel().rows.length }} of
+              {{ table.getFilteredRowModel().rows.length }} row(s) selected.
+            </div>
+            <div class="space-x-2">
+              <Button
+                size="sm"
+                @click="table.previousPage()"
+                :disabled="!table.getCanPreviousPage()"
+              >
+                Previous
+              </Button>
+              <Button
+                size="sm"
+                @click="table.nextPage()"
+                :disabled="!table.getCanNextPage()"
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
                     `}
         </PreviewCode>
       </div>

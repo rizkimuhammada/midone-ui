@@ -53,7 +53,7 @@ function SectionContent({ className, children }: React.ComponentProps<"p">) {
   return <p className={twMerge(["mt-2 opacity-70", className])}>{children}</p>;
 }
 
-function InstallPackage({ children }: React.PropsWithChildren) {
+function InstallPackage({ className, children }: React.ComponentProps<"div">) {
   const [packageManager, setPackageManager] = useState("yarn");
   const [copied, setCopied] = useState(false);
   const commandRef = useRef<HTMLDivElement>(null);
@@ -83,7 +83,12 @@ function InstallPackage({ children }: React.PropsWithChildren) {
   };
 
   return (
-    <div className="mt-8 mb-10 border border-foreground/20 bg-background/50">
+    <div
+      className={twMerge([
+        "mt-8 mb-10 border border-foreground/20 bg-background/50",
+        className,
+      ])}
+    >
       <div className="flex items-center py-2 px-5 gap-5">
         <SquareChevronRight className="stroke-1 size-4 fill-foreground/10" />
         <div className="flex items-center w-full gap-2">
