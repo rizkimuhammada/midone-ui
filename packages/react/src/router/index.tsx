@@ -1,7 +1,7 @@
 import { Navigate, useRoutes } from "react-router";
 import Home from "../pages/home";
 import Docs from "../pages/docs";
-import Introduction from "../pages/accordion";
+import Introduction from "../pages/introduction";
 import HowToUse from "../pages/how-to-use";
 import Accordion from "../pages/accordion";
 import Alert from "../pages/alert";
