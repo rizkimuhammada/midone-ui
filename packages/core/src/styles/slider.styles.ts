@@ -5,7 +5,7 @@ export const sliderControl = "";
 export const sliderTrack = "bg-foreground/10 h-1.5 w-full rounded-full";
 export const sliderRange = "h-full absolute bg-foreground/70 rounded-full";
 export const sliderThumb =
-  "bg-background size-4 rounded-full inset-y-0 my-auto shadow-sm border-2";
+  "bg-background size-4 rounded-full inset-y-0 my-auto shadow-md/5 border-2 border-foreground/70";
 export const sliderHiddenInput = "";
 export const sliderMarkerGroup = "h-6";
 export const sliderMarker = [

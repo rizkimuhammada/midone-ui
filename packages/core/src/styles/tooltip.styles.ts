@@ -2,10 +2,10 @@ export const tooltipTrigger = "";
 export const tooltipPositioner = "";
 export const tooltipContent = [
   "bg-background rounded-xl px-4 py-2 font-medium relative",
-  "before:absolute before:inset-0 before:bg-foreground/20 before:border before:border-foreground/60 before:rounded-xl before:shadow-sm",
+  "before:absolute before:inset-0 before:bg-foreground/10 before:border before:border-foreground/10 before:rounded-xl before:shadow-md/5",
 ];
 export const tooltipArrow = "[--arrow-size:10px]";
 export const tooltipArrowTip = [
   "[--arrow-background:var(--color-background)] rounded-tl-sm",
-  "before:absolute before:inset-0 before:bg-foreground/20 before:rounded-tl-sm before:border-s before:border-t before:border-foreground/80",
+  "before:absolute before:inset-0 before:bg-foreground/10 before:rounded-tl-sm before:border-s before:border-t before:border-foreground/10",
 ];
