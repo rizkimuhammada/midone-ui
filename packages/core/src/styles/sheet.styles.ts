@@ -3,7 +3,7 @@ export const sheetBackdrop =
   "fixed inset-0 bg-black/80 z-70 [&[data-state='open']]:animate-in [&[data-state='open']]:fade-in-0 [&[data-state='closed']]:animate-out [&[data-state='closed']]:fade-out-0";
 export const sheetPositioner = "";
 export const sheetContent = [
-  "px-6 pt-6 pb-7 rounded-2xl outline-none backdrop-blur-sm fixed z-70",
+  "px-6 pt-6 pb-7 rounded-2xl outline-none backdrop-blur-lg fixed z-70",
   "[&[data-state='open']]:animate-in [&[data-state='open']]:fade-in-0 [&[data-state='open']]:duration-250",
   "[&[data-state='closed']]:animate-out [&[data-state='closed']]:fade-out-0 [&[data-state='closed']]:duration-400",
   "before:mx-2.5 after:mx-3.5",

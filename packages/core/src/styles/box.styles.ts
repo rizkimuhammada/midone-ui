@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
 export const boxVariants = cva(
-  "[--color:var(--color-transparent)] shadow-md/5 border backdrop-blur border-foreground/10 rounded-xl p-5 outline-none relative before:absolute after:absolute",
+  "[--color:var(--color-transparent)] shadow-md/5 border backdrop-blur-lg border-foreground/10 rounded-xl p-5 outline-none relative before:absolute after:absolute",
   {
     variants: {
       filled: {
