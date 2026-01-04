@@ -3,6 +3,8 @@
 @import "tw-animate-css";
 @source "../../core";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --background-image-temper: url("assets/images/temper.svg");
   --background-image-noise: url("assets/images/noise.png");
