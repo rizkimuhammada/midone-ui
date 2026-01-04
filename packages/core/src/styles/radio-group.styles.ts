@@ -5,5 +5,5 @@ export const radioGroupIndicator =
 export const radioGroupItem = "flex items-center gap-3";
 export const radioGroupItemText = "";
 export const radioGroupItemControl =
-  "bg-background relative size-4 border shadow-md/5 border-foreground/10 rounded-full";
+  "bg-background dark:bg-foreground/10 relative size-4 border shadow-md/5 border-foreground/15 rounded-full";
 export const radioGroupItemHiddenInput = "";

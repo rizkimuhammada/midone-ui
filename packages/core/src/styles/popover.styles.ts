@@ -6,7 +6,7 @@ export const popoverContent =
 export const popoverArrow = "[--arrow-size:10px]";
 export const popoverArrowTip = [
   "[--arrow-background:var(--color-background)] rounded-tl-sm",
-  "before:absolute before:inset-0 before:bg-background/20 before:rounded-tl-sm before:border-s before:border-t before:border-foreground/25",
+  "before:absolute before:inset-0 before:bg-background dark:before:bg-foreground/10 before:rounded-tl-sm before:border-s before:border-t before:border-foreground/10",
 ];
 export const popoverTitle = "font-medium text-base";
 export const popoverDescription = "opacity-80 py-1 relative";

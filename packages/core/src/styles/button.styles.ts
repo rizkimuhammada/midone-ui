@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
 export const buttonVariants = cva(
-  "[--color:var(--color-transparent)] shadow-md/5 cursor-pointer inline-flex border border-foreground/10 items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:stroke-2 [&_svg]:shrink-0",
+  "[--color:var(--color-transparent)] shadow-md/5 cursor-pointer backdrop-blur inline-flex border border-foreground/15 items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:stroke-2 [&_svg]:shrink-0",
   {
     variants: {
       filled: {
@@ -11,7 +11,7 @@ export const buttonVariants = cva(
       },
       variant: {
         default:
-          "bg-background border-(--color-foreground)/10 hover:bg-foreground/5",
+          "bg-background dark:bg-foreground/10 border-(--color-foreground)/10 hover:bg-foreground/5",
         primary: "[--color:var(--color-primary)]",
         secondary: "[--color:var(--color-foreground)]",
         success: "[--color:var(--color-success)]",

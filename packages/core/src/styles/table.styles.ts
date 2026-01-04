@@ -33,15 +33,15 @@ export const tableCellVariants = cva(
       variant: {
         default: "",
         boxed: [
-          "relative bg-background border-y first:border-s last:border-e border-foreground/10 first:rounded-s-xl last:rounded-e-xl shadow-md/5",
+          "relative bg-background dark:bg-foreground/10 border-y first:border-s last:border-e border-foreground/10 first:rounded-s-xl last:rounded-e-xl shadow-md/5",
         ],
       },
       raised: {
         single:
-          "before:absolute before:inset-x-0 first:before:start-2 last:before:end-2 before:h-2.5 before:bg-background/20 before:-bottom-2.5 first:before:rounded-bl-xl last:before:rounded-br-xl first:before:border-s last:before:border-e before:border-b before:border-foreground/10 before:z-[-1] before:shadow-md/5 before:opacity-60",
+          "before:absolute before:inset-x-0 first:before:start-2 last:before:end-2 before:h-2.5 before:bg-background/20 dark:before:bg-foreground/10 before:-bottom-2.5 first:before:rounded-bl-xl last:before:rounded-br-xl first:before:border-s last:before:border-e before:border-b before:border-foreground/10 before:z-[-1] before:shadow-md/5 before:opacity-60",
         double: [
-          "before:absolute before:inset-x-0 first:before:start-2 last:before:end-2 before:h-2.5 before:bg-background/20 before:-bottom-2.5 first:before:rounded-bl-xl last:before:rounded-br-xl first:before:border-s last:before:border-e before:border-b before:border-foreground/10 before:z-[-1] before:shadow-md/5 before:opacity-60",
-          "after:absolute after:inset-x-0 first:after:start-4.5 last:after:end-4.5 after:h-[0.5rem] after:bg-background/20 after:-bottom-[1.1rem] first:after:rounded-bl-xl last:after:rounded-br-xl first:after:border-s last:after:border-e after:border-b after:border-foreground/10 after:z-[-1] after:shadow-md/5 after:opacity-40",
+          "before:absolute before:inset-x-0 first:before:start-2 last:before:end-2 before:h-2.5 before:bg-background/20 dark:before:bg-foreground/10 before:-bottom-2.5 first:before:rounded-bl-xl last:before:rounded-br-xl first:before:border-s last:before:border-e before:border-b before:border-foreground/10 before:z-[-1] before:shadow-md/5 before:opacity-60",
+          "after:absolute after:inset-x-0 first:after:start-4.5 last:after:end-4.5 after:h-[0.5rem] after:bg-background/20 dark:after:bg-foreground/10 after:-bottom-[1.1rem] first:after:rounded-bl-xl last:after:rounded-br-xl first:after:border-s last:after:border-e after:border-b after:border-foreground/10 after:z-[-1] after:shadow-md/5 after:opacity-40",
         ],
       },
     },

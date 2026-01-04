@@ -11,4 +11,4 @@ export const dialogContent = [
 export const dialogTitle = "font-medium text-base relative -mt-.5";
 export const dialogDescription = "opacity-80 py-2 relative";
 export const dialogCloseTrigger =
-  "absolute right-0 top-0 p-0 size-8 rounded-full -mt-2 -me-2 bg-background hover:bg-background";
+  "absolute right-0 top-0 p-0 size-8 rounded-full -mt-2 -me-2 bg-background dark:bg-background hover:bg-background before:hidden dark:before:block before:absolute before:-inset-px before:bg-background dark:before:bg-foreground/20 before:z-[-1] before:rounded-full";
