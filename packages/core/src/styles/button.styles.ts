@@ -11,7 +11,7 @@ export const buttonVariants = cva(
       },
       variant: {
         default:
-          "bg-background dark:bg-foreground/10 border-(--color-foreground)/10 hover:bg-foreground/5",
+          "bg-background dark:bg-foreground/5 border-foreground/15 text-foreground hover:bg-foreground/5",
         primary: "[--color:var(--color-primary)]",
         secondary: "[--color:var(--color-foreground)]",
         success: "[--color:var(--color-success)]",
@@ -30,7 +30,7 @@ export const buttonVariants = cva(
       {
         filled: true,
         variant: "default",
-        class: "bg-(--color-foreground)/20 border-transparent text-foreground",
+        class: "bg-foreground/20 border-transparent text-foreground",
       },
       {
         filled: true,

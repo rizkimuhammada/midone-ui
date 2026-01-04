@@ -11,8 +11,7 @@ export const badgeVariants = cva(
           "bg-(--color)/20 [--tw-shadow-color:var(--color)]/10 border-(--color)/10 text-(--color)",
       },
       variant: {
-        default:
-          "bg-background dark:bg-foreground/10 border-(--color-foreground)/10",
+        default: "bg-background dark:bg-foreground/5 border-foreground/10",
         primary: "[--color:var(--color-primary)]",
         secondary: "[--color:var(--color-foreground)]",
         success: "[--color:var(--color-success)]",
@@ -25,7 +24,7 @@ export const badgeVariants = cva(
       {
         filled: true,
         variant: "default",
-        class: "bg-(--color-foreground)/20 border-transparent text-foreground",
+        class: "bg-foreground/20 border-transparent text-foreground",
       },
       {
         filled: true,
