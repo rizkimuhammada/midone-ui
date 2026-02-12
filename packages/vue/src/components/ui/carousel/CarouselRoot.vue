@@ -11,6 +11,8 @@ const {
   class: className,
   defaultPage,
   slideCount,
+  spacing = "2rem",
+  allowMouseDrag = true,
   asChild = false,
   ...props
 } = defineProps<Partial<Props> & { asChild?: boolean; class?: string }>();
@@ -18,6 +20,8 @@ const {
 const service = useMachine(carousel.machine, {
   defaultPage,
   slideCount,
+  spacing,
+  allowMouseDrag,
   ...props,
   id: crypto.randomUUID(),
 });

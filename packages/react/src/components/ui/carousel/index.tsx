@@ -25,12 +25,16 @@ export function CarouselRoot({
   className,
   defaultPage,
   slideCount,
+  spacing = "2rem",
+  allowMouseDrag = true,
   asChild = false,
   ...props
 }: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
   const service = useMachine(carousel.machine, {
     defaultPage,
     slideCount,
+    spacing,
+    allowMouseDrag,
     ...props,
     id: useId(),
   });
