@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
-import { input } from "@midoneui/core/styles/input.styles";
 import { datePickerMonthSelect } from "@midoneui/core/styles/datepicker.styles";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 import type { Api } from "@zag-js/date-picker";
 import { inject } from "vue";
 
@@ -18,16 +21,16 @@ const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <select
-    :class="cn(input, datePickerMonthSelect, className)"
+  <NativeSelect
+    :class="cn(datePickerMonthSelect, className)"
     v-bind="{ ...props, ...$attrs, ...api?.getMonthSelectProps() }"
   >
-    <option
+    <NativeSelectOption
       v-for="(month, i) in api?.getMonths()"
       :key="i"
       :value="month.value"
     >
       {{ month.label }}
-    </option>
-  </select>
+    </NativeSelectOption>
+  </NativeSelect>
 </template>

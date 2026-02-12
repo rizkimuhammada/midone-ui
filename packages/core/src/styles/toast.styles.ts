@@ -11,5 +11,5 @@ export const toastRoot = [
 export const toastTitle = "font-medium text-nowrap";
 export const toastDescription = "text-nowrap opacity-80";
 export const toastCloseTrigger =
-  "absolute right-0 top-0 p-0 size-6 rounded-full -mt-1.5 -me-1.5 bg-background dark:bg-background hover:bg-background before:hidden dark:before:block before:absolute before:-inset-px before:bg-background dark:before:bg-foreground/20 before:z-[-1] before:rounded-full";
+  "absolute right-0 top-0 p-0 size-6 rounded-full -mt-1.5 -me-1.5 border border-foreground/10 bg-background dark:bg-background hover:bg-background before:hidden dark:before:block before:absolute before:-inset-px before:bg-background dark:before:bg-foreground/20 before:z-[-1] before:rounded-full";
 export const toasterContainer = "";

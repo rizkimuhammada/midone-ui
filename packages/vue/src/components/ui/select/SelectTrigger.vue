@@ -21,7 +21,11 @@ const api = inject<Api>("selectApi");
 
 <template>
   <Slot v-bind="{ ...api?.getTriggerProps(), ...props, ...$attrs }">
-    <Button v-if="!asChild" :class="cn(selectTrigger, className)">
+    <Button
+      variant="ghost"
+      v-if="!asChild"
+      :class="cn(selectTrigger, className)"
+    >
       <slot />
       <SelectClearTrigger>Clear</SelectClearTrigger>
       <SelectIndicator />

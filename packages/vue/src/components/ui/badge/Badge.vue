@@ -7,20 +7,19 @@ import {
 
 const {
   class: className,
-  filled,
+  look,
   variant,
   ...props
 } = defineProps<
   BadgeVariants & {
     class?: string;
-    filled?: boolean;
   }
 >();
 </script>
 
 <template>
   <span
-    :class="cn(badgeVariants({ filled, variant, className }))"
+    :class="cn(badgeVariants({ look, variant, className }))"
     v-bind="{ ...props, ...$attrs }"
   >
     <slot />

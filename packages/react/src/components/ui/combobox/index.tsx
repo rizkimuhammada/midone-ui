@@ -131,7 +131,7 @@ export function ComboboxTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(comboboxTrigger, className)}>
+        <Button variant="ghost" className={cn(comboboxTrigger, className)}>
           <div>{api?.valueAsString || "Select Options..."}</div>
           <ComboboxClearTrigger>Clear</ComboboxClearTrigger>
           <ChevronsUpDownIcon />

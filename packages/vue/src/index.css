@@ -6,24 +6,31 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --radius: 0.625rem;
+
   --background-image-temper: url("assets/images/temper.svg");
   --background-image-noise: url("assets/images/noise.png");
 
   --color-primary: var(--color-blue-900);
-  --color-primary-foreground: var(--color-slate-700);
-  --color-success: var(--color-green-800);
-  --color-success-foreground: var(--color-slate-700);
-  --color-danger: var(--color-rose-800);
-  --color-danger-foreground: var(--color-slate-700);
-  --color-pending: var(--color-orange-800);
-  --color-pending-foreground: var(--color-slate-700);
-  --color-warning: var(--color-yellow-800);
-  --color-warning-foreground: var(--color-slate-700);
-  --color-background: var(--color-slate-900);
-  --color-foreground: var(--color-slate-50);
+  --color-primary-foreground: var(--color-blue-50);
 
-  --color-background: var(--color-slate-50);
-  --color-foreground: var(--color-slate-900);
+  --color-secondary: var(--color-slate-600);
+  --color-secondary-foreground: var(--color-slate-50);
+
+  --color-success: var(--color-emerald-900);
+  --color-success-foreground: var(--color-emerald-50);
+
+  --color-danger: var(--color-red-900);
+  --color-danger-foreground: var(--color-red-50);
+
+  --color-pending: var(--color-orange-900);
+  --color-pending-foreground: var(--color-orange-50);
+
+  --color-warning: var(--color-yellow-900);
+  --color-warning-foreground: var(--color-yellow-50);
+
+  --color-background: white;
+  --color-foreground: black;
 
   --background-image-accent: url("./assets/images/accent.svg");
   --background-image-noise: url("./assets/images/noise.png");
@@ -38,19 +45,26 @@
 }
 
 .dark {
-  --color-primary: var(--color-blue-600);
-  --color-primary-foreground: var(--color-slate-400);
-  --color-success: var(--color-green-500);
-  --color-success-foreground: var(--color-slate-300);
-  --color-danger: var(--color-rose-500);
-  --color-danger-foreground: var(--color-slate-300);
-  --color-pending: var(--color-orange-500);
-  --color-pending-foreground: var(--color-slate-300);
-  --color-warning: var(--color-yellow-500);
-  --color-warning-foreground: var(--color-slate-300);
+  --color-primary: #4874f6;
+  --color-primary-foreground: var(--color-blue-50);
 
-  --color-background: var(--color-black);
-  --color-foreground: var(--color-white);
+  --color-secondary: #acb7c9;
+  --color-secondary-foreground: var(--color-slate-50);
+
+  --color-success: var(--color-emerald-400);
+  --color-success-foreground: var(--color-emerald-50);
+
+  --color-danger: var(--color-red-400);
+  --color-danger-foreground: var(--color-red-50);
+
+  --color-pending: var(--color-orange-400);
+  --color-pending-foreground: var(--color-orange-50);
+
+  --color-warning: var(--color-yellow-400);
+  --color-warning-foreground: var(--color-yellow-50);
+
+  --color-background: black;
+  --color-foreground: white;
 }
 
 @utility container {
@@ -67,7 +81,7 @@
 
 body {
   @apply font-display bg-background overflow-x-hidden bg-fixed antialiased text-foreground text-foreground text-sm;
-  background-image: repeating-linear-gradient(
+  /* background-image: repeating-linear-gradient(
       0deg,
       --alpha(var(--color-foreground) / 6%) 0,
       --alpha(var(--color-foreground) / 6%) 1px,
@@ -80,7 +94,7 @@ body {
       --alpha(var(--color-foreground) / 6%) 1px,
       transparent 1px,
       transparent 10rem
-    );
+    ); */
 }
 
 select {

@@ -50,7 +50,7 @@ export function MenuTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(menuTrigger, className)}>
+        <Button variant="ghost" className={cn(menuTrigger, className)}>
           {children}
           <MenuIndicator />
         </Button>
@@ -144,8 +144,14 @@ export function MenuItem({
       {...api?.getItemProps(props)}
       {...props}
     >
-      <div>{children}</div>
-      <div>{shortcut}</div>
+      {asChild ? (
+        children
+      ) : (
+        <div>
+          <div>{children}</div>
+          <div>{shortcut}</div>
+        </div>
+      )}
     </Slot>
   );
 }
@@ -166,8 +172,14 @@ export function MenuTriggerItem({
       {...api?.getTriggerItemProps(api)}
       {...props}
     >
-      <div>{children}</div>
-      <ChevronRight />
+      {asChild ? (
+        children
+      ) : (
+        <div>
+          <div>{children}</div>
+          <ChevronRight />
+        </div>
+      )}
     </Slot>
   );
 }

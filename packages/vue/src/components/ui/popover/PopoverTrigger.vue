@@ -21,7 +21,11 @@ const api = inject<Api>("popoverApi");
 
 <template>
   <Slot v-bind="{ ...api?.getTriggerProps(), ...props, ...$attrs }">
-    <Button v-if="!asChild" :class="cn(popoverTrigger, className)">
+    <Button
+      variant="ghost"
+      v-if="!asChild"
+      :class="cn(popoverTrigger, className)"
+    >
       <slot />
       <PopoverIndicator />
     </Button>

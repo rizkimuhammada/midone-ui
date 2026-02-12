@@ -27,4 +27,4 @@ export const sheetContent = [
 export const sheetTitle = "font-medium text-lg relative -mt-.5";
 export const sheetDescription = "opacity-80 py-2 relative";
 export const sheetCloseTrigger =
-  "absolute right-0 top-0 p-0 size-8 rounded-full -mt-2 -me-2 bg-background dark:bg-background hover:bg-background before:hidden dark:before:block before:absolute before:-inset-px before:bg-background dark:before:bg-foreground/20 before:z-[-1] before:rounded-full";
+  "absolute right-0 top-0 p-0 size-8 rounded-full -mt-2 -me-2 border border-foreground/10 bg-background dark:bg-background hover:bg-background before:hidden dark:before:block before:absolute before:-inset-px before:bg-background dark:before:bg-foreground/20 before:z-[-1] before:rounded-full";

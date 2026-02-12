@@ -20,7 +20,12 @@ const api = inject<Api>("tooltipApi");
 
 <template>
   <Slot v-bind="{ ...api?.getTriggerProps(), ...props, ...$attrs }">
-    <Button v-if="!asChild" :class="cn(tooltipTrigger, className)">
+    <Button
+      variant="secondary"
+      look="outline"
+      v-if="!asChild"
+      :class="cn(tooltipTrigger, className)"
+    >
       <slot />
     </Button>
     <slot v-else />

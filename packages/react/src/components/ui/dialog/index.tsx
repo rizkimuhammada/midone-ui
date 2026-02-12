@@ -44,7 +44,13 @@ export function DialogTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(dialogTrigger, className)}>{children}</Button>
+        <Button
+          variant="secondary"
+          look="outline"
+          className={cn(dialogTrigger, className)}
+        >
+          {children}
+        </Button>
       ) : (
         children
       )}
@@ -163,8 +169,8 @@ export function DialogDescription({
 export function DialogCloseTrigger({
   children,
   className,
-  filled,
-  variant,
+  look = "outline",
+  variant = "secondary",
   size,
   asChild,
   ...props
@@ -174,7 +180,11 @@ export function DialogCloseTrigger({
   return (
     <Slot {...api?.getCloseTriggerProps()} {...props}>
       {!children ? (
-        <Button className={cn(dialogCloseTrigger, className)} {...props}>
+        <Button
+          variant="ghost"
+          className={cn(dialogCloseTrigger, className)}
+          {...props}
+        >
           <X className="size-4" />
         </Button>
       ) : asChild ? (
@@ -182,7 +192,7 @@ export function DialogCloseTrigger({
       ) : (
         <Button
           className={cn(
-            buttonVariants({ filled, variant, size, className }),
+            buttonVariants({ look, variant, size, className }),
             className
           )}
         >

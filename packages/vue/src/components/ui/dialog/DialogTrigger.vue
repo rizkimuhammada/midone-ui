@@ -20,7 +20,12 @@ const api = inject<Api>("dialogApi");
 
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getTriggerProps() }">
-    <Button v-if="!asChild" :class="cn(dialogTrigger, className)">
+    <Button
+      variant="secondary"
+      look="outline"
+      v-if="!asChild"
+      :class="cn(dialogTrigger, className)"
+    >
       <slot />
     </Button>
     <slot v-else />

@@ -14,8 +14,8 @@ import { inject } from "vue";
 const {
   class: className,
   asChild = false,
-  filled,
-  variant,
+  look = "outline",
+  variant = "secondary",
   size,
   ...props
 } = defineProps<
@@ -31,6 +31,7 @@ const api = inject<Api>("toastApi");
 <template>
   <Slot v-bind="{ ...api?.getCloseTriggerProps(), ...props, ...$attrs }">
     <Button
+      variant="ghost"
       v-if="!$slots.default"
       :class="cn(toastCloseTrigger, className)"
       v-bind="{ ...props }"
@@ -42,7 +43,7 @@ const api = inject<Api>("toastApi");
       <Button
         v-else
         :class="
-          cn(buttonVariants({ filled, variant, size, className }), className)
+          cn(buttonVariants({ look, variant, size, className }), className)
         "
       >
         <slot />

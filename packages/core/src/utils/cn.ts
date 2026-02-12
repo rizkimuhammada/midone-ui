@@ -1,6 +1,15 @@
-import { clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from "clsx";
+import { extendTailwindMerge } from "tailwind-merge";
 
-export function cn(...inputs: any[]) {
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      "bg-color": ["bg-background", "bg-foreground"],
+      "bg-image": ["bg-gradient-to-b"],
+    },
+  },
+});
+
+export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

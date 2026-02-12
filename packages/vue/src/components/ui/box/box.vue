@@ -4,26 +4,29 @@ import {
   boxVariants,
   type BoxVariants,
 } from "@midoneui/core/styles/box.styles";
+import { Slot } from "@/components/ui/slot";
 
 const {
   class: className,
-  filled,
-  variant,
+  asChild = false,
   raised,
   ...props
 } = defineProps<
   BoxVariants & {
     class?: string;
-    filled?: boolean;
+    asChild?: boolean;
   }
 >();
 </script>
 
 <template>
-  <div
-    :class="cn(boxVariants({ filled, variant, raised, className }), className)"
+  <Slot
+    :class="cn(boxVariants({ raised, className }), className)"
     v-bind="{ ...props, ...$attrs }"
   >
-    <slot />
-  </div>
+    <slot v-if="asChild" />
+    <div v-else>
+      <slot />
+    </div>
+  </Slot>
 </template>

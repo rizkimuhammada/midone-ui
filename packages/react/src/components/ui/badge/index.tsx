@@ -7,14 +7,14 @@ import {
 function Badge({
   className,
   children,
-  filled,
+  look,
   variant,
   ...props
 }: React.ComponentProps<"span"> & BadgeVariants) {
   return (
     <span
       {...props}
-      className={cn(badgeVariants({ filled, variant, className }))}
+      className={cn(badgeVariants({ look, variant, className }))}
     >
       {children}
     </span>

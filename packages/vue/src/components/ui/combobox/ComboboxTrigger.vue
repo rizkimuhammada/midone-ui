@@ -22,7 +22,11 @@ const api = inject<Api>("comboboxApi");
 
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getTriggerProps() }">
-    <Button v-if="!asChild" :class="cn(comboboxTrigger, className)">
+    <Button
+      variant="ghost"
+      v-if="!asChild"
+      :class="cn(comboboxTrigger, className)"
+    >
       <div>{{ api?.valueAsString || "Select Options..." }}</div>
       <ComboboxClearTrigger>Clear</ComboboxClearTrigger>
       <ChevronsUpDownIcon />

@@ -4,23 +4,20 @@ import {
   type BoxVariants,
 } from "@midoneui/core/styles/box.styles";
 
-export function Box({
+function Box({
   children,
   className,
-  filled,
-  variant,
   raised,
   ...props
 }: React.ComponentProps<"div"> & BoxVariants) {
   return (
     <div
-      className={cn(
-        boxVariants({ filled, variant, raised, className }),
-        className
-      )}
+      className={cn(boxVariants({ raised, className }), className)}
       {...props}
     >
       {children}
     </div>
   );
 }
+
+export { Box };

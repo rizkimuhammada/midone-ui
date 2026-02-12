@@ -19,7 +19,10 @@ const api = inject<Api>("menuApi");
     :class="cn(menuItem, className)"
     v-bind="{ ...api?.getTriggerItemProps(api), ...props, ...$attrs }"
   >
-    <div><slot /></div>
-    <ChevronRight />
+    <slot v-if="asChild" />
+    <div v-else>
+      <div><slot /></div>
+      <ChevronRight />
+    </div>
   </Slot>
 </template>

@@ -13,8 +13,8 @@ import { Slot } from "@/components/ui/slot";
 
 const {
   class: className,
-  filled,
-  variant,
+  look = "outline",
+  variant = "secondary",
   size,
   asChild = false,
   ...props
@@ -31,6 +31,7 @@ const api = inject<Api>("dialogApi");
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getCloseTriggerProps() }">
     <Button
+      variant="ghost"
       v-if="!$slots.default"
       :class="cn(dialogCloseTrigger, className)"
       v-bind="{ ...props }"
@@ -42,7 +43,7 @@ const api = inject<Api>("dialogApi");
       <Button
         v-else
         :class="
-          cn(buttonVariants({ filled, variant, size, className }), className)
+          cn(buttonVariants({ look, variant, size, className }), className)
         "
       >
         <slot />

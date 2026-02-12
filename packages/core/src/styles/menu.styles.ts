@@ -1,5 +1,6 @@
 export const menuRoot = "w-full";
-export const menuTrigger = "w-full";
+export const menuTrigger =
+  "w-full font-normal border border-foreground/15 bg-background";
 export const menuIndicator = "ms-auto transition data-[state=open]:rotate-180";
 export const menuPositioner = "!z-50";
 export const menuContent =

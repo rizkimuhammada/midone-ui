@@ -168,13 +168,13 @@ import { Box } from "@/components/ui/box";
           </DatePickerControl>
           <div class="flex gap-1">
             <DatePickerPresetTrigger value="thisWeek" as-child>
-              <Badge>This Week</Badge>
+              <Badge variant="secondary" look="outline">This Week</Badge>
             </DatePickerPresetTrigger>
             <DatePickerPresetTrigger value="lastWeek" as-child>
-              <Badge>Last Week</Badge>
+              <Badge variant="secondary" look="outline">Last Week</Badge>
             </DatePickerPresetTrigger>
             <DatePickerPresetTrigger value="thisMonth" as-child>
-              <Badge>This Month</Badge>
+              <Badge variant="secondary" look="outline">This Month</Badge>
             </DatePickerPresetTrigger>
           </div>
           <DatePickerPositioner>

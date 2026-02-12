@@ -1,15 +1,12 @@
 import { X } from "lucide-react";
 import { cn } from "@midoneui/core/utils/cn";
 import {
-  alertRoot,
+  alertRootVariants,
+  type AlertRootVariants,
   alertTitle,
   alertDescription,
   alertCloseTrigger,
 } from "@midoneui/core/styles/alert.styles";
-import {
-  boxVariants,
-  type BoxVariants,
-} from "@midoneui/core/styles/box.styles";
 import { useState, useContext, createContext } from "react";
 import { Presence } from "@/components/ui/presence";
 import { Slot } from "@/components/ui/slot";
@@ -22,11 +19,10 @@ const PresentContext = createContext<{
 export function AlertRoot({
   className,
   children,
-  filled,
+  look,
   variant,
-  raised,
   ...rest
-}: React.ComponentProps<"div"> & BoxVariants) {
+}: React.ComponentProps<"div"> & AlertRootVariants) {
   const [present, setPresent] = useState(true);
 
   return (
@@ -37,10 +33,7 @@ export function AlertRoot({
       }}
     >
       <Presence
-        className={cn(
-          boxVariants({ filled, variant, raised, className }),
-          alertRoot
-        )}
+        className={cn(alertRootVariants({ look, variant }), className)}
         {...rest}
         present={present}
       >

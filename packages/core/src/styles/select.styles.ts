@@ -2,7 +2,8 @@ export const selectRoot =
   "w-full flex flex-col gap-2.5 [&[data-multiple=true]_[data-part=clear-trigger]]:block";
 export const selectLabel = "";
 export const selectControl = "relative";
-export const selectTrigger = "w-full";
+export const selectTrigger =
+  "w-full font-normal text-foreground/70 border border-foreground/15 bg-background";
 export const selectValueText = "truncate";
 export const selectIndicator =
   "ms-auto transition data-[state=open]:rotate-180";

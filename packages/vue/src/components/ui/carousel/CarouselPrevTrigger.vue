@@ -22,7 +22,7 @@ const api = inject<Api>("carouselApi");
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getPrevTriggerProps() }">
     <slot v-if="asChild" />
-    <Button v-else :class="cn(carouselPrevTrigger, className)">
+    <Button variant="ghost" v-else :class="cn(carouselPrevTrigger, className)">
       <slot v-if="$slots.default" />
       <ArrowLeft v-else />
     </Button>

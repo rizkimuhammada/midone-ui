@@ -7,7 +7,7 @@ import {
 function Button({
   className,
   children,
-  filled,
+  look,
   variant,
   size,
   ...props
@@ -16,7 +16,7 @@ function Button({
     <button
       {...props}
       className={cn(
-        buttonVariants({ filled, variant, size, className }),
+        buttonVariants({ look, variant, size, className }),
         className
       )}
     >

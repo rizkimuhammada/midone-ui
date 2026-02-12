@@ -21,7 +21,7 @@ const api = inject<Api>("menuApi");
 
 <template>
   <Slot v-bind="{ ...api?.getTriggerProps(), ...props, ...$attrs }">
-    <Button v-if="!asChild" :class="cn(menuTrigger, className)">
+    <Button variant="ghost" v-if="!asChild" :class="cn(menuTrigger, className)">
       <slot />
       <MenuIndicator />
     </Button>

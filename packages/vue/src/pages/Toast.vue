@@ -12,6 +12,8 @@ import {
 
 <template>
   <Button
+    look="outline"
+    variant="secondary"
     @click="
       () =>
         toaster.create({

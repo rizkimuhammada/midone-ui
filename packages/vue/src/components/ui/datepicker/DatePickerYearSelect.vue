@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
-import { input } from "@midoneui/core/styles/input.styles";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 import { datePickerYearSelect } from "@midoneui/core/styles/datepicker.styles";
 import type { Api } from "@zag-js/date-picker";
 import { inject } from "vue";
@@ -18,12 +21,16 @@ const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <select
-    :class="cn(input, datePickerYearSelect, className)"
+  <NativeSelect
+    :class="cn(datePickerYearSelect, className)"
     v-bind="{ ...props, ...$attrs, ...api?.getYearSelectProps() }"
   >
-    <option v-for="(year, i) in api?.getYears()" :key="i" :value="year.value">
+    <NativeSelectOption
+      v-for="(year, i) in api?.getYears()"
+      :key="i"
+      :value="year.value"
+    >
       {{ year.label }}
-    </option>
-  </select>
+    </NativeSelectOption>
+  </NativeSelect>
 </template>

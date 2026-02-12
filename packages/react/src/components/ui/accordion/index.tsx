@@ -57,7 +57,6 @@ export function AccordionRoot({
 
 export function AccordionItem({
   children,
-  filled,
   raised,
   className,
   asChild = false,
@@ -73,9 +72,7 @@ export function AccordionItem({
       <Slot
         className={cn([
           className,
-          variant == "boxed"
-            ? boxVariants({ filled, variant: "default", raised, className })
-            : "",
+          variant == "boxed" ? boxVariants({ raised, className }) : "",
           accordionItemVariants({ variant, className }),
         ])}
         {...api?.getItemProps(props)}

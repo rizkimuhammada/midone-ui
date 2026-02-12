@@ -90,7 +90,12 @@ const value = ref("React");
               <MenuItem shortcut="⌘B" value="solid"> Solid </MenuItem>
               <MenuItem shortcut="⌘S" value="vue"> Vue </MenuItem>
               <MenuItem shortcut="⌘K" value="svelte"> Svelte </MenuItem>
-              <MenuRoot>
+              <MenuRoot
+                :positioning="{
+                  placement: 'right-start',
+                  gutter: 12,
+                }"
+              >
                 <MenuTriggerItem>Frameworks</MenuTriggerItem>
                 <MenuPositioner>
                   <MenuContent>

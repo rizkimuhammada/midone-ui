@@ -2,18 +2,20 @@ export const datePickerRoot = "w-full flex flex-col gap-2.5";
 export const datePickerLabel = "";
 export const datePickerControl = "flex gap-2.5";
 export const datePickerInput = "";
-export const datePickerTrigger = "";
-export const datePickerClearTrigger = "";
+export const datePickerTrigger = "border border-foreground/15 bg-background";
+export const datePickerClearTrigger =
+  "border border-foreground/15 bg-background";
 export const datePickerPositioner = "!z-50 !w-auto";
 export const datePickerContent =
   "min-w-(--reference-width) p-0 z-(--layer-index) [&>div]:p-4 [&>div]:grid [&>div]:grid-cols-2 [&>div]:gap-x-2.5 [&>div]:gap-y-3 [&>div>div]:col-span-2";
 export const datePickerYearSelect =
-  "shadow-none appearance-none w-auto inline px-3 py-1.5 h-auto mb-2.5";
+  "shadow-none w-auto inline px-3 py-1.5 h-auto mb-2.5";
 export const datePickerMonthSelect =
-  "shadow-none appearance-none w-auto inline px-3 py-1.5 h-auto mb-2.5";
+  "shadow-none w-auto inline px-3 py-1.5 h-auto mb-2.5";
 export const datePickerView = "flex flex-col gap-2";
 export const datePickerViewControl = "flex";
-export const datePickerPresetTrigger = "";
+export const datePickerPresetTrigger =
+  "border border-foreground/15 bg-background";
 export const datePickerPrevTrigger =
   "px-2.5 py-1.5 rounded-lg hover:bg-foreground/5 cursor-pointer [&>svg]:size-4 [&>svg]:stroke-[1.5]";
 export const datePickerViewTrigger =

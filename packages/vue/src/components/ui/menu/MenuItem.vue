@@ -26,7 +26,10 @@ const api = inject<Api>("menuApi");
     :class="cn(menuItem, className)"
     v-bind="{ ...api?.getItemProps(props), ...props, ...$attrs }"
   >
-    <div><slot /></div>
-    <div>{{ shortcut }}</div>
+    <slot v-if="asChild" />
+    <div v-else>
+      <div><slot /></div>
+      <div>{{ shortcut }}</div>
+    </div>
   </Slot>
 </template>

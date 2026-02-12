@@ -45,7 +45,13 @@ export function TooltipTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(tooltipTrigger, className)}>{children}</Button>
+        <Button
+          variant="secondary"
+          look="outline"
+          className={cn(tooltipTrigger, className)}
+        >
+          {children}
+        </Button>
       ) : (
         children
       )}

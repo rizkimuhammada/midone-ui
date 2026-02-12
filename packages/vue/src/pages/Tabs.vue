@@ -31,7 +31,7 @@ import { SquareX, Save, ExternalLink } from "lucide-vue-next";
           </div>
         </div>
         <div class="flex gap-2 justify-end mt-7">
-          <Button>
+          <Button look="outline" variant="secondary">
             <SquareX />
             Close
           </Button>
@@ -50,7 +50,7 @@ import { SquareX, Save, ExternalLink } from "lucide-vue-next";
           />
         </div>
         <div class="flex gap-2 mt-5">
-          <Button>
+          <Button look="outline" variant="secondary">
             <ExternalLink />
             Share Link
           </Button>

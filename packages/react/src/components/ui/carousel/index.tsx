@@ -81,7 +81,7 @@ export function CarouselPrevTrigger({
       {asChild ? (
         children
       ) : (
-        <Button className={cn(carouselPrevTrigger, className)}>
+        <Button variant="ghost" className={cn(carouselPrevTrigger, className)}>
           {children ?? <ArrowLeft />}
         </Button>
       )}
@@ -102,7 +102,7 @@ export function CarouselNextTrigger({
       {asChild ? (
         children
       ) : (
-        <Button className={cn(carouselNextTrigger, className)}>
+        <Button variant="ghost" className={cn(carouselNextTrigger, className)}>
           {children ?? <ArrowRight />}
         </Button>
       )}

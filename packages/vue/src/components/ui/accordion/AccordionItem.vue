@@ -10,7 +10,6 @@ import { Slot } from "@/components/ui/slot";
 import type { Api, ItemProps } from "@zag-js/accordion";
 
 const {
-  filled,
   raised,
   class: className,
   asChild = false,
@@ -30,9 +29,7 @@ provide("accordionItem", props);
     :class="
       cn([
         className,
-        variant == 'boxed'
-          ? boxVariants({ filled, variant: 'default', raised, className })
-          : '',
+        variant == 'boxed' ? boxVariants({ raised, className }) : '',
         accordionItemVariants({ variant, className }),
       ])
     "

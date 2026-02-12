@@ -22,7 +22,11 @@ const api = inject<Api>("datepickerApi");
 
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getPresetTriggerProps(props) }">
-    <Button v-if="!asChild" :class="cn(datePickerPresetTrigger, className)">
+    <Button
+      variant="ghost"
+      v-if="!asChild"
+      :class="cn(datePickerPresetTrigger, className)"
+    >
       <slot />
     </Button>
     <slot v-else />

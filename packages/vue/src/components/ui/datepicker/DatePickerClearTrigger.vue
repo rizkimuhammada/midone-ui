@@ -21,7 +21,11 @@ const api = inject<Api>("datepickerApi");
 
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getClearTriggerProps() }">
-    <Button v-if="!asChild" :class="cn(datePickerClearTrigger, className)">
+    <Button
+      variant="ghost"
+      v-if="!asChild"
+      :class="cn(datePickerClearTrigger, className)"
+    >
       <X v-if="!$slots.default" />
       <slot v-else />
     </Button>

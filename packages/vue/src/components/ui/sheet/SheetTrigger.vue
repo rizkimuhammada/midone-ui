@@ -20,7 +20,12 @@ const api = inject<Api>("sheetApi");
 
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getTriggerProps() }">
-    <Button v-if="!asChild" :class="cn(sheetTrigger, className)">
+    <Button
+      variant="secondary"
+      look="outline"
+      v-if="!asChild"
+      :class="cn(sheetTrigger, className)"
+    >
       <slot />
     </Button>
     <slot v-else />

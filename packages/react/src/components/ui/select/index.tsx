@@ -115,7 +115,7 @@ export function SelectTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(selectTrigger, className)}>
+        <Button variant="ghost" className={cn(selectTrigger, className)}>
           {children}
           <SelectClearTrigger>Clear</SelectClearTrigger>
           <SelectIndicator />

@@ -44,7 +44,13 @@ export function SheetTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(sheetTrigger, className)}>{children}</Button>
+        <Button
+          variant="secondary"
+          look="outline"
+          className={cn(sheetTrigger, className)}
+        >
+          {children}
+        </Button>
       ) : (
         children
       )}
@@ -168,8 +174,8 @@ export function SheetDescription({
 export function SheetCloseTrigger({
   children,
   className,
-  filled,
-  variant,
+  look = "outline",
+  variant = "secondary",
   size,
   asChild,
   ...props
@@ -179,7 +185,11 @@ export function SheetCloseTrigger({
   return (
     <Slot {...api?.getCloseTriggerProps()} {...props}>
       {!children ? (
-        <Button className={cn(sheetCloseTrigger, className)} {...props}>
+        <Button
+          variant="ghost"
+          className={cn(sheetCloseTrigger, className)}
+          {...props}
+        >
           <X className="size-4" />
         </Button>
       ) : asChild ? (
@@ -187,7 +197,7 @@ export function SheetCloseTrigger({
       ) : (
         <Button
           className={cn(
-            buttonVariants({ filled, variant, size, className }),
+            buttonVariants({ look, variant, size, className }),
             className
           )}
         >

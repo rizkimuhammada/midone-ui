@@ -1,20 +1,18 @@
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
-import { alertRoot } from "@midoneui/core/styles/alert.styles";
 import {
-  boxVariants,
-  type BoxVariants,
-} from "@midoneui/core/styles/box.styles";
+  alertRootVariants,
+  type AlertRootVariants,
+} from "@midoneui/core/styles/alert.styles";
 import { Presence } from "@/components/ui/presence";
 import { ref, provide } from "vue";
 
 const {
   class: className,
-  filled,
+  look,
   variant,
-  raised,
   ...rest
-} = defineProps<BoxVariants & { class?: string; filled?: boolean }>();
+} = defineProps<AlertRootVariants & { class?: string }>();
 
 const present = ref(true);
 const setPresent = (value: boolean) => {
@@ -28,13 +26,11 @@ provide("alertPresent", { present, setPresent });
   <Presence
     :class="
       cn(
-        boxVariants({
-          filled,
+        alertRootVariants({
+          look,
           variant,
-          raised,
-          className,
         }),
-        alertRoot
+        className
       )
     "
     v-bind="rest"

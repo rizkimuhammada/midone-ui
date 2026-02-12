@@ -96,6 +96,10 @@ const router = createRouter({
       component: () => import("../pages/Select.vue"),
     },
     {
+      path: "/native-select",
+      component: () => import("../pages/NativeSelect.vue"),
+    },
+    {
       path: "/sheet",
       component: () => import("../pages/Sheet.vue"),
     },

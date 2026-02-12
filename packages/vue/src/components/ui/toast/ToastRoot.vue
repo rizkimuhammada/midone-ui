@@ -12,8 +12,6 @@ import { inject } from "vue";
 const {
   class: className,
   asChild = false,
-  filled,
-  variant,
   raised = "single",
   ...props
 } = defineProps<
@@ -28,13 +26,7 @@ const api = inject<Api>("toastApi");
 
 <template>
   <Slot
-    :class="
-      cn([
-        boxVariants({ filled, variant, raised, className }),
-        toastRoot,
-        className,
-      ])
-    "
+    :class="cn([boxVariants({ raised, className }), toastRoot, className])"
     v-bind="{ ...api?.getRootProps(), ...props, ...$attrs }"
   >
     <slot v-if="asChild" />

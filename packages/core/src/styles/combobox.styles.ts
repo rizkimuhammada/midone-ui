@@ -3,7 +3,8 @@ export const comboboxRoot =
 export const comboboxLabel = "";
 export const comboboxControl = "relative";
 export const comboboxInput = "flex-none";
-export const comboboxTrigger = "w-full [&>div]:truncate [&>svg]:ms-auto";
+export const comboboxTrigger =
+  "font-normal text-foreground/70 w-full border border-foreground/15 bg-background [&>div]:truncate [&>svg]:ms-auto";
 export const comboboxClearTrigger =
   "text-danger/90 cursor-pointer text-xs hidden ms-1";
 export const comboboxPositioner = "!z-50 !w-auto";

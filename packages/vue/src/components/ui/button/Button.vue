@@ -7,14 +7,13 @@ import {
 
 const {
   class: className,
-  filled,
+  look,
   variant,
   size,
   ...props
 } = defineProps<
   ButtonVariants & {
     class?: string;
-    filled?: boolean;
   }
 >();
 </script>
@@ -22,7 +21,7 @@ const {
 <template>
   <button
     v-bind="{ ...props, ...$attrs }"
-    :class="cn(buttonVariants({ filled, variant, size, className }), className)"
+    :class="cn(buttonVariants({ look, variant, size, className }), className)"
   >
     <slot />
   </button>

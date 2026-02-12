@@ -92,7 +92,7 @@ const invoices: {
                 {{ invoice.invoice }}
               </TableCell>
               <TableCell>
-                <Badge :variant="invoice.badge">
+                <Badge look="outline" :variant="invoice.badge">
                   {{ invoice.paymentStatus }}
                 </Badge>
               </TableCell>
@@ -129,7 +129,7 @@ const invoices: {
                 {{ invoice.invoice }}
               </TableCell>
               <TableCell>
-                <Badge :variant="invoice.badge">
+                <Badge look="outline" :variant="invoice.badge">
                   {{ invoice.paymentStatus }}
                 </Badge>
               </TableCell>
@@ -166,7 +166,7 @@ const invoices: {
                 {{ invoice.invoice }}
               </TableCell>
               <TableCell>
-                <Badge :variant="invoice.badge">
+                <Badge look="outline" :variant="invoice.badge">
                   {{ invoice.paymentStatus }}
                 </Badge>
               </TableCell>
@@ -203,7 +203,7 @@ const invoices: {
                 {{ invoice.invoice }}
               </TableCell>
               <TableCell>
-                <Badge :variant="invoice.badge">
+                <Badge look="outline" :variant="invoice.badge">
                   {{ invoice.paymentStatus }}
                 </Badge>
               </TableCell>
