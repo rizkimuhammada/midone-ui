@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ChevronDown } from "lucide-vue-next";
+import { ChevronDown, CheckSquare } from "lucide-vue-next";
 import { Badge } from "@/components/ui/badge";
 </script>
 
@@ -65,6 +65,16 @@ import { Badge } from "@/components/ui/badge";
         <Badge look="filled" variant="danger"> 12% <ChevronDown /> </Badge>
         <Badge look="filled" variant="pending"> 12% <ChevronDown /> </Badge>
         <Badge look="filled" variant="warning"> 12% <ChevronDown /> </Badge>
+      </div>
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
+        <Badge look="outline" variant="primary"> <CheckSquare /> 12% </Badge>
+        <Badge look="outline" variant="secondary"> <CheckSquare /> 12% </Badge>
+        <Badge look="outline" variant="success"> <CheckSquare /> 12% </Badge>
+        <Badge look="outline" variant="danger"> <CheckSquare /> 12% </Badge>
+        <Badge look="outline" variant="pending"> <CheckSquare /> 12% </Badge>
+        <Badge look="outline" variant="warning"> <CheckSquare /> 12% </Badge>
       </div>
     </div>
   </div>
