@@ -9,7 +9,7 @@ import {
 import { createContext, useContext, useId } from "react";
 import { Button } from "@/components/ui/button";
 import * as tooltip from "@zag-js/tooltip";
-import { useMachine, normalizeProps } from "@zag-js/react";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
 import type { Api, Props } from "@zag-js/tooltip";
 import { Slot } from "@/components/ui/slot";
 
@@ -72,13 +72,15 @@ export function TooltipPositioner({
   const api = useContext(ApiContext);
 
   return (
-    <Slot
-      className={cn(tooltipPositioner, className)}
-      {...api?.getPositionerProps()}
-      {...props}
-    >
-      {asChild ? children : <div>{children}</div>}
-    </Slot>
+    <Portal>
+      <Slot
+        className={cn(tooltipPositioner, className)}
+        {...api?.getPositionerProps()}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </Portal>
   );
 }
 

@@ -1,5 +1,5 @@
 export const tooltipTrigger = "";
-export const tooltipPositioner = "";
+export const tooltipPositioner = "!z-50";
 export const tooltipContent =
   "bg-background dark:bg-foreground/15 backdrop-blur-lg border border-foreground/15 shadow-md/5 rounded-xl px-4 py-2 relative";
 export const tooltipArrow = "[--arrow-size:10px]";
