@@ -8,6 +8,7 @@ const {
   class: className,
   asChild = false,
   open = undefined,
+  disabled = false,
   ...props
 } = defineProps<Partial<Props> & { class?: string; asChild?: boolean }>();
 
@@ -20,6 +21,7 @@ const service = useMachine(tooltip.machine, {
   closeDelay: 0,
   openDelay: 0,
   open,
+  disabled,
   id: crypto.randomUUID(),
 });
 const api = computed(() => tooltip.connect(service, normalizeProps));

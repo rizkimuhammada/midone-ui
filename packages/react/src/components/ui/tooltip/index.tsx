@@ -17,6 +17,8 @@ const ApiContext = createContext<Api | null>(null);
 
 export function TooltipRoot({
   children,
+  open = undefined,
+  disabled = false,
   ...props
 }: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
   const service = useMachine(tooltip.machine, {
@@ -26,6 +28,8 @@ export function TooltipRoot({
     },
     closeDelay: 0,
     openDelay: 0,
+    open,
+    disabled,
     ...props,
     id: useId(),
   });

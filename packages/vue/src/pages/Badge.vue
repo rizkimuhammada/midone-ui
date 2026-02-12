@@ -69,12 +69,48 @@ import { Badge } from "@/components/ui/badge";
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <Badge look="outline" variant="primary"> <CheckSquare /> 12% </Badge>
-        <Badge look="outline" variant="secondary"> <CheckSquare /> 12% </Badge>
-        <Badge look="outline" variant="success"> <CheckSquare /> 12% </Badge>
-        <Badge look="outline" variant="danger"> <CheckSquare /> 12% </Badge>
-        <Badge look="outline" variant="pending"> <CheckSquare /> 12% </Badge>
-        <Badge look="outline" variant="warning"> <CheckSquare /> 12% </Badge>
+        <Badge
+          look="outline"
+          variant="primary"
+          content="12% Higher than last month"
+        >
+          <CheckSquare /> 12%
+        </Badge>
+        <Badge
+          look="outline"
+          variant="secondary"
+          content="12% Higher than last month"
+        >
+          <CheckSquare /> 12%
+        </Badge>
+        <Badge
+          look="outline"
+          variant="success"
+          content="12% Higher than last month"
+        >
+          <CheckSquare /> 12%
+        </Badge>
+        <Badge
+          look="outline"
+          variant="danger"
+          content="12% Higher than last month"
+        >
+          <CheckSquare /> 12%
+        </Badge>
+        <Badge
+          look="outline"
+          variant="pending"
+          content="12% Higher than last month"
+        >
+          <CheckSquare /> 12%
+        </Badge>
+        <Badge
+          look="outline"
+          variant="warning"
+          content="12% Higher than last month"
+        >
+          <CheckSquare /> 12%
+        </Badge>
       </div>
     </div>
   </div>
