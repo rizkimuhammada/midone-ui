@@ -131,6 +131,10 @@ const router = createRouter({
       path: "/tooltip",
       component: () => import("../pages/Tooltip.vue"),
     },
+    {
+      path: "/map",
+      component: () => import("../pages/Map.vue"),
+    },
   ],
 });
 

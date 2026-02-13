@@ -36,6 +36,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-vue-next": "^0.542.0",
+    "maplibre-gl": "^5.18.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.12",
     "tw-animate-css": "^1.3.8",
