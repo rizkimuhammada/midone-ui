@@ -35,6 +35,7 @@ export const buttonVariants = cva(
         outline:
           "before:bg-none before:border before:rounded-[inherit] before:inset-0 after:hidden bg-background",
         flat: "hover:before:bg-white/5 before:inset-0 dark:before:inset-0 dark:before:bg-black/60 hover:dark:before:bg-black/55",
+        text: "before:hidden shadow-none bg-transparent",
       },
     },
     compoundVariants: [
@@ -84,6 +85,41 @@ export const buttonVariants = cva(
         look: "outline",
         class:
           "before:bg-warning/10 hover:before:bg-warning/15 dark:before:bg-warning/[.15] hover:dark:before:bg-warning/20 before:border-warning/40 dark:before:border-warning/20 text-warning",
+      },
+      {
+        variant: "ghost",
+        look: "text",
+        class: "text-foreground",
+      },
+      {
+        variant: "primary",
+        look: "text",
+        class: "text-primary",
+      },
+      {
+        variant: "secondary",
+        look: "text",
+        class: "text-secondary",
+      },
+      {
+        variant: "success",
+        look: "text",
+        class: "text-success",
+      },
+      {
+        variant: "danger",
+        look: "text",
+        class: "text-danger",
+      },
+      {
+        variant: "pending",
+        look: "text",
+        class: "text-pending",
+      },
+      {
+        variant: "warning",
+        look: "text",
+        class: "text-warning",
       },
     ],
     defaultVariants: {
