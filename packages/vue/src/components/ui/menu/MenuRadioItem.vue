@@ -36,7 +36,10 @@ const api = inject<Api>("menuApi");
     }"
   >
     <div>
-      <span v-bind="{ ...api?.getItemIndicatorProps(props) }">
+      <span
+        data-part="item-indicator"
+        v-bind="{ ...api?.getItemIndicatorProps(props) }"
+      >
         <Dot />
       </span>
       <slot />

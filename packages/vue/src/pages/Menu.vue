@@ -13,6 +13,7 @@ import {
   MenuRadioItem,
 } from "@/components/ui/menu";
 import { ref } from "vue";
+import { Activity, Layout, Zap, MapPin } from "lucide-vue-next";
 
 const react = ref(false);
 const solid = ref(false);
@@ -31,10 +32,14 @@ const value = ref("React");
           <MenuTrigger>Open menu</MenuTrigger>
           <MenuPositioner>
             <MenuContent>
-              <MenuItem value="react">React</MenuItem>
-              <MenuItem value="solid">Solid</MenuItem>
-              <MenuItem value="vue">Vue</MenuItem>
-              <MenuItem value="svelte">Svelte</MenuItem>
+              <MenuItem value="react"
+                ><Activity class="size-4" /> React</MenuItem
+              >
+              <MenuItem value="solid"><Layout class="size-4" /> Solid</MenuItem>
+              <MenuItem value="vue"><Zap class="size-4" /> Vue</MenuItem>
+              <MenuItem value="svelte"
+                ><MapPin class="size-4" /> Svelte</MenuItem
+              >
             </MenuContent>
           </MenuPositioner>
         </MenuRoot>

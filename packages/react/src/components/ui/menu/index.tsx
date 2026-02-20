@@ -177,7 +177,7 @@ export function MenuTriggerItem({
       ) : (
         <div>
           <div>{children}</div>
-          <ChevronRight />
+          <ChevronRight data-part="nested-menu-chevron" />
         </div>
       )}
     </Slot>
@@ -209,7 +209,7 @@ export function MenuCheckboxItem({
       {...props}
     >
       <div>
-        <span {...api?.getItemIndicatorProps(props)}>
+        <span data-part="item-indicator" {...api?.getItemIndicatorProps(props)}>
           <Check />
         </span>
         {children}
@@ -269,7 +269,7 @@ export function MenuRadioItem({
       {...props}
     >
       <div>
-        <span {...api?.getItemIndicatorProps(props)}>
+        <span data-part="item-indicator" {...api?.getItemIndicatorProps(props)}>
           <Dot />
         </span>
         {children}

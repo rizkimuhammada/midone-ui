@@ -22,7 +22,7 @@ const api = inject<Api>("menuApi");
     <slot v-if="asChild" />
     <div v-else>
       <div><slot /></div>
-      <ChevronRight />
+      <ChevronRight data-part="nested-menu-chevron" />
     </div>
   </Slot>
 </template>

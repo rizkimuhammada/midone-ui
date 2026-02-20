@@ -6,8 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspace=@midoneui/react && npm run build --workspace=@midoneui/vue",
+    "build": "npm run build --workspace=@midoneui/react && npm run build --workspace=@midoneui/vue && npm run build --workspace=@midoneui/svelte",
     "dev:react": "npm run dev --workspace=@midoneui/react",
-    "dev:vue": "npm run dev --workspace=@midoneui/vue"
+    "dev:vue": "npm run dev --workspace=@midoneui/vue",
+    "dev:svelte": "npm run dev --workspace=@midoneui/svelte"
   }
 }
