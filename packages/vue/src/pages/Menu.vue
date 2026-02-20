@@ -33,12 +33,16 @@ const value = ref("React");
           <MenuPositioner>
             <MenuContent>
               <MenuItem value="react"
-                ><Activity class="size-4" /> React</MenuItem
+                ><Activity class="size-4 stroke-1.5" /> React</MenuItem
               >
-              <MenuItem value="solid"><Layout class="size-4" /> Solid</MenuItem>
-              <MenuItem value="vue"><Zap class="size-4" /> Vue</MenuItem>
+              <MenuItem value="solid"
+                ><Layout class="size-4 stroke-1.5" /> Solid</MenuItem
+              >
+              <MenuItem value="vue"
+                ><Zap class="size-4 stroke-1.5" /> Vue</MenuItem
+              >
               <MenuItem value="svelte"
-                ><MapPin class="size-4" /> Svelte</MenuItem
+                ><MapPin class="size-4 stroke-1.5" /> Svelte</MenuItem
               >
             </MenuContent>
           </MenuPositioner>
