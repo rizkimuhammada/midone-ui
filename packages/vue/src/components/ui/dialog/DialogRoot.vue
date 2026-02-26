@@ -19,7 +19,9 @@ const {
 
 const service = useMachine(dialog.machine, {
   ...props,
-  open,
+  get open() {
+    return open;
+  },
   closeOnInteractOutside,
   id: crypto.randomUUID(),
 });
