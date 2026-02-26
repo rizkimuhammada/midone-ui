@@ -17,6 +17,7 @@ import Combobox from "../pages/combobox";
 import Datatable from "../pages/data-table";
 import Datepicker from "../pages/datepicker";
 import Dialog from "../pages/dialog";
+import Field from "../pages/field";
 import Input from "../pages/input";
 import Menu from "../pages/menu";
 import Pagination from "../pages/pagination";
@@ -63,6 +64,7 @@ function Router() {
             { path: "data-table", element: <Datatable /> },
             { path: "datepicker", element: <Datepicker /> },
             { path: "dialog", element: <Dialog /> },
+            { path: "field", element: <Field /> },
             { path: "input", element: <Input /> },
             { path: "menu", element: <Menu /> },
             { path: "pagination", element: <Pagination /> },

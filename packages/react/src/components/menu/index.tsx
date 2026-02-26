@@ -91,6 +91,11 @@ function Main({ className }: React.ComponentProps<"div">) {
       isNew: false,
     },
     {
+      title: "Field",
+      link: "/docs/field",
+      isNew: true,
+    },
+    {
       title: "Input",
       link: "/docs/input",
       isNew: false,

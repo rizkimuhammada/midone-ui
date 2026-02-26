@@ -64,6 +64,10 @@ const router = createRouter({
       component: () => import("../pages/Dialog.vue"),
     },
     {
+      path: "/field",
+      component: () => import("../pages/Field.vue"),
+    },
+    {
       path: "/input",
       component: () => import("../pages/Input.vue"),
     },
