@@ -23,7 +23,7 @@ function Badge({
   }) {
   return (
     <TooltipRoot disabled={!content}>
-      <TooltipTrigger as-child>
+      <TooltipTrigger asChild>
         <span
           {...props}
           className={cn(badgeVariants({ look, variant, className }))}
