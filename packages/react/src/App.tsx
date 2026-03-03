@@ -9,7 +9,7 @@ export const MobileMenuContext = createContext<{
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }>({
   showMenu: true,
-  setShowMenu: () => {},
+  setShowMenu: () => { },
 });
 
 export const FrameworkContext = createContext<{
@@ -17,7 +17,7 @@ export const FrameworkContext = createContext<{
   setFramework: React.Dispatch<React.SetStateAction<string[]>>;
 }>({
   framework: [],
-  setFramework: () => {},
+  setFramework: () => { },
 });
 
 function App() {

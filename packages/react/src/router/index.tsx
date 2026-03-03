@@ -28,6 +28,7 @@ import RadioGroup from "../pages/radio-group";
 import Select from "../pages/select";
 import Sheet from "../pages/sheet";
 import Slider from "../pages/slider";
+import Slot from "../pages/slot";
 import Switch from "../pages/switch";
 import Table from "../pages/table";
 import Tabs from "../pages/tabs";
@@ -75,6 +76,7 @@ function Router() {
             { path: "select", element: <Select /> },
             { path: "sheet", element: <Sheet /> },
             { path: "slider", element: <Slider /> },
+            { path: "slot", element: <Slot /> },
             { path: "switch", element: <Switch /> },
             { path: "table", element: <Table /> },
             { path: "tabs", element: <Tabs /> },

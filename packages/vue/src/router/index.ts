@@ -139,6 +139,10 @@ const router = createRouter({
       path: "/map",
       component: () => import("../pages/Map.vue"),
     },
+    {
+      path: "/slot",
+      component: () => import("../pages/Slot.vue"),
+    },
   ],
 });
 

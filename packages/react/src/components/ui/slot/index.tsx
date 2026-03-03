@@ -7,136 +7,56 @@ import React, {
   forwardRef,
 } from "react";
 
-/* -------------------------------------------------------------------------------------------------
- * Helpers
- * -----------------------------------------------------------------------------------------------*/
-
-function flatten(children: ReactNode): ReactElement[] {
-  const result: ReactElement[] = [];
-
-  React.Children.forEach(children, (child) => {
-    if (Array.isArray(child)) {
-      result.push(...flatten(child));
-    } else if (
-      isValidElement(child) &&
-      child.type === Fragment &&
-      child.props &&
-      typeof child.props === "object" &&
-      "children" in child.props
-    ) {
-      result.push(...flatten((child.props as any).children));
-    } else if (isValidElement(child)) {
-      result.push(child);
-    }
-  });
-
-  return result;
-}
-
-function mergeProps(slotProps: any, childProps: any) {
-  const overrideProps: any = { ...childProps };
-
-  for (const propName in childProps) {
-    const slotValue = slotProps[propName];
-    const childValue = childProps[propName];
-
-    const isHandler = /^on[A-Z]/.test(propName);
-    if (isHandler) {
-      if (slotValue && childValue) {
-        overrideProps[propName] = (...args: any[]) => {
-          childValue(...args);
-          slotValue(...args);
-        };
-      } else if (slotValue) {
-        overrideProps[propName] = slotValue;
-      }
-    } else if (propName === "style") {
-      overrideProps[propName] = { ...slotValue, ...childValue };
-    } else if (propName === "className") {
-      overrideProps[propName] = [slotValue, childValue]
-        .filter(Boolean)
-        .join(" ");
-    }
-  }
-
-  return { ...slotProps, ...overrideProps };
-}
+import { calculateSlot, flattenItems, type AnyProps } from "./slot";
 
 /* -------------------------------------------------------------------------------------------------
- * Slottable
+ * React Implementation (Component Shell)
  * -----------------------------------------------------------------------------------------------*/
 
-const SLOTTABLE_IDENTIFIER = Symbol("react.slottable");
-
-export const Slottable: React.FC<{ children?: ReactNode }> & {
-  __radixId?: symbol;
-} = ({ children }) => {
-  return <>{children}</>;
-};
-
-Slottable.__radixId = SLOTTABLE_IDENTIFIER;
-
-function isSlottable(node: ReactElement) {
-  return (
-    isValidElement(node) &&
-    typeof node.type === "function" &&
-    (node.type as any).__radixId === SLOTTABLE_IDENTIFIER
-  );
-}
-
-/* -------------------------------------------------------------------------------------------------
- * SlotClone
- * -----------------------------------------------------------------------------------------------*/
-
-const SlotClone = forwardRef<
-  any,
-  { child: ReactElement; children?: ReactNode; [key: string]: any }
->(({ child, children, ...props }, ref) => {
-  if (!isValidElement(child)) return null;
-  const merged = mergeProps(props, child.props ?? {});
-  return cloneElement(child, { ...merged, ref }, children);
-});
-
-/* -------------------------------------------------------------------------------------------------
- * Slot
- * -----------------------------------------------------------------------------------------------*/
-
-type SlotProps = {
+export type SlotProps = {
   children?: ReactNode;
 } & React.HTMLAttributes<HTMLElement>;
 
-export const Slot = forwardRef<any, SlotProps>(
-  ({ children, ...props }, ref) => {
-    const array = flatten(children);
-    const slottable = array.find(isSlottable);
+/**
+ * Slot: Merges its props onto its immediate child.
+ * If zero or multiple children are provided, it defaults to a <div> wrapper.
+ */
+export const Slot = forwardRef<any, SlotProps>(({ children, ...props }, ref) => {
+  // Use generic flatten logic with React-specific adapter
+  const items = flattenItems<ReactNode>(
+    children,
+    (item) => isValidElement(item) && item.type === Fragment,
+    (item) => (isValidElement(item) ? (item.props as any).children : [])
+  ).filter(isValidElement) as ReactElement[];
 
-    if (slottable) {
-      const newElement = flatten((slottable.props as any).children)[0];
+  // Use our vanilla logic to determine the transform
+  const result = calculateSlot<ReactElement>({
+    props,
+    items,
+    isValid: isValidElement,
+    getProps: (item) => (item.props as AnyProps) || {},
+    getChildren: (item) => (item.props as any)?.children,
+  });
 
-      const newChildren = array.map((child) => {
-        if (child === slottable) {
-          return (newElement?.props as any)?.children ?? null;
-        }
-        return child;
-      });
-
-      return (
-        <SlotClone {...props} ref={ref} child={newElement}>
-          {newChildren}
-        </SlotClone>
-      );
-    }
-
-    if (array.length === 1) {
-      return cloneElement(array[0], props);
-    }
-
+  // If it's a wrapper, we render a real div
+  if (result.type === "wrapper") {
     return (
-      <SlotClone {...props} ref={ref} child={array[0]}>
-        {children}
-      </SlotClone>
+      <div {...result.props} ref={ref}>
+        {result.children as ReactNode}
+      </div>
     );
   }
-);
+
+  // If it's slotted, we clone the target element with merged props
+  const target = result.target;
+  if (!isValidElement(target)) return null;
+
+  return cloneElement(target, {
+    ...(result.props as any),
+    ref: ref as any,
+  }, result.children as ReactNode);
+});
+
+Slot.displayName = "Slot";
 
 export { Slot as Root };

@@ -146,6 +146,11 @@ function Main({ className }: React.ComponentProps<"div">) {
       isNew: false,
     },
     {
+      title: "Slot",
+      link: "/docs/slot",
+      isNew: false,
+    },
+    {
       title: "Switch",
       link: "/docs/switch",
       isNew: false,
