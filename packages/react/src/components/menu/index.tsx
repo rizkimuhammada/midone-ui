@@ -131,6 +131,11 @@ function Main({ className }: React.ComponentProps<"div">) {
       isNew: false,
     },
     {
+      title: "Scroll Area",
+      link: "/docs/scroll-area",
+      isNew: true,
+    },
+    {
       title: "Select",
       link: "/docs/select",
       isNew: false,

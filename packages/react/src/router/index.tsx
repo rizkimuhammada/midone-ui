@@ -26,6 +26,7 @@ import ProgressCircular from "../pages/progress-circular";
 import ProgressLinear from "../pages/progress-linear";
 import RadioGroup from "../pages/radio-group";
 import Select from "../pages/select";
+import ScrollArea from "../pages/scroll-area";
 import Sheet from "../pages/sheet";
 import Slider from "../pages/slider";
 import Slot from "../pages/slot";
@@ -73,6 +74,7 @@ function Router() {
             { path: "progress-circular", element: <ProgressCircular /> },
             { path: "progress-linear", element: <ProgressLinear /> },
             { path: "radio-group", element: <RadioGroup /> },
+            { path: "scroll-area", element: <ScrollArea /> },
             { path: "select", element: <Select /> },
             { path: "sheet", element: <Sheet /> },
             { path: "slider", element: <Slider /> },
