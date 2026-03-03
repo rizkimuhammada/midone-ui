@@ -1,12 +1,19 @@
 <script lang="ts" setup>
 import type { Api } from "@zag-js/scroll-area";
-import { inject, type ComputedRef } from "vue";
+import { inject } from "vue";
+import { cn } from "@midoneui/core/utils/cn";
+import { scrollAreaContent } from "@midoneui/core/styles/scroll-area.styles";
 
-const api = inject<ComputedRef<Api>>("scrollAreaApi");
+const { class: className, ...props } = defineProps<{ class?: string }>();
+
+const api = inject<Api>("scrollAreaApi");
 </script>
 
 <template>
-  <div v-bind="api?.getContentProps()">
+  <div
+    v-bind="{ ...api?.getContentProps(), ...props }"
+    :class="cn(scrollAreaContent, className)"
+  >
     <slot />
   </div>
 </template>

@@ -2,7 +2,7 @@
 import type { Api } from "@zag-js/scroll-area";
 import { inject } from "vue";
 import { cn } from "@midoneui/core/utils/cn";
-import { scrollAreaViewport } from "@midoneui/core/styles/scroll-area.styles";
+import { scrollAreaCorner } from "@midoneui/core/styles/scroll-area.styles";
 
 const { class: className, ...props } = defineProps<{ class?: string }>();
 
@@ -11,9 +11,7 @@ const api = inject<Api>("scrollAreaApi");
 
 <template>
   <div
-    v-bind="{ ...api?.getViewportProps(), ...props }"
-    :class="cn(scrollAreaViewport, className)"
-  >
-    <slot />
-  </div>
+    v-bind="{ ...api?.getCornerProps(), ...props }"
+    :class="cn(scrollAreaCorner, className)"
+  />
 </template>
