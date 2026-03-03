@@ -11,11 +11,13 @@ const {
   class: className,
   asChild = false,
   closeOnSelect = false,
+  open = undefined,
   ...props
 } = defineProps<Partial<Props> & { class?: string; asChild?: boolean }>();
 
 const service = useMachine(menu.machine, {
   ...props,
+  open,
   closeOnSelect,
   id: crypto.randomUUID(),
 });
