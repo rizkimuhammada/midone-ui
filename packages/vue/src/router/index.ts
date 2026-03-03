@@ -96,6 +96,10 @@ const router = createRouter({
       component: () => import("../pages/RadioGroup.vue"),
     },
     {
+      path: "/scroll-area",
+      component: () => import("../pages/ScrollArea.vue"),
+    },
+    {
       path: "/select",
       component: () => import("../pages/Select.vue"),
     },
