@@ -11,13 +11,13 @@ import { ChevronLeft, ChevronRight, Info } from "lucide-vue-next";
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <Box as-child>
-            <Button variant="ghost" class="box me-2 px-2">
+          <Box as-child>
+            <Button variant="ghost" class="me-2 px-2">
               <ChevronLeft class="size-5" />
             </Button>
           </Box>
           <Box as-child>
-            <Button variant="ghost" class="box px-2">
+            <Button variant="ghost" class="px-2">
               <ChevronRight class="size-5" />
             </Button>
           </Box>

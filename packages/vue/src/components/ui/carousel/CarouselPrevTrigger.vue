@@ -26,6 +26,5 @@ const api = inject<Api>("carouselApi");
       <slot v-if="$slots.default" />
       <ArrowLeft v-else />
     </Button>
-    <slot />
   </Slot>
 </template>
