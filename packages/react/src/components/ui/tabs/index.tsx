@@ -50,8 +50,11 @@ export function TabsList({
       {...api?.getListProps()}
       {...props}
     >
-      {asChild ? children : <div>{children}</div>}
-      <TabsIndicator />
+      {asChild ? children :
+        <div>
+          {children}
+          <TabsIndicator />
+        </div>}
     </Slot>
   );
 }
