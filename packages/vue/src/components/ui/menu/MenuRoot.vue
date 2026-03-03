@@ -10,13 +10,13 @@ import { menuRoot } from "@midoneui/core/styles/menu.styles";
 const {
   class: className,
   asChild = false,
-  open = undefined,
+  closeOnSelect = false,
   ...props
 } = defineProps<Partial<Props> & { class?: string; asChild?: boolean }>();
 
 const service = useMachine(menu.machine, {
   ...props,
-  open,
+  closeOnSelect,
   id: crypto.randomUUID(),
 });
 const api = computed(() => menu.connect(service, normalizeProps));

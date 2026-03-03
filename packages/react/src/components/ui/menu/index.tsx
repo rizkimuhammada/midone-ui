@@ -25,9 +25,10 @@ export function MenuRoot({
   children,
   className,
   asChild = false,
+  closeOnSelect = false,
   ...props
 }: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
-  const service = useMachine(menu.machine, { ...props, id: useId() });
+  const service = useMachine(menu.machine, { ...props, closeOnSelect, id: useId() });
   const api = menu.connect(service, normalizeProps);
 
   return (
