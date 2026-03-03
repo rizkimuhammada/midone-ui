@@ -25,6 +25,7 @@
     "@zag-js/presence": "1.26.1",
     "@zag-js/progress": "1.26.1",
     "@zag-js/radio-group": "1.26.1",
+    "@zag-js/scroll-area": "^1.35.3",
     "@zag-js/select": "1.26.1",
     "@zag-js/slider": "1.26.1",
     "@zag-js/switch": "1.26.1",
