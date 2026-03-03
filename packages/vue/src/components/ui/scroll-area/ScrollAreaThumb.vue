@@ -12,5 +12,8 @@ const api = inject<Api>("scrollAreaApi");
 </script>
 
 <template>
-  <div v-bind="{...api.getThumbProps(), ...props}" :class="cn(scrollAreaThumb, className)" />
+  <div
+    v-bind="{ ...api.getThumbProps(props), ...props }"
+    :class="cn(scrollAreaThumb, className)"
+  />
 </template>
