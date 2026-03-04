@@ -1,20 +1,13 @@
-import { Slot } from "@/components/ui/slot";
+
 import { Button } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
-import { ChevronLeft, ChevronRight, Info } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Preview,
   SectionTitle,
   SectionContent,
   PreviewCode,
 } from "@/components/docs";
-
-// Helper to simulate the Lucide component for the demo
-const Lucide = ({ icon, className }: { icon: string, className?: string }) => {
-  if (icon === "ChevronLeft") return <ChevronLeft className={className} />;
-  if (icon === "ChevronRight") return <ChevronRight className={className} />;
-  return null;
-};
 
 function Main() {
   return (
@@ -23,54 +16,53 @@ function Main() {
         <Preview>
           {() => ({
             preview: (
-              <div className="flex items-center">
+              <div className="justify-center items-center flex gap-2">
                 <Box asChild>
-                  <Button variant="ghost" className="box me-2 px-2">
-                    <Lucide icon="ChevronLeft" />
+                  <Button variant="ghost" className="me-2 px-2">
+                    <ChevronLeft className="size-5" />
                   </Button>
                 </Box>
                 <Box asChild>
-                  <Button variant="ghost" className="box px-2">
-                    <Lucide icon="ChevronRight" />
+                  <Button variant="ghost" className="px-2">
+                    <ChevronRight className="size-5" />
                   </Button>
                 </Box>
               </div>
             ),
             code: (
               <PreviewCode>
-                {`
-import { Box } from "@/components/ui/box";
+                {`import { Box } from "@/components/ui/box";
 import { Button } from "@/components/ui/button";
-import { Lucide } from "@/components/ui/lucide";
 
-<Box asChild>
-  <Button variant="ghost" className="box me-2 px-2">
-    <Lucide icon="ChevronLeft" />
-  </Button>
-</Box>
-<Box asChild>
-  <Button variant="ghost" className="box px-2">
-    <Lucide icon="ChevronRight" />
-  </Button>
-</Box>
-                `}
+<div className="justify-center items-center flex gap-2">
+  <Box asChild>
+    <Button variant="ghost" className="me-2 px-2">
+      <ChevronLeft className="size-5" />
+    </Button>
+  </Box>
+  <Box asChild>
+    <Button variant="ghost" className="px-2">
+      <ChevronRight className="size-5" />
+    </Button>
+  </Box>
+</div>`}
               </PreviewCode>
             ),
           })}
         </Preview>
       </div>
-
       <div id="installation">
         <SectionTitle>Installation</SectionTitle>
         <SectionContent>
-          Update your <code>Box</code> component to match the Vue implementation.
           By using <code>Slot</code> at the root, you ensure that props are correctly merged whether
           you're using it as a direct wrapper or an <code>asChild</code> bridge.
         </SectionContent>
+        <SectionContent>
+          Copy and paste the following code into your project.
+        </SectionContent>
 
-        <PreviewCode title="components/ui/box/index.tsx">
-          {`
-import React, {
+        <PreviewCode title="components/ui/slot/index.tsx">
+          {`import React, {
   cloneElement,
   Fragment,
   isValidElement,
@@ -78,7 +70,6 @@ import React, {
   type ReactElement,
   forwardRef,
 } from "react";
-
 import { calculateSlot, flattenItems, type AnyProps } from "./slot";
 
 /* -------------------------------------------------------------------------------------------------
@@ -131,82 +122,89 @@ export const Slot = forwardRef<any, SlotProps>(({ children, ...props }, ref) => 
 
 Slot.displayName = "Slot";
 
-export { Slot as Root };
-          `}
+export { Slot as Root };`}
         </PreviewCode>
-      </div>
+        <PreviewCode title="components/ui/slot/slot.ts">
+          {`export type AnyProps = Record<string, any>;
 
-      <div id="usage">
-        <SectionTitle>Multiple Children Handling</SectionTitle>
-        <SectionContent>
-          If <code>Slot</code> contains multiple children, it automatically renders a <code>div</code> wrapper to prevent layout breakage. Props from the Slot are applied to this wrapper.
-        </SectionContent>
-        <Preview>
-          {() => ({
-            preview: (
-              <Slot className="text-primary font-bold bg-secondary/20 p-4 rounded border border-dashed border-primary">
-                <div className="flex items-center gap-2">
-                  <Info className="size-4" />
-                  <span>Item 1</span>
-                </div>
-                <div className="flex items-center gap-2 mt-2">
-                  <Info className="size-4" />
-                  <span>Item 2</span>
-                </div>
-              </Slot>
-            ),
-            code: (
-              <PreviewCode>
-                {`
-import { Slot } from "@/components/ui/slot";
-import { Info } from "lucide-react";
+export interface SlotParams<T> {
+  props: AnyProps;
+  items: T[];
+  isValid: (item: T) => boolean;
+  getProps: (item: T) => AnyProps;
+  getChildren: (item: T) => any;
+}
 
-{/* Since there are 2 children, Slot renders as a <div> wrapping them */}
-<Slot className="text-primary font-bold bg-secondary/20 p-4 rounded border border-dashed border-primary">
-  <div className="flex items-center gap-2">
-    <Info className="size-4" />
-    <span>Item 1</span>
-  </div>
-  <div className="flex items-center gap-2 mt-2">
-    <Info className="size-4" />
-    <span>Item 2</span>
-  </div>
-</Slot>
-                `}
-              </PreviewCode>
-            ),
-          })}
-        </Preview>
-      </div>
+export type SlotResult<T> =
+  | { type: "slotted"; target: T; props: AnyProps; children: any }
+  | { type: "wrapper"; target: "div"; props: AnyProps; children: T[] };
 
-      <div id="variants">
-        <SectionTitle>Single Child (asChild pattern)</SectionTitle>
-        <SectionContent>
-          When provided with exactly one valid element, <code>Slot</code> will merge its props directly onto that element.
-        </SectionContent>
-        <Preview>
-          {() => ({
-            preview: (
-              <Slot className="bg-success text-white px-4 py-2 rounded-full shadow-lg">
-                <button onClick={() => alert("Action triggered!")}>
-                  Success Action
-                </button>
-              </Slot>
-            ),
-            code: (
-              <PreviewCode>
-                {`
-{/* Renders as a <button> with success styles and merged event handlers */}
-<Slot className="bg-success text-white px-4 py-2 rounded-full shadow-lg">
-  <button onClick={() => alert("Action triggered!")}>
-    Success Action
-  </button>
-</Slot>
-                `}
-              </PreviewCode>
-            ),
-          })}
-        </Preview>
+export function mergeProps(slotProps: AnyProps, childProps: AnyProps): AnyProps {
+  const result: AnyProps = { ...childProps };
+  for (const key in slotProps) {
+    const slotValue = slotProps[key];
+    const isHandler = /^on[A-Z]/.test(key);
+    if (isHandler) {
+      const childValue = childProps[key];
+      if (typeof slotValue === "function" && typeof childValue === "function") {
+        result[key] = (...args: any[]) => {
+          childValue(...args);
+          slotValue(...args);
+        };
+      } else if (slotValue) {
+        result[key] = slotValue;
+      }
+      continue;
+    }
+    if (key === "class" || key === "className") {
+      const slotClasses = (slotValue || "").split(/\\s+/);
+      const childClasses = (childProps.class || childProps.className || "").split(/\\s+/);
+      const combined = Array.from(new Set([...slotClasses, ...childClasses])).filter(Boolean).join(" ");
+      result[key] = combined;
+      continue;
+    }
+    if (key === "style") {
+      result[key] = { ...slotValue, ...childProps.style };
+      continue;
+    }
+    if (childProps[key] === undefined) {
+      result[key] = slotValue;
+    }
+  }
+  return result;
+}
+
+export function flattenItems<T>(items: T | T[], isFragment: (item: T) => boolean, getChildren: (item: T) => T | T[]): T[] {
+  const result: T[] = [];
+  const list = Array.isArray(items) ? items : [items];
+  list.forEach((item) => {
+    if (item === null || item === undefined) return;
+    if (isFragment(item)) {
+      const children = getChildren(item);
+      result.push(...flattenItems(children, isFragment, getChildren));
+    } else {
+      result.push(item);
+    }
+  });
+  return result;
+}
+
+export function calculateSlot<T>(params: SlotParams<T>): SlotResult<T> {
+  const { props, items, isValid, getProps, getChildren } = params;
+  if (items.length === 1) {
+    const primary = items[0];
+    if (isValid(primary)) {
+      return {
+        type: "slotted",
+        target: primary,
+        props: mergeProps(props, getProps(primary)),
+        children: getChildren(primary),
+      };
+    }
+  }
+  return { type: "wrapper", target: "div", props: props, children: items };
+}`}
+        </PreviewCode>
       </div>
     </>
   );
