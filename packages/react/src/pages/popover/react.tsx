@@ -195,7 +195,7 @@ export function PopoverTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(popoverTrigger, className)}>
+        <Button variant="ghost" className={cn(popoverTrigger, className)}>
           {children}
           <PopoverIndicator />
         </Button>
@@ -350,8 +350,8 @@ export function PopoverDescription({
 export function PopoverCloseTrigger({
   children,
   className,
-  filled,
-  variant,
+  look = "outline",
+  variant = "secondary",
   size,
   asChild,
   ...props
@@ -361,7 +361,11 @@ export function PopoverCloseTrigger({
   return (
     <Slot {...api?.getCloseTriggerProps()} {...props}>
       {!children ? (
-        <Button className={cn(popoverCloseTrigger, className)} {...props}>
+        <Button
+          variant="ghost"
+          className={cn(popoverCloseTrigger, className)}
+          {...props}
+        >
           Close
         </Button>
       ) : asChild ? (
@@ -369,7 +373,7 @@ export function PopoverCloseTrigger({
       ) : (
         <Button
           className={cn(
-            buttonVariants({ filled, variant, size, className }),
+            buttonVariants({ look, variant, size, className }),
             className
           )}
         >

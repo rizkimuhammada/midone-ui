@@ -133,12 +133,16 @@ export function CarouselRoot({
   className,
   defaultPage,
   slideCount,
+  spacing = "2rem",
+  allowMouseDrag = true,
   asChild = false,
   ...props
 }: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
   const service = useMachine(carousel.machine, {
     defaultPage,
     slideCount,
+    spacing,
+    allowMouseDrag,
     ...props,
     id: useId(),
   });
@@ -189,7 +193,7 @@ export function CarouselPrevTrigger({
       {asChild ? (
         children
       ) : (
-        <Button className={cn(carouselPrevTrigger, className)}>
+        <Button variant="ghost" className={cn(carouselPrevTrigger, className)}>
           {children ?? <ArrowLeft />}
         </Button>
       )}
@@ -210,7 +214,7 @@ export function CarouselNextTrigger({
       {asChild ? (
         children
       ) : (
-        <Button className={cn(carouselNextTrigger, className)}>
+        <Button variant="ghost" className={cn(carouselNextTrigger, className)}>
           {children ?? <ArrowRight />}
         </Button>
       )}

@@ -88,6 +88,7 @@ import { menuRoot } from "@midoneui/core/styles/menu.styles";
 const {
   class: className,
   asChild = false,
+  closeOnSelect = false,
   open = undefined,
   ...props
 } = defineProps<Partial<Props> & { class?: string; asChild?: boolean }>();
@@ -95,6 +96,7 @@ const {
 const service = useMachine(menu.machine, {
   ...props,
   open,
+  closeOnSelect,
   id: crypto.randomUUID(),
 });
 const api = computed(() => menu.connect(service, normalizeProps));
@@ -137,7 +139,7 @@ const api = inject<Api>("menuApi");
 
 <template>
   <Slot v-bind="{ ...api?.getTriggerProps(), ...props, ...$attrs }">
-    <Button v-if="!asChild" :class="cn(menuTrigger, className)">
+    <Button variant="ghost" v-if="!asChild" :class="cn(menuTrigger, className)">
       <slot />
       <MenuIndicator />
     </Button>
@@ -275,8 +277,11 @@ const api = inject<Api>("menuApi");
     :class="cn(menuItem, className)"
     v-bind="{ ...api?.getItemProps(props), ...props, ...$attrs }"
   >
-    <div><slot /></div>
-    <div>{{ shortcut }}</div>
+    <slot v-if="asChild" />
+    <div v-else>
+      <div><slot /></div>
+      <div>{{ shortcut }}</div>
+    </div>
   </Slot>
 </template>
           `}
@@ -304,8 +309,11 @@ const api = inject<Api>("menuApi");
     :class="cn(menuItem, className)"
     v-bind="{ ...api?.getTriggerItemProps(api), ...props, ...$attrs }"
   >
-    <div><slot /></div>
-    <ChevronRight />
+    <slot v-if="asChild" />
+    <div v-else>
+      <div><slot /></div>
+      <ChevronRight data-part="nested-menu-chevron" />
+    </div>
   </Slot>
 </template>
           `}
@@ -348,7 +356,10 @@ const api = inject<Api>("menuApi");
     }"
   >
     <div>
-      <span v-bind="{ ...api?.getItemIndicatorProps(props) }">
+      <span
+        data-part="item-indicator"
+        v-bind="{ ...api?.getItemIndicatorProps(props) }"
+      >
         <Check />
       </span>
       <slot />
@@ -461,7 +472,10 @@ const api = inject<Api>("menuApi");
     }"
   >
     <div>
-      <span v-bind="{ ...api?.getItemIndicatorProps(props) }">
+      <span
+        data-part="item-indicator"
+        v-bind="{ ...api?.getItemIndicatorProps(props) }"
+      >
         <Dot />
       </span>
       <slot />

@@ -119,32 +119,32 @@ import { Box } from "@/components/ui/box";
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <AlertRoot raised="single" variant="primary">
+        <AlertRoot variant="primary">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
-        <AlertRoot raised="single" variant="secondary">
+        <AlertRoot variant="secondary">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
-        <AlertRoot raised="single" variant="success">
+        <AlertRoot variant="success">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
-        <AlertRoot raised="single" variant="danger">
+        <AlertRoot variant="danger">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
-        <AlertRoot raised="single" variant="pending">
+        <AlertRoot variant="pending">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
-        <AlertRoot raised="single" variant="warning">
+        <AlertRoot variant="warning">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
@@ -153,27 +153,27 @@ import { Box } from "@/components/ui/box";
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <AlertRoot look="filled" raised="double" variant="primary">
+        <AlertRoot look="filled" variant="primary">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
-        <AlertRoot look="filled" raised="double" variant="secondary">
+        <AlertRoot look="filled" variant="secondary">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
-        <AlertRoot look="filled" raised="double" variant="success">
+        <AlertRoot look="filled" variant="success">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
-        <AlertRoot look="filled" raised="double" variant="danger">
+        <AlertRoot look="filled" variant="danger">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
-        <AlertRoot look="filled" raised="double" variant="pending">
+        <AlertRoot look="filled" variant="pending">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
-        <AlertRoot look="filled" raised="double" variant="warning">
+        <AlertRoot look="filled" variant="warning">
           <Compass />
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>

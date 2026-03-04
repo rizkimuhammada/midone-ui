@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SquareX, Save, ExternalLink } from "lucide-react";
+import { useState } from "react";
 import {
   Preview,
   SectionTitle,
@@ -19,6 +20,8 @@ import {
 } from "@/components/docs";
 
 function Main() {
+  const [dialog, setDialog] = useState(false);
+
   return (
     <>
       <div id="preview" className="-mt-20">
@@ -140,7 +143,9 @@ const {
 
 const service = useMachine(dialog.machine, {
   ...props,
-  open,
+  get open() {
+    return open;
+  },
   closeOnInteractOutside,
   id: crypto.randomUUID(),
 });
@@ -179,7 +184,12 @@ const api = inject<Api>("dialogApi");
 
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getTriggerProps() }">
-    <Button v-if="!asChild" :class="cn(dialogTrigger, className)">
+    <Button
+      variant="secondary"
+      look="outline"
+      v-if="!asChild"
+      :class="cn(dialogTrigger, className)"
+    >
       <slot />
     </Button>
     <slot v-else />
@@ -384,8 +394,8 @@ import { Slot } from "@/components/ui/slot";
 
 const {
   class: className,
-  filled,
-  variant,
+  look = "outline",
+  variant = "secondary",
   size,
   asChild = false,
   ...props
@@ -402,6 +412,7 @@ const api = inject<Api>("dialogApi");
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getCloseTriggerProps() }">
     <Button
+      variant="ghost"
       v-if="!$slots.default"
       :class="cn(dialogCloseTrigger, className)"
       v-bind="{ ...props }"
@@ -413,7 +424,7 @@ const api = inject<Api>("dialogApi");
       <Button
         v-else
         :class="
-          cn(buttonVariants({ filled, variant, size, className }), className)
+          cn(buttonVariants({ look, variant, size, className }), className)
         "
       >
         <slot />
@@ -528,6 +539,87 @@ import {
                 {`
 <DialogRoot>
   <DialogTrigger>Custom Close</DialogTrigger>
+  <DialogContent>
+    <DialogTitle>Share Link</DialogTitle>
+    <DialogDescription>
+      Anyone who has this link will be able to view this.
+    </DialogDescription>
+    <div class="grid gap-4 mt-2">
+      <Input
+        id="name-1"
+        name="name"
+        defaultValue="https://midone-ui.com/docs/installation"
+      />
+    </div>
+    <div class="flex gap-2 mt-5">
+      <DialogCloseTrigger>
+        <ExternalLink />
+        Share Link
+      </DialogCloseTrigger>
+    </div>
+  </DialogContent>
+</DialogRoot>
+                `}
+              </PreviewCode>
+            ),
+          })}
+        </Preview>
+        <Preview>
+          {() => ({
+            preview: (
+              <>
+                <Button
+                  look="outline"
+                  variant="secondary"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setDialog(true);
+                  }}
+                >
+                  Programmatic Trigger
+                </Button>
+                <DialogRoot
+                  open={dialog}
+                  onOpenChange={(details) => setDialog(details.open)}
+                >
+                  <DialogContent>
+                    <DialogTitle>Share Link</DialogTitle>
+                    <DialogDescription>
+                      Anyone who has this link will be able to view this.
+                    </DialogDescription>
+                    <div className="grid gap-4 mt-2">
+                      <Input
+                        id="name-1"
+                        name="name"
+                        defaultValue="https://midone-ui.com/docs/installation"
+                      />
+                    </div>
+                    <div className="flex gap-2 mt-5">
+                      <DialogCloseTrigger>
+                        <ExternalLink />
+                        Share Link
+                      </DialogCloseTrigger>
+                    </div>
+                  </DialogContent>
+                </DialogRoot>
+              </>
+            ),
+            code: (
+              <PreviewCode>
+                {`
+const dialog = ref(false);
+
+<Button
+  look="outline"
+  variant="secondary"
+  @click.prevent="dialog = true"
+>
+  Programmatic Trigger
+</Button>
+<DialogRoot
+  :open="dialog"
+  @openChange="(details) => (dialog = details.open)"
+>
   <DialogContent>
     <DialogTitle>Share Link</DialogTitle>
     <DialogDescription>

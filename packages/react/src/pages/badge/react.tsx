@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, CheckSquare } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Preview,
@@ -15,25 +15,13 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <Badge>12%</Badge>
                 <Badge variant="primary">12%</Badge>
-                <Badge variant="secondary">12%</Badge>
-                <Badge variant="success">12%</Badge>
-                <Badge variant="danger">12%</Badge>
-                <Badge variant="pending">12%</Badge>
-                <Badge variant="warning">12%</Badge>
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-<Badge>12%</Badge>
 <Badge variant="primary">12%</Badge>
-<Badge variant="secondary">12%</Badge>
-<Badge variant="success">12%</Badge>
-<Badge variant="danger">12%</Badge>
-<Badge variant="pending">12%</Badge>
-<Badge variant="warning">12%</Badge>
                 `}
               </PreviewCode>
             ),
@@ -49,6 +37,12 @@ function Main() {
           {`
 import { cn } from "@midoneui/core/utils/cn";
 import {
+  TooltipRoot,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import {
   badgeVariants,
   type BadgeVariants,
 } from "@midoneui/core/styles/badge.styles";
@@ -56,17 +50,28 @@ import {
 function Badge({
   className,
   children,
-  filled,
+  look,
   variant,
+  content,
   ...props
-}: React.ComponentProps<"span"> & BadgeVariants) {
+}: React.ComponentProps<"span"> &
+  BadgeVariants & {
+    content?: string;
+  }) {
   return (
-    <span
-      {...props}
-      className={cn(badgeVariants({ filled, variant, className }))}
-    >
-      {children}
-    </span>
+    <TooltipRoot disabled={!content}>
+      <TooltipTrigger asChild>
+        <span
+          {...props}
+          className={cn(badgeVariants({ look, variant, className }))}
+        >
+          {children}
+        </span>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>{content}</TooltipContent>
+      </TooltipPositioner>
+    </TooltipRoot>
   );
 }
 
@@ -97,9 +102,32 @@ import { Badge } from "@/components/ui/badge";
           {() => ({
             preview: (
               <>
-                <Badge>
-                  12% <ChevronDown />
-                </Badge>
+                <Badge variant="primary">12%</Badge>
+                <Badge variant="secondary">12%</Badge>
+                <Badge variant="success">12%</Badge>
+                <Badge variant="danger">12%</Badge>
+                <Badge variant="pending">12%</Badge>
+                <Badge variant="warning">12%</Badge>
+              </>
+            ),
+            code: (
+              <PreviewCode>
+                {`
+<Badge variant="primary">12%</Badge>
+<Badge variant="secondary">12%</Badge>
+<Badge variant="success">12%</Badge>
+<Badge variant="danger">12%</Badge>
+<Badge variant="pending">12%</Badge>
+<Badge variant="warning">12%</Badge>
+                `}
+              </PreviewCode>
+            ),
+          })}
+        </Preview>
+        <Preview>
+          {() => ({
+            preview: (
+              <>
                 <Badge variant="primary">
                   12% <ChevronDown />
                 </Badge>
@@ -123,27 +151,12 @@ import { Badge } from "@/components/ui/badge";
             code: (
               <PreviewCode>
                 {`
-<Badge>
-  12% <ChevronDown />
-</Badge>
-<Badge variant="primary">
-  12% <ChevronDown />
-</Badge>
-<Badge variant="secondary">
-  12% <ChevronDown />
-</Badge>
-<Badge variant="success">
-  12% <ChevronDown />
-</Badge>
-<Badge variant="danger">
-  12% <ChevronDown />
-</Badge>
-<Badge variant="pending">
-  12% <ChevronDown />
-</Badge>
-<Badge variant="warning">
-  12% <ChevronDown />
-</Badge>
+<Badge variant="primary"> 12% <ChevronDown /> </Badge>
+<Badge variant="secondary"> 12% <ChevronDown /> </Badge>
+<Badge variant="success"> 12% <ChevronDown /> </Badge>
+<Badge variant="danger"> 12% <ChevronDown /> </Badge>
+<Badge variant="pending"> 12% <ChevronDown /> </Badge>
+<Badge variant="warning"> 12% <ChevronDown /> </Badge>
                 `}
               </PreviewCode>
             ),
@@ -153,23 +166,22 @@ import { Badge } from "@/components/ui/badge";
           {() => ({
             preview: (
               <>
-                <Badge filled>12%</Badge>
-                <Badge filled variant="primary">
+                <Badge look="outline" variant="primary">
                   12%
                 </Badge>
-                <Badge filled variant="secondary">
+                <Badge look="outline" variant="secondary">
                   12%
                 </Badge>
-                <Badge filled variant="success">
+                <Badge look="outline" variant="success">
                   12%
                 </Badge>
-                <Badge filled variant="danger">
+                <Badge look="outline" variant="danger">
                   12%
                 </Badge>
-                <Badge filled variant="pending">
+                <Badge look="outline" variant="pending">
                   12%
                 </Badge>
-                <Badge filled variant="warning">
+                <Badge look="outline" variant="warning">
                   12%
                 </Badge>
               </>
@@ -177,25 +189,12 @@ import { Badge } from "@/components/ui/badge";
             code: (
               <PreviewCode>
                 {`
-<Badge filled>12%</Badge>
-<Badge filled variant="primary">
-  12%
-</Badge>
-<Badge filled variant="secondary">
-  12%
-</Badge>
-<Badge filled variant="success">
-  12%
-</Badge>
-<Badge filled variant="danger">
-  12%
-</Badge>
-<Badge filled variant="pending">
-  12%
-</Badge>
-<Badge filled variant="warning">
-  12%
-</Badge>
+<Badge look="outline" variant="primary"> 12% </Badge>
+<Badge look="outline" variant="secondary"> 12% </Badge>
+<Badge look="outline" variant="success"> 12% </Badge>
+<Badge look="outline" variant="danger"> 12% </Badge>
+<Badge look="outline" variant="pending"> 12% </Badge>
+<Badge look="outline" variant="warning"> 12% </Badge>
                 `}
               </PreviewCode>
             ),
@@ -205,25 +204,22 @@ import { Badge } from "@/components/ui/badge";
           {() => ({
             preview: (
               <>
-                <Badge filled>
+                <Badge look="outline" variant="primary">
                   12% <ChevronDown />
                 </Badge>
-                <Badge filled variant="primary">
+                <Badge look="outline" variant="secondary">
                   12% <ChevronDown />
                 </Badge>
-                <Badge filled variant="secondary">
+                <Badge look="outline" variant="success">
                   12% <ChevronDown />
                 </Badge>
-                <Badge filled variant="success">
+                <Badge look="outline" variant="danger">
                   12% <ChevronDown />
                 </Badge>
-                <Badge filled variant="danger">
+                <Badge look="outline" variant="pending">
                   12% <ChevronDown />
                 </Badge>
-                <Badge filled variant="pending">
-                  12% <ChevronDown />
-                </Badge>
-                <Badge filled variant="warning">
+                <Badge look="outline" variant="warning">
                   12% <ChevronDown />
                 </Badge>
               </>
@@ -231,26 +227,161 @@ import { Badge } from "@/components/ui/badge";
             code: (
               <PreviewCode>
                 {`
-<Badge filled>
-  12% <ChevronDown />
+<Badge look="outline" variant="primary"> 12% <ChevronDown /> </Badge>
+<Badge look="outline" variant="secondary"> 12% <ChevronDown /> </Badge>
+<Badge look="outline" variant="success"> 12% <ChevronDown /> </Badge>
+<Badge look="outline" variant="danger"> 12% <ChevronDown /> </Badge>
+<Badge look="outline" variant="pending"> 12% <ChevronDown /> </Badge>
+<Badge look="outline" variant="warning"> 12% <ChevronDown /> </Badge>
+                `}
+              </PreviewCode>
+            ),
+          })}
+        </Preview>
+        <Preview>
+          {() => ({
+            preview: (
+              <>
+                <Badge look="filled" variant="primary">
+                  12%
+                </Badge>
+                <Badge look="filled" variant="secondary">
+                  12%
+                </Badge>
+                <Badge look="filled" variant="success">
+                  12%
+                </Badge>
+                <Badge look="filled" variant="danger">
+                  12%
+                </Badge>
+                <Badge look="filled" variant="pending">
+                  12%
+                </Badge>
+                <Badge look="filled" variant="warning">
+                  12%
+                </Badge>
+              </>
+            ),
+            code: (
+              <PreviewCode>
+                {`
+<Badge look="filled" variant="primary"> 12% </Badge>
+<Badge look="filled" variant="secondary"> 12% </Badge>
+<Badge look="filled" variant="success"> 12% </Badge>
+<Badge look="filled" variant="danger"> 12% </Badge>
+<Badge look="filled" variant="pending"> 12% </Badge>
+<Badge look="filled" variant="warning"> 12% </Badge>
+                `}
+              </PreviewCode>
+            ),
+          })}
+        </Preview>
+        <Preview>
+          {() => ({
+            preview: (
+              <>
+                <Badge look="filled" variant="primary">
+                  12% <ChevronDown />
+                </Badge>
+                <Badge look="filled" variant="secondary">
+                  12% <ChevronDown />
+                </Badge>
+                <Badge look="filled" variant="success">
+                  12% <ChevronDown />
+                </Badge>
+                <Badge look="filled" variant="danger">
+                  12% <ChevronDown />
+                </Badge>
+                <Badge look="filled" variant="pending">
+                  12% <ChevronDown />
+                </Badge>
+                <Badge look="filled" variant="warning">
+                  12% <ChevronDown />
+                </Badge>
+              </>
+            ),
+            code: (
+              <PreviewCode>
+                {`
+<Badge look="filled" variant="primary"> 12% <ChevronDown /> </Badge>
+<Badge look="filled" variant="secondary"> 12% <ChevronDown /> </Badge>
+<Badge look="filled" variant="success"> 12% <ChevronDown /> </Badge>
+<Badge look="filled" variant="danger"> 12% <ChevronDown /> </Badge>
+<Badge look="filled" variant="pending"> 12% <ChevronDown /> </Badge>
+<Badge look="filled" variant="warning"> 12% <ChevronDown /> </Badge>
+                `}
+              </PreviewCode>
+            ),
+          })}
+        </Preview>
+        <Preview>
+          {() => ({
+            preview: (
+              <>
+                <Badge
+                  look="outline"
+                  variant="primary"
+                  content="12% Higher than last month"
+                >
+                  <CheckSquare /> 12%
+                </Badge>
+                <Badge
+                  look="outline"
+                  variant="secondary"
+                  content="12% Higher than last month"
+                >
+                  <CheckSquare /> 12%
+                </Badge>
+                <Badge
+                  look="outline"
+                  variant="success"
+                  content="12% Higher than last month"
+                >
+                  <CheckSquare /> 12%
+                </Badge>
+                <Badge
+                  look="outline"
+                  variant="danger"
+                  content="12% Higher than last month"
+                >
+                  <CheckSquare /> 12%
+                </Badge>
+                <Badge
+                  look="outline"
+                  variant="pending"
+                  content="12% Higher than last month"
+                >
+                  <CheckSquare /> 12%
+                </Badge>
+                <Badge
+                  look="outline"
+                  variant="warning"
+                  content="12% Higher than last month"
+                >
+                  <CheckSquare /> 12%
+                </Badge>
+              </>
+            ),
+            code: (
+              <PreviewCode>
+                {`
+<Badge look="outline" variant="primary" content="12% Higher than last month">
+  <CheckSquare /> 12%
 </Badge>
-<Badge filled variant="primary">
-  12% <ChevronDown />
+<Badge look="outline" variant="secondary" content="12% Higher than last month">
+  <CheckSquare /> 12%
 </Badge>
-<Badge filled variant="secondary">
-  12% <ChevronDown />
+<Badge look="outline" variant="success" content="12% Higher than last month">
+  <CheckSquare /> 12%
 </Badge>
-<Badge filled variant="success">
-  12% <ChevronDown />
+<Badge look="outline" variant="danger" content="12% Higher than last month">
+  <CheckSquare /> 12%
 </Badge>
-<Badge filled variant="danger">
-  12% <ChevronDown />
+<Badge look="outline" variant="pending" content="12% Higher than last month">
+  <CheckSquare /> 12%
 </Badge>
-<Badge filled variant="pending">
-  12% <ChevronDown />
-</Badge>
-<Badge filled variant="warning">
-  12% <ChevronDown />
+<Badge look="outline" variant="warning" content="12% Higher than last month">
+  <CheckSquare /> 12%
 </Badge>
                 `}
               </PreviewCode>

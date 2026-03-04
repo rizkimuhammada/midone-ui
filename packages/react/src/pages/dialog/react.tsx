@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SquareX, Save, ExternalLink } from "lucide-react";
+import { useState } from "react";
 import {
   Preview,
   SectionTitle,
@@ -19,6 +20,8 @@ import {
 } from "@/components/docs";
 
 function Main() {
+  const [dialog, setDialog] = useState(false);
+
   return (
     <>
       <div id="preview" className="-mt-20">
@@ -165,7 +168,13 @@ export function DialogTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(dialogTrigger, className)}>{children}</Button>
+        <Button
+          variant="secondary"
+          look="outline"
+          className={cn(dialogTrigger, className)}
+        >
+          {children}
+        </Button>
       ) : (
         children
       )}
@@ -284,8 +293,8 @@ export function DialogDescription({
 export function DialogCloseTrigger({
   children,
   className,
-  filled,
-  variant,
+  look = "outline",
+  variant = "secondary",
   size,
   asChild,
   ...props
@@ -295,7 +304,11 @@ export function DialogCloseTrigger({
   return (
     <Slot {...api?.getCloseTriggerProps()} {...props}>
       {!children ? (
-        <Button className={cn(dialogCloseTrigger, className)} {...props}>
+        <Button
+          variant="ghost"
+          className={cn(dialogCloseTrigger, className)}
+          {...props}
+        >
           <X className="size-4" />
         </Button>
       ) : asChild ? (
@@ -303,7 +316,7 @@ export function DialogCloseTrigger({
       ) : (
         <Button
           className={cn(
-            buttonVariants({ filled, variant, size, className }),
+            buttonVariants({ look, variant, size, className }),
             className
           )}
         >
@@ -413,6 +426,90 @@ import {
                 {`
 <DialogRoot>
   <DialogTrigger>Custom Close</DialogTrigger>
+  <DialogContent>
+    <DialogTitle>Share Link</DialogTitle>
+    <DialogDescription>
+      Anyone who has this link will be able to view this.
+    </DialogDescription>
+    <div className="grid gap-4 mt-2">
+      <Input
+        id="name-1"
+        name="name"
+        defaultValue="https://midone-ui.com/docs/installation"
+      />
+    </div>
+    <div className="flex gap-2 mt-5">
+      <DialogCloseTrigger>
+        <ExternalLink />
+        Share Link
+      </DialogCloseTrigger>
+    </div>
+  </DialogContent>
+</DialogRoot>
+                `}
+              </PreviewCode>
+            ),
+          })}
+        </Preview>
+        <Preview>
+          {() => ({
+            preview: (
+              <>
+                <Button
+                  look="outline"
+                  variant="secondary"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setDialog(true);
+                  }}
+                >
+                  Programmatic Trigger
+                </Button>
+                <DialogRoot
+                  open={dialog}
+                  onOpenChange={(details) => setDialog(details.open)}
+                >
+                  <DialogContent>
+                    <DialogTitle>Share Link</DialogTitle>
+                    <DialogDescription>
+                      Anyone who has this link will be able to view this.
+                    </DialogDescription>
+                    <div className="grid gap-4 mt-2">
+                      <Input
+                        id="name-1"
+                        name="name"
+                        defaultValue="https://midone-ui.com/docs/installation"
+                      />
+                    </div>
+                    <div className="flex gap-2 mt-5">
+                      <DialogCloseTrigger>
+                        <ExternalLink />
+                        Share Link
+                      </DialogCloseTrigger>
+                    </div>
+                  </DialogContent>
+                </DialogRoot>
+              </>
+            ),
+            code: (
+              <PreviewCode>
+                {`
+const [dialog, setDialog] = useState(false);
+
+<Button
+  look="outline"
+  variant="secondary"
+  onClick={(e) => {
+    e.preventDefault();
+    setDialog(true);
+  }}
+>
+  Programmatic Trigger
+</Button>
+<DialogRoot
+  open={dialog}
+  onOpenChange={(details) => setDialog(details.open)}
+>
   <DialogContent>
     <DialogTitle>Share Link</DialogTitle>
     <DialogDescription>

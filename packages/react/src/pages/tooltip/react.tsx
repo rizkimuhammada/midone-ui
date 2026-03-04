@@ -63,7 +63,7 @@ import {
 import { createContext, useContext, useId } from "react";
 import { Button } from "@/components/ui/button";
 import * as tooltip from "@zag-js/tooltip";
-import { useMachine, normalizeProps } from "@zag-js/react";
+import { useMachine, normalizeProps, Portal } from "@zag-js/react";
 import type { Api, Props } from "@zag-js/tooltip";
 import { Slot } from "@/components/ui/slot";
 
@@ -71,6 +71,8 @@ const ApiContext = createContext<Api | null>(null);
 
 export function TooltipRoot({
   children,
+  open = undefined,
+  disabled = false,
   ...props
 }: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
   const service = useMachine(tooltip.machine, {
@@ -80,6 +82,8 @@ export function TooltipRoot({
     },
     closeDelay: 0,
     openDelay: 0,
+    open,
+    disabled,
     ...props,
     id: useId(),
   });
@@ -99,7 +103,13 @@ export function TooltipTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(tooltipTrigger, className)}>{children}</Button>
+        <Button
+          variant="secondary"
+          look="outline"
+          className={cn(tooltipTrigger, className)}
+        >
+          {children}
+        </Button>
       ) : (
         children
       )}
@@ -116,13 +126,15 @@ export function TooltipPositioner({
   const api = useContext(ApiContext);
 
   return (
-    <Slot
-      className={cn(tooltipPositioner, className)}
-      {...api?.getPositionerProps()}
-      {...props}
-    >
-      {asChild ? children : <div>{children}</div>}
-    </Slot>
+    <Portal>
+      <Slot
+        className={cn(tooltipPositioner, className)}
+        {...api?.getPositionerProps()}
+        {...props}
+      >
+        {asChild ? children : <div>{children}</div>}
+      </Slot>
+    </Portal>
   );
 }
 

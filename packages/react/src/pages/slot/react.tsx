@@ -70,20 +70,68 @@ import { Lucide } from "@/components/ui/lucide";
 
         <PreviewCode title="components/ui/box/index.tsx">
           {`
-import { Slot } from "@/components/ui/slot";
-import { boxVariants } from "@midoneui/core/styles/box.styles";
-import { cn } from "@midoneui/core/utils/cn";
+import React, {
+  cloneElement,
+  Fragment,
+  isValidElement,
+  type ReactNode,
+  type ReactElement,
+  forwardRef,
+} from "react";
 
-function Box({ children, className, raised, asChild = false, ...props }) {
-  return (
-    <Slot
-      className={cn(boxVariants({ raised, className }), className)}
-      {...props}
-    >
-      {asChild ? children : <div>{children}</div>}
-    </Slot>
-  );
-}
+import { calculateSlot, flattenItems, type AnyProps } from "./slot";
+
+/* -------------------------------------------------------------------------------------------------
+ * React Implementation (Component Shell)
+ * -----------------------------------------------------------------------------------------------*/
+
+export type SlotProps = {
+  children?: ReactNode;
+} & React.HTMLAttributes<HTMLElement>;
+
+/**
+ * Slot: Merges its props onto its immediate child.
+ * If zero or multiple children are provided, it defaults to a <div> wrapper.
+ */
+export const Slot = forwardRef<any, SlotProps>(({ children, ...props }, ref) => {
+  // Use generic flatten logic with React-specific adapter
+  const items = flattenItems<ReactNode>(
+    children,
+    (item) => isValidElement(item) && item.type === Fragment,
+    (item) => (isValidElement(item) ? (item.props as any).children : [])
+  ).filter(isValidElement) as ReactElement[];
+
+  // Use our vanilla logic to determine the transform
+  const result = calculateSlot<ReactElement>({
+    props,
+    items,
+    isValid: isValidElement,
+    getProps: (item) => (item.props as AnyProps) || {},
+    getChildren: (item) => (item.props as any)?.children,
+  });
+
+  // If it's a wrapper, we render a real div
+  if (result.type === "wrapper") {
+    return (
+      <div {...result.props} ref={ref}>
+        {result.children as ReactNode}
+      </div>
+    );
+  }
+
+  // If it's slotted, we clone the target element with merged props
+  const target = result.target;
+  if (!isValidElement(target)) return null;
+
+  return cloneElement(target, {
+    ...(result.props as any),
+    ref: ref as any,
+  }, result.children as ReactNode);
+});
+
+Slot.displayName = "Slot";
+
+export { Slot as Root };
           `}
         </PreviewCode>
       </div>

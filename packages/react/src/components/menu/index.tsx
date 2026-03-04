@@ -101,9 +101,19 @@ function Main({ className }: React.ComponentProps<"div">) {
       isNew: false,
     },
     {
+      title: "Map",
+      link: "/docs/map",
+      isNew: true,
+    },
+    {
       title: "Menu",
       link: "/docs/menu",
       isNew: false,
+    },
+    {
+      title: "Native Select",
+      link: "/docs/native-select",
+      isNew: true,
     },
     {
       title: "Pagination",

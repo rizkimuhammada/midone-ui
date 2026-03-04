@@ -82,7 +82,7 @@ export function ProgressRoot({
   asChild = false,
   ...props
 }: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
-  const service = useMachine(progress.machine, { id: useId() });
+  const service = useMachine(progress.machine, { id: useId(), ...props });
   const api = progress.connect(service, normalizeProps);
 
   return (

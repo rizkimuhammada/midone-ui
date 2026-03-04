@@ -46,25 +46,27 @@ import {
   buttonVariants,
   type ButtonVariants,
 } from "@midoneui/core/styles/button.styles";
+import { Slot } from "@/components/ui/slot";
 
 function Button({
   className,
   children,
-  filled,
+  look,
   variant,
   size,
+  asChild = false,
   ...props
-}: React.ComponentProps<"button"> & ButtonVariants) {
+}: React.ComponentProps<"button"> & ButtonVariants & { asChild?: boolean }) {
   return (
-    <button
+    <Slot
       {...props}
       className={cn(
-        buttonVariants({ filled, variant, size, className }),
+        buttonVariants({ look, variant, size, className }),
         className
       )}
     >
-      {children}
-    </button>
+      {asChild ? children : <button>{children}</button>}
+    </Slot>
   );
 }
 
@@ -460,98 +462,98 @@ import { Button } from "@/components/ui/button";
             preview: (
               <>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled size="sm">
+                  <Button look="filled" size="sm">
                     Button Small
                   </Button>
-                  <Button filled>Button Medium</Button>
-                  <Button filled size="lg">
+                  <Button look="filled">Button Medium</Button>
+                  <Button look="filled" size="lg">
                     Button Large
                   </Button>
-                  <Button filled size="xl">
+                  <Button look="filled" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="primary" size="sm">
+                  <Button look="filled" variant="primary" size="sm">
                     Button Small
                   </Button>
-                  <Button filled variant="primary">
+                  <Button look="filled" variant="primary">
                     Button Medium
                   </Button>
-                  <Button filled variant="primary" size="lg">
+                  <Button look="filled" variant="primary" size="lg">
                     Button Large
                   </Button>
-                  <Button filled variant="primary" size="xl">
+                  <Button look="filled" variant="primary" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="secondary" size="sm">
+                  <Button look="filled" variant="secondary" size="sm">
                     Button Small
                   </Button>
-                  <Button filled variant="secondary">
+                  <Button look="filled" variant="secondary">
                     Button Medium
                   </Button>
-                  <Button filled variant="secondary" size="lg">
+                  <Button look="filled" variant="secondary" size="lg">
                     Button Large
                   </Button>
-                  <Button filled variant="secondary" size="xl">
+                  <Button look="filled" variant="secondary" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="success" size="sm">
+                  <Button look="filled" variant="success" size="sm">
                     Button Small
                   </Button>
-                  <Button filled variant="success">
+                  <Button look="filled" variant="success">
                     Button Medium
                   </Button>
-                  <Button filled variant="success" size="lg">
+                  <Button look="filled" variant="success" size="lg">
                     Button Large
                   </Button>
-                  <Button filled variant="success" size="xl">
+                  <Button look="filled" variant="success" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="danger" size="sm">
+                  <Button look="filled" variant="danger" size="sm">
                     Button Small
                   </Button>
-                  <Button filled variant="danger">
+                  <Button look="filled" variant="danger">
                     Button Medium
                   </Button>
-                  <Button filled variant="danger" size="lg">
+                  <Button look="filled" variant="danger" size="lg">
                     Button Large
                   </Button>
-                  <Button filled variant="danger" size="xl">
+                  <Button look="filled" variant="danger" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="pending" size="sm">
+                  <Button look="filled" variant="pending" size="sm">
                     Button Small
                   </Button>
-                  <Button filled variant="pending">
+                  <Button look="filled" variant="pending">
                     Button Medium
                   </Button>
-                  <Button filled variant="pending" size="lg">
+                  <Button look="filled" variant="pending" size="lg">
                     Button Large
                   </Button>
-                  <Button filled variant="pending" size="xl">
+                  <Button look="filled" variant="pending" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="warning" size="sm">
+                  <Button look="filled" variant="warning" size="sm">
                     Button Small
                   </Button>
-                  <Button filled variant="warning">
+                  <Button look="filled" variant="warning">
                     Button Medium
                   </Button>
-                  <Button filled variant="warning" size="lg">
+                  <Button look="filled" variant="warning" size="lg">
                     Button Large
                   </Button>
-                  <Button filled variant="warning" size="xl">
+                  <Button look="filled" variant="warning" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
@@ -561,98 +563,98 @@ import { Button } from "@/components/ui/button";
               <PreviewCode>
                 {`
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled size="sm">
+  <Button look="filled" size="sm">
     Button Small
   </Button>
-  <Button filled>Button Medium</Button>
-  <Button filled size="lg">
+  <Button look="filled">Button Medium</Button>
+  <Button look="filled" size="lg">
     Button Large
   </Button>
-  <Button filled size="xl">
+  <Button look="filled" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="primary" size="sm">
+  <Button look="filled" variant="primary" size="sm">
     Button Small
   </Button>
-  <Button filled variant="primary">
+  <Button look="filled" variant="primary">
     Button Medium
   </Button>
-  <Button filled variant="primary" size="lg">
+  <Button look="filled" variant="primary" size="lg">
     Button Large
   </Button>
-  <Button filled variant="primary" size="xl">
+  <Button look="filled" variant="primary" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="secondary" size="sm">
+  <Button look="filled" variant="secondary" size="sm">
     Button Small
   </Button>
-  <Button filled variant="secondary">
+  <Button look="filled" variant="secondary">
     Button Medium
   </Button>
-  <Button filled variant="secondary" size="lg">
+  <Button look="filled" variant="secondary" size="lg">
     Button Large
   </Button>
-  <Button filled variant="secondary" size="xl">
+  <Button look="filled" variant="secondary" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="success" size="sm">
+  <Button look="filled" variant="success" size="sm">
     Button Small
   </Button>
-  <Button filled variant="success">
+  <Button look="filled" variant="success">
     Button Medium
   </Button>
-  <Button filled variant="success" size="lg">
+  <Button look="filled" variant="success" size="lg">
     Button Large
   </Button>
-  <Button filled variant="success" size="xl">
+  <Button look="filled" variant="success" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="danger" size="sm">
+  <Button look="filled" variant="danger" size="sm">
     Button Small
   </Button>
-  <Button filled variant="danger">
+  <Button look="filled" variant="danger">
     Button Medium
   </Button>
-  <Button filled variant="danger" size="lg">
+  <Button look="filled" variant="danger" size="lg">
     Button Large
   </Button>
-  <Button filled variant="danger" size="xl">
+  <Button look="filled" variant="danger" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="pending" size="sm">
+  <Button look="filled" variant="pending" size="sm">
     Button Small
   </Button>
-  <Button filled variant="pending">
+  <Button look="filled" variant="pending">
     Button Medium
   </Button>
-  <Button filled variant="pending" size="lg">
+  <Button look="filled" variant="pending" size="lg">
     Button Large
   </Button>
-  <Button filled variant="pending" size="xl">
+  <Button look="filled" variant="pending" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="warning" size="sm">
+  <Button look="filled" variant="warning" size="sm">
     Button Small
   </Button>
-  <Button filled variant="warning">
+  <Button look="filled" variant="warning">
     Button Medium
   </Button>
-  <Button filled variant="warning" size="lg">
+  <Button look="filled" variant="warning" size="lg">
     Button Large
   </Button>
-  <Button filled variant="warning" size="xl">
+  <Button look="filled" variant="warning" size="xl">
     Button Extra Large
   </Button>
 </div>
@@ -666,100 +668,100 @@ import { Button } from "@/components/ui/button";
             preview: (
               <>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button disabled filled size="sm">
+                  <Button disabled look="filled" size="sm">
                     Button Small
                   </Button>
-                  <Button disabled filled>
+                  <Button disabled look="filled">
                     Button Medium
                   </Button>
-                  <Button disabled filled size="lg">
+                  <Button disabled look="filled" size="lg">
                     Button Large
                   </Button>
-                  <Button disabled filled size="xl">
+                  <Button disabled look="filled" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button disabled filled variant="primary" size="sm">
+                  <Button disabled look="filled" variant="primary" size="sm">
                     Button Small
                   </Button>
-                  <Button disabled filled variant="primary">
+                  <Button disabled look="filled" variant="primary">
                     Button Medium
                   </Button>
-                  <Button disabled filled variant="primary" size="lg">
+                  <Button disabled look="filled" variant="primary" size="lg">
                     Button Large
                   </Button>
-                  <Button disabled filled variant="primary" size="xl">
+                  <Button disabled look="filled" variant="primary" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button disabled filled variant="secondary" size="sm">
+                  <Button disabled look="filled" variant="secondary" size="sm">
                     Button Small
                   </Button>
-                  <Button disabled filled variant="secondary">
+                  <Button disabled look="filled" variant="secondary">
                     Button Medium
                   </Button>
-                  <Button disabled filled variant="secondary" size="lg">
+                  <Button disabled look="filled" variant="secondary" size="lg">
                     Button Large
                   </Button>
-                  <Button disabled filled variant="secondary" size="xl">
+                  <Button disabled look="filled" variant="secondary" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button disabled filled variant="success" size="sm">
+                  <Button disabled look="filled" variant="success" size="sm">
                     Button Small
                   </Button>
-                  <Button disabled filled variant="success">
+                  <Button disabled look="filled" variant="success">
                     Button Medium
                   </Button>
-                  <Button disabled filled variant="success" size="lg">
+                  <Button disabled look="filled" variant="success" size="lg">
                     Button Large
                   </Button>
-                  <Button disabled filled variant="success" size="xl">
+                  <Button disabled look="filled" variant="success" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button disabled filled variant="danger" size="sm">
+                  <Button disabled look="filled" variant="danger" size="sm">
                     Button Small
                   </Button>
-                  <Button disabled filled variant="danger">
+                  <Button disabled look="filled" variant="danger">
                     Button Medium
                   </Button>
-                  <Button disabled filled variant="danger" size="lg">
+                  <Button disabled look="filled" variant="danger" size="lg">
                     Button Large
                   </Button>
-                  <Button disabled filled variant="danger" size="xl">
+                  <Button disabled look="filled" variant="danger" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button disabled filled variant="pending" size="sm">
+                  <Button disabled look="filled" variant="pending" size="sm">
                     Button Small
                   </Button>
-                  <Button disabled filled variant="pending">
+                  <Button disabled look="filled" variant="pending">
                     Button Medium
                   </Button>
-                  <Button disabled filled variant="pending" size="lg">
+                  <Button disabled look="filled" variant="pending" size="lg">
                     Button Large
                   </Button>
-                  <Button disabled filled variant="pending" size="xl">
+                  <Button disabled look="filled" variant="pending" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button disabled filled variant="warning" size="sm">
+                  <Button disabled look="filled" variant="warning" size="sm">
                     Button Small
                   </Button>
-                  <Button disabled filled variant="warning">
+                  <Button disabled look="filled" variant="warning">
                     Button Medium
                   </Button>
-                  <Button disabled filled variant="warning" size="lg">
+                  <Button disabled look="filled" variant="warning" size="lg">
                     Button Large
                   </Button>
-                  <Button disabled filled variant="warning" size="xl">
+                  <Button disabled look="filled" variant="warning" size="xl">
                     Button Extra Large
                   </Button>
                 </div>
@@ -769,100 +771,100 @@ import { Button } from "@/components/ui/button";
               <PreviewCode>
                 {`
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button disabled filled size="sm">
+  <Button disabled look="filled" size="sm">
     Button Small
   </Button>
-  <Button disabled filled>
+  <Button disabled look="filled">
     Button Medium
   </Button>
-  <Button disabled filled size="lg">
+  <Button disabled look="filled" size="lg">
     Button Large
   </Button>
-  <Button disabled filled size="xl">
+  <Button disabled look="filled" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button disabled filled variant="primary" size="sm">
+  <Button disabled look="filled" variant="primary" size="sm">
     Button Small
   </Button>
-  <Button disabled filled variant="primary">
+  <Button disabled look="filled" variant="primary">
     Button Medium
   </Button>
-  <Button disabled filled variant="primary" size="lg">
+  <Button disabled look="filled" variant="primary" size="lg">
     Button Large
   </Button>
-  <Button disabled filled variant="primary" size="xl">
+  <Button disabled look="filled" variant="primary" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button disabled filled variant="secondary" size="sm">
+  <Button disabled look="filled" variant="secondary" size="sm">
     Button Small
   </Button>
-  <Button disabled filled variant="secondary">
+  <Button disabled look="filled" variant="secondary">
     Button Medium
   </Button>
-  <Button disabled filled variant="secondary" size="lg">
+  <Button disabled look="filled" variant="secondary" size="lg">
     Button Large
   </Button>
-  <Button disabled filled variant="secondary" size="xl">
+  <Button disabled look="filled" variant="secondary" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button disabled filled variant="success" size="sm">
+  <Button disabled look="filled" variant="success" size="sm">
     Button Small
   </Button>
-  <Button disabled filled variant="success">
+  <Button disabled look="filled" variant="success">
     Button Medium
   </Button>
-  <Button disabled filled variant="success" size="lg">
+  <Button disabled look="filled" variant="success" size="lg">
     Button Large
   </Button>
-  <Button disabled filled variant="success" size="xl">
+  <Button disabled look="filled" variant="success" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button disabled filled variant="danger" size="sm">
+  <Button disabled look="filled" variant="danger" size="sm">
     Button Small
   </Button>
-  <Button disabled filled variant="danger">
+  <Button disabled look="filled" variant="danger">
     Button Medium
   </Button>
-  <Button disabled filled variant="danger" size="lg">
+  <Button disabled look="filled" variant="danger" size="lg">
     Button Large
   </Button>
-  <Button disabled filled variant="danger" size="xl">
+  <Button disabled look="filled" variant="danger" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button disabled filled variant="pending" size="sm">
+  <Button disabled look="filled" variant="pending" size="sm">
     Button Small
   </Button>
-  <Button disabled filled variant="pending">
+  <Button disabled look="filled" variant="pending">
     Button Medium
   </Button>
-  <Button disabled filled variant="pending" size="lg">
+  <Button disabled look="filled" variant="pending" size="lg">
     Button Large
   </Button>
-  <Button disabled filled variant="pending" size="xl">
+  <Button disabled look="filled" variant="pending" size="xl">
     Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button disabled filled variant="warning" size="sm">
+  <Button disabled look="filled" variant="warning" size="sm">
     Button Small
   </Button>
-  <Button disabled filled variant="warning">
+  <Button disabled look="filled" variant="warning">
     Button Medium
   </Button>
-  <Button disabled filled variant="warning" size="lg">
+  <Button disabled look="filled" variant="warning" size="lg">
     Button Large
   </Button>
-  <Button disabled filled variant="warning" size="xl">
+  <Button disabled look="filled" variant="warning" size="xl">
     Button Extra Large
   </Button>
 </div>
@@ -1114,127 +1116,127 @@ import { Button } from "@/components/ui/button";
             preview: (
               <>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled size="sm">
+                  <Button look="filled" size="sm">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Small
                   </Button>
-                  <Button filled>
+                  <Button look="filled">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Medium
                   </Button>
-                  <Button filled size="lg">
+                  <Button look="filled" size="lg">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Large
                   </Button>
-                  <Button filled size="xl">
+                  <Button look="filled" size="xl">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="primary" size="sm">
+                  <Button look="filled" variant="primary" size="sm">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Small
                   </Button>
-                  <Button filled variant="primary">
+                  <Button look="filled" variant="primary">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Medium
                   </Button>
-                  <Button filled variant="primary" size="lg">
+                  <Button look="filled" variant="primary" size="lg">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Large
                   </Button>
-                  <Button filled variant="primary" size="xl">
+                  <Button look="filled" variant="primary" size="xl">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="secondary" size="sm">
+                  <Button look="filled" variant="secondary" size="sm">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Small
                   </Button>
-                  <Button filled variant="secondary">
+                  <Button look="filled" variant="secondary">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Medium
                   </Button>
-                  <Button filled variant="secondary" size="lg">
+                  <Button look="filled" variant="secondary" size="lg">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Large
                   </Button>
-                  <Button filled variant="secondary" size="xl">
+                  <Button look="filled" variant="secondary" size="xl">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="success" size="sm">
+                  <Button look="filled" variant="success" size="sm">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Small
                   </Button>
-                  <Button filled variant="success">
+                  <Button look="filled" variant="success">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Medium
                   </Button>
-                  <Button filled variant="success" size="lg">
+                  <Button look="filled" variant="success" size="lg">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Large
                   </Button>
-                  <Button filled variant="success" size="xl">
+                  <Button look="filled" variant="success" size="xl">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="danger" size="sm">
+                  <Button look="filled" variant="danger" size="sm">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Small
                   </Button>
-                  <Button filled variant="danger">
+                  <Button look="filled" variant="danger">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Medium
                   </Button>
-                  <Button filled variant="danger" size="lg">
+                  <Button look="filled" variant="danger" size="lg">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Large
                   </Button>
-                  <Button filled variant="danger" size="xl">
+                  <Button look="filled" variant="danger" size="xl">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="pending" size="sm">
+                  <Button look="filled" variant="pending" size="sm">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Small
                   </Button>
-                  <Button filled variant="pending">
+                  <Button look="filled" variant="pending">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Medium
                   </Button>
-                  <Button filled variant="pending" size="lg">
+                  <Button look="filled" variant="pending" size="lg">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Large
                   </Button>
-                  <Button filled variant="pending" size="xl">
+                  <Button look="filled" variant="pending" size="xl">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Extra Large
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="warning" size="sm">
+                  <Button look="filled" variant="warning" size="sm">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Small
                   </Button>
-                  <Button filled variant="warning">
+                  <Button look="filled" variant="warning">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Medium
                   </Button>
-                  <Button filled variant="warning" size="lg">
+                  <Button look="filled" variant="warning" size="lg">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Large
                   </Button>
-                  <Button filled variant="warning" size="xl">
+                  <Button look="filled" variant="warning" size="xl">
                     <LoaderCircle className="size-4 animate-spin" /> Button
                     Extra Large
                   </Button>
@@ -1245,100 +1247,100 @@ import { Button } from "@/components/ui/button";
               <PreviewCode>
                 {`
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled size="sm">
+  <Button look="filled" size="sm">
     <LoaderCircle className="size-4 animate-spin" /> Button Small
   </Button>
-  <Button filled>
+  <Button look="filled">
     <LoaderCircle className="size-4 animate-spin" /> Button Medium
   </Button>
-  <Button filled size="lg">
+  <Button look="filled" size="lg">
     <LoaderCircle className="size-4 animate-spin" /> Button Large
   </Button>
-  <Button filled size="xl">
+  <Button look="filled" size="xl">
     <LoaderCircle className="size-4 animate-spin" /> Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="primary" size="sm">
+  <Button look="filled" variant="primary" size="sm">
     <LoaderCircle className="size-4 animate-spin" /> Button Small
   </Button>
-  <Button filled variant="primary">
+  <Button look="filled" variant="primary">
     <LoaderCircle className="size-4 animate-spin" /> Button Medium
   </Button>
-  <Button filled variant="primary" size="lg">
+  <Button look="filled" variant="primary" size="lg">
     <LoaderCircle className="size-4 animate-spin" /> Button Large
   </Button>
-  <Button filled variant="primary" size="xl">
+  <Button look="filled" variant="primary" size="xl">
     <LoaderCircle className="size-4 animate-spin" /> Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="secondary" size="sm">
+  <Button look="filled" variant="secondary" size="sm">
     <LoaderCircle className="size-4 animate-spin" /> Button Small
   </Button>
-  <Button filled variant="secondary">
+  <Button look="filled" variant="secondary">
     <LoaderCircle className="size-4 animate-spin" /> Button Medium
   </Button>
-  <Button filled variant="secondary" size="lg">
+  <Button look="filled" variant="secondary" size="lg">
     <LoaderCircle className="size-4 animate-spin" /> Button Large
   </Button>
-  <Button filled variant="secondary" size="xl">
+  <Button look="filled" variant="secondary" size="xl">
     <LoaderCircle className="size-4 animate-spin" /> Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="success" size="sm">
+  <Button look="filled" variant="success" size="sm">
     <LoaderCircle className="size-4 animate-spin" /> Button Small
   </Button>
-  <Button filled variant="success">
+  <Button look="filled" variant="success">
     <LoaderCircle className="size-4 animate-spin" /> Button Medium
   </Button>
-  <Button filled variant="success" size="lg">
+  <Button look="filled" variant="success" size="lg">
     <LoaderCircle className="size-4 animate-spin" /> Button Large
   </Button>
-  <Button filled variant="success" size="xl">
+  <Button look="filled" variant="success" size="xl">
     <LoaderCircle className="size-4 animate-spin" /> Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="danger" size="sm">
+  <Button look="filled" variant="danger" size="sm">
     <LoaderCircle className="size-4 animate-spin" /> Button Small
   </Button>
-  <Button filled variant="danger">
+  <Button look="filled" variant="danger">
     <LoaderCircle className="size-4 animate-spin" /> Button Medium
   </Button>
-  <Button filled variant="danger" size="lg">
+  <Button look="filled" variant="danger" size="lg">
     <LoaderCircle className="size-4 animate-spin" /> Button Large
   </Button>
-  <Button filled variant="danger" size="xl">
+  <Button look="filled" variant="danger" size="xl">
     <LoaderCircle className="size-4 animate-spin" /> Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="pending" size="sm">
+  <Button look="filled" variant="pending" size="sm">
     <LoaderCircle className="size-4 animate-spin" /> Button Small
   </Button>
-  <Button filled variant="pending">
+  <Button look="filled" variant="pending">
     <LoaderCircle className="size-4 animate-spin" /> Button Medium
   </Button>
-  <Button filled variant="pending" size="lg">
+  <Button look="filled" variant="pending" size="lg">
     <LoaderCircle className="size-4 animate-spin" /> Button Large
   </Button>
-  <Button filled variant="pending" size="xl">
+  <Button look="filled" variant="pending" size="xl">
     <LoaderCircle className="size-4 animate-spin" /> Button Extra Large
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="warning" size="sm">
+  <Button look="filled" variant="warning" size="sm">
     <LoaderCircle className="size-4 animate-spin" /> Button Small
   </Button>
-  <Button filled variant="warning">
+  <Button look="filled" variant="warning">
     <LoaderCircle className="size-4 animate-spin" /> Button Medium
   </Button>
-  <Button filled variant="warning" size="lg">
+  <Button look="filled" variant="warning" size="lg">
     <LoaderCircle className="size-4 animate-spin" /> Button Large
   </Button>
-  <Button filled variant="warning" size="xl">
+  <Button look="filled" variant="warning" size="xl">
     <LoaderCircle className="size-4 animate-spin" /> Button Extra Large
   </Button>
 </div>
@@ -1562,100 +1564,100 @@ import { Button } from "@/components/ui/button";
             preview: (
               <>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled size="sm">
+                  <Button look="filled" size="sm">
                     <Copy className="size-4" />
                   </Button>
-                  <Button filled>
+                  <Button look="filled">
                     <Scissors className="size-4" />
                   </Button>
-                  <Button filled size="lg">
+                  <Button look="filled" size="lg">
                     <Trash className="size-4" />
                   </Button>
-                  <Button filled size="xl">
+                  <Button look="filled" size="xl">
                     <SquarePlus className="size-4" />
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="primary" size="sm">
+                  <Button look="filled" variant="primary" size="sm">
                     <Copy className="size-4" />
                   </Button>
-                  <Button filled variant="primary">
+                  <Button look="filled" variant="primary">
                     <Scissors className="size-4" />
                   </Button>
-                  <Button filled variant="primary" size="lg">
+                  <Button look="filled" variant="primary" size="lg">
                     <Trash className="size-4" />
                   </Button>
-                  <Button filled variant="primary" size="xl">
+                  <Button look="filled" variant="primary" size="xl">
                     <SquarePlus className="size-4" />
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="secondary" size="sm">
+                  <Button look="filled" variant="secondary" size="sm">
                     <Copy className="size-4" />
                   </Button>
-                  <Button filled variant="secondary">
+                  <Button look="filled" variant="secondary">
                     <Scissors className="size-4" />
                   </Button>
-                  <Button filled variant="secondary" size="lg">
+                  <Button look="filled" variant="secondary" size="lg">
                     <Trash className="size-4" />
                   </Button>
-                  <Button filled variant="secondary" size="xl">
+                  <Button look="filled" variant="secondary" size="xl">
                     <SquarePlus className="size-4" />
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="success" size="sm">
+                  <Button look="filled" variant="success" size="sm">
                     <Copy className="size-4" />
                   </Button>
-                  <Button filled variant="success">
+                  <Button look="filled" variant="success">
                     <Scissors className="size-4" />
                   </Button>
-                  <Button filled variant="success" size="lg">
+                  <Button look="filled" variant="success" size="lg">
                     <Trash className="size-4" />
                   </Button>
-                  <Button filled variant="success" size="xl">
+                  <Button look="filled" variant="success" size="xl">
                     <SquarePlus className="size-4" />
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="danger" size="sm">
+                  <Button look="filled" variant="danger" size="sm">
                     <Copy className="size-4" />
                   </Button>
-                  <Button filled variant="danger">
+                  <Button look="filled" variant="danger">
                     <Scissors className="size-4" />
                   </Button>
-                  <Button filled variant="danger" size="lg">
+                  <Button look="filled" variant="danger" size="lg">
                     <Trash className="size-4" />
                   </Button>
-                  <Button filled variant="danger" size="xl">
+                  <Button look="filled" variant="danger" size="xl">
                     <SquarePlus className="size-4" />
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="pending" size="sm">
+                  <Button look="filled" variant="pending" size="sm">
                     <Copy className="size-4" />
                   </Button>
-                  <Button filled variant="pending">
+                  <Button look="filled" variant="pending">
                     <Scissors className="size-4" />
                   </Button>
-                  <Button filled variant="pending" size="lg">
+                  <Button look="filled" variant="pending" size="lg">
                     <Trash className="size-4" />
                   </Button>
-                  <Button filled variant="pending" size="xl">
+                  <Button look="filled" variant="pending" size="xl">
                     <SquarePlus className="size-4" />
                   </Button>
                 </div>
                 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-                  <Button filled variant="warning" size="sm">
+                  <Button look="filled" variant="warning" size="sm">
                     <Copy className="size-4" />
                   </Button>
-                  <Button filled variant="warning">
+                  <Button look="filled" variant="warning">
                     <Scissors className="size-4" />
                   </Button>
-                  <Button filled variant="warning" size="lg">
+                  <Button look="filled" variant="warning" size="lg">
                     <Trash className="size-4" />
                   </Button>
-                  <Button filled variant="warning" size="xl">
+                  <Button look="filled" variant="warning" size="xl">
                     <SquarePlus className="size-4" />
                   </Button>
                 </div>
@@ -1665,100 +1667,100 @@ import { Button } from "@/components/ui/button";
               <PreviewCode>
                 {`
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled size="sm">
+  <Button look="filled" size="sm">
     <Copy className="size-4" />
   </Button>
-  <Button filled>
+  <Button look="filled">
     <Scissors className="size-4" />
   </Button>
-  <Button filled size="lg">
+  <Button look="filled" size="lg">
     <Trash className="size-4" />
   </Button>
-  <Button filled size="xl">
+  <Button look="filled" size="xl">
     <SquarePlus className="size-4" />
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="primary" size="sm">
+  <Button look="filled" variant="primary" size="sm">
     <Copy className="size-4" />
   </Button>
-  <Button filled variant="primary">
+  <Button look="filled" variant="primary">
     <Scissors className="size-4" />
   </Button>
-  <Button filled variant="primary" size="lg">
+  <Button look="filled" variant="primary" size="lg">
     <Trash className="size-4" />
   </Button>
-  <Button filled variant="primary" size="xl">
+  <Button look="filled" variant="primary" size="xl">
     <SquarePlus className="size-4" />
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="secondary" size="sm">
+  <Button look="filled" variant="secondary" size="sm">
     <Copy className="size-4" />
   </Button>
-  <Button filled variant="secondary">
+  <Button look="filled" variant="secondary">
     <Scissors className="size-4" />
   </Button>
-  <Button filled variant="secondary" size="lg">
+  <Button look="filled" variant="secondary" size="lg">
     <Trash className="size-4" />
   </Button>
-  <Button filled variant="secondary" size="xl">
+  <Button look="filled" variant="secondary" size="xl">
     <SquarePlus className="size-4" />
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="success" size="sm">
+  <Button look="filled" variant="success" size="sm">
     <Copy className="size-4" />
   </Button>
-  <Button filled variant="success">
+  <Button look="filled" variant="success">
     <Scissors className="size-4" />
   </Button>
-  <Button filled variant="success" size="lg">
+  <Button look="filled" variant="success" size="lg">
     <Trash className="size-4" />
   </Button>
-  <Button filled variant="success" size="xl">
+  <Button look="filled" variant="success" size="xl">
     <SquarePlus className="size-4" />
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="danger" size="sm">
+  <Button look="filled" variant="danger" size="sm">
     <Copy className="size-4" />
   </Button>
-  <Button filled variant="danger">
+  <Button look="filled" variant="danger">
     <Scissors className="size-4" />
   </Button>
-  <Button filled variant="danger" size="lg">
+  <Button look="filled" variant="danger" size="lg">
     <Trash className="size-4" />
   </Button>
-  <Button filled variant="danger" size="xl">
+  <Button look="filled" variant="danger" size="xl">
     <SquarePlus className="size-4" />
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="pending" size="sm">
+  <Button look="filled" variant="pending" size="sm">
     <Copy className="size-4" />
   </Button>
-  <Button filled variant="pending">
+  <Button look="filled" variant="pending">
     <Scissors className="size-4" />
   </Button>
-  <Button filled variant="pending" size="lg">
+  <Button look="filled" variant="pending" size="lg">
     <Trash className="size-4" />
   </Button>
-  <Button filled variant="pending" size="xl">
+  <Button look="filled" variant="pending" size="xl">
     <SquarePlus className="size-4" />
   </Button>
 </div>
 <div className="justify-center items-center flex gap-2 border-b last:border-b-0 border-foreground/10 p-5 flex-wrap">
-  <Button filled variant="warning" size="sm">
+  <Button look="filled" variant="warning" size="sm">
     <Copy className="size-4" />
   </Button>
-  <Button filled variant="warning">
+  <Button look="filled" variant="warning">
     <Scissors className="size-4" />
   </Button>
-  <Button filled variant="warning" size="lg">
+  <Button look="filled" variant="warning" size="lg">
     <Trash className="size-4" />
   </Button>
-  <Button filled variant="warning" size="xl">
+  <Button look="filled" variant="warning" size="xl">
     <SquarePlus className="size-4" />
   </Button>
 </div>

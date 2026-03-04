@@ -252,30 +252,31 @@ function Main() {
                 </SectionContent>
                 <PreviewCode title="components/ui/field/Field.vue">
                     {`
-<script setup lang="ts">
+<script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
 import {
   fieldVariants,
   type FieldVariants,
 } from "@midoneui/core/styles/field.styles";
 
-const props = withDefaults(
-  defineProps<{
+const {
+  class: className,
+  orientation = "vertical",
+  ...props
+} = defineProps<
+  FieldVariants & {
     class?: string;
-    orientation?: FieldVariants["orientation"];
-  }>(),
-  {
-    orientation: "vertical",
   }
-);
+>();
 </script>
 
 <template>
   <div
     role="group"
     data-part="field"
-    :data-orientation="props.orientation"
-    :class="cn(fieldVariants({ orientation: props.orientation }), props.class)"
+    :data-orientation="orientation"
+    :class="cn(fieldVariants({ orientation }), className)"
+    v-bind="{ ...props }"
   >
     <slot />
   </div>
@@ -284,17 +285,21 @@ const props = withDefaults(
                 </PreviewCode>
                 <PreviewCode title="components/ui/field/FieldContent.vue">
                     {`
-<script setup lang="ts">
+<script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
 import { fieldContent } from "@midoneui/core/styles/field.styles";
 
-const props = defineProps<{
+const { class: className, ...props } = defineProps<{
   class?: string;
 }>();
 </script>
 
 <template>
-  <div data-part="field-content" :class="cn(fieldContent, props.class)">
+  <div
+    data-part="field-content"
+    :class="cn(fieldContent, className)"
+    v-bind="{ ...props }"
+  >
     <slot />
   </div>
 </template>
@@ -302,17 +307,21 @@ const props = defineProps<{
                 </PreviewCode>
                 <PreviewCode title="components/ui/field/FieldDescription.vue">
                     {`
-<script setup lang="ts">
+<script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
 import { fieldDescription } from "@midoneui/core/styles/field.styles";
 
-const props = defineProps<{
+const { class: className, ...props } = defineProps<{
   class?: string;
 }>();
 </script>
 
 <template>
-  <p data-part="field-description" :class="cn(fieldDescription, props.class)">
+  <p
+    data-part="field-description"
+    :class="cn(fieldDescription, className)"
+    v-bind="{ ...props }"
+  >
     <slot />
   </p>
 </template>
@@ -320,22 +329,21 @@ const props = defineProps<{
                 </PreviewCode>
                 <PreviewCode title="components/ui/field/FieldLabel.vue">
                     {`
-<script setup lang="ts">
+<script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
-import { fieldLabel } from "@midoneui/core/styles/field.styles";
 import { Label } from "@/components/ui/label";
+import { fieldLabel } from "@midoneui/core/styles/field.styles";
 
-const props = defineProps<{
+const { class: className, ...props } = defineProps<{
   class?: string;
-  htmlFor?: string;
 }>();
 </script>
 
 <template>
   <Label
     data-part="field-label"
-    :htmlFor="props.htmlFor"
-    :class="cn(fieldLabel, props.class)"
+    :class="cn(fieldLabel, className)"
+    v-bind="{ ...props }"
   >
     <slot />
   </Label>
@@ -344,26 +352,25 @@ const props = defineProps<{
                 </PreviewCode>
                 <PreviewCode title="components/ui/field/FieldSeparator.vue">
                     {`
-<script setup lang="ts">
+<script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
 import { fieldSeparator } from "@midoneui/core/styles/field.styles";
 import { Separator } from "@/components/ui/separator";
 
-const props = defineProps<{
+const { class: className, ...props } = defineProps<{
   class?: string;
 }>();
-
-const slots = defineSlots();
 </script>
 
 <template>
   <div
     data-part="field-separator"
-    :data-content="!!slots.default || undefined"
-    :class="cn(fieldSeparator, props.class)"
+    :data-content="!!$slots.default"
+    :class="cn(fieldSeparator, className)"
+    v-bind="{ ...props }"
   >
     <Separator class="absolute inset-0 top-1/2" />
-    <span v-if="slots.default" data-part="field-separator-content">
+    <span v-if="$slots.default" data-part="field-separator-content">
       <slot />
     </span>
   </div>

@@ -119,8 +119,6 @@ export function ToastRoot({
   children,
   className,
   asChild = false,
-  filled,
-  variant,
   raised = "single",
   ...props
 }: React.ComponentProps<"div"> & BoxVariants & { asChild?: boolean }) {
@@ -128,11 +126,7 @@ export function ToastRoot({
 
   return (
     <Slot
-      className={cn([
-        boxVariants({ filled, variant, raised, className }),
-        toastRoot,
-        className,
-      ])}
+      className={cn([boxVariants({ raised, className }), toastRoot, className])}
       {...api?.getRootProps()}
       {...props}
     >
@@ -191,8 +185,8 @@ export function ToastDescription({
 export function ToastCloseTrigger({
   children,
   className,
-  filled,
-  variant,
+  look = "outline",
+  variant = "secondary",
   size,
   asChild,
   ...props
@@ -202,7 +196,11 @@ export function ToastCloseTrigger({
   return (
     <Slot {...api?.getCloseTriggerProps()} {...props}>
       {!children ? (
-        <Button className={cn(toastCloseTrigger, className)} {...props}>
+        <Button
+          variant="ghost"
+          className={cn(toastCloseTrigger, className)}
+          {...props}
+        >
           <X className="size-4" />
         </Button>
       ) : asChild ? (
@@ -210,7 +208,7 @@ export function ToastCloseTrigger({
       ) : (
         <Button
           className={cn(
-            buttonVariants({ filled, variant, size, className }),
+            buttonVariants({ look, variant, size, className }),
             className
           )}
         >
@@ -227,7 +225,7 @@ export function ToastItem({
   index,
   children,
 }: {
-  toastGroup: toast.Options<React.ReactNode>;
+  toastGroup: toast.Options;
   serviceGroup: toast.GroupService;
   index: number;
   children: (api: Api & { id?: string }) => React.ReactNode;

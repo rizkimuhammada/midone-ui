@@ -103,9 +103,10 @@ export function MenuRoot({
   children,
   className,
   asChild = false,
+  closeOnSelect = false,
   ...props
 }: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
-  const service = useMachine(menu.machine, { ...props, id: useId() });
+  const service = useMachine(menu.machine, { ...props, closeOnSelect, id: useId() });
   const api = menu.connect(service, normalizeProps);
 
   return (
@@ -128,7 +129,7 @@ export function MenuTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(menuTrigger, className)}>
+        <Button variant="ghost" className={cn(menuTrigger, className)}>
           {children}
           <MenuIndicator />
         </Button>
@@ -222,8 +223,14 @@ export function MenuItem({
       {...api?.getItemProps(props)}
       {...props}
     >
-      <div>{children}</div>
-      <div>{shortcut}</div>
+      {asChild ? (
+        children
+      ) : (
+        <div>
+          <div>{children}</div>
+          <div>{shortcut}</div>
+        </div>
+      )}
     </Slot>
   );
 }
@@ -244,8 +251,14 @@ export function MenuTriggerItem({
       {...api?.getTriggerItemProps(api)}
       {...props}
     >
-      <div>{children}</div>
-      <ChevronRight />
+      {asChild ? (
+        children
+      ) : (
+        <div>
+          <div>{children}</div>
+          <ChevronRight data-part="nested-menu-chevron" />
+        </div>
+      )}
     </Slot>
   );
 }
@@ -266,7 +279,7 @@ export function MenuCheckboxItem({
   const api = useContext(ApiContext);
 
   return (
-    <Slot
+    <div
       className={cn(menuItem, className)}
       {...api?.getOptionItemProps({
         ...props,
@@ -275,13 +288,13 @@ export function MenuCheckboxItem({
       {...props}
     >
       <div>
-        <span {...api?.getItemIndicatorProps(props)}>
+        <span data-part="item-indicator" {...api?.getItemIndicatorProps(props)}>
           <Check />
         </span>
         {children}
       </div>
       <div>{shortcut}</div>
-    </Slot>
+    </div>
   );
 }
 
@@ -326,7 +339,7 @@ export function MenuRadioItem({
   const api = useContext(ApiContext);
 
   return (
-    <Slot
+    <div
       className={cn(menuItem, className)}
       {...api?.getOptionItemProps({
         ...props,
@@ -335,13 +348,13 @@ export function MenuRadioItem({
       {...props}
     >
       <div>
-        <span {...api?.getItemIndicatorProps(props)}>
+        <span data-part="item-indicator" {...api?.getItemIndicatorProps(props)}>
           <Dot />
         </span>
         {children}
       </div>
       <div>{shortcut}</div>
-    </Slot>
+    </div>
   );
 }
 

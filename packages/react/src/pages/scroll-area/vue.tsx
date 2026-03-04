@@ -1,41 +1,49 @@
 import {
-    Preview,
-    SectionTitle,
-    SectionContent,
-    PreviewCode,
+  ScrollAreaRoot,
+  ScrollAreaViewport,
+  ScrollAreaContent,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaCorner,
+} from "@/components/ui/scroll-area";
+import {
+  Preview,
+  SectionTitle,
+  SectionContent,
+  PreviewCode,
 } from "@/components/docs";
 
 function Main() {
-    return (
-        <>
-            <div id="preview" className="-mt-20">
-                <Preview>
-                    {() => ({
-                        preview: (
-                            <>
-                                <div className="h-72 w-80 relative overflow-hidden flex bg-white dark:bg-darkmode-600 rounded-md border border-foreground/10">
-                                    <div className="h-full w-full overflow-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                                        <div className="p-4 pr-10">
-                                            <div className="text-xl font-medium mb-4">
-                                                Scroll Area Example (Vue)
-                                            </div>
-                                            {Array.from({ length: 20 }).map((_, i) => (
-                                                <div key={i} className="mb-4 last:mb-0 opacity-80">
-                                                    This is line number {i + 1} of the scrollable content.
-                                                    It helps demonstrate how the custom scrollbar works.
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="flex relative bg-foreground/5 rounded-md m-2 w-2.5 opacity-100">
-                                        <div className="w-full rounded-[inherit] bg-foreground/20 h-10" />
-                                    </div>
-                                </div>
-                            </>
-                        ),
-                        code: (
-                            <PreviewCode>
-                                {`
+  return (
+    <>
+      <div id="preview" className="-mt-20">
+        <Preview>
+          {() => ({
+            preview: (
+              <>
+                <ScrollAreaRoot className="h-72 w-70">
+                  <ScrollAreaViewport>
+                    <ScrollAreaContent>
+                      <div className="text-base font-medium mb-4">
+                        Scroll Area Example
+                      </div>
+                      {Array.from({ length: 20 }).map((_, i) => (
+                        <div key={i} className="mb-4 last:mb-0 opacity-80">
+                          This is line number {i + 1} of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.
+                        </div>
+                      ))}
+                    </ScrollAreaContent>
+                  </ScrollAreaViewport>
+                  <ScrollAreaScrollbar>
+                    <ScrollAreaThumb />
+                  </ScrollAreaScrollbar>
+                  <ScrollAreaCorner />
+                </ScrollAreaRoot>
+              </>
+            ),
+            code: (
+              <PreviewCode>
+                {`
 <script setup lang="ts">
 import {
   ScrollAreaRoot,
@@ -43,42 +51,42 @@ import {
   ScrollAreaContent,
   ScrollAreaScrollbar,
   ScrollAreaThumb,
-  ScrollAreaCorner
-} from "@/components/ui/scroll-area"
+  ScrollAreaCorner,
+} from "@/components/ui/scroll-area";
 </script>
 
 <template>
-  <ScrollAreaRoot class="h-72 w-80">
+  <ScrollAreaRoot class="h-72 w-70">
     <ScrollAreaViewport>
       <ScrollAreaContent>
-        <div class="p-4 pr-10">
-          <div class="text-xl font-medium mb-4">Scroll Area Example</div>
-          <div v-for="i in 20" :key="i" class="mb-4 last:mb-0 opacity-80">
-            This is line number {{ i }} of the scrollable content.
-          </div>
+        <div class="text-base font-medium mb-4">Scroll Area Example</div>
+        <div v-for="i in 20" :key="i" class="mb-4 last:mb-0 opacity-80">
+          This is line number {{ i }} of the scrollable content. It helps
+          demonstrate how the custom scrollbar works within the Midone UI
+          system.
         </div>
       </ScrollAreaContent>
     </ScrollAreaViewport>
-    <ScrollAreaScrollbar orientation="vertical">
+    <ScrollAreaScrollbar>
       <ScrollAreaThumb />
     </ScrollAreaScrollbar>
     <ScrollAreaCorner />
   </ScrollAreaRoot>
 </template>
                 `}
-                            </PreviewCode>
-                        ),
-                    })}
-                </Preview>
-            </div>
+              </PreviewCode>
+            ),
+          })}
+        </Preview>
+      </div>
 
-            <div id="installation">
-                <SectionTitle>Installation</SectionTitle>
-                <SectionContent>
-                    Copy and paste the following code into your project.
-                </SectionContent>
-                <PreviewCode title="components/ui/scroll-area/ScrollAreaRoot.vue">
-                    {`
+      <div id="installation">
+        <SectionTitle>Installation</SectionTitle>
+        <SectionContent>
+          Copy and paste the following code into your project.
+        </SectionContent>
+        <PreviewCode title="components/ui/scroll-area/ScrollAreaRoot.vue">
+          {`
 <script lang="ts" setup>
 import * as scrollArea from "@zag-js/scroll-area";
 import type { Props } from "@zag-js/scroll-area";
@@ -112,10 +120,135 @@ provide("scrollAreaApi", api);
   </div>
 </template>
           `}
-                </PreviewCode>
-            </div>
-        </>
-    );
+        </PreviewCode>
+        <PreviewCode title="components/ui/scroll-area/ScrollAreaViewport.vue">
+          {`
+<script lang="ts" setup>
+import type { Api } from "@zag-js/scroll-area";
+import { inject } from "vue";
+import { cn } from "@midoneui/core/utils/cn";
+import { scrollAreaViewport } from "@midoneui/core/styles/scroll-area.styles";
+
+const { class: className, ...props } = defineProps<{ class?: string }>();
+
+const api = inject<Api>("scrollAreaApi");
+</script>
+
+<template>
+  <div
+    v-bind="{ ...api?.getViewportProps(), ...props }"
+    :class="cn(scrollAreaViewport, className)"
+  >
+    <slot />
+  </div>
+</template>
+          `}
+        </PreviewCode>
+        <PreviewCode title="components/ui/scroll-area/ScrollAreaContent.vue">
+          {`
+<script lang="ts" setup>
+import type { Api } from "@zag-js/scroll-area";
+import { inject } from "vue";
+import { cn } from "@midoneui/core/utils/cn";
+import { scrollAreaContent } from "@midoneui/core/styles/scroll-area.styles";
+
+const { class: className, ...props } = defineProps<{ class?: string }>();
+
+const api = inject<Api>("scrollAreaApi");
+</script>
+
+<template>
+  <div
+    v-bind="{ ...api?.getContentProps(), ...props }"
+    :class="cn(scrollAreaContent, className)"
+  >
+    <slot />
+  </div>
+</template>
+          `}
+        </PreviewCode>
+        <PreviewCode title="components/ui/scroll-area/ScrollAreaScrollbar.vue">
+          {`
+<script lang="ts" setup>
+import type { Api, ScrollbarProps } from "@zag-js/scroll-area";
+import { inject } from "vue";
+import { cn } from "@midoneui/core/utils/cn";
+import { scrollAreaScrollbar } from "@midoneui/core/styles/scroll-area.styles";
+
+const { class: className, ...props } = defineProps<
+  ScrollbarProps & { class?: string }
+>();
+
+const api = inject<Api>("scrollAreaApi");
+</script>
+
+<template>
+  <div
+    v-bind="{ ...api.getScrollbarProps(), ...props }"
+    :class="cn(scrollAreaScrollbar, className)"
+  >
+    <slot />
+  </div>
+</template>
+          `}
+        </PreviewCode>
+        <PreviewCode title="components/ui/scroll-area/ScrollAreaThumb.vue">
+          {`
+<script lang="ts" setup>
+import type { Api, ScrollbarProps } from "@zag-js/scroll-area";
+import { inject } from "vue";
+import { cn } from "@midoneui/core/utils/cn";
+import { scrollAreaThumb } from "@midoneui/core/styles/scroll-area.styles";
+
+const { class: className, ...props } = defineProps<
+  ScrollbarProps & { class?: string }
+>();
+
+const api = inject<Api>("scrollAreaApi");
+</script>
+
+<template>
+  <div
+    v-bind="{ ...api.getThumbProps(props), ...props }"
+    :class="cn(scrollAreaThumb, className)"
+  />
+</template>
+          `}
+        </PreviewCode>
+        <PreviewCode title="components/ui/scroll-area/ScrollAreaCorner.vue">
+          {`
+<script lang="ts" setup>
+import type { Api } from "@zag-js/scroll-area";
+import { inject } from "vue";
+import { cn } from "@midoneui/core/utils/cn";
+import { scrollAreaCorner } from "@midoneui/core/styles/scroll-area.styles";
+
+const { class: className, ...props } = defineProps<{ class?: string }>();
+
+const api = inject<Api>("scrollAreaApi");
+</script>
+
+<template>
+  <div
+    v-bind="{ ...api?.getCornerProps(), ...props }"
+    :class="cn(scrollAreaCorner, className)"
+  />
+</template>
+          `}
+        </PreviewCode>
+        <PreviewCode title="components/ui/scroll-area/index.ts">
+          {`
+export { default as ScrollAreaRoot } from "./ScrollAreaRoot.vue";
+export { default as ScrollAreaViewport } from "./ScrollAreaViewport.vue";
+export { default as ScrollAreaContent } from "./ScrollAreaContent.vue";
+export { default as ScrollAreaScrollbar } from "./ScrollAreaScrollbar.vue";
+export { default as ScrollAreaThumb } from "./ScrollAreaThumb.vue";
+export { default as ScrollAreaCorner } from "./ScrollAreaCorner.vue";
+          `}
+        </PreviewCode>
+      </div>
+    </>
+  );
 }
 
 export default Main;

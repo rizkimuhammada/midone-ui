@@ -140,7 +140,9 @@ const {
 
 const service = useMachine(dialog.machine, {
   ...props,
-  open,
+  get open() {
+    return open;
+  },
   closeOnInteractOutside,
   id: crypto.randomUUID(),
 });
@@ -179,7 +181,12 @@ const api = inject<Api>("sheetApi");
 
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getTriggerProps() }">
-    <Button v-if="!asChild" :class="cn(sheetTrigger, className)">
+    <Button
+      variant="secondary"
+      look="outline"
+      v-if="!asChild"
+      :class="cn(sheetTrigger, className)"
+    >
       <slot />
     </Button>
     <slot v-else />
@@ -387,8 +394,8 @@ import { Slot } from "@/components/ui/slot";
 
 const {
   class: className,
-  filled,
-  variant,
+  look = "outline",
+  variant = "secondary",
   size,
   asChild = false,
   ...props
@@ -405,6 +412,7 @@ const api = inject<Api>("sheetApi");
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getCloseTriggerProps() }">
     <Button
+      variant="ghost"
       v-if="!$slots.default"
       :class="cn(sheetCloseTrigger, className)"
       v-bind="{ ...props }"
@@ -416,7 +424,7 @@ const api = inject<Api>("sheetApi");
       <Button
         v-else
         :class="
-          cn(buttonVariants({ filled, variant, size, className }), className)
+          cn(buttonVariants({ look, variant, size, className }), className)
         "
       >
         <slot />

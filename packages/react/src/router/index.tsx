@@ -19,7 +19,9 @@ import Datepicker from "../pages/datepicker";
 import Dialog from "../pages/dialog";
 import Field from "../pages/field";
 import Input from "../pages/input";
+import MapPage from "../pages/map";
 import Menu from "../pages/menu";
+import NativeSelect from "../pages/native-select";
 import Pagination from "../pages/pagination";
 import Popover from "../pages/popover";
 import ProgressCircular from "../pages/progress-circular";
@@ -68,7 +70,9 @@ function Router() {
             { path: "dialog", element: <Dialog /> },
             { path: "field", element: <Field /> },
             { path: "input", element: <Input /> },
+            { path: "map", element: <MapPage /> },
             { path: "menu", element: <Menu /> },
+            { path: "native-select", element: <NativeSelect /> },
             { path: "pagination", element: <Pagination /> },
             { path: "popover", element: <Popover /> },
             { path: "progress-circular", element: <ProgressCircular /> },

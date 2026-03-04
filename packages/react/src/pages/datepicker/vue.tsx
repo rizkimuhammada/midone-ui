@@ -476,7 +476,11 @@ const api = inject<Api>("datepickerApi");
 
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getTriggerProps() }">
-    <Button v-if="!asChild" :class="cn(datePickerTrigger, className)">
+    <Button
+      variant="ghost"
+      v-if="!asChild"
+      :class="cn(datePickerTrigger, className)"
+    >
       <Calendar v-if="!$slots.default" />
       <slot v-else />
     </Button>
@@ -510,7 +514,11 @@ const api = inject<Api>("datepickerApi");
 
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getClearTriggerProps() }">
-    <Button v-if="!asChild" :class="cn(datePickerClearTrigger, className)">
+    <Button
+      variant="ghost"
+      v-if="!asChild"
+      :class="cn(datePickerClearTrigger, className)"
+    >
       <X v-if="!$slots.default" />
       <slot v-else />
     </Button>
@@ -591,7 +599,10 @@ const api = inject<Api>("datepickerApi");
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
-import { input } from "@midoneui/core/styles/input.styles";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 import { datePickerYearSelect } from "@midoneui/core/styles/datepicker.styles";
 import type { Api } from "@zag-js/date-picker";
 import { inject } from "vue";
@@ -609,14 +620,18 @@ const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <select
-    :class="cn(input, datePickerYearSelect, className)"
+  <NativeSelect
+    :class="cn(datePickerYearSelect, className)"
     v-bind="{ ...props, ...$attrs, ...api?.getYearSelectProps() }"
   >
-    <option v-for="(year, i) in api?.getYears()" :key="i" :value="year.value">
+    <NativeSelectOption
+      v-for="(year, i) in api?.getYears()"
+      :key="i"
+      :value="year.value"
+    >
       {{ year.label }}
-    </option>
-  </select>
+    </NativeSelectOption>
+  </NativeSelect>
 </template>
           `}
         </PreviewCode>
@@ -624,8 +639,11 @@ const api = inject<Api>("datepickerApi");
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
-import { input } from "@midoneui/core/styles/input.styles";
 import { datePickerMonthSelect } from "@midoneui/core/styles/datepicker.styles";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 import type { Api } from "@zag-js/date-picker";
 import { inject } from "vue";
 
@@ -642,18 +660,18 @@ const api = inject<Api>("datepickerApi");
 </script>
 
 <template>
-  <select
-    :class="cn(input, datePickerMonthSelect, className)"
+  <NativeSelect
+    :class="cn(datePickerMonthSelect, className)"
     v-bind="{ ...props, ...$attrs, ...api?.getMonthSelectProps() }"
   >
-    <option
+    <NativeSelectOption
       v-for="(month, i) in api?.getMonths()"
       :key="i"
       :value="month.value"
     >
       {{ month.label }}
-    </option>
-  </select>
+    </NativeSelectOption>
+  </NativeSelect>
 </template>
           `}
         </PreviewCode>
@@ -757,7 +775,11 @@ const api = inject<Api>("datepickerApi");
 
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getPresetTriggerProps(props) }">
-    <Button v-if="!asChild" :class="cn(datePickerPresetTrigger, className)">
+    <Button
+      variant="ghost"
+      v-if="!asChild"
+      :class="cn(datePickerPresetTrigger, className)"
+    >
       <slot />
     </Button>
     <slot v-else />

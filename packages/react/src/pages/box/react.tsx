@@ -56,27 +56,26 @@ import {
   boxVariants,
   type BoxVariants,
 } from "@midoneui/core/styles/box.styles";
+import { Slot } from "@/components/ui/slot";
 
-export function Box({
+function Box({
   children,
   className,
-  filled,
-  variant,
   raised,
+  asChild = false,
   ...props
-}: React.ComponentProps<"div"> & BoxVariants) {
+}: React.ComponentProps<"div"> & BoxVariants & { asChild?: boolean }) {
   return (
-    <div
-      className={cn(
-        boxVariants({ filled, variant, raised, className }),
-        className
-      )}
+    <Slot
+      className={cn(boxVariants({ raised, className }), className)}
       {...props}
     >
-      {children}
-    </div>
+      {asChild ? children : <div>{children}</div>}
+    </Slot>
   );
 }
+
+export { Box };
               `}
         </PreviewCode>
         <SectionContent>
@@ -107,65 +106,11 @@ import { Box } from "@/components/ui/box";
       <div id="variants">
         <SectionTitle>Variants</SectionTitle>
         <SectionContent>A collection of components you can use.</SectionContent>
-        <Preview className="!flex-col">
+        <Preview>
           {() => ({
             preview: (
               <>
                 <Box className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="primary" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="secondary" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="success" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="danger" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="pending" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="warning" className="w-70">
                   <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
                   <div className="mt-6 text-2xl font-medium leading-8">
                     $724,091.47
@@ -188,124 +133,16 @@ import { Box } from "@/components/ui/box";
     Item Sales
   </div>
 </Box>
-<Box variant="primary" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="secondary" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="success" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="danger" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="pending" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="warning" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
                 `}
               </PreviewCode>
             ),
           })}
         </Preview>
-        <Preview className="!flex-col">
+        <Preview>
           {() => ({
             preview: (
               <>
                 <Box raised="single" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="primary" raised="single" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="secondary" raised="single" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="success" raised="single" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="danger" raised="single" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="pending" raised="single" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="warning" raised="single" className="w-70">
                   <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
                   <div className="mt-6 text-2xl font-medium leading-8">
                     $724,091.47
@@ -328,124 +165,16 @@ import { Box } from "@/components/ui/box";
     Item Sales
   </div>
 </Box>
-<Box variant="primary" raised="single" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="secondary" raised="single" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="success" raised="single" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="danger" raised="single" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="pending" raised="single" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="warning" raised="single" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
                 `}
               </PreviewCode>
             ),
           })}
         </Preview>
-        <Preview className="!flex-col">
+        <Preview>
           {() => ({
             preview: (
               <>
                 <Box raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="primary" raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="secondary" raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="success" raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="danger" raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="pending" raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box variant="warning" raised="double" className="w-70">
                   <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
                   <div className="mt-6 text-2xl font-medium leading-8">
                     $724,091.47
@@ -460,205 +189,6 @@ import { Box } from "@/components/ui/box";
               <PreviewCode>
                 {`
 <Box raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="primary" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="secondary" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="success" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="danger" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="pending" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box variant="warning" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-                `}
-              </PreviewCode>
-            ),
-          })}
-        </Preview>
-        <Preview className="!flex-col">
-          {() => ({
-            preview: (
-              <>
-                <Box filled raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box filled variant="primary" raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box
-                  filled
-                  variant="secondary"
-                  raised="double"
-                  className="w-70"
-                >
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box filled variant="success" raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box filled variant="danger" raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box filled variant="pending" raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-                <Box filled variant="warning" raised="double" className="w-70">
-                  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-                  <div className="mt-6 text-2xl font-medium leading-8">
-                    $724,091.47
-                  </div>
-                  <div className="mt-1.5 text-xs uppercase opacity-70">
-                    Item Sales
-                  </div>
-                </Box>
-              </>
-            ),
-            code: (
-              <PreviewCode>
-                {`
-<Box filled raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box filled variant="primary" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box filled variant="secondary" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box filled variant="success" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box filled variant="danger" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box filled variant="pending" raised="double" className="w-70">
-  <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
-  <div className="mt-6 text-2xl font-medium leading-8">
-    $724,091.47
-  </div>
-  <div className="mt-1.5 text-xs uppercase opacity-70">
-    Item Sales
-  </div>
-</Box>
-<Box filled variant="warning" raised="double" className="w-70">
   <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
   <div className="mt-6 text-2xl font-medium leading-8">
     $724,091.47

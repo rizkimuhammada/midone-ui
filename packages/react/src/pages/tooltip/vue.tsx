@@ -62,6 +62,7 @@ const {
   class: className,
   asChild = false,
   open = undefined,
+  disabled = false,
   ...props
 } = defineProps<Partial<Props> & { class?: string; asChild?: boolean }>();
 
@@ -74,6 +75,7 @@ const service = useMachine(tooltip.machine, {
   closeDelay: 0,
   openDelay: 0,
   open,
+  disabled,
   id: crypto.randomUUID(),
 });
 const api = computed(() => tooltip.connect(service, normalizeProps));
@@ -110,7 +112,12 @@ const api = inject<Api>("tooltipApi");
 
 <template>
   <Slot v-bind="{ ...api?.getTriggerProps(), ...props, ...$attrs }">
-    <Button v-if="!asChild" :class="cn(tooltipTrigger, className)">
+    <Button
+      variant="secondary"
+      look="outline"
+      v-if="!asChild"
+      :class="cn(tooltipTrigger, className)"
+    >
       <slot />
     </Button>
     <slot v-else />
@@ -140,15 +147,17 @@ const api = inject<Api>("tooltipApi");
 </script>
 
 <template>
-  <Slot
-    :class="cn(tooltipPositioner, className)"
-    v-bind="{ ...api?.getPositionerProps(), ...props, ...$attrs }"
-  >
-    <slot v-if="asChild" />
-    <div v-else>
-      <slot />
-    </div>
-  </Slot>
+  <Teleport to="body">
+    <Slot
+      :class="cn(tooltipPositioner, className)"
+      v-bind="{ ...api?.getPositionerProps(), ...props, ...$attrs }"
+    >
+      <slot v-if="asChild" />
+      <div v-else>
+        <slot />
+      </div>
+    </Slot>
+  </Teleport>
 </template>
             `}
         </PreviewCode>

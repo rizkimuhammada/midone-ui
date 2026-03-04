@@ -321,8 +321,11 @@ function Main() {
 import { Input } from "@/components/ui/input";
 import { Box } from "@/components/ui/box";
 import { Button } from "@/components/ui/button";
-import { input } from "@midoneui/core/styles/input.styles";
 import { Label } from "@/components/ui/label";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 import { cn } from "@midoneui/core/utils/cn";
 import { createContext, useContext, useId } from "react";
 import * as datepicker from "@zag-js/date-picker";
@@ -474,7 +477,7 @@ export function DatePickerTrigger({
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(datePickerTrigger, className)}>
+        <Button variant="ghost" className={cn(datePickerTrigger, className)}>
           {!children ? <Calendar /> : children}
         </Button>
       ) : (
@@ -495,7 +498,10 @@ export function DatePickerClearTrigger({
   return (
     <Slot {...api?.getClearTriggerProps()} {...props}>
       {!asChild ? (
-        <Button className={cn(datePickerClearTrigger, className)}>
+        <Button
+          variant="ghost"
+          className={cn(datePickerClearTrigger, className)}
+        >
           {!children ? <X /> : children}
         </Button>
       ) : (
@@ -555,17 +561,17 @@ export function DatePickerYearSelect({
   const api = useContext(ApiContext);
 
   return (
-    <select
-      className={cn(input, datePickerYearSelect, className)}
+    <NativeSelect
+      className={cn(datePickerYearSelect, className)}
       {...api?.getYearSelectProps()}
       {...props}
     >
       {api?.getYears().map((year, i) => (
-        <option key={i} value={year.value}>
+        <NativeSelectOption key={i} value={year.value}>
           {year.label}
-        </option>
+        </NativeSelectOption>
       ))}
-    </select>
+    </NativeSelect>
   );
 }
 
@@ -577,17 +583,17 @@ export function DatePickerMonthSelect({
   const api = useContext(ApiContext);
 
   return (
-    <select
-      className={cn(input, datePickerMonthSelect, className)}
+    <NativeSelect
+      className={cn(datePickerMonthSelect, className)}
       {...api?.getMonthSelectProps()}
       {...props}
     >
       {api?.getMonths().map((month, i) => (
-        <option key={i} value={month.value}>
+        <NativeSelectOption key={i} value={month.value}>
           {month.label}
-        </option>
+        </NativeSelectOption>
       ))}
-    </select>
+    </NativeSelect>
   );
 }
 
@@ -643,7 +649,10 @@ export function DatePickerPresetTrigger({
   return (
     <Slot {...api?.getPresetTriggerProps(props)} {...props}>
       {!asChild ? (
-        <Button className={cn(datePickerPresetTrigger, className)}>
+        <Button
+          variant="ghost"
+          className={cn(datePickerPresetTrigger, className)}
+        >
           {children}
         </Button>
       ) : (
@@ -764,7 +773,7 @@ export function DatePickerTableHead({
   return (
     <Slot
       className={cn(datePickerTableHead, className)}
-      {...api?.getTableProps()}
+      {...api?.getTableHeadProps()}
       {...props}
     >
       {asChild ? children : <thead>{children}</thead>}
@@ -802,7 +811,7 @@ export function DatePickerTableHeader({
   return (
     <Slot
       className={cn(datePickerTableHeader, className)}
-      {...api?.getTableHeadProps()}
+      {...api?.getTableHeaderProps()}
       {...props}
     >
       {asChild ? children : <th>{children}</th>}

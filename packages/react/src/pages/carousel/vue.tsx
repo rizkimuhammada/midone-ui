@@ -120,6 +120,8 @@ const {
   class: className,
   defaultPage,
   slideCount,
+  spacing = "2rem",
+  allowMouseDrag = true,
   asChild = false,
   ...props
 } = defineProps<Partial<Props> & { asChild?: boolean; class?: string }>();
@@ -127,6 +129,8 @@ const {
 const service = useMachine(carousel.machine, {
   defaultPage,
   slideCount,
+  spacing,
+  allowMouseDrag,
   ...props,
   id: crypto.randomUUID(),
 });
@@ -209,11 +213,10 @@ const api = inject<Api>("carouselApi");
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getPrevTriggerProps() }">
     <slot v-if="asChild" />
-    <Button v-else :class="cn(carouselPrevTrigger, className)">
+    <Button variant="ghost" v-else :class="cn(carouselPrevTrigger, className)">
       <slot v-if="$slots.default" />
       <ArrowLeft v-else />
     </Button>
-    <slot />
   </Slot>
 </template>
               `}
@@ -244,11 +247,10 @@ const api = inject<Api>("carouselApi");
 <template>
   <Slot v-bind="{ ...props, ...$attrs, ...api?.getNextTriggerProps() }">
     <slot v-if="asChild" />
-    <Button v-else :class="cn(carouselNextTrigger, className)">
+    <Button variant="ghost" v-else :class="cn(carouselNextTrigger, className)">
       <slot v-if="$slots.default" />
       <ArrowRight v-else />
     </Button>
-    <slot />
   </Slot>
 </template>
               `}
