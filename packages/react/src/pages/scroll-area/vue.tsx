@@ -10,6 +10,7 @@ import {
   Preview,
   SectionTitle,
   SectionContent,
+  InstallPackage,
   PreviewCode,
 } from "@/components/docs";
 
@@ -82,6 +83,8 @@ import {
 
       <div id="installation">
         <SectionTitle>Installation</SectionTitle>
+        <SectionContent>Install the following dependencies:</SectionContent>
+        <InstallPackage>add @zag-js/vue @zag-js/scroll-area</InstallPackage>
         <SectionContent>
           Copy and paste the following code into your project.
         </SectionContent>
@@ -244,6 +247,36 @@ export { default as ScrollAreaContent } from "./ScrollAreaContent.vue";
 export { default as ScrollAreaScrollbar } from "./ScrollAreaScrollbar.vue";
 export { default as ScrollAreaThumb } from "./ScrollAreaThumb.vue";
 export { default as ScrollAreaCorner } from "./ScrollAreaCorner.vue";
+          `}
+        </PreviewCode>
+      </div>
+      <div id="usage">
+        <SectionTitle>Usage</SectionTitle>
+        <PreviewCode>
+          {`
+import {
+  ScrollAreaRoot,
+  ScrollAreaViewport,
+  ScrollAreaContent,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaCorner,
+} from "@/components/ui/scroll-area";
+          `}
+        </PreviewCode>
+        <PreviewCode>
+          {`
+<ScrollAreaRoot class="h-72 w-70">
+  <ScrollAreaViewport>
+    <ScrollAreaContent>
+      <!-- Scrollable content here -->
+    </ScrollAreaContent>
+  </ScrollAreaViewport>
+  <ScrollAreaScrollbar>
+    <ScrollAreaThumb />
+  </ScrollAreaScrollbar>
+  <ScrollAreaCorner />
+</ScrollAreaRoot>
           `}
         </PreviewCode>
       </div>
