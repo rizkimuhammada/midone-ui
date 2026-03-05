@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Github, Zap } from "lucide-react";
 import { Frame } from "@/components/ui/frame";
-import { Outlet, Link } from "react-router";
+import { Outlet, NavLink, Link } from "react-router";
 
 export const MobileMenuContext = createContext<{
   showMenu: boolean;
@@ -140,24 +140,24 @@ function App() {
                   >
                     Midone UI.
                   </Link>
-                  <Link
+                  <NavLink
                     to="/docs"
                     className="-mt-4 hidden lg:block opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
                   >
                     Docs
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/docs/accordion"
                     className="-mt-4 hidden lg:block opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
                   >
                     Components
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/templates"
                     className="-mt-4 hidden lg:block opacity-70 [&.active]:opacity-100 [&.active]:font-medium"
                   >
                     Templates
-                  </Link>
+                  </NavLink>
                   <div
                     onClick={() => setShowMenu(true)}
                     className="-mt-4 ms-auto flex items-center gap-2 lg:hidden relative cursor-pointer"

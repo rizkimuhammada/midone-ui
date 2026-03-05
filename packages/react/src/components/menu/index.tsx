@@ -276,6 +276,18 @@ function Main({ className }: React.ComponentProps<"div">) {
         >
           How to Use
         </NavLink>
+        <NavLink
+          onClick={() => setShowMenu(false)}
+          to="/templates"
+          className={({ isActive }) =>
+            twMerge([
+              "hover:text-foreground py-1.5",
+              isActive && "text-foreground",
+            ])
+          }
+        >
+          Templates
+        </NavLink>
       </div>
       <div className="flex flex-col">
         <div className="font-medium text-foreground mb-2">Components</div>

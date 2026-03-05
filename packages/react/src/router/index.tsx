@@ -38,6 +38,8 @@ import Tabs from "../pages/tabs";
 import Textarea from "../pages/textarea";
 import Toast from "../pages/toast";
 import Tooltip from "../pages/tooltip";
+import Templates from "../pages/templates";
+import TemplateDetail from "../pages/template-detail";
 import App from "../App";
 
 function Router() {
@@ -47,6 +49,8 @@ function Router() {
       element: <App />,
       children: [
         { path: "/", element: <Home /> },
+        { path: "/templates", element: <Templates /> },
+        { path: "/templates/:slug", element: <TemplateDetail /> },
         {
           path: "/docs",
           element: <Docs />,
