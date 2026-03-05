@@ -6,9 +6,11 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspace=@midoneui/react && npm run build --workspace=@midoneui/vue && npm run build --workspace=@midoneui/svelte",
-    "dev:react": "npm run dev --workspace=@midoneui/react",
     "dev:vue": "npm run dev --workspace=@midoneui/vue",
-    "dev:svelte": "npm run dev --workspace=@midoneui/svelte"
+    "dev:react": "npm run dev --workspace=@midoneui/react",
+    "dev:svelte": "npm run dev --workspace=@midoneui/svelte",
+    "build:vue": "npm run build --workspace=@midoneui/vue",
+    "build:react": "npm run build --workspace=@midoneui/react",
+    "build:svelte": "npm run build --workspace=@midoneui/svelte"
   }
 }

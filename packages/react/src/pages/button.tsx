@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { FrameworkContext } from "../App";
-import { MoveUpRight } from "lucide-react";
-import { Wrapper, Title, Subtitle, Menu, ApiButton } from "@/components/docs";
+import { Wrapper, Title, Subtitle, Menu } from "@/components/docs";
 import React from "./react/button";
 import Vue from "./vue/button";
 

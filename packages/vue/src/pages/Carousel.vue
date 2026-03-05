@@ -40,7 +40,7 @@ const images = Array.from(
           </CarouselIndicatorGroup>
           <CarouselItemGroup>
             <CarouselItem
-              v-for="(image, index) in images"
+              v-for="(_, index) in images"
               :key="index"
               :index="index"
               class="text-5xl bold flex items-center justify-center"
