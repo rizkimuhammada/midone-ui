@@ -269,9 +269,9 @@ function Main() {
                                   {header.isPlaceholder
                                     ? null
                                     : flexRender(
-                                        header.column.columnDef.header,
-                                        header.getContext()
-                                      )}
+                                      header.column.columnDef.header,
+                                      header.getContext()
+                                    )}
                                 </TableHead>
                               );
                             })}
@@ -626,11 +626,6 @@ const table = useVueTable({
 </script>
 
 <template>
-  <div class="flex flex-col gap-20">
-    <div class="grid grid-cols-2">
-      <div
-        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
-      >
         <div class="w-full">
           <div class="flex items-center py-4 gap-3">
             <Input
@@ -734,9 +729,6 @@ const table = useVueTable({
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 </template>
                 `}
               </PreviewCode>

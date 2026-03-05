@@ -473,6 +473,8 @@
   resolved "file:packages/react"
   dependencies:
     "@left4code/svg-renderer" "^1.0.0"
+    "@mdx-js/react" "^3.1.1"
+    "@mdx-js/rollup" "^3.1.1"
     "@tanstack/react-table" "^8.21.3"
     "@zag-js/accordion" "1.26.1"
     "@zag-js/avatar" "1.26.1"
@@ -502,6 +504,7 @@
     react "^19.1.1"
     react-dom "^19.1.1"
     react-router "^7.8.2"
+    remark-gfm "^4.0.1"
     tailwind-merge "^3.3.1"
     tailwindcss "^4.1.11"
     tw-animate-css "^1.3.5"
@@ -1376,18 +1379,7 @@
   dependencies:
     "@zag-js/dom-query" "1.26.1"
 
-"@zag-js/scroll-area@^1.26.1":
-  version "1.26.1"
-  resolved "https://registry.npmjs.org/@zag-js/scroll-area/-/scroll-area-1.26.1.tgz"
-  integrity sha512-+QzuY/zYzl0ZH5Xf7tLg2nTKt8h3B55lu8yvg7WavqT2nLTMcocK6Vr1r7b+9FpGyt3nMYuZ6iUUU1Rdkk2vwg==
-  dependencies:
-    "@zag-js/anatomy" "1.26.1"
-    "@zag-js/core" "1.26.1"
-    "@zag-js/dom-query" "1.26.1"
-    "@zag-js/types" "1.26.1"
-    "@zag-js/utils" "1.26.1"
-
-"@zag-js/scroll-area@1.26.1":
+"@zag-js/scroll-area@^1.26.1", "@zag-js/scroll-area@1.26.1":
   version "1.26.1"
   resolved "https://registry.npmjs.org/@zag-js/scroll-area/-/scroll-area-1.26.1.tgz"
   integrity sha512-+QzuY/zYzl0ZH5Xf7tLg2nTKt8h3B55lu8yvg7WavqT2nLTMcocK6Vr1r7b+9FpGyt3nMYuZ6iUUU1Rdkk2vwg==
@@ -2127,7 +2119,7 @@ flatted@^3.2.9:
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.3.3.tgz"
   integrity sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==
 
-fsevents@~2.3.2, fsevents@~2.3.3, fsevents@2.3.2:
+fsevents@~2.3.2, fsevents@~2.3.3:
   version "2.3.3"
   resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
@@ -3223,20 +3215,6 @@ picomatch@^4.0.3:
   version "4.0.3"
   resolved "https://registry.npmjs.org/picomatch/-/picomatch-4.0.3.tgz"
   integrity sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==
-
-playwright-core@1.58.2:
-  version "1.58.2"
-  resolved "https://registry.npmjs.org/playwright-core/-/playwright-core-1.58.2.tgz"
-  integrity sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==
-
-playwright@1.58.2:
-  version "1.58.2"
-  resolved "https://registry.npmjs.org/playwright/-/playwright-1.58.2.tgz"
-  integrity sha512-vA30H8Nvkq/cPBnNw4Q8TWz1EJyqgpuinBcHET0YVJVFldr8JDNiU9LaWAE1KqSkRYazuaBhTpB5ZzShOezQ6A==
-  dependencies:
-    playwright-core "1.58.2"
-  optionalDependencies:
-    fsevents "2.3.2"
 
 postcss@^8.5.6:
   version "8.5.6"

@@ -203,44 +203,46 @@ function Main() {
                         code: (
                             <PreviewCode>
                                 {`
-<form>
-  <FieldGroup>
-    <FieldSet>
-      <FieldLegend>Payment Method</FieldLegend>
-      <FieldDescription>
-        All transactions are secure and encrypted
-      </FieldDescription>
-      <FieldGroup>
-        <Field>
-          <FieldLabel htmlFor="card-name">Name on Card</FieldLabel>
-          <Input id="card-name" placeholder="Evil Rabbit" required />
+<div className="w-full max-w-md">
+    <form>
+    <FieldGroup>
+        <FieldSet>
+        <FieldLegend>Payment Method</FieldLegend>
+        <FieldDescription>
+            All transactions are secure and encrypted
+        </FieldDescription>
+        <FieldGroup>
+            <Field>
+            <FieldLabel htmlFor="card-name">Name on Card</FieldLabel>
+            <Input id="card-name" placeholder="Evil Rabbit" required />
+            </Field>
+            <Field>
+            <FieldLabel htmlFor="card-number">Card Number</FieldLabel>
+            <Input id="card-number" placeholder="1234 5678 9012 3456" required />
+            <FieldDescription>Enter your 16-digit card number</FieldDescription>
+            </Field>
+        </FieldGroup>
+        </FieldSet>
+        <FieldSeparator />
+        <FieldSet>
+        <FieldLegend>Billing Address</FieldLegend>
+        <FieldDescription>
+            The billing address associated with your payment method
+        </FieldDescription>
+        <CheckboxRoot>
+            <CheckboxControl />
+            <CheckboxLabel className="font-normal">
+            Same as shipping address
+            </CheckboxLabel>
+        </CheckboxRoot>
+        </FieldSet>
+        <Field orientation="horizontal">
+        <Button look="outline" type="submit">Submit</Button>
+        <Button type="button">Cancel</Button>
         </Field>
-        <Field>
-          <FieldLabel htmlFor="card-number">Card Number</FieldLabel>
-          <Input id="card-number" placeholder="1234 5678 9012 3456" required />
-          <FieldDescription>Enter your 16-digit card number</FieldDescription>
-        </Field>
-      </FieldGroup>
-    </FieldSet>
-    <FieldSeparator />
-    <FieldSet>
-      <FieldLegend>Billing Address</FieldLegend>
-      <FieldDescription>
-        The billing address associated with your payment method
-      </FieldDescription>
-      <CheckboxRoot>
-        <CheckboxControl />
-        <CheckboxLabel className="font-normal">
-          Same as shipping address
-        </CheckboxLabel>
-      </CheckboxRoot>
-    </FieldSet>
-    <Field orientation="horizontal">
-      <Button look="outline" type="submit">Submit</Button>
-      <Button type="button">Cancel</Button>
-    </Field>
-  </FieldGroup>
-</form>
+    </FieldGroup>
+    </form>
+</div>
                 `}
                             </PreviewCode>
                         ),

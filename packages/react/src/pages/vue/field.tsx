@@ -201,6 +201,7 @@ function Main() {
                         code: (
                             <PreviewCode>
                                 {`
+<div className="w-full max-w-md">                                
 <form>
   <FieldGroup>
     <FieldSet>
@@ -239,6 +240,7 @@ function Main() {
     </Field>
   </FieldGroup>
 </form>
+</div>
                 `}
                             </PreviewCode>
                         ),
