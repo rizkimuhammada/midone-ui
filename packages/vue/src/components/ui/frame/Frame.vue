@@ -16,10 +16,10 @@ const {
   enableViewBox?: boolean;
 }>();
 
-const svgRef = ref(null);
+const svgRef = ref<SVGSVGElement | null>(null);
 
 const init = () => {
-  if (svgRef.value && svgRef.value.parentElement) {
+  if (svgRef.value && svgRef.value?.parentElement) {
     const instance = setupSvgRenderer({
       el: svgRef.value,
       paths,

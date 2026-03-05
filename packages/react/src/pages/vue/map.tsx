@@ -237,7 +237,7 @@ onMounted(() => {
           layers: ["clusters"],
         });
 
-        const clusterId = features[0].properties.cluster_id;
+        const clusterId = features[0]?.properties.cluster_id;
         const source = mapInstance.value!.getSource(
           "markers"
         ) as maplibregl.GeoJSONSource;
@@ -246,7 +246,7 @@ onMounted(() => {
           const zoom = await source.getClusterExpansionZoom(clusterId);
 
           mapInstance.value!.easeTo({
-            center: (features[0].geometry as any).coordinates,
+            center: (features[0]?.geometry as any).coordinates,
             zoom: zoom,
           });
         } catch (err) {
@@ -257,13 +257,13 @@ onMounted(() => {
       // Click on individual point to show popup
       mapInstance.value!.on("click", "unclustered-point", (e) => {
         const coordinates = (
-          e.features![0].geometry as any
+          e.features![0]?.geometry as any
         ).coordinates.slice();
-        const { name, type } = e.features![0].properties;
+        const { name, type } = (e.features![0]?.properties || {}) as any;
 
         new maplibregl.Popup()
           .setLngLat(coordinates)
-          .setHTML(\`<h3>${name}</h3><p>$\{type\}</p>\`)
+          .setHTML(\`<h3>\${name}</h3><p>\${type}</p>\`)
           .addTo(mapInstance.value!);
       });
 

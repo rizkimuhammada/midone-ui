@@ -109,7 +109,7 @@ function Map({
             layers: ["clusters"],
           });
 
-          const clusterId = features[0].properties.cluster_id;
+          const clusterId = features[0]?.properties.cluster_id;
           const source = mapInstance.current.getSource(
             "markers"
           ) as maplibregl.GeoJSONSource;
@@ -118,7 +118,7 @@ function Map({
             const zoom = await source.getClusterExpansionZoom(clusterId);
 
             mapInstance.current.easeTo({
-              center: (features[0].geometry as any).coordinates,
+              center: (features[0]?.geometry as any).coordinates,
               zoom: zoom,
             });
           } catch (err) {
@@ -131,9 +131,9 @@ function Map({
           if (!mapInstance.current || !e.features) return;
 
           const coordinates = (
-            e.features[0].geometry as any
+            e.features![0]?.geometry as any
           ).coordinates.slice();
-          const { name, type } = e.features[0].properties;
+          const { name, type } = (e.features![0]?.properties || {}) as any;
 
           new maplibregl.Popup()
             .setLngLat(coordinates)
