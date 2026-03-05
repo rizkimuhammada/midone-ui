@@ -134,7 +134,7 @@ import { scrollAreaViewport } from "@midoneui/core/styles/scroll-area.styles";
 
 const { class: className, ...props } = defineProps<{ class?: string }>();
 
-const api = inject<Api>("scrollAreaApi");
+const api = inject<Api<any>>("scrollAreaApi");
 </script>
 
 <template>
@@ -157,7 +157,7 @@ import { scrollAreaContent } from "@midoneui/core/styles/scroll-area.styles";
 
 const { class: className, ...props } = defineProps<{ class?: string }>();
 
-const api = inject<Api>("scrollAreaApi");
+const api = inject<Api<any>>("scrollAreaApi");
 </script>
 
 <template>
@@ -182,12 +182,12 @@ const { class: className, ...props } = defineProps<
   ScrollbarProps & { class?: string }
 >();
 
-const api = inject<Api>("scrollAreaApi");
+const api = inject<Api<any>>("scrollAreaApi");
 </script>
 
 <template>
   <div
-    v-bind="{ ...api.getScrollbarProps(), ...props }"
+    v-bind="{ ...api?.getScrollbarProps(), ...props }"
     :class="cn(scrollAreaScrollbar, className)"
   >
     <slot />
@@ -207,12 +207,12 @@ const { class: className, ...props } = defineProps<
   ScrollbarProps & { class?: string }
 >();
 
-const api = inject<Api>("scrollAreaApi");
+const api = inject<Api<any>>("scrollAreaApi");
 </script>
 
 <template>
   <div
-    v-bind="{ ...api.getThumbProps(props), ...props }"
+    v-bind="{ ...api?.getThumbProps(props), ...props }"
     :class="cn(scrollAreaThumb, className)"
   />
 </template>
@@ -228,7 +228,7 @@ import { scrollAreaCorner } from "@midoneui/core/styles/scroll-area.styles";
 
 const { class: className, ...props } = defineProps<{ class?: string }>();
 
-const api = inject<Api>("scrollAreaApi");
+const api = inject<Api<any>>("scrollAreaApi");
 </script>
 
 <template>

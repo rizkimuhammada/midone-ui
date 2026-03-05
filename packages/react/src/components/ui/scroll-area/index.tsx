@@ -1,4 +1,5 @@
 import * as scrollArea from "@zag-js/scroll-area";
+import type { Api } from "@zag-js/scroll-area";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import { createContext, useContext, useId } from "react";
 import { cn } from "@midoneui/core/utils/cn";
@@ -12,7 +13,7 @@ import {
 } from "@midoneui/core/styles/scroll-area.styles";
 import { Slot } from "@/components/ui/slot";
 
-const ApiContext = createContext<ReturnType<typeof scrollArea.connect> | null>(null);
+const ApiContext = createContext<Api<any> | null>(null);
 
 export function ScrollAreaRoot({
     children,

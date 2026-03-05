@@ -6,7 +6,7 @@ import { scrollAreaViewport } from "@midoneui/core/styles/scroll-area.styles";
 
 const { class: className, ...props } = defineProps<{ class?: string }>();
 
-const api = inject<Api>("scrollAreaApi");
+const api = inject<Api<any>>("scrollAreaApi");
 </script>
 
 <template>

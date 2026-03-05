@@ -8,12 +8,12 @@ const { class: className, ...props } = defineProps<
   ScrollbarProps & { class?: string }
 >();
 
-const api = inject<Api>("scrollAreaApi");
+const api = inject<Api<any>>("scrollAreaApi");
 </script>
 
 <template>
   <div
-    v-bind="{ ...api.getScrollbarProps(), ...props }"
+    v-bind="{ ...api?.getScrollbarProps(), ...props }"
     :class="cn(scrollAreaScrollbar, className)"
   >
     <slot />
