@@ -114,7 +114,7 @@ export function calculateSlot<T>(params: SlotParams<T>): SlotResult<T> {
 
     if (items.length === 1) {
         const primary = items[0];
-        if (isValid(primary)) {
+        if (primary !== undefined && isValid(primary)) {
             return {
                 type: "slotted",
                 target: primary,
