@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 const SOURCE_DIR = "/Users/dwicompany/Desktop/Projects/midone-ui/packages/react/src/pages/vue";
-const DEST_DIR = "/Users/dwicompany/Desktop/Projects/midone/packages/vue/src/views/docs";
+const DEST_DIR = "/Users/dwicompany/Desktop/Projects/midone/packages/vue/src/docs/pages";
 
 if (!fs.existsSync(SOURCE_DIR)) {
     console.error(`Source directory not found: ${SOURCE_DIR}`);
