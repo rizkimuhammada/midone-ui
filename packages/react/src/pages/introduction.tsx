@@ -17,6 +17,7 @@ function Main() {
               Vue, built on top of modern primitives and Tailwind CSS.
             </Subtitle>
           </div>
+        </div>
       </Wrapper>
       <Menu>
         <a className="hover:text-foreground py-1.5" href="#what-is-midone-ui">
