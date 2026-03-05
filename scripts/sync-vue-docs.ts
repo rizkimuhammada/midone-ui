@@ -215,39 +215,34 @@ function convertPreviews(body: string, extraScriptLines: string[], fullSfcScript
         if (inner.includes("{() =>")) {
             const slots = extractSlots(inner);
             if (slots) {
-                // Try to convert simple JSX patterns in preview content
-                let preview = convertPreviewJsx(slots.preview);
+                // Prioritize extracting Vue template from PreviewCode
+                const codePreview = extractCodeAsPreview(slots.code);
 
-                // Only skip preview for truly unconvertable patterns
-                // (flexRender, nested maps, complex ternaries with JSX)
-                const hasComplexJsx = /flexRender\s*\(/.test(preview) ||
-                    (preview.match(/\.map\s*\(/g) || []).length > 0 ||
-                    /\{\s*\(\w+\)\s*=>\s*\(/.test(preview);
-
-                result += `${openTag}\n`;
-                if (!hasComplexJsx) {
+                if (codePreview) {
+                    result += `${openTag}\n`;
                     result += `      <template #preview>\n`;
-                    result += `${preview}\n`;
+                    result += `${codePreview.template}\n`;
                     result += `      </template>\n`;
-                } else {
-                    // Fallback: extract Vue template from PreviewCode and use as preview
-                    const codePreview = extractCodeAsPreview(slots.code);
-                    if (codePreview) {
-                        result += `      <template #preview>\n`;
-                        result += `${codePreview.template}\n`;
-                        result += `      </template>\n`;
-                        // If this came from a full SFC, store script for replacing entire script block
-                        if (codePreview.isFullSfc && codePreview.scriptLines.length > 0) {
-                            fullSfcScriptRef.value = codePreview.scriptLines.join("\n");
-                        } else if (codePreview.scriptLines.length > 0) {
-                            for (const line of codePreview.scriptLines) {
-                                if (!extraScriptLines.includes(line)) {
-                                    extraScriptLines.push(line);
-                                }
+
+                    // Add script lines to output
+                    if (codePreview.isFullSfc && codePreview.scriptLines.length > 0) {
+                        fullSfcScriptRef.value = codePreview.scriptLines.join("\n");
+                    } else if (codePreview.scriptLines.length > 0) {
+                        for (const line of codePreview.scriptLines) {
+                            if (!extraScriptLines.includes(line)) {
+                                extraScriptLines.push(line);
                             }
                         }
                     }
+                } else {
+                    // Fallback to converting React preview slot (old behavior)
+                    let preview = convertPreviewJsx(slots.preview);
+                    result += `${openTag}\n`;
+                    result += `      <template #preview>\n`;
+                    result += `${preview}\n`;
+                    result += `      </template>\n`;
                 }
+
                 result += `      <template #code>\n`;
                 result += `${slots.code}\n`;
                 result += `      </template>\n`;
@@ -302,7 +297,9 @@ function extractCodeAsPreview(codeSlot: string): { template: string; scriptLines
     const backtickMatch = codeSlot.match(/\{`([\s\S]*?)`\}/);
     if (!backtickMatch) return null;
 
-    let code = backtickMatch[1].trim();
+    let code = backtickMatch[1].trim()
+        .replace(/\\`/g, "`")
+        .replace(/\\\$\{/g, "${");
 
     // If code contains a full SFC (<script> + <template>), extract both parts
     const templateMatch = code.match(/<template>([\s\S]*?)<\/template>\s*$/);

@@ -31,7 +31,7 @@ function Main() {
             ),
             code: (
               <PreviewCode>
-                {`<template>
+                {`
   <div class="justify-center items-center flex gap-2">
     <Box as-child>
       <Button variant="ghost" class="me-2 px-2">
@@ -44,7 +44,7 @@ function Main() {
       </Button>
     </Box>
   </div>
-</template>`}
+`}
               </PreviewCode>
             ),
           })}
