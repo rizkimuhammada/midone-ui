@@ -282,7 +282,7 @@ export class MAvatarRoot extends LitElement {
         super.connectedCallback()
         this._initialClass = this.getAttribute('class') || ''
 
-        this.service = new VanillaMachine(avatar.machine, {
+        this.service = new VanillaMachine(avatar.machine as any, {
             id: this.id || Math.random().toString(36).substr(2, 9),
         })
 
