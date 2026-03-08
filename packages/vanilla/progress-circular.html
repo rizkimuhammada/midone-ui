@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Circular - Midone UI</title>
+</head>
+
+<body class="p-10 bg-background text-foreground">
+    <div class="flex flex-col gap-10">
+        <h1 class="text-2xl font-bold border-b pb-4">Progress Circular</h1>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">Different Values</h2>
+            <div class="flex gap-10 flex-wrap">
+                <div class="flex flex-col items-center gap-2">
+                    <m-progress-circular-root value="15" class="size-20">
+                        <m-progress-circular-circle>
+                            <m-progress-circular-track></m-progress-circular-track>
+                            <m-progress-circular-range></m-progress-circular-range>
+                        </m-progress-circular-circle>
+                    </m-progress-circular-root>
+                    <m-progress-value-text></m-progress-value-text>
+                </div>
+
+                <div class="flex flex-col items-center gap-2">
+                    <m-progress-circular-root value="45" class="size-20">
+                        <m-progress-circular-circle>
+                            <m-progress-circular-track></m-progress-circular-track>
+                            <m-progress-circular-range></m-progress-circular-range>
+                        </m-progress-circular-circle>
+                    </m-progress-circular-root>
+                    <m-progress-value-text></m-progress-value-text>
+                </div>
+
+                <div class="flex flex-col items-center gap-2">
+                    <m-progress-circular-root value="80" class="size-20 text-success">
+                        <m-progress-circular-circle>
+                            <m-progress-circular-track></m-progress-circular-track>
+                            <m-progress-circular-range></m-progress-circular-range>
+                        </m-progress-circular-circle>
+                    </m-progress-circular-root>
+                    <m-progress-value-text></m-progress-value-text>
+                </div>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-4 text-center">
+            <h2 class="text-lg font-semibold">Large with Label</h2>
+            <m-progress-circular-root value="60" class="size-48">
+                <m-progress-label>Loading Project</m-progress-label>
+                <m-progress-circular-circle>
+                    <m-progress-circular-track></m-progress-circular-track>
+                    <m-progress-circular-range></m-progress-circular-range>
+                </m-progress-circular-circle>
+                <m-progress-value-text class="text-2xl mt-2"></m-progress-value-text>
+            </m-progress-circular-root>
+        </section>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

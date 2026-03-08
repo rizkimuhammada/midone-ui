@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breadcrumb - Midone UI</title>
+</head>
+
+<body class="p-10 bg-background text-foreground">
+    <div class="flex flex-col gap-10">
+        <h1 class="text-2xl font-bold border-b pb-4">Breadcrumb</h1>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">Basic</h2>
+            <m-breadcrumb items='["Dashboard", "Settings", "Profile"]'></m-breadcrumb>
+        </section>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">Longer Chain</h2>
+            <m-breadcrumb items='["Home", "Products", "Electronics", "Computers", "Laptops"]'></m-breadcrumb>
+        </section>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button - Midone UI</title>
+</head>
+
+<body class="p-10 bg-background text-foreground">
+    <div class="flex flex-col gap-10">
+        <h1 class="text-2xl font-bold border-b pb-4">Button</h1>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">Variants</h2>
+            <div class="flex flex-wrap gap-4">
+                <m-button variant="primary">Primary</m-button>
+                <m-button variant="secondary">Secondary</m-button>
+                <m-button variant="success">Success</m-button>
+                <m-button variant="danger">Danger</m-button>
+                <m-button variant="warning">Warning</m-button>
+                <m-button variant="pending">Pending</m-button>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">Looks</h2>
+            <div class="flex flex-wrap gap-4 items-center">
+                <m-button look="outline" variant="primary">Outline</m-button>
+                <m-button look="filled" variant="primary">Filled</m-button>
+                <m-button look="ghost" variant="primary">Ghost</m-button>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">Sizes</h2>
+            <div class="flex flex-wrap gap-4 items-center">
+                <m-button size="sm" variant="primary">Small</m-button>
+                <m-button variant="primary">Medium</m-button>
+                <m-button size="lg" variant="primary">Large</m-button>
+                <m-button size="xl" variant="primary">Extra Large</m-button>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">Disabled</h2>
+            <div class="flex flex-wrap gap-4">
+                <m-button disabled variant="primary">Disabled</m-button>
+                <m-button disabled look="outline" variant="secondary">Disabled Outline</m-button>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">With Icons</h2>
+            <div class="flex flex-wrap gap-4">
+                <m-button variant="primary">
+                    <m-icon name="plus" size="18" class="mr-2"></m-icon> Add Item
+                </m-button>
+                <m-button variant="danger">
+                    <m-icon name="trash" size="18" class="mr-2"></m-icon> Delete
+                </m-button>
+                <m-button look="outline">
+                    <m-icon name="github" size="18" class="mr-2"></m-icon> GitHub
+                </m-button>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">As Child (Semantic & Custom Tags)</h2>
+            <div class="flex flex-wrap gap-4">
+                <!-- Using m-button variant on a real <a> tag -->
+                <m-button as-child variant="primary">
+                    <a href="https://google.com" target="_blank">Google Link</a>
+                </m-button>
+
+                <!-- Using m-button on a custom form button -->
+                <m-button as-child variant="success">
+                    <button type="submit">Submit Form</button>
+                </m-button>
+            </div>
+        </section>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

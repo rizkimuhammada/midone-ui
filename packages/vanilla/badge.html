@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badge - Midone UI</title>
+</head>
+
+<body class="p-10 bg-background text-foreground">
+    <div class="flex flex-col gap-10">
+        <h1 class="text-2xl font-bold border-b pb-4">Badge</h1>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">Variants</h2>
+            <div class="flex flex-wrap gap-4">
+                <m-badge variant="primary">Primary</m-badge>
+                <m-badge variant="secondary">Secondary</m-badge>
+                <m-badge variant="success">Success</m-badge>
+                <m-badge variant="danger">Danger</m-badge>
+                <m-badge variant="warning">Warning</m-badge>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">Looks</h2>
+            <div class="flex flex-wrap gap-4 items-center">
+                <m-badge look="outline" variant="primary">Outline</m-badge>
+                <m-badge look="filled" variant="primary">Filled</m-badge>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">With Icons</h2>
+            <div class="flex flex-wrap gap-4 items-center">
+                <m-badge variant="success" class="gap-1 px-2">
+                    <m-icon name="check" size="12"></m-icon> Active
+                </m-badge>
+                <m-badge variant="danger" class="gap-1 px-2">
+                    <m-icon name="x" size="12"></m-icon> Inactive
+                </m-badge>
+            </div>
+        </section>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
