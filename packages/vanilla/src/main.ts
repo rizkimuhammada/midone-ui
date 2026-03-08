@@ -2,7 +2,7 @@ import './index.css'
 import { LitElement, html } from 'lit'
 import * as accordion from "@zag-js/accordion"
 import * as avatar from "@zag-js/avatar"
-import { normalizeProps, VanillaMachine, spreadProps } from "@zag-js/vanilla"
+import { normalizeProps, VanillaMachine } from "@zag-js/vanilla"
 import { buttonVariants, type ButtonVariants } from './core/styles/button.styles'
 import { boxVariants, type BoxVariants } from './core/styles/box.styles'
 import {
@@ -284,9 +284,8 @@ export class MAvatarRoot extends LitElement {
     }
 
     firstUpdated() {
-        // Collect initial src from m-avatar-image if present
-        const imageEl = this.querySelector('m-avatar-image') as any
-        const src = imageEl?.src || imageEl?.getAttribute('src') || ''
+        const imageEl = this.querySelector('m-avatar-image')
+        const src = imageEl?.getAttribute('src') || ''
 
         this.service = new VanillaMachine(avatar.machine as any, {
             id: this.id || 'avatar-' + Math.random().toString(36).substr(2, 5),
@@ -303,31 +302,81 @@ export class MAvatarRoot extends LitElement {
 
     updated() {
         if (!this.api) return
+        this.syncStateToChildren()
+    }
 
-        // Handle bordered string vs boolean
+    private syncStateToChildren() {
+        // Apply to root
+        this.applyProps(this, this.api.getRootProps())
         const borderedAttr = this.getAttribute('bordered')
         const isBordered = borderedAttr === 'false' ? false : this.bordered ?? true
-
-        // Spread props to root
-        spreadProps(this, this.api.getRootProps())
         this.className = cn(avatarRootVariants({ bordered: isBordered }), this._initialClass)
 
-        // Sync API and src to children
-        const children = Array.from(this.querySelectorAll('m-avatar-image, m-avatar-fallback')) as any[]
-        children.forEach(child => {
-            child.api = this.api
+        // Apply to Image
+        const image = this.querySelector('m-avatar-image') as any
+        if (image) {
+            const imageProps = this.api.getImageProps()
+            const src = image.src || image.getAttribute('src') || ''
+            const alt = image.alt || image.getAttribute('alt') || ''
 
-            // If image src changes, sync back to machine
-            if (child.tagName.toLowerCase() === 'm-avatar-image' && this.service) {
-                const childSrc = child.src || child.getAttribute('src') || ''
-                if (this.service.state.context.src !== childSrc) {
-                    this.service.updateProps({ src: childSrc })
-                }
+            // Sync src back to machine if changed
+            if (this.service.state.context.src !== src) {
+                this.service.updateProps({ src })
             }
 
-            child.requestUpdate()
+            let target = image
+            if (!image.asChild && !image.firstElementChild) {
+                let img = image.querySelector('img')
+                if (!img) {
+                    img = document.createElement('img')
+                    image.appendChild(img)
+                }
+                target = img
+            }
+            this.applyProps(target, { ...imageProps, src, alt })
+            target.className = cn(avatarImage, image._initialClass)
+        }
+
+        // Apply to Fallback
+        const fallback = this.querySelector('m-avatar-fallback') as any
+        if (fallback) {
+            const fallbackProps = this.api.getFallbackProps()
+            this.applyProps(fallback, fallbackProps)
+            fallback.className = cn(avatarFallback, fallback._initialClass)
+            fallback.style.display = fallbackProps.hidden ? 'none' : ''
+        }
+    }
+
+    private applyProps(el: HTMLElement, props: any) {
+        Object.entries(props).forEach(([key, val]) => {
+            if (key === 'className' || key === 'class') return;
+            if (key.startsWith('on')) {
+                const eventName = key.slice(2).toLowerCase()
+                const listenerKey = `_zag_${eventName}`
+                const targetEl = el as any
+                if (targetEl[listenerKey]) {
+                    el.removeEventListener(eventName, targetEl[listenerKey])
+                }
+                if (typeof val === 'function') {
+                    targetEl[listenerKey] = val
+                    el.addEventListener(eventName, val as any)
+                }
+                return
+            }
+            if (val === undefined || val === null || val === false) {
+                el.removeAttribute(key)
+            } else if (typeof val === 'boolean') {
+                if (key.startsWith('aria-') || key.startsWith('data-')) {
+                    el.setAttribute(key, String(val))
+                } else if (val) {
+                    el.setAttribute(key, '')
+                }
+            } else {
+                el.setAttribute(key, String(val))
+            }
         })
     }
+
     render() { return undefined }
 }
 
@@ -340,36 +389,11 @@ export class MAvatarImage extends LitElement {
     src?: string
     alt?: string
     asChild = false
-    api: any = null
-    private _initialClass = ''
-
+    _initialClass = ''
     createRenderRoot() { return this }
     connectedCallback() {
         super.connectedCallback()
         this._initialClass = this.getAttribute('class') || ''
-    }
-
-    updated() {
-        if (!this.api) return
-
-        const src = this.src || this.getAttribute('src') || ''
-        const alt = this.alt || this.getAttribute('alt') || ''
-
-        let target: HTMLElement = this
-
-        // Render <img> if not asChild and no children
-        if (!this.asChild && !this.firstElementChild) {
-            let img = this.querySelector('img')
-            if (!img) {
-                img = document.createElement('img')
-                this.appendChild(img)
-            }
-            target = img
-        }
-
-        const imageProps = this.api.getImageProps()
-        spreadProps(target, { ...imageProps, src, alt })
-        target.className = cn(avatarImage, this._initialClass)
     }
     render() { return undefined }
 }
@@ -377,22 +401,11 @@ export class MAvatarImage extends LitElement {
 export class MAvatarFallback extends LitElement {
     static properties = { asChild: { type: Boolean, attribute: 'as-child' } }
     asChild = false
-    api: any = null
-    private _initialClass = ''
-
+    _initialClass = ''
     createRenderRoot() { return this }
     connectedCallback() {
         super.connectedCallback()
         this._initialClass = this.getAttribute('class') || ''
-    }
-    updated() {
-        if (!this.api) return
-
-        const fallbackProps = this.api.getFallbackProps()
-        this.style.display = fallbackProps.hidden ? 'none' : ''
-
-        spreadProps(this, fallbackProps)
-        this.className = cn(avatarFallback, this._initialClass)
     }
     render() { return undefined }
 }
