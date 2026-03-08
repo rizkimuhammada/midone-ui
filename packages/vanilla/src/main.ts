@@ -21,6 +21,11 @@ import {
     alertIcon,
     type AlertRootVariants
 } from './core/styles/alert.styles'
+import { avatarRootVariants, avatarFallback, avatarImage, type AvatarRootVariants } from './core/styles/avatar.styles'
+import { badgeVariants, type BadgeVariants } from './core/styles/badge.styles'
+import { breadcrumbList } from './core/styles/breadcrumb.styles'
+import { progressRoot as progressCircularRoot, progressCircle, progressCircleTrack, progressCircleRange, progressValueText as progressCircularValueText, progressLabel as progressCircularLabel } from './core/styles/progress-circular.styles'
+import { progressRoot as progressLinearRoot, progressTrack, progressRange, progressValueText as progressLinearValueText, progressLabel as progressLinearLabel } from './core/styles/progress-linear.styles'
 import { cn } from './core/utils/cn'
 import { syncSlot } from './core/utils/slot'
 import { createElement } from 'lucide'
@@ -35,11 +40,13 @@ export class MIcon extends LitElement {
     static properties = {
         name: { type: String },
         size: { type: String },
-        color: { type: String }
+        color: { type: String },
+        dataPart: { type: String, attribute: 'data-part' }
     }
     name = ''
     size = '24'
     color = 'currentColor'
+    dataPart = ''
     createRenderRoot() { return this }
     connectedCallback() {
         super.connectedCallback()
@@ -58,6 +65,11 @@ export class MIcon extends LitElement {
             stroke: this.color,
             class: cn('lucide', `lucide-${this.name}`, this.getAttribute('class'))
         })
+
+        if (this.dataPart) {
+            svgEl.setAttribute('data-part', this.dataPart)
+        }
+
         this.appendChild(svgEl)
     }
     render() { return undefined }
@@ -190,7 +202,14 @@ export class MAlertIcon extends LitElement {
         if (!this.firstElementChild && !this.textContent?.trim()) {
             this.style.display = 'none'
         } else {
-            syncSlot(this, cn(alertIcon, '[&_svg]:size-full'), this._initialClass, { 'data-part': 'icon' })
+            this.style.display = ''
+            this.className = cn(alertIcon, '[&_svg]:size-full', this._initialClass)
+
+            // Sync data-part to child as well for styling consistency
+            const child = this.firstElementChild
+            if (child && !child.hasAttribute('data-part')) {
+                child.setAttribute('data-part', 'icon')
+            }
         }
     }
     render() { return undefined }
@@ -238,6 +257,202 @@ export class MAlertCloseTrigger extends LitElement {
             this.innerHTML = '<m-icon name="x"></m-icon>'
         }
         syncSlot(this, cn(alertCloseTrigger, '[&_svg]:size-full'), this._initialClass)
+    }
+    render() { return undefined }
+}
+
+/**
+ * MAvatar Components
+ */
+export class MAvatarRoot extends LitElement {
+    static properties = {
+        bordered: { type: Boolean },
+        asChild: { type: Boolean, attribute: 'as-child' }
+    }
+    bordered?: AvatarRootVariants['bordered']
+    asChild = false
+    private _initialClass = ''
+    createRenderRoot() { return this }
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+    }
+    updated() {
+        syncSlot(this, avatarRootVariants({ bordered: this.bordered }), this._initialClass)
+    }
+    render() { return undefined }
+}
+
+export class MAvatarImage extends LitElement {
+    static properties = { asChild: { type: Boolean, attribute: 'as-child' } }
+    asChild = false
+    private _initialClass = ''
+    createRenderRoot() { return this }
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+    }
+    updated() { syncSlot(this, avatarImage, this._initialClass) }
+    render() { return undefined }
+}
+
+export class MAvatarFallback extends LitElement {
+    static properties = { asChild: { type: Boolean, attribute: 'as-child' } }
+    asChild = false
+    private _initialClass = ''
+    createRenderRoot() { return this }
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+    }
+    updated() { syncSlot(this, avatarFallback, this._initialClass) }
+    render() { return undefined }
+}
+
+/**
+ * MBadge Component
+ */
+export class MBadge extends LitElement {
+    static properties = {
+        variant: { type: String },
+        look: { type: String },
+        asChild: { type: Boolean, attribute: 'as-child' }
+    }
+    variant?: BadgeVariants['variant']
+    look?: BadgeVariants['look']
+    asChild = false
+    private _initialClass = ''
+    createRenderRoot() { return this }
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+    }
+    updated() {
+        syncSlot(this, badgeVariants({ variant: this.variant, look: this.look }), this._initialClass)
+    }
+    render() { return undefined }
+}
+
+/**
+ * MBreadcrumb Component
+ */
+export class MBreadcrumb extends LitElement {
+    static properties = {
+        items: { type: Array },
+    }
+    items: string[] = []
+    createRenderRoot() { return this }
+    updated() {
+        this.className = cn(breadcrumbList, this.getAttribute('class'))
+        this.innerHTML = this.items.map((item, i) => `
+            <div class="flex items-center gap-2">
+                ${i !== 0 ? '<m-icon name="chevron-right" size="14" class="opacity-50"></m-icon>' : ''}
+                <span class="${i === this.items.length - 1 ? 'font-medium' : 'opacity-70'}">${item}</span>
+            </div>
+        `).join('')
+    }
+    render() { return undefined }
+}
+
+/**
+ * MProgress Components
+ */
+export class MProgressCircularRoot extends LitElement {
+    static properties = {
+        value: { type: Number },
+        max: { type: Number },
+        asChild: { type: Boolean, attribute: 'as-child' }
+    }
+    value = 0
+    max = 100
+    asChild = false
+    private _initialClass = ''
+    createRenderRoot() { return this }
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+    }
+    updated() {
+        const percentage = (this.value / this.max) * 100
+        this.style.setProperty('--progress-percent', `${percentage}%`)
+        syncSlot(this, progressCircularRoot, this._initialClass)
+    }
+    render() { return undefined }
+}
+
+export class MProgressCircularCircle extends LitElement {
+    createRenderRoot() { return this }
+    updated() { this.className = cn(progressCircle, this.getAttribute('class')) }
+    render() { return undefined }
+}
+
+export class MProgressCircularTrack extends LitElement {
+    createRenderRoot() { return this }
+    updated() { this.className = cn(progressCircleTrack, this.getAttribute('class')) }
+    render() { return undefined }
+}
+
+export class MProgressCircularRange extends LitElement {
+    createRenderRoot() { return this }
+    updated() { this.className = cn(progressCircleRange, this.getAttribute('class')) }
+    render() { return undefined }
+}
+
+export class MProgressLinearRoot extends LitElement {
+    static properties = {
+        value: { type: Number },
+        max: { type: Number },
+        asChild: { type: Boolean, attribute: 'as-child' }
+    }
+    value = 0
+    max = 100
+    asChild = false
+    private _initialClass = ''
+    createRenderRoot() { return this }
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+    }
+    updated() {
+        const percentage = (this.value / this.max) * 100
+        this.style.setProperty('--progress-percent', `${percentage}%`)
+        syncSlot(this, progressLinearRoot, this._initialClass)
+    }
+    render() { return undefined }
+}
+
+export class MProgressLinearTrack extends LitElement {
+    createRenderRoot() { return this }
+    updated() { this.className = cn(progressTrack, this.getAttribute('class')) }
+    render() { return undefined }
+}
+
+export class MProgressLinearRange extends LitElement {
+    createRenderRoot() { return this }
+    updated() {
+        this.className = cn(progressRange, this.getAttribute('class'))
+        this.style.width = 'var(--progress-percent, 0%)'
+    }
+    render() { return undefined }
+}
+
+export class MProgressValueText extends LitElement {
+    createRenderRoot() { return this }
+    updated() {
+        const root = this.closest('m-progress-linear-root, m-progress-circular-root') as any
+        if (root) {
+            this.innerText = `${root.value}%`
+        }
+        // Use either linear or circular style, they are currently same anyway
+        this.className = cn(progressLinearValueText, this.getAttribute('class'))
+    }
+    render() { return undefined }
+}
+
+export class MProgressLabel extends LitElement {
+    createRenderRoot() { return this }
+    updated() {
+        this.className = cn(progressLinearLabel, this.getAttribute('class'))
     }
     render() { return undefined }
 }
@@ -423,5 +638,23 @@ register('m-alert-title', MAlertTitle)
 register('m-alert-description', MAlertDescription)
 register('m-alert-close-trigger', MAlertCloseTrigger)
 register('m-alert-icon', MAlertIcon)
+
+register('m-avatar-root', MAvatarRoot)
+register('m-avatar-image', MAvatarImage)
+register('m-avatar-fallback', MAvatarFallback)
+register('m-badge', MBadge)
+register('m-breadcrumb', MBreadcrumb)
+
+register('m-progress-circular-root', MProgressCircularRoot)
+register('m-progress-circular-circle', MProgressCircularCircle)
+register('m-progress-circular-track', MProgressCircularTrack)
+register('m-progress-circular-range', MProgressCircularRange)
+
+register('m-progress-linear-root', MProgressLinearRoot)
+register('m-progress-linear-track', MProgressLinearTrack)
+register('m-progress-linear-range', MProgressLinearRange)
+
+register('m-progress-label', MProgressLabel)
+register('m-progress-value-text', MProgressValueText)
 
 console.log('Main script loaded and registered components');

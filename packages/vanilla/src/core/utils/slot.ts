@@ -5,7 +5,7 @@ import { cn } from "./cn";
  * if 'as-child' attribute is present.
  */
 export function syncSlot(host: HTMLElement, variantsClass: string, initialClass: string, extraAttrs: Record<string, string> = {}) {
-    const asChild = host.hasAttribute('as-child') || host.tagName.toLowerCase() === 'm-alert-icon';
+    const asChild = host.hasAttribute('as-child');
 
     if (asChild) {
         const child = host.firstElementChild as HTMLElement;
