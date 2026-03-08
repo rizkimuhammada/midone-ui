@@ -191,10 +191,7 @@ export function DialogCloseTrigger({
         children
       ) : (
         <Button
-          className={cn(
-            buttonVariants({ look, variant, size, className }),
-            className
-          )}
+          className={cn(buttonVariants({ look, variant, size }), className)}
         >
           {children}
         </Button>

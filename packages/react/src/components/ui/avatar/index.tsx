@@ -28,7 +28,7 @@ export function AvatarRoot({
   return (
     <ApiContext.Provider value={api}>
       <Slot
-        className={cn(avatarRootVariants({ bordered, className }), className)}
+        className={cn(avatarRootVariants({ bordered }), className)}
         {...api.getRootProps()}
         {...props}
       >

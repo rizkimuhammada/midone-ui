@@ -47,10 +47,7 @@ export function Table({
       <TableContainer>
         <table
           {...props}
-          className={cn(
-            tableVariants({ variant, raised, className }),
-            className
-          )}
+          className={cn(tableVariants({ variant, raised }), className)}
         >
           {children}
         </table>
@@ -128,7 +125,7 @@ export function TableCell({
   return (
     <td
       {...props}
-      className={cn(tableCellVariants({ ...variant, className }), className)}
+      className={cn(tableCellVariants({ ...variant }), className)}
     >
       {children}
     </td>

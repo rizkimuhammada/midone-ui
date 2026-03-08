@@ -26,7 +26,7 @@ function Badge({
       <TooltipTrigger asChild>
         <span
           {...props}
-          className={cn(badgeVariants({ look, variant, className }))}
+          className={cn(badgeVariants({ look, variant }), className)}
         >
           {children}
         </span>

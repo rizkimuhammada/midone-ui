@@ -41,7 +41,7 @@ export function ToastRoot({
 
   return (
     <Slot
-      className={cn([boxVariants({ raised, className }), toastRoot, className])}
+      className={cn([boxVariants({ raised }), toastRoot, className])}
       {...api?.getRootProps()}
       {...props}
     >
@@ -122,10 +122,7 @@ export function ToastCloseTrigger({
         children
       ) : (
         <Button
-          className={cn(
-            buttonVariants({ look, variant, size, className }),
-            className
-          )}
+          className={cn(buttonVariants({ look, variant, size }), className)}
         >
           {children}
         </Button>

@@ -14,7 +14,7 @@ function Box({
 }: React.ComponentProps<"div"> & BoxVariants & { asChild?: boolean }) {
   return (
     <Slot
-      className={cn(boxVariants({ raised, className }), className)}
+      className={cn(boxVariants({ raised }), className)}
       {...props}
     >
       {asChild ? children : <div>{children}</div>}

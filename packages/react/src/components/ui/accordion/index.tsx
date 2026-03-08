@@ -41,10 +41,7 @@ export function AccordionRoot({
     <VariantContext.Provider value={variant}>
       <ApiContext.Provider value={api}>
         <Slot
-          className={cn([
-            className,
-            accordionRootVariants({ variant, className }),
-          ])}
+          className={cn(accordionRootVariants({ variant }), className)}
           {...api.getRootProps()}
           {...props}
         >
@@ -70,11 +67,11 @@ export function AccordionItem({
   return (
     <ItemContext.Provider value={props}>
       <Slot
-        className={cn([
-          className,
-          variant == "boxed" ? boxVariants({ raised, className }) : "",
-          accordionItemVariants({ variant, className }),
-        ])}
+        className={cn(
+          variant == "boxed" ? boxVariants({ raised }) : "",
+          accordionItemVariants({ variant }),
+          className
+        )}
         {...api?.getItemProps(props)}
         {...props}
       >

@@ -17,10 +17,7 @@ function Button({
   return (
     <Slot
       {...props}
-      className={cn(
-        buttonVariants({ look, variant, size, className }),
-        className
-      )}
+      className={cn(buttonVariants({ look, variant, size }), className)}
     >
       {asChild ? children : <button>{children}</button>}
     </Slot>
