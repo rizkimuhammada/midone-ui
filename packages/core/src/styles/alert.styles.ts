@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 export const alertRootVariants = cva(
   [
-    "flex flex-col gap-1 [&>svg]:size-5 [&>svg]:absolute [&>svg]:my-auto [&>svg]:inset-y-0 [&>svg]:left-5 [&>svg]:stroke-[1.5] has-[>svg]:ps-14 ps-5 pe-20 py-4",
+    "flex flex-col gap-1 has-[>[data-part='icon']]:ps-14 ps-5 pe-20 py-4",
     "rounded-xl shadow-md/5 isolate relative cursor-pointer",
     "before:absolute after:absolute before:z-[-1] after:z-[-1] before:rounded-[inherit] after:rounded-[inherit]",
   ],
@@ -132,3 +132,5 @@ export const alertTitle = "font-medium";
 export const alertDescription = "opacity-70";
 export const alertCloseTrigger =
   "absolute right-5 inset-y-0 my-auto size-4 [&>svg]:size-full cursor-pointer";
+export const alertIcon =
+  "size-5 absolute my-auto inset-y-0 left-5 stroke-[1.5]";

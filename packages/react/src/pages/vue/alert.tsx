@@ -3,6 +3,7 @@ import {
   AlertTitle,
   AlertDescription,
   AlertCloseTrigger,
+  AlertIcon,
 } from "@/components/ui/alert";
 import {
   Preview,
@@ -23,7 +24,7 @@ function Main() {
             preview: (
               <>
                 <AlertRoot variant="primary">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -36,7 +37,7 @@ function Main() {
               <PreviewCode>
                 {`
 <AlertRoot variant="primary">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -170,6 +171,33 @@ provide("alertPresent", { present, setPresent });
 </template>
               `}
         </PreviewCode>
+        <PreviewCode title="components/ui/alert/AlertIcon.vue">
+          {`
+<script lang="ts" setup>
+import { cn } from "@midoneui/core/utils/cn";
+import { Slot } from "@/components/ui/slot";
+import { alertIcon } from "@midoneui/core/styles/alert.styles";
+
+const {
+  class: className,
+  ...props
+} = defineProps<{
+  class?: string;
+}>();
+</script>
+
+<template>
+  <Slot
+    v-if="$slots.default"
+    :class="cn([alertIcon, className])"
+    data-part="icon"
+    v-bind="{ ...props, ...$attrs }"
+  >
+    <slot />
+  </Slot>
+</template>
+              `}
+        </PreviewCode>
         <PreviewCode title="components/ui/alert/AlertTitle.vue">
           {`
 <script lang="ts" setup>
@@ -203,6 +231,7 @@ export { default as AlertRoot } from "./AlertRoot.vue";
 export { default as AlertTitle } from "./AlertTitle.vue";
 export { default as AlertDescription } from "./AlertDescription.vue";
 export { default as AlertCloseTrigger } from "./AlertCloseTrigger.vue";
+export { default as AlertIcon } from "./AlertIcon.vue";
               `}
         </PreviewCode>
         <SectionContent>
@@ -218,13 +247,14 @@ import {
   AlertTitle,
   AlertDescription,
   AlertCloseTrigger,
+  AlertIcon,
 } from "@/components/ui/alert";
               `}
         </PreviewCode>
         <PreviewCode>
           {`
 <AlertRoot>
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>
     Success! Your changes have been saved
   </AlertTitle>
@@ -244,7 +274,7 @@ import {
             preview: (
               <>
                 <AlertRoot variant="primary">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -252,7 +282,7 @@ import {
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot variant="secondary">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -260,7 +290,7 @@ import {
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot variant="success">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -268,7 +298,7 @@ import {
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot variant="danger">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -276,7 +306,7 @@ import {
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot variant="pending">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -284,7 +314,7 @@ import {
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot variant="warning">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -297,7 +327,7 @@ import {
               <PreviewCode>
                 {`
 <AlertRoot variant="primary">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -305,7 +335,7 @@ import {
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot variant="secondary">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -313,7 +343,7 @@ import {
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot variant="success">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -321,7 +351,7 @@ import {
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot variant="danger">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -329,7 +359,7 @@ import {
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot variant="pending">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -337,7 +367,7 @@ import {
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot variant="warning">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -354,7 +384,7 @@ import {
             preview: (
               <>
                 <AlertRoot look="filled" variant="primary">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -362,7 +392,7 @@ import {
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot look="filled" variant="secondary">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -370,7 +400,7 @@ import {
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot look="filled" variant="success">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -378,7 +408,7 @@ import {
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot look="filled" variant="danger">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -386,7 +416,7 @@ import {
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot look="filled" variant="pending">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -394,7 +424,7 @@ import {
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot look="filled" variant="warning">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertDescription>
                     This is an alert with icon, title and description.
@@ -407,7 +437,7 @@ import {
               <PreviewCode>
                 {`
 <AlertRoot look="filled" variant="primary">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -415,7 +445,7 @@ import {
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot look="filled" variant="secondary">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -423,7 +453,7 @@ import {
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot look="filled" variant="success">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -431,7 +461,7 @@ import {
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot look="filled" variant="danger">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -439,7 +469,7 @@ import {
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot look="filled" variant="pending">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -447,7 +477,7 @@ import {
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot look="filled" variant="warning">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
     This is an alert with icon, title and description.
@@ -464,32 +494,32 @@ import {
             preview: (
               <>
                 <AlertRoot variant="primary">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot variant="secondary">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot variant="success">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot variant="danger">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot variant="pending">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertCloseTrigger />
                 </AlertRoot>
                 <AlertRoot variant="warning">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                   <AlertCloseTrigger />
                 </AlertRoot>
@@ -499,32 +529,32 @@ import {
               <PreviewCode>
                 {`
 <AlertRoot variant="primary">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot variant="secondary">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot variant="success">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot variant="danger">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot variant="pending">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertCloseTrigger />
 </AlertRoot>
 <AlertRoot variant="warning">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertCloseTrigger />
 </AlertRoot>
@@ -538,27 +568,27 @@ import {
             preview: (
               <>
                 <AlertRoot look="filled" variant="primary">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                 </AlertRoot>
                 <AlertRoot look="filled" variant="secondary">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                 </AlertRoot>
                 <AlertRoot look="filled" variant="success">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                 </AlertRoot>
                 <AlertRoot look="filled" variant="danger">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                 </AlertRoot>
                 <AlertRoot look="filled" variant="pending">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                 </AlertRoot>
                 <AlertRoot look="filled" variant="warning">
-                  <Compass />
+                  <AlertIcon><Compass /></AlertIcon>
                   <AlertTitle>Success! Your changes have been saved</AlertTitle>
                 </AlertRoot>
               </>
@@ -567,27 +597,27 @@ import {
               <PreviewCode>
                 {`
 <AlertRoot look="filled" variant="primary">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
 </AlertRoot>
 <AlertRoot look="filled" variant="secondary">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
 </AlertRoot>
 <AlertRoot look="filled" variant="success">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
 </AlertRoot>
 <AlertRoot look="filled" variant="danger">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
 </AlertRoot>
 <AlertRoot look="filled" variant="pending">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
 </AlertRoot>
 <AlertRoot look="filled" variant="warning">
-  <Compass />
+  <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
 </AlertRoot>
                 `}
@@ -601,7 +631,7 @@ import {
               <>
                 <Box className="p-0">
                   <AlertRoot variant="ghost">
-                    <Compass />
+                    <AlertIcon><Compass /></AlertIcon>
                     <AlertTitle>Success! Your changes have been saved</AlertTitle>
                     <AlertDescription>
                       This is an alert with icon, title and description.
@@ -611,7 +641,7 @@ import {
                 </Box>
                 <Box className="p-0" raised="single">
                   <AlertRoot variant="ghost">
-                    <Compass />
+                    <AlertIcon><Compass /></AlertIcon>
                     <AlertTitle>Success! Your changes have been saved</AlertTitle>
                     <AlertDescription>
                       This is an alert with icon, title and description.
@@ -621,7 +651,7 @@ import {
                 </Box>
                 <Box className="p-0" raised="double">
                   <AlertRoot variant="ghost">
-                    <Compass />
+                    <AlertIcon><Compass /></AlertIcon>
                     <AlertTitle>Success! Your changes have been saved</AlertTitle>
                     <AlertDescription>
                       This is an alert with icon, title and description.
@@ -636,7 +666,7 @@ import {
                 {`
 <Box class="p-0">
   <AlertRoot variant="ghost">
-    <Compass />
+    <AlertIcon><Compass /></AlertIcon>
     <AlertTitle>Success! Your changes have been saved</AlertTitle>
     <AlertDescription>
       This is an alert with icon, title and description.
@@ -646,7 +676,7 @@ import {
 </Box>
 <Box class="p-0" raised="single">
   <AlertRoot variant="ghost">
-    <Compass />
+    <AlertIcon><Compass /></AlertIcon>
     <AlertTitle>Success! Your changes have been saved</AlertTitle>
     <AlertDescription>
       This is an alert with icon, title and description.
@@ -656,7 +686,7 @@ import {
 </Box>
 <Box class="p-0" raised="double">
   <AlertRoot variant="ghost">
-    <Compass />
+    <AlertIcon><Compass /></AlertIcon>
     <AlertTitle>Success! Your changes have been saved</AlertTitle>
     <AlertDescription>
       This is an alert with icon, title and description.

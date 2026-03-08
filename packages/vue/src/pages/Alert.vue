@@ -4,6 +4,7 @@ import {
   AlertTitle,
   AlertDescription,
   AlertCloseTrigger,
+  AlertIcon,
 } from "@/components/ui/alert";
 import { Compass } from "lucide-vue-next";
 import { Box } from "@/components/ui/box";
@@ -16,7 +17,7 @@ import { Box } from "@/components/ui/box";
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
         <AlertRoot variant="primary">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -24,7 +25,7 @@ import { Box } from "@/components/ui/box";
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot variant="secondary">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -32,7 +33,7 @@ import { Box } from "@/components/ui/box";
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot variant="success">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -40,7 +41,7 @@ import { Box } from "@/components/ui/box";
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot variant="danger">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -48,7 +49,7 @@ import { Box } from "@/components/ui/box";
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot variant="pending">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -56,7 +57,7 @@ import { Box } from "@/components/ui/box";
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot variant="warning">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -68,7 +69,7 @@ import { Box } from "@/components/ui/box";
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
         <AlertRoot look="filled" variant="primary">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -76,7 +77,7 @@ import { Box } from "@/components/ui/box";
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot look="filled" variant="secondary">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -84,7 +85,7 @@ import { Box } from "@/components/ui/box";
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot look="filled" variant="success">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -92,7 +93,7 @@ import { Box } from "@/components/ui/box";
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot look="filled" variant="danger">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -100,7 +101,7 @@ import { Box } from "@/components/ui/box";
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot look="filled" variant="pending">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -108,7 +109,7 @@ import { Box } from "@/components/ui/box";
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot look="filled" variant="warning">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertDescription>
             This is an alert with icon, title and description.
@@ -120,32 +121,32 @@ import { Box } from "@/components/ui/box";
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
         <AlertRoot variant="primary">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot variant="secondary">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot variant="success">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot variant="danger">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot variant="pending">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
         <AlertRoot variant="warning">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
           <AlertCloseTrigger />
         </AlertRoot>
@@ -154,27 +155,27 @@ import { Box } from "@/components/ui/box";
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
         <AlertRoot look="filled" variant="primary">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
         <AlertRoot look="filled" variant="secondary">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
         <AlertRoot look="filled" variant="success">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
         <AlertRoot look="filled" variant="danger">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
         <AlertRoot look="filled" variant="pending">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
         <AlertRoot look="filled" variant="warning">
-          <Compass />
+          <AlertIcon><Compass /></AlertIcon>
           <AlertTitle>Success! Your changes have been saved</AlertTitle>
         </AlertRoot>
       </div>
@@ -183,7 +184,7 @@ import { Box } from "@/components/ui/box";
       >
         <Box class="p-0">
           <AlertRoot variant="ghost">
-            <Compass />
+            <AlertIcon><Compass /></AlertIcon>
             <AlertTitle>Success! Your changes have been saved</AlertTitle>
             <AlertDescription>
               This is an alert with icon, title and description.
@@ -193,7 +194,7 @@ import { Box } from "@/components/ui/box";
         </Box>
         <Box class="p-0" raised="single">
           <AlertRoot variant="ghost">
-            <Compass />
+            <AlertIcon><Compass /></AlertIcon>
             <AlertTitle>Success! Your changes have been saved</AlertTitle>
             <AlertDescription>
               This is an alert with icon, title and description.
@@ -203,7 +204,7 @@ import { Box } from "@/components/ui/box";
         </Box>
         <Box class="p-0" raised="double">
           <AlertRoot variant="ghost">
-            <Compass />
+            <AlertIcon><Compass /></AlertIcon>
             <AlertTitle>Success! Your changes have been saved</AlertTitle>
             <AlertDescription>
               This is an alert with icon, title and description.

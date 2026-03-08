@@ -6,6 +6,7 @@ import {
   alertTitle,
   alertDescription,
   alertCloseTrigger,
+  alertIcon,
 } from "@midoneui/core/styles/alert.styles";
 import { useState, useContext, createContext } from "react";
 import { Presence } from "@/components/ui/presence";
@@ -90,6 +91,24 @@ export function AlertCloseTrigger({
       onClick={() => context?.setPresent(false)}
     >
       {asChild ? children : <div>{children ?? <X />}</div>}
+    </Slot>
+  );
+}
+
+export function AlertIcon({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
+  if (!children) return null;
+
+  return (
+    <Slot
+      className={cn([className, alertIcon])}
+      data-part="icon"
+      {...props}
+    >
+      {children}
     </Slot>
   );
 }

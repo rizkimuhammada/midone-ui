@@ -13,6 +13,14 @@ import {
     type AccordionRootVariants,
     type AccordionItemVariants
 } from './core/styles/accordion.styles'
+import {
+    alertRootVariants,
+    alertTitle,
+    alertDescription,
+    alertCloseTrigger,
+    alertIcon,
+    type AlertRootVariants
+} from './core/styles/alert.styles'
 import { cn } from './core/utils/cn'
 import { createElement } from 'lucide'
 import * as icons from 'lucide'
@@ -94,6 +102,110 @@ export class MBox extends LitElement {
             boxVariants({ raised: this.raised }),
             this.getAttribute('class')
         )
+    }
+    render() { return undefined }
+}
+
+/**
+ * MAlert Components
+ */
+export class MAlert extends LitElement {
+    static properties = {
+        variant: { type: String },
+        look: { type: String },
+    }
+    variant?: AlertRootVariants['variant']
+    look?: AlertRootVariants['look']
+
+    private _initialClass = ''
+
+    createRenderRoot() { return this }
+
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+        if (!this.hasAttribute('role')) this.setAttribute('role', 'alert')
+    }
+
+    updated() {
+        this.className = cn(
+            alertRootVariants({
+                variant: this.variant,
+                look: this.look
+            }),
+            this._initialClass
+        )
+    }
+    render() { return undefined }
+}
+
+export class MAlertTitle extends LitElement {
+    private _initialClass = ''
+    createRenderRoot() { return this }
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+    }
+    updated() {
+        this.className = cn(alertTitle, this._initialClass)
+    }
+    render() { return undefined }
+}
+
+export class MAlertIcon extends LitElement {
+    private _initialClass = ''
+    createRenderRoot() { return this }
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+        if (!this.hasAttribute('data-part')) this.setAttribute('data-part', 'icon')
+    }
+    updated() {
+        // Jangan render jika tidak memiliki child
+        if (!this.firstElementChild && !this.textContent?.trim()) {
+            this.style.display = 'none'
+        } else {
+            this.style.display = ''
+            this.className = cn(alertIcon, '[&_svg]:size-full', this._initialClass)
+        }
+    }
+    render() { return undefined }
+}
+
+export class MAlertDescription extends LitElement {
+    private _initialClass = ''
+    createRenderRoot() { return this }
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+    }
+    updated() {
+        this.className = cn(alertDescription, this._initialClass)
+    }
+    render() { return undefined }
+}
+
+export class MAlertCloseTrigger extends LitElement {
+    private _initialClass = ''
+    createRenderRoot() { return this }
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+
+        // Hapus alert induk saat ditutup
+        this.addEventListener('click', () => {
+            const alertNode = this.closest('m-alert')
+            if (alertNode) {
+                // Untuk Light DOM bisa langsung dihapus saja 
+                alertNode.remove()
+            }
+        })
+    }
+    updated() {
+        if (!this.firstElementChild && !this.textContent?.trim()) {
+            this.innerHTML = '<m-icon name="x"></m-icon>'
+        }
+        this.className = cn(alertCloseTrigger, '[&_svg]:size-full', this._initialClass)
     }
     render() { return undefined }
 }
@@ -273,5 +385,11 @@ register('m-accordion', MAccordion)
 register('m-accordion-item', MAccordionItem)
 register('m-accordion-trigger', MAccordionTrigger)
 register('m-accordion-content', MAccordionContent)
+
+register('m-alert', MAlert)
+register('m-alert-title', MAlertTitle)
+register('m-alert-description', MAlertDescription)
+register('m-alert-close-trigger', MAlertCloseTrigger)
+register('m-alert-icon', MAlertIcon)
 
 console.log('Main script loaded and registered components');
