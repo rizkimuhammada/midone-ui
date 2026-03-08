@@ -284,46 +284,105 @@ export class MAvatarRoot extends LitElement {
     }
 
     firstUpdated() {
-        const imageEl = this.querySelector('m-avatar-image')
-        const src = imageEl?.getAttribute('src') || ''
+        // IMPORTANT: Ensure <img> exists in the DOM BEFORE starting the machine.
+        // Zag's avatar machine uses DOM effects to track the image element.
+        const imageComp = this.querySelector('m-avatar-image') as any
+        if (imageComp) {
+            imageComp.ensureImg()
+        }
 
         this.service = new VanillaMachine(avatar.machine as any, {
             id: this.id || 'avatar-' + Math.random().toString(36).substr(2, 5),
-            src,
-            onStatusChange: () => this.requestUpdate()
+            onStatusChange: (details: any) => {
+                this.requestUpdate()
+            }
         })
 
-        this.service.subscribe((service: any) => {
-            this.api = avatar.connect(service, normalizeProps)
+        this.service.subscribe(() => {
+            this.api = avatar.connect(this.service.service, normalizeProps)
             this.requestUpdate()
         })
 
         this.service.start()
+        this.api = avatar.connect(this.service.service, normalizeProps)
+        this.requestUpdate()
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback()
+        this.service?.stop()
     }
 
     updated() {
         if (!this.api) return
 
-        // 1. Root Styling & Props
+        // 1. Root: apply Zag props + our styling
+        const rootProps = this.api.getRootProps()
+        this.applyProps(this, rootProps)
         const borderedAttr = this.getAttribute('bordered')
         const isBordered = borderedAttr === 'false' ? false : (this.bordered ?? true)
+        this.className = cn(avatarRootVariants({ bordered: isBordered }), this._initialClass)
 
-        syncSlot(this, avatarRootVariants({ bordered: isBordered }), this._initialClass, this.api.getRootProps())
-
-        // 2. Sync to Children
-        const image = this.querySelector('m-avatar-image') as any
-        if (image) {
-            image.api = this.api
-            image.service = this.service
-            image.requestUpdate()
+        // 2. Image: apply Zag props to the internal <img>
+        const imageComp = this.querySelector('m-avatar-image') as any
+        if (imageComp) {
+            const imgEl = imageComp.querySelector('img')
+            if (imgEl) {
+                const imageProps = this.api.getImageProps()
+                this.applyProps(imgEl, imageProps)
+                imgEl.className = cn(avatarImage, imageComp._initialClass || '')
+            }
         }
 
-        const fallback = this.querySelector('m-avatar-fallback') as any
-        if (fallback) {
-            fallback.api = this.api
-            fallback.requestUpdate()
+        // 3. Fallback: apply Zag props
+        const fallbackComp = this.querySelector('m-avatar-fallback') as any
+        if (fallbackComp) {
+            const fallbackProps = this.api.getFallbackProps()
+            this.applyProps(fallbackComp, fallbackProps)
+            fallbackComp.className = cn(avatarFallback, fallbackComp._initialClass || '')
+            if (fallbackProps.hidden) {
+                fallbackComp.style.display = 'none'
+            } else {
+                fallbackComp.style.display = ''
+            }
         }
     }
+
+    /** applyProps: same pattern as MAccordion */
+    private applyProps(el: HTMLElement, props: any) {
+        Object.entries(props).forEach(([key, val]) => {
+            if (key.startsWith('on')) {
+                const eventName = key.slice(2).toLowerCase()
+                const listenerKey = `_zag_${eventName}`
+                const targetEl = el as any
+                if (targetEl[listenerKey]) {
+                    el.removeEventListener(eventName, targetEl[listenerKey])
+                }
+                if (typeof val === 'function') {
+                    targetEl[listenerKey] = val
+                    el.addEventListener(eventName, val as any)
+                }
+                return
+            }
+            if (val === undefined || val === null) {
+                el.removeAttribute(key)
+            } else if (key === 'className') {
+                // skip — we manage className ourselves
+            } else if (key === 'style' && typeof val === 'object') {
+                Object.assign(el.style, val)
+            } else if (typeof val === 'boolean') {
+                if (key.startsWith('aria-') || key.startsWith('data-')) {
+                    el.setAttribute(key, String(val))
+                } else {
+                    if (val) el.setAttribute(key, '')
+                    else el.removeAttribute(key)
+                }
+            } else {
+                el.setAttribute(key, String(val))
+            }
+        })
+    }
+
     render() { return undefined }
 }
 
@@ -336,63 +395,41 @@ export class MAvatarImage extends LitElement {
     src?: string
     alt?: string
     asChild = false
-    api: any = null
-    service: any = null
     _initialClass = ''
 
     createRenderRoot() { return this }
+
     connectedCallback() {
         super.connectedCallback()
         this._initialClass = this.getAttribute('class') || ''
         this.style.display = 'contents'
     }
 
-    updated() {
-        if (!this.api) return
-
-        const src = this.src || this.getAttribute('src') || ''
-        const alt = this.alt || this.getAttribute('alt') || ''
-
-        // Sync src back to machine if it changed externally
-        if (this.service && this.service.state.context.src !== src) {
-            this.service.updateProps({ src })
+    /** Called by MAvatarRoot before starting the Zag machine */
+    ensureImg() {
+        if (!this.asChild && !this.querySelector('img')) {
+            const img = document.createElement('img')
+            img.src = this.src || this.getAttribute('src') || ''
+            img.alt = this.alt || this.getAttribute('alt') || ''
+            this.appendChild(img)
         }
-
-        let target: HTMLElement = this
-        if (!this.asChild && !this.firstElementChild) {
-            let img = this.querySelector('img')
-            if (!img) {
-                img = document.createElement('img')
-                this.appendChild(img)
-            }
-            target = img
-        }
-
-        syncSlot(this, avatarImage, this._initialClass, { ...this.api.getImageProps(), src, alt }, target)
     }
+
     render() { return undefined }
 }
 
 export class MAvatarFallback extends LitElement {
     static properties = { asChild: { type: Boolean, attribute: 'as-child' } }
     asChild = false
-    api: any = null
     _initialClass = ''
 
     createRenderRoot() { return this }
+
     connectedCallback() {
         super.connectedCallback()
         this._initialClass = this.getAttribute('class') || ''
-        this.style.display = 'contents'
     }
 
-    updated() {
-        if (!this.api) return
-
-        const fallbackProps = this.api.getFallbackProps()
-        syncSlot(this, avatarFallback, this._initialClass, fallbackProps)
-        this.style.display = fallbackProps.hidden ? 'none' : ''
-    }
     render() { return undefined }
 }
 
