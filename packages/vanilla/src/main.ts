@@ -2,7 +2,7 @@ import './index.css'
 import { LitElement, html } from 'lit'
 import * as accordion from "@zag-js/accordion"
 import * as avatar from "@zag-js/avatar"
-import { normalizeProps, VanillaMachine, spreadProps } from "@zag-js/vanilla"
+import { normalizeProps, VanillaMachine } from "@zag-js/vanilla"
 import { buttonVariants, type ButtonVariants } from './core/styles/button.styles'
 import { boxVariants, type BoxVariants } from './core/styles/box.styles'
 import {
@@ -305,18 +305,24 @@ export class MAvatarRoot extends LitElement {
         if (!this.api) return
 
         // 1. Root Styling & Props
-        spreadProps(this, this.api.getRootProps())
         const borderedAttr = this.getAttribute('bordered')
         const isBordered = borderedAttr === 'false' ? false : (this.bordered ?? true)
-        this.className = cn(avatarRootVariants({ bordered: isBordered }), this._initialClass)
+
+        syncSlot(this, avatarRootVariants({ bordered: isBordered }), this._initialClass, this.api.getRootProps())
 
         // 2. Sync to Children
-        const children = Array.from(this.querySelectorAll('m-avatar-image, m-avatar-fallback')) as any[]
-        children.forEach(child => {
-            child.api = this.api
-            child.service = this.service
-            child.requestUpdate()
-        })
+        const image = this.querySelector('m-avatar-image') as any
+        if (image) {
+            image.api = this.api
+            image.service = this.service
+            image.requestUpdate()
+        }
+
+        const fallback = this.querySelector('m-avatar-fallback') as any
+        if (fallback) {
+            fallback.api = this.api
+            fallback.requestUpdate()
+        }
     }
     render() { return undefined }
 }
@@ -362,9 +368,7 @@ export class MAvatarImage extends LitElement {
             target = img
         }
 
-        const imageProps = this.api.getImageProps()
-        spreadProps(target, { ...imageProps, src, alt })
-        target.className = cn(avatarImage, this._initialClass)
+        syncSlot(this, avatarImage, this._initialClass, { ...this.api.getImageProps(), src, alt }, target)
     }
     render() { return undefined }
 }
@@ -386,8 +390,7 @@ export class MAvatarFallback extends LitElement {
         if (!this.api) return
 
         const fallbackProps = this.api.getFallbackProps()
-        spreadProps(this, fallbackProps)
-        this.className = cn(avatarFallback, this._initialClass)
+        syncSlot(this, avatarFallback, this._initialClass, fallbackProps)
         this.style.display = fallbackProps.hidden ? 'none' : ''
     }
     render() { return undefined }
