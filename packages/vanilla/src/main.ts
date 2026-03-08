@@ -350,6 +350,10 @@ export class MAvatarRoot extends LitElement {
     private applyProps(el: HTMLElement, props: any) {
         Object.entries(props).forEach(([key, val]) => {
             if (key === 'className' || key === 'class') return;
+            if (key === 'style' && typeof val === 'object' && val !== null) {
+                Object.assign(el.style, val)
+                return
+            }
             if (key.startsWith('on')) {
                 const eventName = key.slice(2).toLowerCase()
                 const listenerKey = `_zag_${eventName}`
@@ -394,6 +398,7 @@ export class MAvatarImage extends LitElement {
     connectedCallback() {
         super.connectedCallback()
         this._initialClass = this.getAttribute('class') || ''
+        this.style.display = 'contents'
     }
     render() { return undefined }
 }
@@ -406,6 +411,7 @@ export class MAvatarFallback extends LitElement {
     connectedCallback() {
         super.connectedCallback()
         this._initialClass = this.getAttribute('class') || ''
+        this.style.display = 'contents'
     }
     render() { return undefined }
 }
@@ -671,6 +677,11 @@ export class MAccordion extends LitElement {
 
     private applyProps(el: HTMLElement, props: any) {
         Object.entries(props).forEach(([key, val]) => {
+            if (key === 'className' || key === 'class') return;
+            if (key === 'style' && typeof val === 'object' && val !== null) {
+                Object.assign(el.style, val)
+                return
+            }
             if (key.startsWith('on')) {
                 const eventName = key.slice(2).toLowerCase()
                 const listenerKey = `_zag_${eventName}`
@@ -689,8 +700,6 @@ export class MAccordion extends LitElement {
 
             if (val === undefined || val === null) {
                 el.removeAttribute(key)
-            } else if (key === 'className') {
-                // Ignore
             } else if (typeof val === 'boolean') {
                 if (key.startsWith('aria-') || key.startsWith('data-')) {
                     el.setAttribute(key, String(val))
