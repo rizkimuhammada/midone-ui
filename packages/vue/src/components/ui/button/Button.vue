@@ -24,7 +24,7 @@ const {
 <template>
   <Slot
     v-bind="{ ...props, ...$attrs }"
-    :class="cn(buttonVariants({ look, variant, size, className }), className)"
+    :class="cn(buttonVariants({ look, variant, size }), className)"
   >
     <slot v-if="asChild" />
     <button v-else>

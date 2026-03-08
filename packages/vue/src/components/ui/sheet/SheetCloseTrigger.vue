@@ -43,7 +43,7 @@ const api = inject<Api>("sheetApi");
       <Button
         v-else
         :class="
-          cn(buttonVariants({ look, variant, size, className }), className)
+          cn(buttonVariants({ look, variant, size }), className)
         "
       >
         <slot />

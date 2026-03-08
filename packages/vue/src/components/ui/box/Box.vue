@@ -21,7 +21,7 @@ const {
 
 <template>
   <Slot
-    :class="cn(boxVariants({ raised, className }), className)"
+    :class="cn(boxVariants({ raised }), className)"
     v-bind="{ ...props, ...$attrs }"
   >
     <slot v-if="asChild" />

@@ -29,7 +29,7 @@ const {
   <TooltipRoot :disabled="!content">
     <TooltipTrigger as-child>
       <span
-        :class="cn(badgeVariants({ look, variant, className }))"
+        :class="cn(badgeVariants({ look, variant }), className)"
         v-bind="{ ...props, ...$attrs }"
       >
         <slot />

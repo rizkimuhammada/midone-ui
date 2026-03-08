@@ -26,7 +26,7 @@ const api = inject<Api>("toastApi");
 
 <template>
   <Slot
-    :class="cn([boxVariants({ raised, className }), toastRoot, className])"
+    :class="cn([boxVariants({ raised }), toastRoot, className])"
     v-bind="{ ...api?.getRootProps(), ...props, ...$attrs }"
   >
     <slot v-if="asChild" />

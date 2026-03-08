@@ -35,7 +35,7 @@ provide("accordionApi", api);
 
 <template>
   <Slot
-    :class="cn([className, accordionRootVariants({ variant, className })])"
+    :class="cn([className, accordionRootVariants({ variant })])"
     v-bind="{ ...props, ...$attrs, ...api.getRootProps() }"
   >
     <slot v-if="asChild" />

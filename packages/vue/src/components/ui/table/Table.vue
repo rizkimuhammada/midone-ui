@@ -25,7 +25,7 @@ provide(
 <template>
   <TableContainer>
     <table
-      :class="cn(tableVariants({ variant, raised, className }), className)"
+      :class="cn(tableVariants({ variant, raised }), className)"
       v-bind="{ ...props }"
     >
       <slot />

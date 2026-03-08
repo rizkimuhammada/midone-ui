@@ -18,7 +18,7 @@ const variant = inject<
 
 <template>
   <td
-    :class="cn(tableCellVariants({ ...variant, className }), className)"
+    :class="cn(tableCellVariants({ ...variant }), className)"
     v-bind="{ ...props }"
   >
     <slot />

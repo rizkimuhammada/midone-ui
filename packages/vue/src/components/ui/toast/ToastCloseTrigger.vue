@@ -43,7 +43,7 @@ const api = inject<Api>("toastApi");
       <Button
         v-else
         :class="
-          cn(buttonVariants({ look, variant, size, className }), className)
+          cn(buttonVariants({ look, variant, size }), className)
         "
       >
         <slot />

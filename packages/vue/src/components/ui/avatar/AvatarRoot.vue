@@ -39,7 +39,6 @@ provide("avatarApi", api);
       cn(
         avatarRootVariants({
           bordered,
-          className,
         }),
         className
       )

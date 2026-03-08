@@ -29,8 +29,8 @@ provide("accordionItem", props);
     :class="
       cn([
         className,
-        variant == 'boxed' ? boxVariants({ raised, className }) : '',
-        accordionItemVariants({ variant, className }),
+        variant == 'boxed' ? boxVariants({ raised }) : '',
+        accordionItemVariants({ variant }),
       ])
     "
     v-bind="{ ...props, ...$attrs, ...api?.getItemProps(props) }"
