@@ -8,47 +8,41 @@
 </head>
 
 <body class="p-10 bg-background text-foreground">
-    <div class="flex flex-col gap-10">
-        <h1 class="text-2xl font-bold border-b pb-4">Avatar</h1>
-
-        <section class="flex flex-col gap-4">
-            <h2 class="text-lg font-semibold">Basic Usage</h2>
-            <div class="flex gap-4 items-center">
-                <!-- Image Avatar -->
-                <m-avatar-root>
-                    <m-avatar-image
-                        src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-                        alt="Colm Tuite"></m-avatar-image>
-                    <m-avatar-fallback>CT</m-avatar-fallback>
-                </m-avatar-root>
-
-                <!-- Fallback only -->
-                <m-avatar-root>
-                    <m-avatar-fallback>JD</m-avatar-fallback>
-                </m-avatar-root>
-
-                <!-- Bordered -->
-                <m-avatar-root bordered="true">
-                    <m-avatar-image
-                        src="https://images.unsplash.com/photo-1511485977113-f34c92461ad9?&w=128&h=128&dpr=2&q=80"></m-avatar-image>
-                    <m-avatar-fallback>AS</m-avatar-fallback>
-                </m-avatar-root>
+    <div id="app">
+        <div class="p-5 sm:p-20">
+            <div class="flex flex-col gap-20">
+                <div class="grid grid-cols-2">
+                    <div
+                        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+                        <m-avatar-root>
+                            <m-avatar-fallback>PA</m-avatar-fallback>
+                            <m-avatar-image src="https://i.pravatar.cc/300" alt="avatar"></m-avatar-image>
+                        </m-avatar-root>
+                    </div>
+                    <div
+                        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+                        <m-avatar-root bordered="false">
+                            <m-avatar-fallback>PA</m-avatar-fallback>
+                            <m-avatar-image src="https://i.pravatar.cc/300" alt="avatar"></m-avatar-image>
+                        </m-avatar-root>
+                    </div>
+                    <div
+                        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+                        <m-avatar-root class="rounded-full">
+                            <m-avatar-fallback>PA</m-avatar-fallback>
+                            <m-avatar-image src="https://i.pravatar.cc/300" alt="avatar"></m-avatar-image>
+                        </m-avatar-root>
+                    </div>
+                    <div
+                        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+                        <m-avatar-root class="rounded-full" bordered="false">
+                            <m-avatar-fallback>PA</m-avatar-fallback>
+                            <m-avatar-image src="https://i.pravatar.cc/300" alt="avatar"></m-avatar-image>
+                        </m-avatar-root>
+                    </div>
+                </div>
             </div>
-        </section>
-
-        <section class="flex flex-col gap-4">
-            <h2 class="text-lg font-semibold">Custom Sizes (via CSS)</h2>
-            <div class="flex gap-4 items-center">
-                <m-avatar-root class="size-20">
-                    <m-avatar-image
-                        src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"></m-avatar-image>
-                </m-avatar-root>
-
-                <m-avatar-root class="size-10">
-                    <m-avatar-fallback>Small</m-avatar-fallback>
-                </m-avatar-root>
-            </div>
-        </section>
+        </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
 </body>

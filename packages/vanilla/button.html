@@ -2,85 +2,921 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button - Midone UI</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Midone UI - Vanilla</title>
 </head>
 
-<body class="p-10 bg-background text-foreground">
-    <div class="flex flex-col gap-10">
-        <h1 class="text-2xl font-bold border-b pb-4">Button</h1>
-
-        <section class="flex flex-col gap-4">
-            <h2 class="text-lg font-semibold">Variants</h2>
-            <div class="flex flex-wrap gap-4">
-                <m-button variant="primary">Primary</m-button>
-                <m-button variant="secondary">Secondary</m-button>
-                <m-button variant="success">Success</m-button>
-                <m-button variant="danger">Danger</m-button>
-                <m-button variant="warning">Warning</m-button>
-                <m-button variant="pending">Pending</m-button>
+<body>
+  <div id="app">
+    <div class="p-5 sm:p-20">
+      <div class="text-sm">
+        <div class="flex flex-col gap-20">
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="primary" size="sm">
+                Button Small
+              </m-button>
+              <m-button variant="primary">Button Medium</m-button>
+              <m-button variant="primary" size="lg"> Button Large </m-button>
+              <m-button variant="primary" size="xl"> Button Extra Large </m-button>
             </div>
-        </section>
-
-        <section class="flex flex-col gap-4">
-            <h2 class="text-lg font-semibold">Looks</h2>
-            <div class="flex flex-wrap gap-4 items-center">
-                <m-button look="outline" variant="primary">Outline</m-button>
-                <m-button look="filled" variant="primary">Filled</m-button>
-                <m-button look="ghost" variant="primary">Ghost</m-button>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="secondary" size="sm"> Button Small </m-button>
+              <m-button variant="secondary">Button Medium</m-button>
+              <m-button variant="secondary" size="lg"> Button Large </m-button>
+              <m-button variant="secondary" size="xl"> Button Extra Large </m-button>
             </div>
-        </section>
-
-        <section class="flex flex-col gap-4">
-            <h2 class="text-lg font-semibold">Sizes</h2>
-            <div class="flex flex-wrap gap-4 items-center">
-                <m-button size="sm" variant="primary">Small</m-button>
-                <m-button variant="primary">Medium</m-button>
-                <m-button size="lg" variant="primary">Large</m-button>
-                <m-button size="xl" variant="primary">Extra Large</m-button>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="success" size="sm"> Button Small </m-button>
+              <m-button variant="success">Button Medium</m-button>
+              <m-button variant="success" size="lg"> Button Large </m-button>
+              <m-button variant="success" size="xl"> Button Extra Large </m-button>
             </div>
-        </section>
-
-        <section class="flex flex-col gap-4">
-            <h2 class="text-lg font-semibold">Disabled</h2>
-            <div class="flex flex-wrap gap-4">
-                <m-button disabled variant="primary">Disabled</m-button>
-                <m-button disabled look="outline" variant="secondary">Disabled Outline</m-button>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="danger" size="sm"> Button Small </m-button>
+              <m-button variant="danger">Button Medium</m-button>
+              <m-button variant="danger" size="lg"> Button Large </m-button>
+              <m-button variant="danger" size="xl"> Button Extra Large </m-button>
             </div>
-        </section>
-
-        <section class="flex flex-col gap-4">
-            <h2 class="text-lg font-semibold">With Icons</h2>
-            <div class="flex flex-wrap gap-4">
-                <m-button variant="primary">
-                    <m-icon name="plus" size="18" class="mr-2"></m-icon> Add Item
-                </m-button>
-                <m-button variant="danger">
-                    <m-icon name="trash" size="18" class="mr-2"></m-icon> Delete
-                </m-button>
-                <m-button look="outline">
-                    <m-icon name="github" size="18" class="mr-2"></m-icon> GitHub
-                </m-button>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="pending" size="sm"> Button Small </m-button>
+              <m-button variant="pending">Button Medium</m-button>
+              <m-button variant="pending" size="lg"> Button Large </m-button>
+              <m-button variant="pending" size="xl"> Button Extra Large </m-button>
             </div>
-        </section>
-
-        <section class="flex flex-col gap-4">
-            <h2 class="text-lg font-semibold">As Child (Semantic & Custom Tags)</h2>
-            <div class="flex flex-wrap gap-4">
-                <!-- Using m-button variant on a real <a> tag -->
-                <m-button as-child variant="primary">
-                    <a href="https://google.com" target="_blank">Google Link</a>
-                </m-button>
-
-                <!-- Using m-button on a custom form button -->
-                <m-button as-child variant="success">
-                    <button type="submit">Submit Form</button>
-                </m-button>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="warning" size="sm"> Button Small </m-button>
+              <m-button variant="warning">Button Medium</m-button>
+              <m-button variant="warning" size="lg"> Button Large </m-button>
+              <m-button variant="warning" size="xl"> Button Extra Large </m-button>
             </div>
-        </section>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="primary" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="outline" variant="primary">Button Medium</m-button>
+              <m-button look="outline" variant="primary" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="outline" variant="primary" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="secondary" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="outline" variant="secondary">Button Medium</m-button>
+              <m-button look="outline" variant="secondary" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="outline" variant="secondary" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="success" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="outline" variant="success">Button Medium</m-button>
+              <m-button look="outline" variant="success" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="outline" variant="success" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="danger" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="outline" variant="danger">Button Medium</m-button>
+              <m-button look="outline" variant="danger" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="outline" variant="danger" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="pending" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="outline" variant="pending">Button Medium</m-button>
+              <m-button look="outline" variant="pending" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="outline" variant="pending" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="warning" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="outline" variant="warning">Button Medium</m-button>
+              <m-button look="outline" variant="warning" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="outline" variant="warning" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="primary" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="filled" variant="primary"> Button Medium </m-button>
+              <m-button look="filled" variant="primary" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="filled" variant="primary" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="secondary" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="filled" variant="secondary"> Button Medium </m-button>
+              <m-button look="filled" variant="secondary" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="filled" variant="secondary" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="success" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="filled" variant="success"> Button Medium </m-button>
+              <m-button look="filled" variant="success" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="filled" variant="success" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="danger" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="filled" variant="danger"> Button Medium </m-button>
+              <m-button look="filled" variant="danger" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="filled" variant="danger" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="pending" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="filled" variant="pending"> Button Medium </m-button>
+              <m-button look="filled" variant="pending" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="filled" variant="pending" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="warning" size="sm">
+                Button Small
+              </m-button>
+              <m-button look="filled" variant="warning"> Button Medium </m-button>
+              <m-button look="filled" variant="warning" size="lg">
+                Button Large
+              </m-button>
+              <m-button look="filled" variant="warning" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled variant="primary" size="sm"> Button Small </m-button>
+              <m-button disabled variant="primary"> Button Medium </m-button>
+              <m-button disabled variant="primary" size="lg"> Button Large </m-button>
+              <m-button disabled variant="primary" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled variant="secondary" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled variant="secondary"> Button Medium </m-button>
+              <m-button disabled variant="secondary" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled variant="secondary" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled variant="success" size="sm"> Button Small </m-button>
+              <m-button disabled variant="success"> Button Medium </m-button>
+              <m-button disabled variant="success" size="lg"> Button Large </m-button>
+              <m-button disabled variant="success" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled variant="danger" size="sm"> Button Small </m-button>
+              <m-button disabled variant="danger"> Button Medium </m-button>
+              <m-button disabled variant="danger" size="lg"> Button Large </m-button>
+              <m-button disabled variant="danger" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled variant="pending" size="sm"> Button Small </m-button>
+              <m-button disabled variant="pending"> Button Medium </m-button>
+              <m-button disabled variant="pending" size="lg"> Button Large </m-button>
+              <m-button disabled variant="pending" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled variant="warning" size="sm"> Button Small </m-button>
+              <m-button disabled variant="warning"> Button Medium </m-button>
+              <m-button disabled variant="warning" size="lg"> Button Large </m-button>
+              <m-button disabled variant="warning" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="outline" variant="primary" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="outline" variant="primary">Button Medium</m-button>
+              <m-button disabled look="outline" variant="primary" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="outline" variant="primary" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="outline" variant="secondary" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="outline" variant="secondary">Button Medium</m-button>
+              <m-button disabled look="outline" variant="secondary" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="outline" variant="secondary" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="outline" variant="success" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="outline" variant="success">Button Medium</m-button>
+              <m-button disabled look="outline" variant="success" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="outline" variant="success" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="outline" variant="danger" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="outline" variant="danger">Button Medium</m-button>
+              <m-button disabled look="outline" variant="danger" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="outline" variant="danger" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="outline" variant="pending" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="outline" variant="pending">Button Medium</m-button>
+              <m-button disabled look="outline" variant="pending" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="outline" variant="pending" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="outline" variant="warning" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="outline" variant="warning">Button Medium</m-button>
+              <m-button disabled look="outline" variant="warning" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="outline" variant="warning" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="filled" variant="primary" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="filled" variant="primary">
+                Button Medium
+              </m-button>
+              <m-button disabled look="filled" variant="primary" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="filled" variant="primary" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="filled" variant="secondary" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="filled" variant="secondary">
+                Button Medium
+              </m-button>
+              <m-button disabled look="filled" variant="secondary" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="filled" variant="secondary" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="filled" variant="success" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="filled" variant="success">
+                Button Medium
+              </m-button>
+              <m-button disabled look="filled" variant="success" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="filled" variant="success" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="filled" variant="danger" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="filled" variant="danger">
+                Button Medium
+              </m-button>
+              <m-button disabled look="filled" variant="danger" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="filled" variant="danger" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="filled" variant="pending" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="filled" variant="pending">
+                Button Medium
+              </m-button>
+              <m-button disabled look="filled" variant="pending" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="filled" variant="pending" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button disabled look="filled" variant="warning" size="sm">
+                Button Small
+              </m-button>
+              <m-button disabled look="filled" variant="warning">
+                Button Medium
+              </m-button>
+              <m-button disabled look="filled" variant="warning" size="lg">
+                Button Large
+              </m-button>
+              <m-button disabled look="filled" variant="warning" size="xl">
+                Button Extra Large
+              </m-button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button>
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="primary" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button variant="primary">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button variant="primary" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button variant="primary" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="secondary" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button variant="secondary">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button variant="secondary" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button variant="secondary" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="success" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button variant="success">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button variant="success" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button variant="success" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="danger" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button variant="danger">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button variant="danger" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button variant="danger" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="pending" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button variant="pending">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button variant="pending" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button variant="pending" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="warning" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button variant="warning">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button variant="warning" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button variant="warning" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="outline">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="outline" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="outline" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="primary" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="outline" variant="primary">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="outline" variant="primary" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="outline" variant="primary" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="secondary" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="outline" variant="secondary">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="outline" variant="secondary" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="outline" variant="secondary" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="success" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="outline" variant="success">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="outline" variant="success" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="outline" variant="success" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="danger" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="outline" variant="danger">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="outline" variant="danger" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="outline" variant="danger" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="pending" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="outline" variant="pending">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="outline" variant="pending" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="outline" variant="pending" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="outline" variant="warning" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="outline" variant="warning">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="outline" variant="warning" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="outline" variant="warning" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="filled">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="filled" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="filled" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="primary" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="filled" variant="primary">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="filled" variant="primary" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="filled" variant="primary" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="secondary" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="filled" variant="secondary">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="filled" variant="secondary" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="filled" variant="secondary" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="success" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="filled" variant="success">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="filled" variant="success" size="lg">Button Large</m-button>
+              <m-button look="filled" variant="success" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="danger" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="filled" variant="danger">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="filled" variant="danger" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="filled" variant="danger" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="pending" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="filled" variant="pending">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="filled" variant="pending" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="filled" variant="pending" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="warning" size="sm">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Small
+              </m-button>
+              <m-button look="filled" variant="warning">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Medium
+              </m-button>
+              <m-button look="filled" variant="warning" size="lg">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Large
+              </m-button>
+              <m-button look="filled" variant="warning" size="xl">
+                <m-icon name="loader-circle" class="size-4 animate-spin"></m-icon> Button Extra Large
+              </m-button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button>
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="primary" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="primary">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="primary" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="primary" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="secondary" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="secondary">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="secondary" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="secondary" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="success" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="success">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="success" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="success" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="danger" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="danger">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="danger" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="danger" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="pending" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="pending">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="pending" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="pending" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button variant="warning" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="warning">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="warning" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button variant="warning" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="primary" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="primary">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="primary" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="primary" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="secondary" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="secondary">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="secondary" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="secondary" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="success" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="success">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="success" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="success" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="danger" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="danger">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="danger" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="danger" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="pending" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="pending">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="pending" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="pending" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+            <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+              <m-button look="filled" variant="warning" size="sm">
+                <m-icon name="copy" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="warning">
+                <m-icon name="scissors" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="warning" size="lg">
+                <m-icon name="trash" class="size-4"></m-icon>
+              </m-button>
+              <m-button look="filled" variant="warning" size="xl">
+                <m-icon name="square-plus" class="size-4"></m-icon>
+              </m-button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <script type="module" src="/src/main.ts"></script>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 
 </html>

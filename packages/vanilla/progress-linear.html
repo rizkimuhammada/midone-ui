@@ -8,40 +8,23 @@
 </head>
 
 <body class="p-10 bg-background text-foreground">
-    <div class="flex flex-col gap-10">
-        <h1 class="text-2xl font-bold border-b pb-4">Progress Linear</h1>
-
-        <section class="flex flex-col gap-4 max-w-md">
-            <h2 class="text-lg font-semibold">Basic</h2>
-            <m-progress-linear-root value="30">
-                <m-progress-linear-track>
-                    <m-progress-linear-range></m-progress-linear-range>
-                </m-progress-linear-track>
-            </m-progress-linear-root>
-        </section>
-
-        <section class="flex flex-col gap-4 max-w-md">
-            <h2 class="text-lg font-semibold">With Label & Value Text</h2>
-            <m-progress-linear-root value="65">
-                <div class="flex justify-between w-full mb-1">
-                    <m-progress-label>System Upload</m-progress-label>
-                    <m-progress-value-text></m-progress-value-text>
+    <div id="app">
+        <div class="p-5 sm:p-20">
+            <div class="flex flex-col gap-20">
+                <div class="grid grid-cols-2">
+                    <div
+                        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+                        <m-progress-linear-root value="42">
+                            <m-progress-label>Progress Linear</m-progress-label>
+                            <m-progress-linear-track class="max-w-72">
+                                <m-progress-linear-range></m-progress-linear-range>
+                            </m-progress-linear-track>
+                            <m-progress-value-text></m-progress-value-text>
+                        </m-progress-linear-root>
+                    </div>
                 </div>
-                <m-progress-linear-track>
-                    <m-progress-linear-range></m-progress-linear-range>
-                </m-progress-linear-track>
-            </m-progress-linear-root>
-        </section>
-
-        <section class="flex flex-col gap-4 max-w-md">
-            <h2 class="text-lg font-semibold">Success Variant (via text-success)</h2>
-            <m-progress-linear-root value="100" class="text-success">
-                <m-progress-label>Update Complete</m-progress-label>
-                <m-progress-linear-track>
-                    <m-progress-linear-range></m-progress-linear-range>
-                </m-progress-linear-track>
-            </m-progress-linear-root>
-        </section>
+            </div>
+        </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
 </body>

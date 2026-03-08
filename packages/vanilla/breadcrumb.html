@@ -8,18 +8,18 @@
 </head>
 
 <body class="p-10 bg-background text-foreground">
-    <div class="flex flex-col gap-10">
-        <h1 class="text-2xl font-bold border-b pb-4">Breadcrumb</h1>
-
-        <section class="flex flex-col gap-4">
-            <h2 class="text-lg font-semibold">Basic</h2>
-            <m-breadcrumb items='["Dashboard", "Settings", "Profile"]'></m-breadcrumb>
-        </section>
-
-        <section class="flex flex-col gap-4">
-            <h2 class="text-lg font-semibold">Longer Chain</h2>
-            <m-breadcrumb items='["Home", "Products", "Electronics", "Computers", "Laptops"]'></m-breadcrumb>
-        </section>
+    <div id="app">
+        <div class="p-5 sm:p-20">
+            <div class="flex flex-col gap-20">
+                <div class="grid grid-cols-2">
+                    <div
+                        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+                        <m-breadcrumb
+                            items='["Dashboard", "Users", "Admins", "Settings", "Edit Profile"]'></m-breadcrumb>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
 </body>
