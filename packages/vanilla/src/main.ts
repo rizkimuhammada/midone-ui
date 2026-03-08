@@ -22,6 +22,7 @@ import {
     type AlertRootVariants
 } from './core/styles/alert.styles'
 import { cn } from './core/utils/cn'
+import { syncSlot } from './core/utils/slot'
 import { createElement } from 'lucide'
 import * as icons from 'lucide'
 
@@ -70,22 +71,31 @@ export class MButton extends LitElement {
         variant: { type: String },
         size: { type: String },
         look: { type: String },
-        disabled: { type: Boolean, reflect: true }
+        disabled: { type: Boolean, reflect: true },
+        asChild: { type: Boolean, attribute: 'as-child' }
     }
     variant?: ButtonVariants['variant']
     size?: ButtonVariants['size']
     look?: ButtonVariants['look']
     disabled = false
+    asChild = false
+
+    private _initialClass = ''
+
     createRenderRoot() { return this }
+
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+    }
+
     updated() {
-        this.className = cn(
-            buttonVariants({
-                variant: this.variant,
-                size: this.size,
-                look: this.look
-            }),
-            this.getAttribute('class')
-        )
+        const variantsClass = buttonVariants({
+            variant: this.variant,
+            size: this.size,
+            look: this.look
+        })
+        syncSlot(this, variantsClass, this._initialClass)
     }
     render() { return undefined }
 }
@@ -94,14 +104,25 @@ export class MButton extends LitElement {
  * MBox Component
  */
 export class MBox extends LitElement {
-    static properties = { raised: { type: String } }
+    static properties = {
+        raised: { type: String },
+        asChild: { type: Boolean, attribute: 'as-child' }
+    }
     raised: BoxVariants['raised'] = undefined
+    asChild = false
+
+    private _initialClass = ''
+
     createRenderRoot() { return this }
+
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+    }
+
     updated() {
-        this.className = cn(
-            boxVariants({ raised: this.raised }),
-            this.getAttribute('class')
-        )
+        const variantsClass = boxVariants({ raised: this.raised })
+        syncSlot(this, variantsClass, this._initialClass)
     }
     render() { return undefined }
 }
@@ -113,9 +134,11 @@ export class MAlert extends LitElement {
     static properties = {
         variant: { type: String },
         look: { type: String },
+        asChild: { type: Boolean, attribute: 'as-child' }
     }
     variant?: AlertRootVariants['variant']
     look?: AlertRootVariants['look']
+    asChild = false
 
     private _initialClass = ''
 
@@ -128,18 +151,20 @@ export class MAlert extends LitElement {
     }
 
     updated() {
-        this.className = cn(
-            alertRootVariants({
-                variant: this.variant,
-                look: this.look
-            }),
-            this._initialClass
-        )
+        const variantsClass = alertRootVariants({
+            variant: this.variant,
+            look: this.look
+        })
+        syncSlot(this, variantsClass, this._initialClass)
     }
     render() { return undefined }
 }
 
 export class MAlertTitle extends LitElement {
+    static properties = {
+        asChild: { type: Boolean, attribute: 'as-child' }
+    }
+    asChild = false
     private _initialClass = ''
     createRenderRoot() { return this }
     connectedCallback() {
@@ -147,7 +172,7 @@ export class MAlertTitle extends LitElement {
         this._initialClass = this.getAttribute('class') || ''
     }
     updated() {
-        this.className = cn(alertTitle, this._initialClass)
+        syncSlot(this, alertTitle, this._initialClass)
     }
     render() { return undefined }
 }
@@ -165,14 +190,17 @@ export class MAlertIcon extends LitElement {
         if (!this.firstElementChild && !this.textContent?.trim()) {
             this.style.display = 'none'
         } else {
-            this.style.display = ''
-            this.className = cn(alertIcon, '[&_svg]:size-full', this._initialClass)
+            syncSlot(this, cn(alertIcon, '[&_svg]:size-full'), this._initialClass, { 'data-part': 'icon' })
         }
     }
     render() { return undefined }
 }
 
 export class MAlertDescription extends LitElement {
+    static properties = {
+        asChild: { type: Boolean, attribute: 'as-child' }
+    }
+    asChild = false
     private _initialClass = ''
     createRenderRoot() { return this }
     connectedCallback() {
@@ -180,12 +208,16 @@ export class MAlertDescription extends LitElement {
         this._initialClass = this.getAttribute('class') || ''
     }
     updated() {
-        this.className = cn(alertDescription, this._initialClass)
+        syncSlot(this, alertDescription, this._initialClass)
     }
     render() { return undefined }
 }
 
 export class MAlertCloseTrigger extends LitElement {
+    static properties = {
+        asChild: { type: Boolean, attribute: 'as-child' }
+    }
+    asChild = false
     private _initialClass = ''
     createRenderRoot() { return this }
     connectedCallback() {
@@ -202,10 +234,10 @@ export class MAlertCloseTrigger extends LitElement {
         })
     }
     updated() {
-        if (!this.firstElementChild && !this.textContent?.trim()) {
+        if (!this.asChild && !this.firstElementChild && !this.textContent?.trim()) {
             this.innerHTML = '<m-icon name="x"></m-icon>'
         }
-        this.className = cn(alertCloseTrigger, '[&_svg]:size-full', this._initialClass)
+        syncSlot(this, cn(alertCloseTrigger, '[&_svg]:size-full'), this._initialClass)
     }
     render() { return undefined }
 }
