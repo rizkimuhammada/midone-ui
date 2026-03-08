@@ -4,9 +4,9 @@ import { cn } from "./cn";
  * Utility to sync variants and classes from a host element to its first child
  * if 'as-child' attribute is present. Also handles Zag.js props like event listeners.
  */
-export function syncSlot(host: HTMLElement, variantsClass: string, initialClass: string, extraAttrs: Record<string, any> = {}) {
+export function syncSlot(host: HTMLElement, variantsClass: string, initialClass: string, extraAttrs: Record<string, any> = {}, manualTarget?: HTMLElement) {
     const asChild = host.hasAttribute('as-child');
-    const target = (asChild ? host.firstElementChild : host) as HTMLElement;
+    const target = manualTarget || (asChild ? host.firstElementChild : host) as HTMLElement;
 
     if (!target) return;
 

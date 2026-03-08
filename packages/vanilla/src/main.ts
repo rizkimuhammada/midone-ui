@@ -270,7 +270,7 @@ export class MAvatarRoot extends LitElement {
         bordered: { type: Boolean },
         asChild: { type: Boolean, attribute: 'as-child' }
     }
-    bordered?: AvatarRootVariants['bordered']
+    bordered?: boolean
     asChild = false
     private _initialClass = ''
     private service: any = null
@@ -281,7 +281,9 @@ export class MAvatarRoot extends LitElement {
     connectedCallback() {
         super.connectedCallback()
         this._initialClass = this.getAttribute('class') || ''
+    }
 
+    firstUpdated() {
         this.service = new VanillaMachine(avatar.machine as any, {
             id: this.id || Math.random().toString(36).substr(2, 9),
         })
@@ -296,15 +298,18 @@ export class MAvatarRoot extends LitElement {
 
     updated() {
         if (!this.api) return
-        syncSlot(this, avatarRootVariants({ bordered: this.bordered }), this._initialClass, this.api.getRootProps())
+
+        // Handle bordered string vs boolean
+        const borderedAttr = this.getAttribute('bordered')
+        const isBordered = borderedAttr === 'false' ? false : this.bordered ?? true
+
+        syncSlot(this, avatarRootVariants({ bordered: isBordered }), this._initialClass, this.api.getRootProps())
 
         // Sync API to children
-        const children = Array.from(this.children) as any[]
+        const children = Array.from(this.querySelectorAll('m-avatar-image, m-avatar-fallback')) as any[]
         children.forEach(child => {
-            if (child.tagName.toLowerCase().startsWith('m-avatar-')) {
-                child.api = this.api
-                child.requestUpdate()
-            }
+            child.api = this.api
+            child.requestUpdate()
         })
     }
     render() { return undefined }
@@ -333,6 +338,8 @@ export class MAvatarImage extends LitElement {
         const src = this.src || this.getAttribute('src') || ''
         const alt = this.alt || this.getAttribute('alt') || ''
 
+        let imgTarget: HTMLImageElement | undefined = undefined
+
         // Render <img> if not asChild and no children
         if (!this.asChild && !this.firstElementChild) {
             let img = this.querySelector('img')
@@ -342,10 +349,11 @@ export class MAvatarImage extends LitElement {
             }
             if (img.src !== src) img.src = src
             if (img.alt !== alt) img.alt = alt
+            imgTarget = img
         }
 
         const imageProps = this.api.getImageProps()
-        syncSlot(this, avatarImage, this._initialClass, { ...imageProps, src, alt })
+        syncSlot(this, avatarImage, this._initialClass, { ...imageProps, src, alt }, imgTarget)
     }
     render() { return undefined }
 }
