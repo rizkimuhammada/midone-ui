@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "exactOptionalPropertyTypes": false,
+    "paths": {
+      "@/*": ["src/*"],
+      ".velite": ["./.velite"]
+    },
+    "verbatimModuleSyntax": false,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
+  },
+  "plugins": [
+    {
+      "name": "next"
+    }
+  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.mjs"],
+  "exclude": ["node_modules"]
+}

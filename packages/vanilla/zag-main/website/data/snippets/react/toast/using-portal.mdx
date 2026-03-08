@@ -1,0 +1,20 @@
+```jsx {1,12,14}
+import { useMachine, normalizeProps, Portal } from "@zag-js/react"
+import * as toast from "@zag-js/toast"
+
+// ...
+
+// 3. Create the toast group provider, wrap your app with it
+export function Toaster() {
+  const service = useMachine(toast.group.machine, { id: "1", store: toaster })
+  const api = toast.group.connect(service, normalizeProps)
+
+  return (
+    <Portal>
+      {api.getToasts().map((toast, index) => (
+        <Toast key={toast.id} actor={toast} parent={service} index={index} />
+      ))}
+    </Portal>
+  )
+}
+```

@@ -1,0 +1,21 @@
+```jsx
+import * as progress from "@zag-js/progress"
+import { normalizeProps, useMachine } from "@zag-js/solid"
+import { createMemo, createUniqueId } from "solid-js"
+
+function Progress() {
+  const service = useMachine(progress.machine, { id: useId() })
+
+  const api = createMemo(() => progress.connect(service, normalizeProps))
+
+  return (
+    <div {...api().getRootProps()}>
+      <div {...api().getLabelProps()}>Upload progress</div>
+      <svg {...api().getCircleProps()}>
+        <circle {...api().getCircleTrackProps()} />
+        <circle {...api().getCircleRangeProps()} />
+      </svg>
+    </div>
+  )
+}
+```

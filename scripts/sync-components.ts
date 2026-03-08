@@ -25,6 +25,18 @@ const SYNC_CONFIGS = [
         name: "Core to Vue",
         src: "/Users/dwicompany/Desktop/Projects/midone-ui/packages/core/src",
         dest: "/Users/dwicompany/Desktop/Projects/midone/packages/vue/src/components/ui"
+    },
+    // Vanilla Project
+    {
+        name: "Vanilla Project",
+        src: "/Users/dwicompany/Desktop/Projects/midone-ui/packages/vanilla",
+        dest: "/Users/dwicompany/Desktop/Projects/midone/packages/vanilla"
+    },
+    // Core (Styles & Utils) to Vanilla
+    {
+        name: "Core to Vanilla",
+        src: "/Users/dwicompany/Desktop/Projects/midone-ui/packages/core/src",
+        dest: "/Users/dwicompany/Desktop/Projects/midone-ui/packages/vanilla/src/core"
     }
 ];
 

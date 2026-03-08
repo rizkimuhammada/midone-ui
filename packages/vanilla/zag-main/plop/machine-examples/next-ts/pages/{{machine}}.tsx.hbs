@@ -1,0 +1,31 @@
+import * as {{camelize machine}} from "@zag-js/{{machine}}"
+import { useMachine, normalizeProps } from "@zag-js/react"
+import { {{camelize machine}}Controls } from "@zag-js/shared"
+import { useId } from "react"
+import { StateVisualizer } from "../components/state-visualizer"
+import { Toolbar } from "../components/toolbar"
+import { useControls } from "../hooks/use-controls"
+
+export default function Page() {
+  const controls = useControls({{camelize machine}}Controls)
+
+  const service = useMachine({{camelize machine}}.machine, {
+    id: useId(),
+    ...controls.context,
+  })
+
+  const api = {{camelize machine}}.connect(service, normalizeProps)
+
+  return (
+    <>
+      <main className="{{machine}}">
+        <div {...api.getRootProps()}>
+        </div>
+      </main>
+
+      <Toolbar controls={controls.ui}>
+        <StateVisualizer state={service} />
+      </Toolbar>
+    </>
+  )
+}

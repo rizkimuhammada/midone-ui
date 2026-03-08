@@ -1,0 +1,28 @@
+import { createMachine } from "@zag-js/core"
+import type { {{pascalCase machine}}Schema } from "./{{dashCase machine}}.types"
+
+export const machine = createMachine<{{pascalCase machine}}Schema>({
+  props({ props }) {
+    return props
+  },
+
+  context({ props, bindable }) {
+    return {}
+  },
+
+  initialState() {
+    return "idle"
+  },
+
+  states: {
+    idle: {},
+  },
+
+  implementations: {
+    guards: {},
+
+    actions: {},
+    
+    effects: {},
+  }
+})

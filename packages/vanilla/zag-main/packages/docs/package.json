@@ -1,0 +1,38 @@
+{
+  "name": "@zag-js/docs",
+  "version": "1.35.3",
+  "description": "Docs for zag.js machines",
+  "keywords": [
+    "zag",
+    "docs"
+  ],
+  "author": "Segun Adebayo <sage@adebayosegun.com>",
+  "homepage": "https://github.com/chakra-ui/zag#readme",
+  "license": "MIT",
+  "repository": "https://github.com/chakra-ui/zag/tree/main/packages/api-docs",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "data",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest --passWithNoTests",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/chakra-ui/zag/issues"
+  },
+  "devDependencies": {
+    "clean-package": "2.2.0"
+  },
+  "clean-package": "../../clean-package.config.json",
+  "main": "src/index.ts"
+}

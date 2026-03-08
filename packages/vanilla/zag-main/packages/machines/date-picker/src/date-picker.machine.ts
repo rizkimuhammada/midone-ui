@@ -1,0 +1,1310 @@
+import {
+  DateFormatter,
+  toCalendar,
+  toCalendarDateTime,
+  toZoned,
+  type Calendar,
+  type CalendarIdentifier,
+} from "@internationalized/date"
+import { createGuards, createMachine, type Params, type PropFn } from "@zag-js/core"
+import {
+  alignDate,
+  constrainValue,
+  formatSelectedDate,
+  getAdjustedDateFn,
+  getDecadeRange,
+  getEndDate,
+  getNextPage,
+  getNextSection,
+  getPreviousPage,
+  getPreviousSection,
+  getTodayDate,
+  isDateEqual,
+  isDateOutsideRange,
+  isNextRangeInvalid,
+  isPreviousRangeInvalid,
+  parseDateString,
+  type AdjustDateReturn,
+} from "@zag-js/date-utils"
+import { trackDismissableElement } from "@zag-js/dismissable"
+import { disableTextSelection, raf, restoreTextSelection, setElementValue } from "@zag-js/dom-query"
+import { createLiveRegion } from "@zag-js/live-region"
+import { getPlacement, type Placement } from "@zag-js/popper"
+import * as dom from "./date-picker.dom"
+import type { DatePickerSchema, DateValue, DateView } from "./date-picker.types"
+import {
+  adjustStartAndEndDate,
+  clampView,
+  eachView,
+  getNextView,
+  getPreviousView,
+  getVisibleRangeText,
+  isAboveMinView,
+  isBelowMinView,
+  isValidDate,
+  sortDates,
+} from "./date-picker.utils"
+
+const { and } = createGuards<DatePickerSchema>()
+
+function isDateArrayEqual(a: DateValue[], b: DateValue[] | undefined) {
+  if (a?.length !== b?.length) return false
+  const len = Math.max(a.length, b.length)
+  for (let i = 0; i < len; i++) {
+    if (!isDateEqual(a[i], b[i])) return false
+  }
+  return true
+}
+
+function getValueAsString(value: DateValue[], prop: PropFn<DatePickerSchema>) {
+  return value.map((date) => {
+    if (date == null) return ""
+    return prop("format")(date, { locale: prop("locale"), timeZone: prop("timeZone") })
+  })
+}
+
+export const machine = createMachine<DatePickerSchema>({
+  props({ props }) {
+    const locale = props.locale || "en-US"
+    const timeZone = props.timeZone || "UTC"
+    const selectionMode = props.selectionMode || "single"
+    const numOfMonths = props.numOfMonths || 1
+
+    // Resolve calendar from locale when createCalendar is provided
+    let calendar: Calendar | undefined
+    if (props.createCalendar) {
+      const resolved = new Intl.DateTimeFormat(locale).resolvedOptions()
+      const calendarId = resolved.calendar as CalendarIdentifier
+      if (calendarId !== "gregory" && calendarId !== "iso8601") {
+        calendar = props.createCalendar(calendarId)
+      }
+    }
+
+    // Helper to convert dates to resolved calendar
+    const toTargetCalendar = (date: DateValue) => {
+      if (!calendar) return date
+      if (date.calendar.identifier === calendar.identifier) return date
+      return toCalendar(date, calendar)
+    }
+
+    // sort and constrain dates
+    const defaultValue = props.defaultValue
+      ? sortDates(props.defaultValue).map((date) => constrainValue(toTargetCalendar(date), props.min, props.max))
+      : undefined
+    const value = props.value
+      ? sortDates(props.value).map((date) => constrainValue(toTargetCalendar(date), props.min, props.max))
+      : undefined
+
+    // get initial focused value
+    let focusedValue =
+      props.focusedValue ||
+      props.defaultFocusedValue ||
+      value?.[0] ||
+      defaultValue?.[0] ||
+      getTodayDate(timeZone, calendar)
+    focusedValue = constrainValue(toTargetCalendar(focusedValue), props.min, props.max)
+
+    // get the initial view
+    const minView: DateView = "day"
+    const maxView: DateView = "year"
+    const defaultView = clampView(props.view || minView, minView, maxView)
+
+    return {
+      locale,
+      numOfMonths,
+      timeZone,
+      selectionMode,
+      defaultView,
+      minView,
+      maxView,
+      outsideDaySelectable: false,
+      closeOnSelect: true,
+      format(date, { locale, timeZone }) {
+        const formatter = new DateFormatter(locale, {
+          timeZone,
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          calendar: calendar?.identifier,
+        })
+        return formatter.format(date.toDate(timeZone))
+      },
+      parse(value, { locale, timeZone }) {
+        return parseDateString(value, locale, timeZone)
+      },
+      ...props,
+      focusedValue: typeof props.focusedValue === "undefined" ? undefined : focusedValue,
+      defaultFocusedValue: focusedValue,
+      value,
+      defaultValue: defaultValue ?? [],
+      positioning: {
+        placement: "bottom",
+        ...props.positioning,
+      },
+    }
+  },
+
+  initialState({ prop }) {
+    const open = prop("open") || prop("defaultOpen") || prop("inline")
+    return open ? "open" : "idle"
+  },
+
+  refs() {
+    return {
+      announcer: undefined,
+    }
+  },
+
+  context({ prop, bindable, getContext }) {
+    return {
+      focusedValue: bindable<DateValue>(() => ({
+        defaultValue: prop("defaultFocusedValue"),
+        value: prop("focusedValue"),
+        isEqual: isDateEqual,
+        hash: (v) => v.toString(),
+        sync: true,
+        onChange(focusedValue) {
+          const context = getContext()
+          const view = context.get("view")
+          const value = context.get("value")
+          const valueAsString = getValueAsString(value, prop)
+          prop("onFocusChange")?.({ value, valueAsString, view, focusedValue })
+        },
+      })),
+      value: bindable(() => ({
+        defaultValue: prop("defaultValue"),
+        value: prop("value"),
+        isEqual: isDateArrayEqual,
+        hash: (v) => v.map((date) => date?.toString() ?? "").join(","),
+        onChange(value) {
+          const context = getContext()
+          const valueAsString = getValueAsString(value, prop)
+          prop("onValueChange")?.({ value, valueAsString, view: context.get("view") })
+        },
+      })),
+      inputValue: bindable(() => ({
+        defaultValue: "",
+      })),
+      activeIndex: bindable(() => ({
+        defaultValue: 0,
+        sync: true,
+      })),
+      hoveredValue: bindable<DateValue | null>(() => ({
+        defaultValue: null,
+        isEqual: isDateEqual,
+      })),
+      view: bindable(() => ({
+        defaultValue: prop("defaultView"),
+        value: prop("view"),
+        onChange(value) {
+          prop("onViewChange")?.({ view: value })
+        },
+      })),
+      startValue: bindable(() => {
+        const focusedValue = prop("focusedValue") || prop("defaultFocusedValue")
+        return {
+          defaultValue: alignDate(focusedValue, "start", { months: prop("numOfMonths") }, prop("locale")),
+          isEqual: isDateEqual,
+          hash: (v) => v.toString(),
+        }
+      }),
+      currentPlacement: bindable<Placement | undefined>(() => ({
+        defaultValue: undefined,
+      })),
+      restoreFocus: bindable<boolean | undefined>(() => ({
+        defaultValue: false,
+      })),
+    }
+  },
+
+  computed: {
+    isInteractive: ({ prop }) => !prop("disabled") && !prop("readOnly"),
+    visibleDuration: ({ prop }) => ({ months: prop("numOfMonths") }),
+    endValue: ({ context, computed }) => getEndDate(context.get("startValue"), computed("visibleDuration")),
+    visibleRange: ({ context, computed }) => ({ start: context.get("startValue"), end: computed("endValue") }),
+    visibleRangeText: ({ context, prop, computed }) =>
+      getVisibleRangeText({
+        view: context.get("view"),
+        startValue: context.get("startValue"),
+        endValue: computed("endValue"),
+        locale: prop("locale"),
+        timeZone: prop("timeZone"),
+        selectionMode: prop("selectionMode"),
+      }),
+    isPrevVisibleRangeValid: ({ context, prop }) =>
+      !isPreviousRangeInvalid(context.get("startValue"), prop("min"), prop("max")),
+    isNextVisibleRangeValid: ({ prop, computed }) =>
+      !isNextRangeInvalid(computed("endValue"), prop("min"), prop("max")),
+    valueAsString: ({ context, prop }) => getValueAsString(context.get("value"), prop),
+  },
+
+  effects: ["setupLiveRegion"],
+
+  watch({ track, prop, context, action, computed }) {
+    track([() => prop("locale")], () => {
+      action(["setStartValue", "syncInputElement"])
+    })
+
+    track([() => context.hash("focusedValue")], () => {
+      action(["setStartValue", "focusActiveCellIfNeeded", "setHoveredValueIfKeyboard"])
+    })
+
+    // Ensure the month/year select reflect the actual visible start value
+    track([() => context.hash("startValue")], () => {
+      action(["syncMonthSelectElement", "syncYearSelectElement", "invokeOnVisibleRangeChange"])
+    })
+
+    track([() => context.get("inputValue")], () => {
+      action(["syncInputValue"])
+    })
+
+    track([() => context.hash("value")], () => {
+      action(["syncInputElement"])
+    })
+
+    track([() => computed("valueAsString").toString()], () => {
+      action(["announceValueText"])
+    })
+
+    track([() => context.get("view")], () => {
+      action(["focusActiveCell"])
+    })
+
+    track([() => prop("open")], () => {
+      action(["toggleVisibility"])
+    })
+  },
+
+  on: {
+    "VALUE.SET": {
+      actions: ["setDateValue", "setFocusedDate"],
+    },
+    "VIEW.SET": {
+      actions: ["setView"],
+    },
+    "FOCUS.SET": {
+      actions: ["setFocusedDate"],
+    },
+    "VALUE.CLEAR": {
+      actions: ["clearDateValue", "clearFocusedDate", "focusFirstInputElement"],
+    },
+    "INPUT.CHANGE": [
+      {
+        guard: "isInputValueEmpty",
+        actions: ["setInputValue", "clearDateValue", "clearFocusedDate"],
+      },
+      {
+        actions: ["setInputValue", "focusParsedDate"],
+      },
+    ],
+    "INPUT.ENTER": {
+      actions: ["focusParsedDate", "selectFocusedDate"],
+    },
+    "INPUT.FOCUS": {
+      actions: ["setActiveIndex"],
+    },
+    "INPUT.BLUR": [
+      {
+        guard: "shouldFixOnBlur",
+        actions: ["setActiveIndexToStart", "selectParsedDate"],
+      },
+      {
+        actions: ["setActiveIndexToStart"],
+      },
+    ],
+    "PRESET.CLICK": [
+      {
+        guard: "isOpenControlled",
+        actions: ["setDateValue", "setFocusedDate", "invokeOnClose"],
+      },
+      {
+        target: "focused",
+        actions: ["setDateValue", "setFocusedDate", "focusInputElement"],
+      },
+    ],
+    "GOTO.NEXT": [
+      {
+        guard: "isYearView",
+        actions: ["focusNextDecade", "announceVisibleRange"],
+      },
+      {
+        guard: "isMonthView",
+        actions: ["focusNextYear", "announceVisibleRange"],
+      },
+      {
+        actions: ["focusNextPage"],
+      },
+    ],
+    "GOTO.PREV": [
+      {
+        guard: "isYearView",
+        actions: ["focusPreviousDecade", "announceVisibleRange"],
+      },
+      {
+        guard: "isMonthView",
+        actions: ["focusPreviousYear", "announceVisibleRange"],
+      },
+      {
+        actions: ["focusPreviousPage"],
+      },
+    ],
+  },
+
+  states: {
+    idle: {
+      tags: ["closed"],
+      on: {
+        "CONTROLLED.OPEN": {
+          target: "open",
+          actions: ["focusFirstSelectedDate", "focusActiveCell"],
+        },
+        "TRIGGER.CLICK": [
+          {
+            guard: "isOpenControlled",
+            actions: ["invokeOnOpen"],
+          },
+          {
+            target: "open",
+            actions: ["focusFirstSelectedDate", "focusActiveCell", "invokeOnOpen"],
+          },
+        ],
+        OPEN: [
+          {
+            guard: "isOpenControlled",
+            actions: ["invokeOnOpen"],
+          },
+          {
+            target: "open",
+            actions: ["focusFirstSelectedDate", "focusActiveCell", "invokeOnOpen"],
+          },
+        ],
+      },
+    },
+
+    focused: {
+      tags: ["closed"],
+      on: {
+        "CONTROLLED.OPEN": {
+          target: "open",
+          actions: ["focusFirstSelectedDate", "focusActiveCell"],
+        },
+        "TRIGGER.CLICK": [
+          {
+            guard: "isOpenControlled",
+            actions: ["invokeOnOpen"],
+          },
+          {
+            target: "open",
+            actions: ["focusFirstSelectedDate", "focusActiveCell", "invokeOnOpen"],
+          },
+        ],
+        OPEN: [
+          {
+            guard: "isOpenControlled",
+            actions: ["invokeOnOpen"],
+          },
+          {
+            target: "open",
+            actions: ["focusFirstSelectedDate", "focusActiveCell", "invokeOnOpen"],
+          },
+        ],
+      },
+    },
+
+    open: {
+      tags: ["open"],
+      effects: ["trackDismissableElement", "trackPositioning"],
+      exit: ["clearHoveredDate", "resetView"],
+      on: {
+        "CONTROLLED.CLOSE": [
+          {
+            guard: and("shouldRestoreFocus", "isInteractOutsideEvent"),
+            target: "focused",
+            actions: ["focusTriggerElement"],
+          },
+          {
+            guard: "shouldRestoreFocus",
+            target: "focused",
+            actions: ["focusInputElement"],
+          },
+          {
+            target: "idle",
+          },
+        ],
+        "CELL.CLICK": [
+          {
+            guard: "isAboveMinView",
+            actions: ["setFocusedValueForView", "setPreviousView"],
+          },
+          {
+            guard: and("isRangePicker", "hasSelectedRange"),
+            actions: ["setActiveIndexToStart", "resetSelection", "setActiveIndexToEnd"],
+          },
+          // === Grouped transitions (based on `closeOnSelect` and `isOpenControlled`) ===
+          {
+            guard: and("isRangePicker", "isSelectingEndDate", "closeOnSelect", "isOpenControlled"),
+            actions: [
+              "setFocusedDate",
+              "setSelectedDate",
+              "setActiveIndexToStart",
+              "clearHoveredDate",
+              "invokeOnClose",
+              "setRestoreFocus",
+            ],
+          },
+          {
+            guard: and("isRangePicker", "isSelectingEndDate", "closeOnSelect"),
+            target: "focused",
+            actions: [
+              "setFocusedDate",
+              "setSelectedDate",
+              "setActiveIndexToStart",
+              "clearHoveredDate",
+              "invokeOnClose",
+              "focusInputElement",
+            ],
+          },
+          {
+            guard: and("isRangePicker", "isSelectingEndDate"),
+            actions: ["setFocusedDate", "setSelectedDate", "setActiveIndexToStart", "clearHoveredDate"],
+          },
+          // ===
+          {
+            guard: "isRangePicker",
+            actions: ["setFocusedDate", "setSelectedDate", "setActiveIndexToEnd"],
+          },
+          {
+            guard: and("isMultiPicker", "canSelectDate"),
+            actions: ["setFocusedDate", "toggleSelectedDate"],
+          },
+          {
+            guard: "isMultiPicker",
+            actions: ["setFocusedDate"],
+          },
+          // === Grouped transitions (based on `closeOnSelect` and `isOpenControlled`) ===
+          {
+            guard: and("closeOnSelect", "isOpenControlled"),
+            actions: ["setFocusedDate", "setSelectedDate", "invokeOnClose"],
+          },
+          {
+            guard: "closeOnSelect",
+            target: "focused",
+            actions: ["setFocusedDate", "setSelectedDate", "invokeOnClose", "focusInputElement"],
+          },
+          {
+            actions: ["setFocusedDate", "setSelectedDate"],
+          },
+          // ===
+        ],
+        "CELL.POINTER_MOVE": {
+          guard: and("isRangePicker", "isSelectingEndDate"),
+          actions: ["setHoveredDate", "setFocusedDate"],
+        },
+        "TABLE.POINTER_LEAVE": {
+          guard: "isRangePicker",
+          actions: ["clearHoveredDate"],
+        },
+        "TABLE.POINTER_DOWN": {
+          actions: ["disableTextSelection"],
+        },
+        "TABLE.POINTER_UP": {
+          actions: ["enableTextSelection"],
+        },
+        "TABLE.ESCAPE": [
+          {
+            guard: "isOpenControlled",
+            actions: ["focusFirstSelectedDate", "invokeOnClose"],
+          },
+          {
+            target: "focused",
+            actions: ["focusFirstSelectedDate", "invokeOnClose", "focusTriggerElement"],
+          },
+        ],
+        "TABLE.ENTER": [
+          {
+            guard: "isAboveMinView",
+            actions: ["setPreviousView"],
+          },
+          {
+            guard: and("isRangePicker", "hasSelectedRange"),
+            actions: ["setActiveIndexToStart", "clearDateValue", "setSelectedDate", "setActiveIndexToEnd"],
+          },
+          // === Grouped transitions (based on `closeOnSelect` and `isOpenControlled`) ===
+          {
+            guard: and("isRangePicker", "isSelectingEndDate", "closeOnSelect", "isOpenControlled"),
+            actions: ["setSelectedDate", "setActiveIndexToStart", "clearHoveredDate", "invokeOnClose"],
+          },
+          {
+            guard: and("isRangePicker", "isSelectingEndDate", "closeOnSelect"),
+            target: "focused",
+            actions: [
+              "setSelectedDate",
+              "setActiveIndexToStart",
+              "clearHoveredDate",
+              "invokeOnClose",
+              "focusInputElement",
+            ],
+          },
+          {
+            guard: and("isRangePicker", "isSelectingEndDate"),
+            actions: ["setSelectedDate", "setActiveIndexToStart", "clearHoveredDate"],
+          },
+          // ===
+          {
+            guard: "isRangePicker",
+            actions: ["setSelectedDate", "setActiveIndexToEnd", "focusNextDay"],
+          },
+          {
+            guard: and("isMultiPicker", "canSelectDate"),
+            actions: ["toggleSelectedDate"],
+          },
+          {
+            guard: "isMultiPicker",
+          },
+          // === Grouped transitions (based on `closeOnSelect` and `isOpenControlled`) ===
+          {
+            guard: and("closeOnSelect", "isOpenControlled"),
+            actions: ["selectFocusedDate", "invokeOnClose"],
+          },
+          {
+            guard: "closeOnSelect",
+            target: "focused",
+            actions: ["selectFocusedDate", "invokeOnClose", "focusInputElement"],
+          },
+          {
+            actions: ["selectFocusedDate"],
+          },
+          // ===
+        ],
+        "TABLE.ARROW_RIGHT": [
+          {
+            guard: "isMonthView",
+            actions: ["focusNextMonth"],
+          },
+          {
+            guard: "isYearView",
+            actions: ["focusNextYear"],
+          },
+          {
+            actions: ["focusNextDay", "setHoveredDate"],
+          },
+        ],
+        "TABLE.ARROW_LEFT": [
+          {
+            guard: "isMonthView",
+            actions: ["focusPreviousMonth"],
+          },
+          {
+            guard: "isYearView",
+            actions: ["focusPreviousYear"],
+          },
+          {
+            actions: ["focusPreviousDay"],
+          },
+        ],
+        "TABLE.ARROW_UP": [
+          {
+            guard: "isMonthView",
+            actions: ["focusPreviousMonthColumn"],
+          },
+          {
+            guard: "isYearView",
+            actions: ["focusPreviousYearColumn"],
+          },
+          {
+            actions: ["focusPreviousWeek"],
+          },
+        ],
+        "TABLE.ARROW_DOWN": [
+          {
+            guard: "isMonthView",
+            actions: ["focusNextMonthColumn"],
+          },
+          {
+            guard: "isYearView",
+            actions: ["focusNextYearColumn"],
+          },
+          {
+            actions: ["focusNextWeek"],
+          },
+        ],
+        "TABLE.PAGE_UP": {
+          actions: ["focusPreviousSection"],
+        },
+        "TABLE.PAGE_DOWN": {
+          actions: ["focusNextSection"],
+        },
+        "TABLE.HOME": [
+          {
+            guard: "isMonthView",
+            actions: ["focusFirstMonth"],
+          },
+          {
+            guard: "isYearView",
+            actions: ["focusFirstYear"],
+          },
+          {
+            actions: ["focusSectionStart"],
+          },
+        ],
+        "TABLE.END": [
+          {
+            guard: "isMonthView",
+            actions: ["focusLastMonth"],
+          },
+          {
+            guard: "isYearView",
+            actions: ["focusLastYear"],
+          },
+          {
+            actions: ["focusSectionEnd"],
+          },
+        ],
+        "TRIGGER.CLICK": [
+          {
+            guard: "isOpenControlled",
+            actions: ["invokeOnClose"],
+          },
+          {
+            target: "focused",
+            actions: ["invokeOnClose"],
+          },
+        ],
+        "VIEW.TOGGLE": {
+          actions: ["setNextView"],
+        },
+        INTERACT_OUTSIDE: [
+          {
+            guard: "isOpenControlled",
+            actions: ["setActiveIndexToStart", "invokeOnClose"],
+          },
+          {
+            guard: "shouldRestoreFocus",
+            target: "focused",
+            actions: ["setActiveIndexToStart", "invokeOnClose", "focusTriggerElement"],
+          },
+          {
+            target: "idle",
+            actions: ["setActiveIndexToStart", "invokeOnClose"],
+          },
+        ],
+        CLOSE: [
+          {
+            guard: "isOpenControlled",
+            actions: ["setActiveIndexToStart", "invokeOnClose"],
+          },
+          {
+            target: "idle",
+            actions: ["setActiveIndexToStart", "invokeOnClose"],
+          },
+        ],
+      },
+    },
+  },
+
+  implementations: {
+    guards: {
+      isAboveMinView: ({ context, prop }) => isAboveMinView(context.get("view"), prop("minView")),
+      isDayView: ({ context, event }) => (event.view || context.get("view")) === "day",
+      isMonthView: ({ context, event }) => (event.view || context.get("view")) === "month",
+      isYearView: ({ context, event }) => (event.view || context.get("view")) === "year",
+      isRangePicker: ({ prop }) => prop("selectionMode") === "range",
+      hasSelectedRange: ({ context }) => context.get("value").length === 2,
+      isMultiPicker: ({ prop }) => prop("selectionMode") === "multiple",
+      canSelectDate: ({ context, prop, event }) => {
+        const maxSelectedDates = prop("maxSelectedDates")
+        if (maxSelectedDates == null) return true
+        const existingValues = context.get("value")
+        const currentValue = event.value ?? context.get("focusedValue")
+        // Allow if deselecting (date already selected)
+        const isDeselecting = existingValues.some((date) => isDateEqual(date, currentValue))
+        if (isDeselecting) return true
+        // Block if we've reached the maximum
+        return existingValues.length < maxSelectedDates
+      },
+      shouldRestoreFocus: ({ context }) => !!context.get("restoreFocus"),
+      isSelectingEndDate: ({ context }) => context.get("activeIndex") === 1,
+      closeOnSelect: ({ prop }) => !!prop("closeOnSelect"),
+      isOpenControlled: ({ prop }) => prop("open") != undefined || !!prop("inline"),
+      isInteractOutsideEvent: ({ event }) => event.previousEvent?.type === "INTERACT_OUTSIDE",
+      isInputValueEmpty: ({ event }) => event.value.trim() === "",
+      shouldFixOnBlur: ({ event }) => !!event.fixOnBlur,
+    },
+
+    effects: {
+      trackPositioning({ context, prop, scope }) {
+        if (prop("inline")) return
+
+        if (!context.get("currentPlacement")) {
+          context.set("currentPlacement", prop("positioning").placement)
+        }
+        const anchorEl = dom.getControlEl(scope)
+        const getPositionerEl = () => dom.getPositionerEl(scope)
+        return getPlacement(anchorEl, getPositionerEl, {
+          ...prop("positioning"),
+          defer: true,
+          onComplete(data) {
+            context.set("currentPlacement", data.placement)
+          },
+        })
+      },
+
+      setupLiveRegion({ scope, refs }) {
+        const doc = scope.getDoc()
+        refs.set("announcer", createLiveRegion({ level: "assertive", document: doc }))
+        return () => refs.get("announcer")?.destroy?.()
+      },
+
+      trackDismissableElement({ scope, send, context, prop }) {
+        if (prop("inline")) return
+
+        const getContentEl = () => dom.getContentEl(scope)
+        return trackDismissableElement(getContentEl, {
+          type: "popover",
+          defer: true,
+          exclude: [...dom.getInputEls(scope), dom.getTriggerEl(scope), dom.getClearTriggerEl(scope)],
+          onInteractOutside(event) {
+            context.set("restoreFocus", !event.detail.focusable)
+          },
+          onDismiss() {
+            send({ type: "INTERACT_OUTSIDE" })
+          },
+          onEscapeKeyDown(event) {
+            event.preventDefault()
+            send({ type: "TABLE.ESCAPE", src: "dismissable" })
+          },
+        })
+      },
+    },
+
+    actions: {
+      setNextView({ context, prop }) {
+        const nextView = getNextView(context.get("view"), prop("minView"), prop("maxView"))
+        context.set("view", nextView)
+      },
+      setPreviousView({ context, prop }) {
+        const prevView = getPreviousView(context.get("view"), prop("minView"), prop("maxView"))
+        context.set("view", prevView)
+      },
+      setView({ context, event }) {
+        context.set("view", event.view)
+      },
+      setRestoreFocus({ context }) {
+        context.set("restoreFocus", true)
+      },
+      announceValueText({ context, prop, refs }) {
+        const value = context.get("value")
+        const locale = prop("locale")
+        const timeZone = prop("timeZone")
+
+        let announceText: string
+        if (prop("selectionMode") === "range") {
+          const [startDate, endDate] = value
+          if (startDate && endDate) {
+            announceText = formatSelectedDate(startDate, endDate, locale, timeZone)
+          } else if (startDate) {
+            announceText = formatSelectedDate(startDate, null, locale, timeZone)
+          } else if (endDate) {
+            announceText = formatSelectedDate(endDate, null, locale, timeZone)
+          } else {
+            announceText = ""
+          }
+        } else {
+          announceText = value
+            .map((date) => formatSelectedDate(date, null, locale, timeZone))
+            .filter(Boolean)
+            .join(",")
+        }
+
+        refs.get("announcer")?.announce(announceText, 3000)
+      },
+      announceVisibleRange({ computed, refs }) {
+        const { formatted } = computed("visibleRangeText")
+        refs.get("announcer")?.announce(formatted)
+      },
+      disableTextSelection({ scope }) {
+        disableTextSelection({ target: dom.getContentEl(scope), doc: scope.getDoc() })
+      },
+      enableTextSelection({ scope }) {
+        restoreTextSelection({ doc: scope.getDoc(), target: dom.getContentEl(scope) })
+      },
+      focusFirstSelectedDate(params) {
+        const { context } = params
+        if (!context.get("value").length) return
+        setFocusedValue(params, context.get("value")[0])
+      },
+      syncInputElement({ scope, computed }) {
+        raf(() => {
+          const inputEls = dom.getInputEls(scope)
+          inputEls.forEach((inputEl, index) => {
+            setElementValue(inputEl, computed("valueAsString")[index] || "")
+          })
+        })
+      },
+      setFocusedDate(params) {
+        const { event } = params
+        const value = Array.isArray(event.value) ? event.value[0] : event.value
+        setFocusedValue(params, value)
+      },
+      setFocusedValueForView(params) {
+        const { context, event } = params
+        setFocusedValue(params, context.get("focusedValue").set({ [context.get("view")]: event.value }))
+      },
+      focusNextMonth(params) {
+        const { context } = params
+        setFocusedValue(params, context.get("focusedValue").add({ months: 1 }))
+      },
+      focusPreviousMonth(params) {
+        const { context } = params
+        setFocusedValue(params, context.get("focusedValue").subtract({ months: 1 }))
+      },
+      setDateValue({ context, event, prop }) {
+        if (!Array.isArray(event.value)) return
+        const value = event.value.map((date: DateValue) => constrainValue(date, prop("min"), prop("max")))
+        context.set("value", value)
+      },
+      clearDateValue({ context }) {
+        context.set("value", [])
+      },
+      setSelectedDate(params) {
+        const { context, event } = params
+        const values = Array.from(context.get("value"))
+        const activeIndex = context.get("activeIndex")
+        const existingValue = values[activeIndex]
+        const newValue = normalizeValue(params, event.value ?? context.get("focusedValue"))
+        values[activeIndex] = preserveTime(existingValue, newValue)
+        context.set("value", adjustStartAndEndDate(values))
+      },
+      resetSelection(params) {
+        const { context, event } = params
+        const existingValue = context.get("value")[0]
+        const newValue = normalizeValue(params, event.value ?? context.get("focusedValue"))
+        context.set("value", [preserveTime(existingValue, newValue)])
+      },
+      toggleSelectedDate(params) {
+        const { context, event } = params
+        const currentValue = normalizeValue(params, event.value ?? context.get("focusedValue"))
+        const existingValues = context.get("value")
+        const index = existingValues.findIndex((date) => isDateEqual(date, currentValue))
+
+        if (index === -1) {
+          // Adding a new date - each date in multi-select is independent (no time inheritance)
+          const values = [...existingValues, currentValue]
+          context.set("value", sortDates(values))
+        } else {
+          const values = Array.from(existingValues)
+          values.splice(index, 1)
+          context.set("value", sortDates(values))
+        }
+      },
+      setHoveredDate({ context, event }) {
+        context.set("hoveredValue", event.value)
+      },
+      clearHoveredDate({ context }) {
+        context.set("hoveredValue", null)
+      },
+      selectFocusedDate({ context, computed }) {
+        const values = Array.from(context.get("value"))
+        const activeIndex = context.get("activeIndex")
+        const existingValue = values[activeIndex]
+        const newValue = context.get("focusedValue").copy()
+        values[activeIndex] = preserveTime(existingValue, newValue)
+        context.set("value", adjustStartAndEndDate(values))
+
+        // always sync the input value, even if the selecteddate is not changed
+        // e.g. selected value is 02/28/2024, and the input value changed to 02/28
+        const valueAsString = computed("valueAsString")
+        context.set("inputValue", valueAsString[activeIndex])
+      },
+      focusPreviousDay(params) {
+        const { context } = params
+        const nextValue = context.get("focusedValue").subtract({ days: 1 })
+        setFocusedValue(params, nextValue)
+      },
+      focusNextDay(params) {
+        const { context } = params
+        const nextValue = context.get("focusedValue").add({ days: 1 })
+        setFocusedValue(params, nextValue)
+      },
+      focusPreviousWeek(params) {
+        const { context } = params
+        const nextValue = context.get("focusedValue").subtract({ weeks: 1 })
+        setFocusedValue(params, nextValue)
+      },
+      focusNextWeek(params) {
+        const { context } = params
+        const nextValue = context.get("focusedValue").add({ weeks: 1 })
+        setFocusedValue(params, nextValue)
+      },
+      focusNextPage(params) {
+        const { context, computed, prop } = params
+        const nextPage = getNextPage(
+          context.get("focusedValue"),
+          context.get("startValue"),
+          computed("visibleDuration"),
+          prop("locale"),
+          prop("min"),
+          prop("max"),
+        )
+
+        setAdjustedValue(params, nextPage)
+      },
+      focusPreviousPage(params) {
+        const { context, computed, prop } = params
+        const previousPage = getPreviousPage(
+          context.get("focusedValue"),
+          context.get("startValue"),
+          computed("visibleDuration"),
+          prop("locale"),
+          prop("min"),
+          prop("max"),
+        )
+
+        setAdjustedValue(params, previousPage)
+      },
+      focusSectionStart(params) {
+        const { context } = params
+        setFocusedValue(params, context.get("startValue").copy())
+      },
+      focusSectionEnd(params) {
+        const { computed } = params
+        setFocusedValue(params, computed("endValue").copy())
+      },
+      focusNextSection(params) {
+        const { context, event, computed, prop } = params
+        const nextSection = getNextSection(
+          context.get("focusedValue"),
+          context.get("startValue"),
+          event.larger,
+          computed("visibleDuration"),
+          prop("locale"),
+          prop("min"),
+          prop("max"),
+        )
+
+        if (!nextSection) return
+        setAdjustedValue(params, nextSection)
+      },
+      focusPreviousSection(params) {
+        const { context, event, computed, prop } = params
+        const previousSection = getPreviousSection(
+          context.get("focusedValue"),
+          context.get("startValue"),
+          event.larger,
+          computed("visibleDuration"),
+          prop("locale"),
+          prop("min"),
+          prop("max"),
+        )
+
+        if (!previousSection) return
+        setAdjustedValue(params, previousSection)
+      },
+      focusNextYear(params) {
+        const { context } = params
+        const nextValue = context.get("focusedValue").add({ years: 1 })
+        setFocusedValue(params, nextValue)
+      },
+      focusPreviousYear(params) {
+        const { context } = params
+        const nextValue = context.get("focusedValue").subtract({ years: 1 })
+        setFocusedValue(params, nextValue)
+      },
+      focusNextDecade(params) {
+        const { context } = params
+        const nextValue = context.get("focusedValue").add({ years: 10 })
+        setFocusedValue(params, nextValue)
+      },
+      focusPreviousDecade(params) {
+        const { context } = params
+        const nextValue = context.get("focusedValue").subtract({ years: 10 })
+        setFocusedValue(params, nextValue)
+      },
+      clearFocusedDate(params) {
+        const { context, prop } = params
+        const calendar = context.get("focusedValue").calendar
+        setFocusedValue(params, getTodayDate(prop("timeZone"), calendar))
+      },
+      focusPreviousMonthColumn(params) {
+        const { context, event } = params
+        const nextValue = context.get("focusedValue").subtract({ months: event.columns })
+        setFocusedValue(params, nextValue)
+      },
+      focusNextMonthColumn(params) {
+        const { context, event } = params
+        const nextValue = context.get("focusedValue").add({ months: event.columns })
+        setFocusedValue(params, nextValue)
+      },
+      focusPreviousYearColumn(params) {
+        const { context, event } = params
+        const nextValue = context.get("focusedValue").subtract({ years: event.columns })
+        setFocusedValue(params, nextValue)
+      },
+      focusNextYearColumn(params) {
+        const { context, event } = params
+        const nextValue = context.get("focusedValue").add({ years: event.columns })
+        setFocusedValue(params, nextValue)
+      },
+      focusFirstMonth(params) {
+        const { context } = params
+        const focused = context.get("focusedValue")
+        const minMonth = focused.calendar.getMinimumMonthInYear?.(focused) ?? 1
+        setFocusedValue(params, focused.set({ month: minMonth }))
+      },
+      focusLastMonth(params) {
+        const { context } = params
+        const focused = context.get("focusedValue")
+        const maxMonth = focused.calendar.getMonthsInYear(focused)
+        setFocusedValue(params, focused.set({ month: maxMonth }))
+      },
+      focusFirstYear(params) {
+        const { context } = params
+        const range = getDecadeRange(context.get("focusedValue").year)
+        const nextValue = context.get("focusedValue").set({ year: range[0] })
+        setFocusedValue(params, nextValue)
+      },
+      focusLastYear(params) {
+        const { context } = params
+        const range = getDecadeRange(context.get("focusedValue").year)
+        const nextValue = context.get("focusedValue").set({ year: range[range.length - 1] })
+        setFocusedValue(params, nextValue)
+      },
+      setActiveIndex({ context, event }) {
+        context.set("activeIndex", event.index)
+      },
+      setActiveIndexToEnd({ context }) {
+        context.set("activeIndex", 1)
+      },
+      setActiveIndexToStart({ context }) {
+        context.set("activeIndex", 0)
+      },
+      focusActiveCell({ scope, context, event }) {
+        if (event.src === "input.click") return
+        raf(() => {
+          const view = context.get("view")
+          dom.getFocusedCell(scope, view)?.focus({ preventScroll: true })
+        })
+      },
+      focusActiveCellIfNeeded({ scope, context, event }) {
+        if (!event.focus) return
+        raf(() => {
+          const view = context.get("view")
+          dom.getFocusedCell(scope, view)?.focus({ preventScroll: true })
+        })
+      },
+      setHoveredValueIfKeyboard({ context, event, prop }) {
+        if (
+          !event.type.startsWith("TABLE.ARROW") ||
+          prop("selectionMode") !== "range" ||
+          context.get("activeIndex") === 0
+        )
+          return
+        context.set("hoveredValue", context.get("focusedValue").copy())
+      },
+      focusTriggerElement({ scope }) {
+        raf(() => {
+          dom.getTriggerEl(scope)?.focus({ preventScroll: true })
+        })
+      },
+      focusFirstInputElement({ scope, event }) {
+        if (event.focus === false) return
+        raf(() => {
+          const [inputEl] = dom.getInputEls(scope)
+          // if no input elements exist (trigger-only mode), focus the trigger instead
+          const elementToFocus = inputEl ?? dom.getTriggerEl(scope)
+          elementToFocus?.focus({ preventScroll: true })
+        })
+      },
+      focusInputElement({ scope }) {
+        raf(() => {
+          const inputEls = dom.getInputEls(scope)
+
+          // If no input elements exist (trigger-only mode), focus the trigger instead
+          if (inputEls.length === 0) {
+            dom.getTriggerEl(scope)?.focus({ preventScroll: true })
+            return
+          }
+
+          const lastIndexWithValue = inputEls.findLastIndex((inputEl) => inputEl.value !== "")
+          const indexToFocus = Math.max(lastIndexWithValue, 0)
+
+          const inputEl = inputEls[indexToFocus]
+          inputEl?.focus({ preventScroll: true })
+          // move cursor to the end
+          inputEl?.setSelectionRange(inputEl.value.length, inputEl.value.length)
+        })
+      },
+
+      syncMonthSelectElement({ scope, context }) {
+        const monthSelectEl = dom.getMonthSelectEl(scope)
+        setElementValue(monthSelectEl, context.get("startValue").month.toString())
+      },
+
+      syncYearSelectElement({ scope, context }) {
+        const yearSelectEl = dom.getYearSelectEl(scope)
+        setElementValue(yearSelectEl, context.get("startValue").year.toString())
+      },
+
+      setInputValue({ context, event }) {
+        if (context.get("activeIndex") !== event.index) return
+        context.set("inputValue", event.value)
+      },
+
+      syncInputValue({ scope, context, event }) {
+        queueMicrotask(() => {
+          const inputEls = dom.getInputEls(scope)
+          const idx = event.index ?? context.get("activeIndex")
+          setElementValue(inputEls[idx], context.get("inputValue"))
+        })
+      },
+
+      focusParsedDate(params) {
+        const { event, prop } = params
+
+        if (event.index == null) return
+        const parse = prop("parse")
+
+        const date = parse(event.value, { locale: prop("locale"), timeZone: prop("timeZone") })
+        if (!date || !isValidDate(date)) return
+
+        setFocusedValue(params, date)
+      },
+
+      selectParsedDate({ context, event, prop }) {
+        if (event.index == null) return
+
+        const parse = prop("parse")
+        let date = parse(event.value, { locale: prop("locale"), timeZone: prop("timeZone") })
+
+        // reset to last valid date
+        if (!date || !isValidDate(date)) {
+          if (event.value) {
+            date = context.get("focusedValue").copy()
+          }
+        }
+
+        if (!date) return
+
+        // constrain date to min/max range
+        date = constrainValue(date, prop("min"), prop("max"))
+
+        const values = Array.from(context.get("value"))
+        values[event.index] = date
+
+        context.set("value", values)
+
+        // always sync the input value, even if the selecteddate is not changed
+        // e.g. selected value is 02/28/2024, and the input value changed to 02/28
+        const valueAsString = getValueAsString(values, prop)
+        context.set("inputValue", valueAsString[event.index])
+      },
+
+      resetView({ context }) {
+        context.set("view", context.initial("view"))
+      },
+
+      setStartValue({ context, computed, prop }) {
+        const focusedValue = context.get("focusedValue")
+
+        const outside = isDateOutsideRange(focusedValue, context.get("startValue"), computed("endValue"))
+        if (!outside) return
+
+        const startValue = alignDate(focusedValue, "start", { months: prop("numOfMonths") }, prop("locale"))
+        context.set("startValue", startValue)
+      },
+
+      invokeOnOpen({ prop, context }) {
+        if (prop("inline")) return
+        prop("onOpenChange")?.({ open: true, value: context.get("value") })
+      },
+
+      invokeOnClose({ prop, context }) {
+        if (prop("inline")) return
+        prop("onOpenChange")?.({ open: false, value: context.get("value") })
+      },
+      invokeOnVisibleRangeChange({ prop, context, computed }) {
+        prop("onVisibleRangeChange")?.({
+          view: context.get("view"),
+          visibleRange: computed("visibleRange"),
+        })
+      },
+
+      toggleVisibility({ event, send, prop }) {
+        send({ type: prop("open") ? "CONTROLLED.OPEN" : "CONTROLLED.CLOSE", previousEvent: event })
+      },
+    },
+  },
+})
+
+const normalizeValue = (ctx: Params<DatePickerSchema>, value: number | DateValue) => {
+  const { context, prop } = ctx
+  const view = context.get("view")
+  let dateValue = typeof value === "number" ? context.get("focusedValue").set({ [view]: value }) : value
+  eachView((view) => {
+    // normalize month and day
+    if (isBelowMinView(view, prop("minView"))) {
+      dateValue = dateValue.set({ [view]: view === "day" ? 1 : 0 })
+    }
+  })
+  return dateValue
+}
+
+/**
+ * Preserves time components from an existing date when setting a new date.
+ * - If existing date is a ZonedDateTime, preserves both time and timezone
+ * - If existing date is a CalendarDateTime, preserves time only
+ * - If existing date has no time, returns the new date as-is
+ */
+const preserveTime = (existingDate: DateValue | undefined, newDate: DateValue): DateValue => {
+  if (!existingDate || !("hour" in existingDate)) {
+    return newDate
+  }
+
+  // Check if existing date is a ZonedDateTime (has timezone)
+  const isZoned = "timeZone" in existingDate
+
+  // Convert CalendarDate to appropriate type if needed
+  let dateWithTime: DateValue = newDate
+  if (!("hour" in newDate)) {
+    if (isZoned) {
+      // Convert to ZonedDateTime with same timezone as existing
+      dateWithTime = toZoned(toCalendarDateTime(newDate), existingDate.timeZone)
+    } else {
+      // Convert to CalendarDateTime
+      dateWithTime = toCalendarDateTime(newDate)
+    }
+  }
+
+  // Copy time components from existing date to new date
+  return dateWithTime.set({
+    hour: existingDate.hour,
+    minute: existingDate.minute,
+    second: existingDate.second,
+    millisecond: existingDate.millisecond,
+  })
+}
+
+function setFocusedValue(ctx: Params<DatePickerSchema>, mixedValue: DateValue | number | undefined) {
+  const { context, prop, computed } = ctx
+  if (!mixedValue) return
+
+  const value = normalizeValue(ctx, mixedValue)
+  if (isDateEqual(context.get("focusedValue"), value)) return
+
+  const adjustFn = getAdjustedDateFn(computed("visibleDuration"), prop("locale"), prop("min"), prop("max"))
+  const adjustedValue = adjustFn({
+    focusedDate: value,
+    startDate: context.get("startValue"),
+  })
+
+  context.set("startValue", adjustedValue.startDate)
+  context.set("focusedValue", adjustedValue.focusedDate)
+}
+
+function setAdjustedValue(ctx: Params<DatePickerSchema>, value: AdjustDateReturn) {
+  const { context } = ctx
+  context.set("startValue", value.startDate)
+  const focusedValue = context.get("focusedValue")
+  if (isDateEqual(focusedValue, value.focusedDate)) return
+  context.set("focusedValue", value.focusedDate)
+}

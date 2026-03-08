@@ -1,0 +1,21 @@
+```jsx {11-15}
+//...
+<div>
+  <div {...api.getControlProps()}>
+    <div {...api.getTrackProps()}>
+      <div {...api.getRangeProps()} />
+    </div>
+    {api.value.map((_, index) => (
+      <div key={index} {...api.getThumbProps({ index })}>
+        <input {...api.getHiddenInputProps({ index })} />
+      </div>
+    ))}
+  </div>
+  <div {...api.getMarkerGroupProps()}>
+    <span {...api.getMarkerProps({ value: 10 })}>|</span>
+    <span {...api.getMarkerProps({ value: 30 })}>|</span>
+    <span {...api.getMarkerProps({ value: 90 })}>|</span>
+  </div>
+</div>
+//...
+```

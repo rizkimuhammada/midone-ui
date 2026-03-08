@@ -1,0 +1,20 @@
+```jsx
+import * as zagSwitch from "@zag-js/switch"
+import { useMachine, normalizeProps } from "@zag-js/react"
+
+function Checkbox() {
+  const service = useMachine(zagSwitch.machine, { id: "1" })
+
+  const api = zagSwitch.connect(service, normalizeProps)
+
+  return (
+    <label {...api.getRootProps()}>
+      <input {...api.getHiddenInputProps()} />
+      <span {...api.getControlProps()}>
+        <span {...api.getThumbProps()} />
+      </span>
+      <span {...api.getLabelProps()}>{api.checked ? "On" : "Off"}</span>
+    </label>
+  )
+}
+```

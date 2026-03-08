@@ -1,0 +1,315 @@
+---
+title: Tabs
+description: Using the tabs machine in your project.
+package: "@zag-js/tabs"
+---
+
+Tabs organize related content into selectable panels.
+
+<Resources pkg="@zag-js/tabs" />
+
+<Showcase id="Tabs" />
+
+**Features**
+
+- Supports mouse, touch, and keyboard interactions on tabs
+- Supports LTR and RTL keyboard navigation
+- Follows the tabs ARIA pattern, semantically linking tabs and their associated
+  tab panels
+- Focus management for tab panels without any focusable children
+
+## Installation
+
+Install the tabs package:
+
+<CodeSnippet id="tabs/installation.mdx" />
+
+## Anatomy
+
+Check the tabs anatomy and part names.
+
+> Each part includes a `data-part` attribute to help identify them in the DOM.
+
+<Anatomy id="tabs" />
+
+## Usage
+
+Import the tabs package:
+
+```jsx
+import * as tabs from "@zag-js/tabs"
+```
+
+The tabs package exports two key functions:
+
+- `machine` - State machine logic.
+- `connect` - Maps machine state to JSX props and event handlers.
+
+Then use the framework integration helpers:
+
+<CodeSnippet id="tabs/usage.mdx" />
+
+### Setting the initially selected tab
+
+To set the initially selected tab, pass the `defaultValue` property to the
+machine's context.
+
+```jsx {2}
+const service = useMachine(tabs.machine, {
+  defaultValue: "tab-1",
+})
+```
+
+Subsequently, you can use the `api.setValue` function to programmatically set
+the selected tab.
+
+```jsx
+api.setValue("tab-2")
+```
+
+To clear selection (when `deselectable` is enabled), use:
+
+```jsx
+api.clearValue()
+```
+
+### Controlled tabs
+
+To control the selected tab programmatically, pass the `value` and
+`onValueChange` properties to the machine function.
+
+<CodeSnippet id="tabs/controlled.mdx" />
+
+### Changing the orientation
+
+The default orientation of the tabs is horizontal. To change the orientation,
+set the `orientation` property in the machine's context to `"vertical"`.
+
+```jsx {2}
+const service = useMachine(tabs.machine, {
+  orientation: "vertical",
+})
+```
+
+### Showing an indicator
+
+To show an active indicator when a tab is selected, you add the
+`tabIndicatorProps` object provided by the `connect` function.
+
+<CodeSnippet id="tabs/with-indicator.mdx" />
+
+### Disabling a tab
+
+To disable a tab, set the `disabled` property in the `getTriggerProps` to
+`true`.
+
+When a Tab is `disabled`, it is skipped during keyboard navigation and it is not
+clickable.
+
+```jsx
+//...
+<button {...api.getTriggerProps({ disabled: true })}></button>
+//...
+```
+
+### Listening for events
+
+- `onValueChange` — Callback invoked when the selected tab changes.
+- `onFocusChange` — Callback invoked when the focused tab changes.
+
+```jsx {2-7}
+const service = useMachine(tabs.machine, {
+  onFocusChange(details) {
+    // details => { focusedValue: string }
+    console.log("focused tab:", details.focusedValue)
+  },
+  onValueChange(details) {
+    // details => { value: string }
+    console.log("selected tab:", details.value)
+  },
+})
+```
+
+### Allowing deselection
+
+Set `deselectable` to allow clicking the active tab to clear the current value.
+
+```jsx
+const service = useMachine(tabs.machine, {
+  deselectable: true,
+})
+```
+
+### Custom navigation for link tabs
+
+Use `navigate` when your tab triggers are rendered as links.
+
+```jsx
+const service = useMachine(tabs.machine, {
+  navigate(details) {
+    // details => { value: string, node: HTMLAnchorElement, href: string }
+    router.push(details.href)
+  },
+})
+```
+
+### Manual tab activation
+
+By default, a tab is selected when it receives focus from either keyboard or
+pointer interaction. This is called "automatic tab activation".
+
+The other approach is "manual tab activation" which means the tab is selected
+with the Enter key or by clicking on the tab.
+
+```jsx {2}
+const service = useMachine(tabs.machine, {
+  activationMode: "manual",
+})
+```
+
+### Looping keyboard navigation
+
+Set `loopFocus` to control whether arrow-key navigation wraps at the ends.
+
+```jsx
+const service = useMachine(tabs.machine, {
+  loopFocus: false,
+})
+```
+
+### RTL Support
+
+The tabs machine provides support right to left writing directions. In this
+mode, the layout and keyboard interaction is flipped.
+
+To enable RTL support, set the `dir` property in the machine's context to `rtl`.
+
+```jsx {2}
+const service = useMachine(tabs.machine, {
+  dir: "rtl",
+})
+```
+
+### Programmatic tab control
+
+Use the connected API for imperative navigation and focus.
+
+```jsx
+api.setValue("tab-2")
+api.selectNext()
+api.selectPrev()
+api.focus()
+```
+
+## Styling guide
+
+### Selected state
+
+When a tab is selected, a `data-selected` attribute is added to the trigger and
+content elements.
+
+```css
+[data-part="trigger"][data-state="active"] {
+  /* Styles for selected tab */
+}
+
+[data-part="content"][data-state="active"] {
+  /* Styles for selected tab */
+}
+```
+
+### Disabled state
+
+When a tab is disabled, a `data-disabled` attribute is added to the trigger
+element.
+
+```css
+[data-part="trigger"][data-disabled] {
+  /* Styles for disabled tab */
+}
+```
+
+### Focused state
+
+When a tab is focused, you the `:focus` or `:focus-visible` pseudo-class to
+style it.
+
+```css
+[data-part="trigger"]:focus {
+  /* Styles for focused tab */
+}
+```
+
+When any tab is focused, the list is given a `data-focus` attribute.
+
+```css
+[data-part="list"][data-focus] {
+  /* Styles for when any tab is focused */
+}
+```
+
+### Orientation styles
+
+All parts of the tabs component have the `data-orientation` attribute. You can
+use this to set the style for the horizontal or vertical tabs.
+
+```css
+[data-part="trigger"][data-orientation="(horizontal|vertical)"] {
+  /* Styles for horizontal/vertical tabs */
+}
+
+[data-part="root"][data-orientation="(horizontal|vertical)"] {
+  /* Styles for horizontal/vertical root */
+}
+
+[data-part="indicator"][data-orientation="(horizontal|vertical)"] {
+  /* Styles for horizontal/vertical tab-indicator */
+}
+
+[data-part="list"][data-orientation="(horizontal|vertical)"] {
+  /* Styles for horizontal/vertical list */
+}
+```
+
+### The tab indicator
+
+The tab indicator styles have CSS variables for the `transitionDuration` and
+`transitionTimingFunction` defined in it.
+
+The transition definition is applied when the selected tab changes to allow the
+indicator move smoothly to the new selected tab.
+
+```css
+[data-part="indicator"] {
+  --transition-duration: 0.2s;
+  --transition-timing-function: ease-in-out;
+}
+```
+
+## Methods and Properties
+
+### Machine Context
+
+The tabs machine exposes the following context properties:
+
+<ContextTable name="tabs" />
+
+### Machine API
+
+The tabs `api` exposes the following methods:
+
+<ApiTable name="tabs" />
+
+### Data Attributes
+
+<DataAttrTable name="tabs" />
+
+### CSS Variables
+
+<CssVarTable name="tabs" />
+
+## Accessibility
+
+### Keyboard Interactions
+
+<KeyboardTable name="tabs" />

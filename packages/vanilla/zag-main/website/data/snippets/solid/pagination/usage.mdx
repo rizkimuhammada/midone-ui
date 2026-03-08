@@ -1,0 +1,55 @@
+```jsx
+import * as pagination from "@zag-js/pagination"
+import { normalizeProps, useMachine } from "@zag-js/solid"
+import { createMemo, createUniqueId, For } from "solid-js"
+import { data } from "./data"
+
+function Pagination() {
+  const service = useMachine(pagination.machine, {
+    id: createUniqueId(),
+    count: data.length,
+  })
+
+  const api = createMemo(() => pagination.connect(service, normalizeProps))
+
+  return (
+    <div>
+      {api().totalPages > 1 && (
+        <nav {...api().getRootProps()}>
+          <ul>
+            <li>
+              <a href="#previous" {...api().getPrevTriggerProps()}>
+                Previous <span class="visually-hidden">Page</span>
+              </a>
+            </li>
+            <For each={api().pages}>
+              {(page, i) => {
+                if (page.type === "page")
+                  return (
+                    <li>
+                      <a href={`#${page.value}`} {...api().getItemProps(page)}>
+                        {page.value}
+                      </a>
+                    </li>
+                  )
+                return (
+                  <li>
+                    <span {...api().getEllipsisProps({ index: i() })}>
+                      &#8230;
+                    </span>
+                  </li>
+                )
+              }}
+            </For>
+            <li>
+              <a href="#next" {...api().getNextTriggerProps()}>
+                Next <span class="visually-hidden">Page</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      )}
+    </div>
+  )
+}
+```

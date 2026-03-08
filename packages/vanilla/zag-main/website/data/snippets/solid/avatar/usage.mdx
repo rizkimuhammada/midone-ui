@@ -1,0 +1,17 @@
+```jsx
+import * as avatar from "@zag-js/avatar"
+import { useMachine, normalizeProps } from "@zag-js/solid"
+
+function Avatar() {
+  const service = useMachine(avatar.machine, { id: "1" })
+
+  const api = createMemo(() => avatar.connect(service, normalizeProps))
+
+  return (
+    <div {...api().getRootProps()}>
+      <span {...api().getFallbackProps()}>PA</span>
+      <img alt="PA" src={src} {...api().getImageProps()} />
+    </div>
+  )
+}
+```

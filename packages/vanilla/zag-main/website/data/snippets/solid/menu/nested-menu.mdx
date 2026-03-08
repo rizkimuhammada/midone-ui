@@ -1,0 +1,70 @@
+```jsx
+import * as menu from "@zag-js/menu"
+import { normalizeProps, useMachine } from "@zag-js/solid"
+import { createMemo, createUniqueId, onMount } from "solid-js"
+import { Portal } from "solid-js/web"
+
+export default function Page() {
+  // Level 1 - File Menu
+  const fileService = useMachine(menu.machine, {
+    "aria-label": "File",
+    id: createUniqueId(),
+  })
+
+  const fileMenu = createMemo(() => menu.connect(fileService, normalizeProps))
+
+  // Level 2 - Share Menu
+  const shareService = useMachine(menu.machine, {
+    "aria-label": "Share",
+    id: createUniqueId(),
+  })
+
+  const shareMenu = createMemo(() => menu.connect(shareService, normalizeProps))
+
+  onMount(() => {
+    setTimeout(() => {
+      fileMenu().setChild(shareService)
+      shareMenu().setParent(fileService)
+    })
+  })
+
+  // Share menu trigger
+  const shareMenuTriggerProps = createMemo(() =>
+    fileMenu().getTriggerItemProps(shareMenu()),
+  )
+
+  return (
+    <>
+      <button {...fileMenu().getTriggerProps()}>Click me</button>
+
+      <Portal>
+        <div {...fileMenu().getPositionerProps()}>
+          <ul {...fileMenu().getContentProps()}>
+            <li {...fileMenu().getItemProps({ value: "new-tab" })}>New tab</li>
+            <li {...fileMenu().getItemProps({ value: "new-win" })}>
+              New window
+            </li>
+            <li {...shareMenuTriggerProps()}>Share</li>
+            <li {...fileMenu().getItemProps({ value: "print" })}>Print...</li>
+            <li {...fileMenu().getItemProps({ value: "help" })}>Help</li>
+          </ul>
+        </div>
+      </Portal>
+
+      <Portal>
+        <div {...shareMenu().getPositionerProps()}>
+          <ul {...shareMenu().getContentProps()}>
+            <li {...shareMenu().getItemProps({ value: "messages" })}>
+              Messages
+            </li>
+            <li {...shareMenu().getItemProps({ value: "airdrop" })}>Airdrop</li>
+            <li {...shareMenu().getItemProps({ value: "whatsapp" })}>
+              WhatsApp
+            </li>
+          </ul>
+        </div>
+      </Portal>
+    </>
+  )
+}
+```

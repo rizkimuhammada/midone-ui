@@ -1,0 +1,297 @@
+---
+title: Menu
+description: Using the menu machine in your project.
+package: "@zag-js/menu"
+---
+
+An accessible dropdown and context menu that is used to display a list of
+actions or options that a user can choose.
+
+<Resources pkg="@zag-js/menu" />
+
+<Showcase id="Menu" />
+
+**Features**
+
+- Supports items, labels, groups of items
+- Focus is fully managed using `aria-activedescendant` pattern
+- Typeahead to allow focusing items by typing text
+- Keyboard navigation support including arrow keys, home/end, page up/down
+
+## Installation
+
+Install the menu package:
+
+<CodeSnippet id="menu/installation.mdx" />
+
+## Anatomy
+
+Check the menu anatomy and part names.
+
+> Each part includes a `data-part` attribute to help identify them in the DOM.
+
+<Anatomy id="menu" />
+
+## Usage
+
+Import the menu package:
+
+```jsx
+import * as menu from "@zag-js/menu"
+```
+
+The menu package exports two key functions:
+
+- `machine` - State machine logic.
+- `connect` - Maps machine state to JSX props and event handlers.
+
+> Pass a unique `id` to `useMachine` so generated element ids stay predictable.
+
+Then use the framework integration helpers:
+
+<CodeSnippet id="menu/usage.mdx" />
+
+### Listening for item selection
+
+When a menu item is clicked, the `onSelect` callback is invoked.
+
+```jsx {3-6}
+const service = useMachine(menu.machine, {
+  onSelect(details) {
+    // details => { value: string }
+    console.log("selected value is ", details.value)
+  },
+})
+```
+
+### Listening for open state changes
+
+When a menu is opened or closed, the `onOpenChange` callback is invoked.
+
+```jsx {3-6}
+const service = useMachine(menu.machine, {
+  onOpenChange(details) {
+    // details => { open: boolean }
+    console.log("open state is ", details.open)
+  },
+})
+```
+
+### Controlled open state
+
+Use `open` and `onOpenChange` to control visibility externally.
+
+```jsx
+const service = useMachine(menu.machine, {
+  open,
+  onOpenChange(details) {
+    setOpen(details.open)
+  },
+})
+```
+
+### Listening for highlighted items
+
+Use `onHighlightChange` to react when highlighted item changes.
+
+```jsx
+const service = useMachine(menu.machine, {
+  onHighlightChange(details) {
+    // details => { highlightedValue: string | null }
+    console.log(details.highlightedValue)
+  },
+})
+```
+
+### Setting initial highlighted item
+
+Use `defaultHighlightedValue` to set the initially highlighted item.
+
+```jsx
+const service = useMachine(menu.machine, {
+  defaultHighlightedValue: "settings",
+})
+```
+
+### Grouping menu items
+
+When you have many menu items, it can help to group related options:
+
+- Wrap the menu items within an element.
+- Spread `api.getGroupProps(...)` props on the group element, providing an `id`.
+- Render a label for the menu group, providing the `id` of the group element.
+
+```jsx
+//...
+<div {...api.getContentProps()}>
+  {/* ... */}
+  <hr {...api.getSeparatorProps()} />
+  <p {...api.getItemGroupLabelProps({ htmlFor: "account" })}>Accounts</p>
+  <div {...api.getItemGroupProps({ id: "account" })}>
+    <button {...api.getItemProps({ value: "account-1" })}>Account 1</button>
+    <button {...api.getItemProps({ value: "account-2" })}>Account 2</button>
+  </div>
+</div>
+//...
+```
+
+### Checkbox and Radio option items
+
+To use checkbox or radio option items, you'll need to:
+
+- Add a `value` property to the machine's context whose value is an object
+  describing the state of the option items.
+- Use the `api.getOptionItemProps(...)` function to get the props for the option
+  item.
+
+A common requirement for the option item that you pass the `name`, `value` and
+`type` properties.
+
+- `type` — The type of option item. Either `"checkbox"` or `"radio"`.
+- `value` — The value of the option item.
+- `checked` — The checked state of the option item.
+- `onCheckedChange` — The callback to invoke when the checked state changes.
+
+<CodeSnippet id="menu/option-items.mdx" />
+
+### Default open state
+
+Use `defaultOpen` to start with the menu opened in uncontrolled mode.
+
+```jsx
+const service = useMachine(menu.machine, {
+  defaultOpen: true,
+})
+```
+
+### Keeping menu open after selection
+
+Set `closeOnSelect` to `false` to keep the menu open after selecting an item.
+
+```jsx
+const service = useMachine(menu.machine, {
+  closeOnSelect: false,
+})
+```
+
+### Positioning the menu
+
+Use `positioning` to configure menu placement.
+
+```jsx
+const service = useMachine(menu.machine, {
+  positioning: { placement: "bottom-start" },
+})
+```
+
+### Labeling the menu without visible text
+
+If you do not render a visible label, provide `aria-label`.
+
+```jsx
+const service = useMachine(menu.machine, {
+  "aria-label": "Actions",
+})
+```
+
+## Styling guide
+
+Each menu part includes a `data-part` attribute you can target in CSS.
+
+### Open and closed state
+
+When the menu is open or closed, the content and trigger parts will have the
+`data-state` attribute.
+
+```css
+[data-part="content"][data-state="open|closed"] {
+  /* styles for open or closed state */
+}
+
+[data-part="trigger"][data-state="open|closed"] {
+  /* styles for open or closed state */
+}
+```
+
+### Highlighted item state
+
+When an item is highlighted, via keyboard navigation or pointer, it is given a
+`data-highlighted` attribute.
+
+```css
+[data-part="item"][data-highlighted] {
+  /* styles for highlighted state */
+}
+
+[data-part="item"][data-type="radio|checkbox"][data-highlighted] {
+  /* styles for highlighted state */
+}
+```
+
+### Disabled item state
+
+When an item or an option item is disabled, it is given a `data-disabled`
+attribute.
+
+```css
+[data-part="item"][data-disabled] {
+  /* styles for disabled state */
+}
+
+[data-part="item"][data-type="radio|checkbox"][data-disabled] {
+  /* styles for disabled state */
+}
+```
+
+### Using arrows
+
+When using arrows within the menu, you can style it using CSS variables.
+
+```css
+[data-part="arrow"] {
+  --arrow-size: 20px;
+  --arrow-background: red;
+}
+```
+
+### Checked option item state
+
+When an option item is checked, it is given a `data-state` attribute.
+
+```css
+[data-part="item"][data-type="radio|checkbox"][data-state="checked"] {
+  /* styles for checked state */
+}
+```
+
+## Methods and Properties
+
+### Machine Context
+
+The menu machine exposes the following context properties:
+
+<ContextTable name="menu" />
+
+### Machine API
+
+The menu `api` exposes the following methods:
+
+<ApiTable name="menu" />
+
+### Data Attributes
+
+<DataAttrTable name="menu" />
+
+### CSS Variables
+
+<CssVarTable name="menu" />
+
+## Accessibility
+
+Uses
+[aria-activedescendant](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/examples/menu-button-actions-active-descendant/)
+pattern to manage focus movement among menu items.
+
+### Keyboard Interactions
+
+<KeyboardTable name="menu" />

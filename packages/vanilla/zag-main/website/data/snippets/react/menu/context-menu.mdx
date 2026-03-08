@@ -1,0 +1,25 @@
+```jsx
+import * as menu from "@zag-js/menu"
+import { useMachine, normalizeProps } from "@zag-js/react"
+
+export function ContextMenu() {
+  const service = useMachine(menu.machine, { id: "1" })
+  const api = menu.connect(service, normalizeProps)
+
+  return (
+    <div>
+      <div {...api.getContextTriggerProps()}>
+        <div>Open context menu</div>
+      </div>
+      <div {...api.getPositionerProps()}>
+        <ul {...api.getContentProps()}>
+          <li {...api.getItemProps({ value: "edit" })}>Edit</li>
+          <li {...api.getItemProps({ value: "duplicate" })}>Duplicate</li>
+          <li {...api.getItemProps({ value: "delete" })}>Delete</li>
+          <li {...api.getItemProps({ value: "export" })}>Export...</li>
+        </ul>
+      </div>
+    </div>
+  )
+}
+```

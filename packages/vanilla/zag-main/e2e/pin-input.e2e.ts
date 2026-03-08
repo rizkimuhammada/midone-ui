@@ -1,0 +1,145 @@
+import { expect, test } from "@playwright/test"
+import { testid } from "./_utils"
+
+const first = testid("input-1")
+const second = testid("input-2")
+const third = testid("input-3")
+const clear = testid("clear-button")
+
+test.describe("pin input", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/pin-input/basic")
+  })
+
+  test("on type: should move focus to the next input", async ({ page }) => {
+    await page.locator(first).fill("1")
+    await expect(page.locator(second)).toBeFocused()
+    await page.locator(second).fill("2")
+    await expect(page.locator(third)).toBeFocused()
+    await page.locator(third).fill("3")
+  })
+
+  test("on type: should not allow multiple keys at once ", async ({ page }) => {
+    await page.locator(first).fill("12")
+    // it takes the last key and ignores the rest
+    await expect(page.locator(first)).toHaveValue("2")
+  })
+
+  test("on backspace: should clear value and move focus to prev input", async ({ page }) => {
+    await page.locator(first).fill("1")
+    await expect(page.locator(second)).toBeFocused()
+    await page.locator(second).fill("2")
+    await expect(page.locator(third)).toBeFocused()
+    await page.locator(third).press("Backspace")
+    await expect(page.locator(second)).toBeFocused()
+    await expect(page.locator(second)).toHaveValue("")
+  })
+
+  test("on arrow: should change focus between inputs", async ({ page }) => {
+    // fill out all fields
+    await page.locator(first).fill("1")
+    await page.locator(second).fill("2")
+    await page.locator(third).fill("3")
+
+    // navigate with arrow keys
+    await page.keyboard.press("ArrowLeft")
+    await expect(page.locator(second)).toBeFocused()
+    await page.keyboard.press("ArrowRight")
+    await expect(page.locator(third)).toBeFocused()
+  })
+
+  test("on clear: should clear values and focus first", async ({ page }) => {
+    // fill out all fields
+    await page.locator(first).fill("1")
+    await page.locator(second).fill("2")
+    await page.locator(third).fill("3")
+
+    // click clear
+    await page.locator(clear).click()
+    await expect(page.locator(first)).toBeFocused()
+    await expect(page.locator(first)).toHaveValue("")
+    await expect(page.locator(second)).toHaveValue("")
+    await expect(page.locator(third)).toHaveValue("")
+  })
+
+  test("on paste: should autofill all fields", async ({ page, context }) => {
+    await context.grantPermissions(["clipboard-read", "clipboard-write"])
+
+    await page.locator(first).focus()
+
+    await page.evaluate(() => navigator.clipboard.writeText("123"))
+    await page.locator(first).press("ControlOrMeta+v")
+
+    await expect(page.locator(first)).toHaveValue("1")
+    await expect(page.locator(second)).toHaveValue("2")
+    await expect(page.locator(third)).toHaveValue("3")
+    await expect(page.locator(third)).toBeFocused()
+  })
+
+  test("on paste: should autofill all fields if focused field is not empty", async ({ page, context }) => {
+    await context.grantPermissions(["clipboard-read", "clipboard-write"])
+
+    await page.locator(first).fill("1")
+    await page.locator(first).focus()
+
+    await page.evaluate(() => navigator.clipboard.writeText("123"))
+    await page.locator(first).press("ControlOrMeta+v")
+
+    await expect(page.locator(first)).toHaveValue("1")
+    await expect(page.locator(second)).toHaveValue("2")
+    await expect(page.locator(third)).toHaveValue("3")
+    await expect(page.locator(third)).toBeFocused()
+  })
+
+  test("[different] should allow only single character", async ({ page }) => {
+    await page.locator(first).fill("1")
+    await page.locator(second).fill("2")
+    await page.locator(first).focus()
+    await page.locator(first).fill("3")
+    await expect(page.locator(first)).toHaveValue("3")
+  })
+
+  test("[same] should allow only single character", async ({ page }) => {
+    await page.locator(first).fill("1")
+    await page.locator(first).focus()
+    await page.locator(first).fill("1")
+    await expect(page.locator(first)).toHaveValue("1")
+  })
+
+  test("[on edit] should allow to edit the existing value", async ({ page }) => {
+    await page.locator(first).fill("1")
+    await page.locator(second).fill("2")
+    await page.locator(third).fill("3")
+    await page.locator(second).focus()
+    await page.locator(second).fill("4")
+    await expect(page.locator(second)).toHaveValue("4")
+    await expect(page.locator(third)).toHaveValue("3")
+    await expect(page.locator(third)).toBeFocused()
+  })
+
+  test("native delete keyboard behavior", async ({ page }) => {
+    // Fill the pin input with values
+    await page.locator(first).fill("1")
+    await page.locator(second).fill("2")
+    await page.locator(third).fill("3")
+
+    // Focus on the second input
+    await page.locator(third).focus()
+
+    // Press ctrl/cmd+backspace (delete to start of line - cross-platform)
+    await page.keyboard.press("ControlOrMeta+Backspace")
+
+    // The input should be cleared
+    await expect(page.locator(third)).toHaveValue("")
+
+    // Test fn+delete (forward delete) - refill first
+    await page.locator(third).fill("2")
+    await page.locator(third).focus()
+    // Move cursor to start of input to test forward delete
+    await page.keyboard.press("Home")
+    await page.keyboard.press("Delete")
+
+    // The input should be cleared
+    await expect(page.locator(third)).toHaveValue("")
+  })
+})

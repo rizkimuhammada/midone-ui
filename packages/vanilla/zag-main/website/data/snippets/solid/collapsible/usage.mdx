@@ -1,0 +1,18 @@
+```tsx
+import * as collapsible from "@zag-js/collapsible"
+import { normalizeProps, useMachine } from "@zag-js/solid"
+import { createMemo, createUniqueId } from "solid-js"
+
+function Collapsible() {
+  const service = useMachine(collapsible.machine, { id: createUniqueId() })
+
+  const api = createMemo(() => collapsible.connect(service, normalizeProps))
+
+  return (
+    <div {...api().getRootProps()}>
+      <button {...api().getTriggerProps()}>Collapse Trigger</button>
+      <div {...api().getContentProps()}>Collape Content</div>
+    </div>
+  )
+}
+```

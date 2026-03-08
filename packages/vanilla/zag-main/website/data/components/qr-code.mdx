@@ -1,0 +1,214 @@
+---
+title: QR Code
+description: Using the QR code machine in your project.
+package: "@zag-js/qr-code"
+---
+
+A QR code encodes information or links that can be scanned with a phone or app.
+
+> **Good to know**: The QR code encoding logic is built on top of the
+> [`uqr`](https://github.com/unjs/uqr) library.
+
+<Resources pkg="@zag-js/qr-code" />
+
+<Showcase id="QRCode" />
+
+**Features**
+
+- Renders an SVG element (good for SSR)
+- Customize the size of the QR code in pixels
+- Set the error correction level
+- Customize the background and foreground color
+
+## Installation
+
+Install the QR code package:
+
+<CodeSnippet id="qr-code/installation.mdx" />
+
+## Anatomy
+
+Check the QR code anatomy and part names.
+
+> Each part includes a `data-part` attribute to help identify them in the DOM.
+
+<Anatomy id="qr-code" />
+
+## Usage
+
+Import the QR code package:
+
+```jsx
+import * as qrCode from "@zag-js/qr-code"
+```
+
+These are the key exports:
+
+- `machine` - State machine logic.
+- `connect` - Maps machine state to JSX props and event handlers.
+
+Then use the framework integration helpers:
+
+<CodeSnippet id="qr-code/usage.mdx" />
+
+### Setting the QR code value
+
+Set `value` to control the encoded content.
+
+```jsx {3}
+const service = useMachine(qrCode.machine, {
+  // ...
+  value: "https://example.com",
+})
+```
+
+### Setting an initial value
+
+Use `defaultValue` for an uncontrolled initial value.
+
+```jsx
+const service = useMachine(qrCode.machine, {
+  defaultValue: "https://example.com",
+})
+```
+
+### Listening for value changes
+
+Use `onValueChange` to react when the encoded value changes.
+
+```jsx
+const service = useMachine(qrCode.machine, {
+  onValueChange(details) {
+    // details => { value: string }
+    console.log(details.value)
+  },
+})
+```
+
+### Setting pixel size
+
+Use `pixelSize` to control QR code density.
+
+```jsx
+const service = useMachine(qrCode.machine, {
+  value: "https://example.com",
+  pixelSize: 8,
+})
+```
+
+### Setting the correction level
+
+Error correction allows for the QR code to be blocked or resized while still
+recognizable. In some cases where the link is too long or the logo overlay
+covers a significant area, the error correction level can be increased.
+
+The QR code machine accepts the following error correction levels:
+
+- `L`: Allows recovery of up to 7% data loss (default)
+- `M`: Allows recovery of up to 15% data loss
+- `Q`: Allows recovery of up to 25% data loss
+- `H`: Allows recovery of up to 30% data loss
+
+To set the error correction level, pass the `encoding.ecc` or
+`encoding.boostEcc` context property.
+
+```jsx {3}
+const service = useMachine(qrCode.machine, {
+  value: "...",
+  encoding: { ecc: "H" },
+})
+```
+
+> The alternative is to enlarge the QRCode by increasing the size of the `svg`
+> element.
+
+### Adding an overlay logo
+
+To add a logo overlay to the QR code, render the image part. The logo will be
+automatically centered within the QR code.
+
+```jsx {3}
+<div {...api.getRootProps()}>
+  <svg {...api.getFrameProps()}>{/** ... */}</svg>
+  <div {...api.getOverlayProps()}>
+    <img src="..." alt="" />
+  </div>
+</div>
+```
+
+### Changing the color
+
+To change the color of the QR code, set the `fill` attribute on the `path` part.
+
+```css
+[data-scope="qr-code"][data-part="pattern"] {
+  fill: green;
+}
+```
+
+To change the background color of the QR code, set the `background-color`
+
+```css
+[data-scope="qr-code"][data-part="frame"] {
+  background-color: white;
+}
+```
+
+### Exporting the QR code
+
+To export the QR code as an image, use `api.getDataUrl`.
+
+```ts
+api.getDataUrl("image/png").then((url) => {
+  // do something with the URL (like download it)
+})
+```
+
+You can also use `api.getDownloadTriggerProps` to create a download button.
+
+```jsx
+<button
+  {...api.getDownloadTriggerProps({
+    mimeType: "image/png",
+    fileName: "qr-code",
+  })}
+>
+  Download QR
+</button>
+```
+
+## Styling guide
+
+Each part includes a `data-part` attribute you can target in CSS.
+
+```css
+[data-scope="qr-code"][data-part="root"] {
+  /* Styles for the root part */
+}
+
+[data-scope="qr-code"][data-part="frame"] {
+  /* Styles for the svg part */
+}
+
+[data-scope="qr-code"][data-part="pattern"] {
+  /* Styles for the path */
+}
+
+[data-scope="qr-code"][data-part="overlay"] {
+  /* Styles for the logo */
+}
+```
+
+## Methods and Properties
+
+### Machine Context
+
+The QR code machine exposes the following context properties:
+
+<ContextTable name="qr-code" />
+
+### Machine API
+
+The QR code `api` exposes the following methods:
+
+<ApiTable name="qr-code" />

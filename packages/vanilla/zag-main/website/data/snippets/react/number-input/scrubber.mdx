@@ -1,0 +1,20 @@
+```jsx {13}
+import * as numberInput from "@zag-js/number-input"
+import { useMachine, normalizeProps } from "@zag-js/react"
+
+export function NumberInput() {
+  const service = useMachine(numberInput.machine, { id: "1" })
+
+  const api = numberInput.connect(service, normalizeProps)
+
+  return (
+    <div {...api.getRootProps()}>
+      <label {...api.getLabelProps()}>Enter number:</label>
+      <div>
+        <div {...api.getScrubberProps()} />
+        <input {...api.getInputProps()} />
+      </div>
+    </div>
+  )
+}
+```

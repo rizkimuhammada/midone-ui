@@ -1,0 +1,50 @@
+```tsx
+import * as accordion from "@zag-js/accordion"
+import { normalizeProps, useMachine } from "@zag-js/solid"
+import {
+  mergeProps,
+  splitProps,
+  createMemo,
+  createUniqueId,
+  For,
+  JSX,
+} from "solid-js"
+
+interface Item {
+  value: string
+  title: JSX.Element
+  content: JSX.Element
+}
+
+export interface AccordionProps extends Omit<accordion.Context, "id"> {
+  items: Item[]
+}
+
+export function Accordion(props: AccordionProps) {
+  const [machineProps, localProps] = splitProps(props, accordion.props)
+  const context = mergeProps(machineProps, { id: createUniqueId() })
+
+  const service = useMachine(accordion.machine, context)
+
+  const api = createMemo(() => accordion.connect(service, normalizeProps))
+
+  return (
+    <div {...api().getRootProps()}>
+      <For each={localProps.items}>
+        {(item) => (
+          <div {...api().getItemProps({ value: item.value })}>
+            <h3>
+              <button {...api().getItemTriggerProps({ value: item.value })}>
+                {item.title}
+              </button>
+            </h3>
+            <div {...api().getItemContentProps({ value: item.value })}>
+              {item.content}
+            </div>
+          </div>
+        )}
+      </For>
+    </div>
+  )
+}
+```

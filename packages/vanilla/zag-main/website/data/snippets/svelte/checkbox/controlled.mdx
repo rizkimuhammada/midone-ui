@@ -1,0 +1,12 @@
+```svelte
+<script lang="ts">
+  let checked = $state(false)
+
+  const service = useMachine(checkbox.machine, () => ({
+    checked,
+    onCheckedChange(details) {
+      checked = details.checked
+    },
+  }))
+</script>
+```
