@@ -1,6 +1,7 @@
 import './index.css'
 import { LitElement, html } from 'lit'
 import * as accordion from "@zag-js/accordion"
+import * as avatar from "@zag-js/avatar"
 import { normalizeProps, VanillaMachine } from "@zag-js/vanilla"
 import { buttonVariants, type ButtonVariants } from './core/styles/button.styles'
 import { boxVariants, type BoxVariants } from './core/styles/box.styles'
@@ -272,40 +273,102 @@ export class MAvatarRoot extends LitElement {
     bordered?: AvatarRootVariants['bordered']
     asChild = false
     private _initialClass = ''
+    private service: any = null
+    api: any = null
+
+    createRenderRoot() { return this }
+
+    connectedCallback() {
+        super.connectedCallback()
+        this._initialClass = this.getAttribute('class') || ''
+
+        this.service = new VanillaMachine(avatar.machine, {
+            id: this.id || Math.random().toString(36).substr(2, 9),
+        })
+
+        this.service.subscribe((service: any) => {
+            this.api = avatar.connect(service, normalizeProps)
+            this.requestUpdate()
+        })
+
+        this.service.start()
+    }
+
+    updated() {
+        if (!this.api) return
+        syncSlot(this, avatarRootVariants({ bordered: this.bordered }), this._initialClass, this.api.getRootProps())
+
+        // Sync API to children
+        const children = Array.from(this.children) as any[]
+        children.forEach(child => {
+            if (child.tagName.toLowerCase().startsWith('m-avatar-')) {
+                child.api = this.api
+                child.requestUpdate()
+            }
+        })
+    }
+    render() { return undefined }
+}
+
+export class MAvatarImage extends LitElement {
+    static properties = {
+        src: { type: String },
+        alt: { type: String },
+        asChild: { type: Boolean, attribute: 'as-child' }
+    }
+    src?: string
+    alt?: string
+    asChild = false
+    api: any = null
+    private _initialClass = ''
+
     createRenderRoot() { return this }
     connectedCallback() {
         super.connectedCallback()
         this._initialClass = this.getAttribute('class') || ''
     }
     updated() {
-        syncSlot(this, avatarRootVariants({ bordered: this.bordered }), this._initialClass)
-    }
-    render() { return undefined }
-}
+        if (!this.api) return
 
-export class MAvatarImage extends LitElement {
-    static properties = { asChild: { type: Boolean, attribute: 'as-child' } }
-    asChild = false
-    private _initialClass = ''
-    createRenderRoot() { return this }
-    connectedCallback() {
-        super.connectedCallback()
-        this._initialClass = this.getAttribute('class') || ''
+        const src = this.src || this.getAttribute('src') || ''
+        const alt = this.alt || this.getAttribute('alt') || ''
+
+        // Render <img> if not asChild and no children
+        if (!this.asChild && !this.firstElementChild) {
+            let img = this.querySelector('img')
+            if (!img) {
+                img = document.createElement('img')
+                this.appendChild(img)
+            }
+            if (img.src !== src) img.src = src
+            if (img.alt !== alt) img.alt = alt
+        }
+
+        const imageProps = this.api.getImageProps()
+        syncSlot(this, avatarImage, this._initialClass, { ...imageProps, src, alt })
     }
-    updated() { syncSlot(this, avatarImage, this._initialClass) }
     render() { return undefined }
 }
 
 export class MAvatarFallback extends LitElement {
     static properties = { asChild: { type: Boolean, attribute: 'as-child' } }
     asChild = false
+    api: any = null
     private _initialClass = ''
+
     createRenderRoot() { return this }
     connectedCallback() {
         super.connectedCallback()
         this._initialClass = this.getAttribute('class') || ''
     }
-    updated() { syncSlot(this, avatarFallback, this._initialClass) }
+    updated() {
+        if (!this.api) return
+
+        const fallbackProps = this.api.getFallbackProps()
+        this.style.display = fallbackProps.hidden ? 'none' : ''
+
+        syncSlot(this, avatarFallback, this._initialClass, fallbackProps)
+    }
     render() { return undefined }
 }
 
