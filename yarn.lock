@@ -274,14 +274,7 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/retry/-/retry-0.4.3.tgz"
   integrity sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==
 
-"@internationalized/date@^3.11.0":
-  version "3.11.0"
-  resolved "https://registry.npmjs.org/@internationalized/date/-/date-3.11.0.tgz"
-  integrity sha512-BOx5huLAWhicM9/ZFs84CzP+V3gBW6vlpM02yzsdYC7TGlZJX1OJiEEHcSayF00Z+3jLlm4w79amvSt6RqKN3Q==
-  dependencies:
-    "@swc/helpers" "^0.5.0"
-
-"@internationalized/date@>=3.0.0":
+"@internationalized/date@^3.11.0", "@internationalized/date@>=3.0.0":
   version "3.12.0"
   resolved "https://registry.npmjs.org/@internationalized/date/-/date-3.12.0.tgz"
   integrity sha512-/PyIMzK29jtXaGU23qTvNZxvBXRtKbNnGDFD+PY6CZw/Y8Ex8pFUzkuCJCG9aOqmShjqhS9mPqP6Dk5onQY8rQ==
@@ -508,22 +501,6 @@
     tailwind-merge "^3.3.1"
     tailwindcss "^4.1.11"
     tw-animate-css "^1.3.5"
-
-"@midoneui/vanilla@file:/Users/dwicompany/Desktop/Projects/midone-ui/packages/vanilla":
-  version "0.0.0"
-  resolved "file:packages/vanilla"
-  dependencies:
-    "@zag-js/accordion" "^1.35.3"
-    "@zag-js/avatar" "^1.26.1"
-    "@zag-js/progress" "^1.26.1"
-    "@zag-js/vanilla" "^1.35.3"
-    "@zag-js/vue" "^1.35.3"
-    class-variance-authority "^0.7.1"
-    clsx "^2.1.1"
-    lucide "^0.577.0"
-    tailwind-merge "^2.6.0"
-    tw-animate-css "^1.4.0"
-    vue "^3.5.29"
 
 "@midoneui/vue@file:/Users/dwicompany/Desktop/Projects/midone-ui/packages/vue":
   version "1.0.0"
@@ -766,7 +743,7 @@
   resolved "https://registry.npmjs.org/@types/ms/-/ms-2.1.0.tgz"
   integrity sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==
 
-"@types/node@^20.19.0 || >=22.12.0", "@types/node@^24.3.0":
+"@types/node@^20.19.0 || >=22.12.0", "@types/node@^24.10.1", "@types/node@^24.3.0":
   version "24.10.13"
   resolved "https://registry.npmjs.org/@types/node/-/node-24.10.13.tgz"
   integrity sha512-oH72nZRfDv9lADUBSo104Aq7gPHpQZc4BTx38r9xf9pg5LfP6EzSyH2n7qFmmxRQXh7YlUXODcYsg6PuTDSxGg==
@@ -1145,14 +1122,6 @@
     "@zag-js/dom-query" "1.26.1"
     "@zag-js/utils" "1.26.1"
 
-"@zag-js/core@1.35.3":
-  version "1.35.3"
-  resolved "https://registry.npmjs.org/@zag-js/core/-/core-1.35.3.tgz"
-  integrity sha512-fGAHyqOYSEFmo52t7wI4dvbFfLyJmUlyf7wknsiUlzUHlrn3yv5PAZYZ2TibpOD1hwXIp4AoCjbiIPPZBxirZw==
-  dependencies:
-    "@zag-js/dom-query" "1.35.3"
-    "@zag-js/utils" "1.35.3"
-
 "@zag-js/date-picker@1.26.1":
   version "1.26.1"
   resolved "https://registry.npmjs.org/@zag-js/date-picker/-/date-picker-1.26.1.tgz"
@@ -1203,13 +1172,6 @@
   integrity sha512-AcdNV+Zn+Mrz6jq6IpgBJmiooFCuGBzhbbjjU6Drh3TfNDL7q2YXinrZydoD4EGDaFOQ1h71iChTtCZSHw/yNw==
   dependencies:
     "@zag-js/types" "1.26.1"
-
-"@zag-js/dom-query@1.35.3":
-  version "1.35.3"
-  resolved "https://registry.npmjs.org/@zag-js/dom-query/-/dom-query-1.35.3.tgz"
-  integrity sha512-1RbFZoT4CjlHN9TUNse1++ZVOyKo45ktucTIT349o6HMsoWWKmTJDPvFkMBbmu/qY6XXn4dT+LJEp4bL3DR+Qw==
-  dependencies:
-    "@zag-js/types" "1.35.3"
 
 "@zag-js/focus-trap@1.26.1":
   version "1.26.1"
@@ -1447,22 +1409,10 @@
   dependencies:
     csstype "3.1.3"
 
-"@zag-js/types@1.35.3":
-  version "1.35.3"
-  resolved "https://registry.npmjs.org/@zag-js/types/-/types-1.35.3.tgz"
-  integrity sha512-Fnm3AMs1lfb55hlkip/eJeWHOjFB3gSi1JkZlkkdltG2l7y/zsHkumPSe6jIKy+DRRIFKRCyXVTatbPN27bO3w==
-  dependencies:
-    csstype "3.2.3"
-
 "@zag-js/utils@1.26.1":
   version "1.26.1"
   resolved "https://registry.npmjs.org/@zag-js/utils/-/utils-1.26.1.tgz"
   integrity sha512-OeQia4UV/3osMdrhSa2NmhWvzlnlF1vxOBAdYP5R96ho0FpI15DvAaPQDvE94shzIMgzS4k0pqK5lZWK5FTmqw==
-
-"@zag-js/utils@1.35.3":
-  version "1.35.3"
-  resolved "https://registry.npmjs.org/@zag-js/utils/-/utils-1.35.3.tgz"
-  integrity sha512-LHcC+9y6TFhDsIz9I3koYxONl2JFfx5yQDzc6ZEQO2cqzXedRcN0R9IPqNGCX7JuhGt14ctDkVCm1JWGP2J6Wg==
 
 "@zag-js/vue@1.26.1":
   version "1.26.1"
@@ -1672,11 +1622,6 @@ csstype@^3.0.2, csstype@3.1.3:
   integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
 
 csstype@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.npmjs.org/csstype/-/csstype-3.2.3.tgz"
-  integrity sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==
-
-csstype@3.2.3:
   version "3.2.3"
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.2.3.tgz"
   integrity sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==
@@ -2051,7 +1996,7 @@ flatted@^3.2.9:
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.3.3.tgz"
   integrity sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==
 
-fsevents@~2.3.2, fsevents@~2.3.3, fsevents@2.3.2:
+fsevents@~2.3.2, fsevents@~2.3.3:
   version "2.3.3"
   resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
@@ -2367,11 +2312,6 @@ lucide-vue-next@^0.542.0:
   version "0.542.0"
   resolved "https://registry.npmjs.org/lucide-vue-next/-/lucide-vue-next-0.542.0.tgz"
   integrity sha512-cJfyhFoneDgYTouHwUJEutXaCW5EQuRrBsvfELudWnMiwfqvcEtpZTFZLdZ5Nrqow+znzn+Iyhu3KeYIfa3mEg==
-
-lucide@^0.577.0:
-  version "0.577.0"
-  resolved "https://registry.npmjs.org/lucide/-/lucide-0.577.0.tgz"
-  integrity sha512-PpC/m5eOItp/WU/GlQPFBXDOhq6HibL73KzYP37OX3LM7VmzWQF8voEj8QRWUFvy9FIKfeDQkWYoyS1D/MdWFA==
 
 magic-string@^0.30.21:
   version "0.30.21"
@@ -3126,20 +3066,6 @@ picomatch@^4.0.2:
   resolved "https://registry.npmjs.org/picomatch/-/picomatch-4.0.3.tgz"
   integrity sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==
 
-playwright-core@1.58.2:
-  version "1.58.2"
-  resolved "https://registry.npmjs.org/playwright-core/-/playwright-core-1.58.2.tgz"
-  integrity sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==
-
-playwright@1.58.2:
-  version "1.58.2"
-  resolved "https://registry.npmjs.org/playwright/-/playwright-1.58.2.tgz"
-  integrity sha512-vA30H8Nvkq/cPBnNw4Q8TWz1EJyqgpuinBcHET0YVJVFldr8JDNiU9LaWAE1KqSkRYazuaBhTpB5ZzShOezQ6A==
-  dependencies:
-    playwright-core "1.58.2"
-  optionalDependencies:
-    fsevents "2.3.2"
-
 postcss@^8.5.6:
   version "8.5.6"
   resolved "https://registry.npmjs.org/postcss/-/postcss-8.5.6.tgz"
@@ -3460,7 +3386,7 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-tailwind-merge@^2.5.0, tailwind-merge@^2.6.0:
+tailwind-merge@^2.5.0, tailwind-merge@^2.6.0, tailwind-merge@^3.4.0:
   version "2.6.0"
   resolved "https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-2.6.0.tgz"
   integrity sha512-P+Vu1qXfzediirmHOC3xKGAYeZtPcV9g76X+xg2FD4tYgR71ewMA35Y3sCz3zhiN/dwefRpJX0yBcgwi1fXNQA==
@@ -3469,11 +3395,6 @@ tailwind-merge@^3.3.1:
   version "3.3.1"
   resolved "https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.3.1.tgz"
   integrity sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g==
-
-tailwind-merge@^3.4.0:
-  version "3.5.0"
-  resolved "https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.5.0.tgz"
-  integrity sha512-I8K9wewnVDkL1NTGoqWmVEIlUcB9gFriAEkXkfCjX5ib8ezGxtR3xD7iZIxrfArjEsH7F1CHD4RFUtxefdqV/A==
 
 tailwindcss@^4.1.11, tailwindcss@^4.1.12, tailwindcss@^4.2.1, tailwindcss@4.2.1:
   version "4.2.1"
@@ -3547,7 +3468,7 @@ typescript-eslint@^8.39.1:
     "@typescript-eslint/typescript-estree" "8.42.0"
     "@typescript-eslint/utils" "8.42.0"
 
-typescript@*, typescript@>=4.8.4, "typescript@>=4.8.4 <6.0.0", typescript@>=5.0.0, typescript@~5.8.3, typescript@5.x:
+typescript@*, typescript@>=4.8.4, "typescript@>=4.8.4 <6.0.0", typescript@>=5.0.0, typescript@~5.8.3, typescript@~5.9.3, typescript@5.x:
   version "5.8.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.8.3.tgz"
   integrity sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==

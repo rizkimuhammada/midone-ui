@@ -8,11 +8,9 @@
   "scripts": {
     "dev:vue": "npm run dev --workspace=@midoneui/vue",
     "dev:react": "npm run dev --workspace=@midoneui/react",
-    "dev:vanilla": "npm run dev --workspace=@midoneui/vanilla",
     "dev:svelte": "npm run dev --workspace=@midoneui/svelte",
     "build:vue": "npm run build --workspace=@midoneui/vue",
     "build:react": "npm run build --workspace=@midoneui/react",
-    "build:vanilla": "npm run build --workspace=@midoneui/vanilla",
     "build:svelte": "npm run build --workspace=@midoneui/svelte"
   }
 }
