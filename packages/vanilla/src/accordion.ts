@@ -1,3 +1,4 @@
+import { cn } from "@midoneui/core/src/utils/cn";
 import {
     accordionRootVariants,
     accordionItemVariants,
@@ -10,17 +11,11 @@ import { boxVariants } from "@midoneui/core/src/styles/box.styles";
 function initAccordion() {
     console.log("Initializing Accordion...");
 
-    // 1. Setup Elements with data-raised (Boxes or Items)
-    document.querySelectorAll("[data-raised]").forEach((el) => {
-        const raised = el.getAttribute("data-raised") as any;
-        // Gunakan setAttribute untuk menjaga kebersihan class jika dipanggil berulang
-        el.className = el.className + " " + boxVariants({ raised });
-    });
-
-    // 2. Setup Accordion Root
     document.querySelectorAll(".accordion-root").forEach((root) => {
         const variant = (root.getAttribute("data-variant") as any) || "default";
         root.className += " " + accordionRootVariants({ variant });
+        root.setAttribute("data-scope", "accordion");
+        root.setAttribute("data-part", "root");
 
         const defaultValueAttr = root.getAttribute("data-default-value");
         let openValues: string[] = [];
@@ -35,10 +30,29 @@ function initAccordion() {
             console.warn("Failed to parse data-default-value. Expected JSON format.", e);
         }
 
-        // 3. Setup Accordion Items
         root.querySelectorAll(".accordion-item").forEach((item) => {
             const value = item.getAttribute("data-value") || "";
-            item.className += " " + accordionItemVariants({ variant });
+            const raised = item.getAttribute("data-raised") as any;
+
+            item.setAttribute("data-scope", "accordion");
+            item.setAttribute("data-part", "item");
+
+            if (variant === "boxed" && raised) {
+                // Apply boxVariants + accordionItemVariants, then re-apply user classes
+                // (same pattern as box.ts to handle p-5 vs py-0 conflict)
+                const userClasses = Array.from(item.classList).filter(c => c !== "accordion-item");
+                item.className = cn(boxVariants({ raised }), accordionItemVariants({ variant }), "accordion-item");
+                for (const cls of userClasses) {
+                    if (/^!?p-/.test(cls)) {
+                        Array.from(item.classList)
+                            .filter(c => /^p-\d/.test(c))
+                            .forEach(c => item.classList.remove(c));
+                    }
+                    item.classList.add(cls);
+                }
+            } else {
+                item.className += " " + accordionItemVariants({ variant });
+            }
 
             const trigger = item.querySelector(".accordion-trigger");
             const content = item.querySelector(".accordion-content");
@@ -46,12 +60,16 @@ function initAccordion() {
             if (trigger) {
                 // Berikan style trigger
                 trigger.className += " " + accordionTrigger;
+                trigger.setAttribute("data-scope", "accordion");
+                trigger.setAttribute("data-part", "item-trigger");
 
                 // Injeksi Chevron Indicator jika belum ada
                 let indicator = trigger.querySelector(".accordion-indicator");
                 if (!indicator) {
                     indicator = document.createElement("span");
                     indicator.className = "accordion-indicator " + accordionItemIndicator;
+                    indicator.setAttribute("data-scope", "accordion");
+                    indicator.setAttribute("data-part", "item-indicator");
                     indicator.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>`;
                     trigger.appendChild(indicator);
                 }
@@ -79,6 +97,8 @@ function initAccordion() {
 
             if (content) {
                 content.className += " " + accordionContent;
+                content.setAttribute("data-scope", "accordion");
+                content.setAttribute("data-part", "item-content");
             }
         });
     });

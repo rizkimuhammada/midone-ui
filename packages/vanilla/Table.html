@@ -1,13 +1,288 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Midone UI Vanilla</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Table - Midone UI Vanilla</title>
+</head>
+
+<body class="p-10">
+  <div class="flex flex-col gap-20">
+    <div class="grid grid-cols-2">
+
+      <!-- Col 1: default variant -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="table-container">
+          <table class="table" data-variant="default">
+            <caption class="table-caption">A list of your recent invoices.</caption>
+            <thead class="table-header">
+              <tr class="table-row">
+                <th class="table-head w-[100px]">Invoice</th>
+                <th class="table-head">Status</th>
+                <th class="table-head">Method</th>
+                <th class="table-head text-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV001</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$250.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV002</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="pending">Pending</span></td>
+                <td class="table-cell">PayPal</td>
+                <td class="table-cell text-right">$150.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV003</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="danger">Unpaid</span></td>
+                <td class="table-cell">Bank Transfer</td>
+                <td class="table-cell text-right">$350.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV004</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$450.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV005</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">PayPal</td>
+                <td class="table-cell text-right">$550.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV006</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="pending">Pending</span></td>
+                <td class="table-cell">Bank Transfer</td>
+                <td class="table-cell text-right">$200.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV007</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="danger">Unpaid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$300.00</td>
+              </tr>
+            </tbody>
+            <tfoot class="table-footer">
+              <tr class="table-row">
+                <td class="table-cell" colspan="3">Total</td>
+                <td class="table-cell text-right">$2,500.00</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Col 2: boxed variant -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="table-container">
+          <table class="table" data-variant="boxed">
+            <caption class="table-caption">A list of your recent invoices.</caption>
+            <thead class="table-header">
+              <tr class="table-row">
+                <th class="table-head w-[100px]">Invoice</th>
+                <th class="table-head">Status</th>
+                <th class="table-head">Method</th>
+                <th class="table-head text-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV001</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$250.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV002</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="pending">Pending</span></td>
+                <td class="table-cell">PayPal</td>
+                <td class="table-cell text-right">$150.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV003</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="danger">Unpaid</span></td>
+                <td class="table-cell">Bank Transfer</td>
+                <td class="table-cell text-right">$350.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV004</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$450.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV005</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">PayPal</td>
+                <td class="table-cell text-right">$550.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV006</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="pending">Pending</span></td>
+                <td class="table-cell">Bank Transfer</td>
+                <td class="table-cell text-right">$200.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV007</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="danger">Unpaid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$300.00</td>
+              </tr>
+            </tbody>
+            <tfoot class="table-footer">
+              <tr class="table-row">
+                <td class="table-cell" colspan="3">Total</td>
+                <td class="table-cell text-right">$2,500.00</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Col 3: boxed + raised single -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="table-container">
+          <table class="table" data-variant="boxed" data-raised="single">
+            <caption class="table-caption">A list of your recent invoices.</caption>
+            <thead class="table-header">
+              <tr class="table-row">
+                <th class="table-head w-[100px]">Invoice</th>
+                <th class="table-head">Status</th>
+                <th class="table-head">Method</th>
+                <th class="table-head text-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV001</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$250.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV002</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="pending">Pending</span></td>
+                <td class="table-cell">PayPal</td>
+                <td class="table-cell text-right">$150.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV003</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="danger">Unpaid</span></td>
+                <td class="table-cell">Bank Transfer</td>
+                <td class="table-cell text-right">$350.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV004</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$450.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV005</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">PayPal</td>
+                <td class="table-cell text-right">$550.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV006</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="pending">Pending</span></td>
+                <td class="table-cell">Bank Transfer</td>
+                <td class="table-cell text-right">$200.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV007</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="danger">Unpaid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$300.00</td>
+              </tr>
+            </tbody>
+            <tfoot class="table-footer">
+              <tr class="table-row">
+                <td class="table-cell" colspan="3">Total</td>
+                <td class="table-cell text-right">$2,500.00</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Col 4: boxed + raised double -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="table-container">
+          <table class="table" data-variant="boxed" data-raised="double">
+            <caption class="table-caption">A list of your recent invoices.</caption>
+            <thead class="table-header">
+              <tr class="table-row">
+                <th class="table-head w-[100px]">Invoice</th>
+                <th class="table-head">Status</th>
+                <th class="table-head">Method</th>
+                <th class="table-head text-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV001</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$250.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV002</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="pending">Pending</span></td>
+                <td class="table-cell">PayPal</td>
+                <td class="table-cell text-right">$150.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV003</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="danger">Unpaid</span></td>
+                <td class="table-cell">Bank Transfer</td>
+                <td class="table-cell text-right">$350.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV004</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$450.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV005</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="success">Paid</span></td>
+                <td class="table-cell">PayPal</td>
+                <td class="table-cell text-right">$550.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV006</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="pending">Pending</span></td>
+                <td class="table-cell">Bank Transfer</td>
+                <td class="table-cell text-right">$200.00</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell font-medium">INV007</td>
+                <td class="table-cell"><span class="badge" data-look="outline" data-variant="danger">Unpaid</span></td>
+                <td class="table-cell">Credit Card</td>
+                <td class="table-cell text-right">$300.00</td>
+              </tr>
+            </tbody>
+            <tfoot class="table-footer">
+              <tr class="table-row">
+                <td class="table-cell" colspan="3">Total</td>
+                <td class="table-cell text-right">$2,500.00</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

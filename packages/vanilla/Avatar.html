@@ -1,13 +1,52 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Midone UI Vanilla</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avatar - Midone UI Vanilla</title>
+</head>
+
+<body class="p-10">
+  <div class="flex flex-col gap-20">
+    <div class="grid grid-cols-2">
+
+      <!-- Col 1: bordered=true (default), rounded-xl (default) -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="avatar-root">
+          <span class="avatar-fallback">PA</span>
+          <img class="avatar-image" src="https://i.pravatar.cc/300" alt="avatar" />
+        </div>
+      </div>
+
+      <!-- Col 2: bordered=false, rounded-xl (default) -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="avatar-root" data-bordered="false">
+          <span class="avatar-fallback">PA</span>
+          <img class="avatar-image" src="https://i.pravatar.cc/300" alt="avatar" />
+        </div>
+      </div>
+
+      <!-- Col 3: bordered=true (default), rounded-full -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="avatar-root rounded-full">
+          <span class="avatar-fallback">PA</span>
+          <img class="avatar-image" src="https://i.pravatar.cc/300" alt="avatar" />
+        </div>
+      </div>
+
+      <!-- Col 4: bordered=false, rounded-full -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="avatar-root rounded-full" data-bordered="false">
+          <span class="avatar-fallback">PA</span>
+          <img class="avatar-image" src="https://i.pravatar.cc/300" alt="avatar" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

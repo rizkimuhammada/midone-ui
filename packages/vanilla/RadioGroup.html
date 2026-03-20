@@ -1,13 +1,31 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Midone UI Vanilla</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RadioGroup - Midone UI Vanilla</title>
+</head>
+<body class="p-10">
+  <div class="radio-group-root" data-default-value="React">
+    <span class="radio-group-label">Framework</span>
+    <div class="radio-group-item" data-value="React">
+      <div class="radio-group-item-control"></div>
+      <span class="radio-group-item-text">React</span>
+    </div>
+    <div class="radio-group-item" data-value="Solid">
+      <div class="radio-group-item-control"></div>
+      <span class="radio-group-item-text">Solid</span>
+    </div>
+    <div class="radio-group-item" data-value="Vue">
+      <div class="radio-group-item-control"></div>
+      <span class="radio-group-item-text">Vue</span>
+    </div>
+    <div class="radio-group-item" data-value="Svelte">
+      <div class="radio-group-item-control"></div>
+      <span class="radio-group-item-text">Svelte</span>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
 </html>

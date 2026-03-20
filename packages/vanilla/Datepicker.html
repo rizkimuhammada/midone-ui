@@ -1,13 +1,200 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Midone UI Vanilla</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datepicker - Midone UI Vanilla</title>
+</head>
+<body class="p-10">
+  <div class="flex flex-col gap-20">
+    <div class="grid grid-cols-2">
+
+      <!-- Example 1: Basic -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="datepicker-root w-84">
+          <label class="label datepicker-label">Basic</label>
+          <div class="datepicker-control">
+            <input type="text" class="input datepicker-input">
+            <button class="datepicker-trigger"></button>
+            <button class="datepicker-clear-trigger">Clear</button>
+          </div>
+          <div class="datepicker-positioner">
+            <div class="datepicker-content" data-raised="single">
+              <div>
+                <select class="datepicker-year-select"></select>
+                <select class="datepicker-month-select"></select>
+                <div class="datepicker-view" data-view="day">
+                  <div class="datepicker-view-control">
+                    <button class="datepicker-prev-trigger"></button>
+                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-next-trigger"></button>
+                  </div>
+                  <table class="datepicker-table">
+                    <thead class="datepicker-table-head"><tr class="datepicker-table-row"></tr></thead>
+                    <tbody class="datepicker-table-body"></tbody>
+                  </table>
+                </div>
+                <div class="datepicker-view" data-view="month">
+                  <div class="datepicker-view-control">
+                    <button class="datepicker-prev-trigger"></button>
+                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-next-trigger"></button>
+                  </div>
+                  <table class="datepicker-table">
+                    <tbody class="datepicker-table-body"></tbody>
+                  </table>
+                </div>
+                <div class="datepicker-view" data-view="year">
+                  <div class="datepicker-view-control">
+                    <button class="datepicker-prev-trigger"></button>
+                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-next-trigger"></button>
+                  </div>
+                  <table class="datepicker-table">
+                    <tbody class="datepicker-table-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 2: Range Selection -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="datepicker-root w-140" data-selection-mode="range">
+          <label class="label datepicker-label">Range Selection</label>
+          <div class="datepicker-control">
+            <input type="text" class="input datepicker-input" data-index="0">
+            <input type="text" class="input datepicker-input" data-index="1">
+            <button class="datepicker-trigger"></button>
+            <button class="datepicker-clear-trigger">Clear</button>
+          </div>
+          <div class="flex gap-1">
+            <button class="datepicker-preset-trigger badge" data-value="thisWeek" data-variant="secondary" data-look="outline">This Week</button>
+            <button class="datepicker-preset-trigger badge" data-value="lastWeek" data-variant="secondary" data-look="outline">Last Week</button>
+            <button class="datepicker-preset-trigger badge" data-value="thisMonth" data-variant="secondary" data-look="outline">This Month</button>
+          </div>
+          <div class="datepicker-positioner">
+            <div class="datepicker-content" data-raised="single">
+              <div>
+                <select class="datepicker-year-select"></select>
+                <select class="datepicker-month-select"></select>
+                <div class="datepicker-view" data-view="day">
+                  <div class="datepicker-view-control">
+                    <button class="datepicker-prev-trigger"></button>
+                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-next-trigger"></button>
+                  </div>
+                  <table class="datepicker-table">
+                    <thead class="datepicker-table-head"><tr class="datepicker-table-row"></tr></thead>
+                    <tbody class="datepicker-table-body"></tbody>
+                  </table>
+                </div>
+                <div class="datepicker-view" data-view="month">
+                  <div class="datepicker-view-control">
+                    <button class="datepicker-prev-trigger"></button>
+                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-next-trigger"></button>
+                  </div>
+                  <table class="datepicker-table">
+                    <tbody class="datepicker-table-body"></tbody>
+                  </table>
+                </div>
+                <div class="datepicker-view" data-view="year">
+                  <div class="datepicker-view-control">
+                    <button class="datepicker-prev-trigger"></button>
+                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-next-trigger"></button>
+                  </div>
+                  <table class="datepicker-table">
+                    <tbody class="datepicker-table-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 3: Multiple Months -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="datepicker-root w-84" data-num-of-months="2">
+          <label class="label datepicker-label">Multiple Months</label>
+          <div class="datepicker-control">
+            <input type="text" class="input datepicker-input" data-index="0">
+            <button class="datepicker-trigger"></button>
+            <button class="datepicker-clear-trigger">Clear</button>
+          </div>
+          <div class="datepicker-positioner">
+            <div class="datepicker-content" data-raised="single">
+              <div>
+                <select class="datepicker-year-select"></select>
+                <select class="datepicker-month-select"></select>
+                <div class="datepicker-view-control">
+                  <button class="datepicker-prev-trigger"></button>
+                  <div class="datepicker-range-text"></div>
+                  <button class="datepicker-next-trigger"></button>
+                </div>
+                <div class="datepicker-view flex-row" data-view="day">
+                  <table class="datepicker-table" data-month-offset="0">
+                    <thead class="datepicker-table-head"><tr class="datepicker-table-row"></tr></thead>
+                    <tbody class="datepicker-table-body"></tbody>
+                  </table>
+                  <table class="datepicker-table" data-month-offset="1">
+                    <thead class="datepicker-table-head"><tr class="datepicker-table-row"></tr></thead>
+                    <tbody class="datepicker-table-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 4: Inline/Open -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="datepicker-root" data-open>
+          <input type="text" class="input datepicker-input w-84 mx-auto">
+          <div class="box mx-auto" data-raised="single">
+            <div class="datepicker-view" data-view="day">
+              <div class="datepicker-view-control">
+                <button class="datepicker-prev-trigger"></button>
+                <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                <button class="datepicker-next-trigger"></button>
+              </div>
+              <table class="datepicker-table">
+                <thead class="datepicker-table-head"><tr class="datepicker-table-row"></tr></thead>
+                <tbody class="datepicker-table-body"></tbody>
+              </table>
+            </div>
+            <div class="datepicker-view" data-view="month">
+              <div class="datepicker-view-control">
+                <button class="datepicker-prev-trigger"></button>
+                <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                <button class="datepicker-next-trigger"></button>
+              </div>
+              <table class="datepicker-table">
+                <tbody class="datepicker-table-body"></tbody>
+              </table>
+            </div>
+            <div class="datepicker-view" data-view="year">
+              <div class="datepicker-view-control">
+                <button class="datepicker-prev-trigger"></button>
+                <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                <button class="datepicker-next-trigger"></button>
+              </div>
+              <table class="datepicker-table">
+                <tbody class="datepicker-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
 </html>

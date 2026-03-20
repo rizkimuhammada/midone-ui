@@ -1,13 +1,191 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Midone UI Vanilla</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Combobox - Midone UI Vanilla</title>
+</head>
+
+<body class="p-10">
+  <div class="flex flex-col gap-20">
+    <div class="grid grid-cols-2">
+
+      <!-- Col 1: Single select -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="combobox-root w-56">
+          <label class="combobox-label">Single</label>
+          <div class="combobox-control">
+            <button class="combobox-trigger"></button>
+          </div>
+          <div class="combobox-positioner">
+            <div class="combobox-content">
+              <input class="combobox-input" placeholder="Search frameworks..." />
+              <div class="combobox-item-group">
+                <label class="combobox-item-group-label">Frameworks</label>
+                <div class="combobox-item" data-value="React">
+                  <div class="combobox-item-text">React</div>
+                </div>
+                <div class="combobox-item" data-value="Solid">
+                  <div class="combobox-item-text">Solid</div>
+                </div>
+                <div class="combobox-item" data-value="Vue">
+                  <div class="combobox-item-text">Vue</div>
+                </div>
+                <div class="combobox-item" data-value="Svelte">
+                  <div class="combobox-item-text">Svelte</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 2: Multiple select -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="combobox-root w-56" data-multiple="true">
+          <label class="combobox-label">Multiple</label>
+          <div class="combobox-control">
+            <button class="combobox-trigger"></button>
+          </div>
+          <div class="combobox-positioner">
+            <div class="combobox-content">
+              <input class="combobox-input" placeholder="Search frameworks..." />
+              <div class="combobox-item-group">
+                <label class="combobox-item-group-label">Frameworks</label>
+                <div class="combobox-item" data-value="React">
+                  <div class="combobox-item-text">React</div>
+                </div>
+                <div class="combobox-item" data-value="Solid">
+                  <div class="combobox-item-text">Solid</div>
+                </div>
+                <div class="combobox-item" data-value="Vue">
+                  <div class="combobox-item-text">Vue</div>
+                </div>
+                <div class="combobox-item" data-value="Svelte">
+                  <div class="combobox-item-text">Svelte</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 3: Scrollable multiple with grouped timezones -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div class="combobox-root w-56" data-multiple="true">
+          <label class="combobox-label">Scrollable</label>
+          <div class="combobox-control">
+            <button class="combobox-trigger"></button>
+          </div>
+          <div class="combobox-positioner">
+            <div class="combobox-content">
+              <input class="combobox-input" placeholder="Search region..." />
+              <div class="combobox-item-group">
+                <label class="combobox-item-group-label">North America</label>
+                <div class="combobox-item" data-value="est">
+                  <div class="combobox-item-text">Eastern Standard Time (EST)</div>
+                </div>
+                <div class="combobox-item" data-value="cst">
+                  <div class="combobox-item-text">Central Standard Time (CST)</div>
+                </div>
+                <div class="combobox-item" data-value="mst">
+                  <div class="combobox-item-text">Mountain Standard Time (MST)</div>
+                </div>
+                <div class="combobox-item" data-value="pst">
+                  <div class="combobox-item-text">Pacific Standard Time (PST)</div>
+                </div>
+                <div class="combobox-item" data-value="akst">
+                  <div class="combobox-item-text">Alaska Standard Time (AKST)</div>
+                </div>
+                <div class="combobox-item" data-value="hst">
+                  <div class="combobox-item-text">Hawaii Standard Time (HST)</div>
+                </div>
+              </div>
+              <div class="combobox-item-group">
+                <label class="combobox-item-group-label">Europe & Africa</label>
+                <div class="combobox-item" data-value="gmt">
+                  <div class="combobox-item-text">Greenwich Mean Time (GMT)</div>
+                </div>
+                <div class="combobox-item" data-value="cet">
+                  <div class="combobox-item-text">Central European Time (CET)</div>
+                </div>
+                <div class="combobox-item" data-value="eet">
+                  <div class="combobox-item-text">Eastern European Time (EET)</div>
+                </div>
+                <div class="combobox-item" data-value="west">
+                  <div class="combobox-item-text">Western European Summer Time (WEST)</div>
+                </div>
+                <div class="combobox-item" data-value="cat">
+                  <div class="combobox-item-text">Central Africa Time (CAT)</div>
+                </div>
+                <div class="combobox-item" data-value="eat">
+                  <div class="combobox-item-text">East Africa Time (EAT)</div>
+                </div>
+              </div>
+              <div class="combobox-item-group">
+                <label class="combobox-item-group-label">Asia</label>
+                <div class="combobox-item" data-value="msk">
+                  <div class="combobox-item-text">Moscow Time (MSK)</div>
+                </div>
+                <div class="combobox-item" data-value="ist">
+                  <div class="combobox-item-text">India Standard Time (IST)</div>
+                </div>
+                <div class="combobox-item" data-value="cst_china">
+                  <div class="combobox-item-text">China Standard Time (CST)</div>
+                </div>
+                <div class="combobox-item" data-value="jst">
+                  <div class="combobox-item-text">Japan Standard Time (JST)</div>
+                </div>
+                <div class="combobox-item" data-value="kst">
+                  <div class="combobox-item-text">Korea Standard Time (KST)</div>
+                </div>
+                <div class="combobox-item" data-value="ist_indonesia">
+                  <div class="combobox-item-text">Indonesia Central Standard Time (WITA)</div>
+                </div>
+              </div>
+              <div class="combobox-item-group">
+                <label class="combobox-item-group-label">Australia & Pacific</label>
+                <div class="combobox-item" data-value="awst">
+                  <div class="combobox-item-text">Australian Western Standard Time (AWST)</div>
+                </div>
+                <div class="combobox-item" data-value="acst">
+                  <div class="combobox-item-text">Australian Central Standard Time (ACST)</div>
+                </div>
+                <div class="combobox-item" data-value="aest">
+                  <div class="combobox-item-text">Australian Eastern Standard Time (AEST)</div>
+                </div>
+                <div class="combobox-item" data-value="nzst">
+                  <div class="combobox-item-text">New Zealand Standard Time (NZST)</div>
+                </div>
+                <div class="combobox-item" data-value="fjt">
+                  <div class="combobox-item-text">Fiji Time (FJT)</div>
+                </div>
+              </div>
+              <div class="combobox-item-group">
+                <label class="combobox-item-group-label">South America</label>
+                <div class="combobox-item" data-value="art">
+                  <div class="combobox-item-text">Argentina Time (ART)</div>
+                </div>
+                <div class="combobox-item" data-value="bot">
+                  <div class="combobox-item-text">Bolivia Time (BOT)</div>
+                </div>
+                <div class="combobox-item" data-value="brt">
+                  <div class="combobox-item-text">Brasilia Time (BRT)</div>
+                </div>
+                <div class="combobox-item" data-value="clt">
+                  <div class="combobox-item-text">Chile Standard Time (CLT)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

@@ -1,13 +1,20 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Midone UI Vanilla</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProgressCircular - Midone UI Vanilla</title>
+</head>
+<body class="p-10">
+  <div class="progress-circular-root" data-default-value="42">
+    <label class="progress-label">Progress Circular</label>
+    <svg class="progress-circle max-w-48">
+      <circle class="progress-circle-track"></circle>
+      <circle class="progress-circle-range"></circle>
+    </svg>
+    <div class="progress-value-text"></div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
 </html>

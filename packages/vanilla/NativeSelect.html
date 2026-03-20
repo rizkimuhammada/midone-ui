@@ -1,13 +1,61 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Midone UI Vanilla</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NativeSelect - Midone UI Vanilla</title>
+</head>
+<body class="p-10">
+  <div class="flex flex-col gap-20">
+    <div class="grid sm:grid-cols-2">
+
+      <!-- Example 1: Basic -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <select class="native-select w-56">
+          <option value="">Select status</option>
+          <option value="todo">Todo</option>
+          <option value="in-progress">In Progress</option>
+          <option value="done">Done</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+
+      <!-- Example 2: With Option Groups -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <select class="native-select w-56">
+          <option value="">Select department</option>
+          <optgroup label="Engineering">
+            <option value="frontend">Frontend</option>
+            <option value="backend">Backend</option>
+            <option value="devops">DevOps</option>
+          </optgroup>
+          <optgroup label="Sales">
+            <option value="sales-rep">Sales Rep</option>
+            <option value="account-manager">Account Manager</option>
+            <option value="sales-director">Sales Director</option>
+          </optgroup>
+          <optgroup label="Operations">
+            <option value="support">Customer Support</option>
+            <option value="product-manager">Product Manager</option>
+            <option value="ops-manager">Operations Manager</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- Example 3: Disabled -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <select class="native-select w-56" disabled>
+          <option value="">Select status</option>
+          <option value="todo">Todo</option>
+          <option value="in-progress">In Progress</option>
+          <option value="done">Done</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
 </html>
