@@ -14,7 +14,8 @@ import {
 function initTables() {
     // Init container
     document.querySelectorAll(".table-container").forEach((el) => {
-        el.className = cn(tableContainer, el.className);
+        const userClasses = Array.from(el.classList).filter(c => c !== "table-container");
+        el.className = cn(tableContainer, "table-container", ...userClasses);
         el.setAttribute("data-scope", "table");
         el.setAttribute("data-part", "container");
     });
@@ -25,49 +26,57 @@ function initTables() {
         const variant = table.getAttribute("data-variant") as any || "default";
         const raised = table.getAttribute("data-raised") as any || undefined;
 
-        table.className = cn(tableVariants({ variant, raised }), table.className);
+        const tableUserClasses = Array.from(table.classList).filter(c => c !== "table");
+        table.className = cn(tableVariants({ variant, raised }), "table", ...tableUserClasses);
         table.setAttribute("data-scope", "table");
         table.setAttribute("data-part", "root");
 
         table.querySelectorAll(".table-header").forEach((el) => {
-            el.className = cn(tableHeader, el.className);
+            const userClasses = Array.from(el.classList).filter(c => c !== "table-header");
+            el.className = cn(tableHeader, "table-header", ...userClasses);
             el.setAttribute("data-scope", "table");
             el.setAttribute("data-part", "header");
         });
 
         table.querySelectorAll(".table-body").forEach((el) => {
-            el.className = cn(tableBody, el.className);
+            const userClasses = Array.from(el.classList).filter(c => c !== "table-body");
+            el.className = cn(tableBody, "table-body", ...userClasses);
             el.setAttribute("data-scope", "table");
             el.setAttribute("data-part", "body");
         });
 
         table.querySelectorAll(".table-footer").forEach((el) => {
-            el.className = cn(tableFooter, el.className);
+            const userClasses = Array.from(el.classList).filter(c => c !== "table-footer");
+            el.className = cn(tableFooter, "table-footer", ...userClasses);
             el.setAttribute("data-scope", "table");
             el.setAttribute("data-part", "footer");
         });
 
         table.querySelectorAll(".table-row").forEach((el) => {
-            el.className = cn(tableRow, el.className);
+            const userClasses = Array.from(el.classList).filter(c => c !== "table-row");
+            el.className = cn(tableRow, "table-row", ...userClasses);
             el.setAttribute("data-scope", "table");
             el.setAttribute("data-part", "row");
         });
 
         table.querySelectorAll(".table-head").forEach((el) => {
-            el.className = cn(tableHead, el.className);
+            const userClasses = Array.from(el.classList).filter(c => c !== "table-head");
+            el.className = cn(tableHead, "table-head", ...userClasses);
             el.setAttribute("data-scope", "table");
             el.setAttribute("data-part", "head");
         });
 
         // tableCellVariants gets variant+raised from parent table (inject equivalent)
         table.querySelectorAll(".table-cell").forEach((el) => {
-            el.className = cn(tableCellVariants({ variant, raised }), el.className);
+            const userClasses = Array.from(el.classList).filter(c => c !== "table-cell");
+            el.className = cn(tableCellVariants({ variant, raised }), "table-cell", ...userClasses);
             el.setAttribute("data-scope", "table");
             el.setAttribute("data-part", "cell");
         });
 
         table.querySelectorAll(".table-caption").forEach((el) => {
-            el.className = cn(tableCaption, el.className);
+            const userClasses = Array.from(el.classList).filter(c => c !== "table-caption");
+            el.className = cn(tableCaption, "table-caption", ...userClasses);
             el.setAttribute("data-scope", "table");
             el.setAttribute("data-part", "caption");
         });

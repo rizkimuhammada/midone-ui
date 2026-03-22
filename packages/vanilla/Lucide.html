@@ -1,20 +1,23 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ProgressLinear - Midone UI Vanilla</title>
+  <title>Lucide - Midone UI Vanilla</title>
   <link rel="stylesheet" href="/src/style.css" />
 </head>
+
 <body class="p-10">
-  <div class="progress-linear-root" data-default-value="42">
-    <label class="progress-label">Progress Linear</label>
-    <div class="progress-track max-w-72">
-      <div class="progress-range"></div>
+  <div class="flex flex-col gap-20">
+    <div class="grid grid-cols-2">
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <i class="lucide" data-icon="ChartNoAxesColumn"></i>
+      </div>
     </div>
-    <div class="progress-value-text"></div>
   </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
+
 </html>

@@ -13,7 +13,9 @@ function initAccordion() {
 
     document.querySelectorAll(".accordion-root").forEach((root) => {
         const variant = (root.getAttribute("data-variant") as any) || "default";
-        root.className += " " + accordionRootVariants({ variant });
+        
+        const userClasses = Array.from(root.classList).filter(c => c !== "accordion-root");
+        root.className = cn(accordionRootVariants({ variant }), "accordion-root", ...userClasses);
         root.setAttribute("data-scope", "accordion");
         root.setAttribute("data-part", "root");
 
@@ -37,21 +39,13 @@ function initAccordion() {
             item.setAttribute("data-scope", "accordion");
             item.setAttribute("data-part", "item");
 
+            const userClasses = Array.from(item.classList).filter(c => c !== "accordion-item");
             if (variant === "boxed" && raised) {
                 // Apply boxVariants + accordionItemVariants, then re-apply user classes
                 // (same pattern as box.ts to handle p-5 vs py-0 conflict)
-                const userClasses = Array.from(item.classList).filter(c => c !== "accordion-item");
-                item.className = cn(boxVariants({ raised }), accordionItemVariants({ variant }), "accordion-item");
-                for (const cls of userClasses) {
-                    if (/^!?p-/.test(cls)) {
-                        Array.from(item.classList)
-                            .filter(c => /^p-\d/.test(c))
-                            .forEach(c => item.classList.remove(c));
-                    }
-                    item.classList.add(cls);
-                }
+                item.className = cn(boxVariants({ raised }), accordionItemVariants({ variant }), "accordion-item", ...userClasses);
             } else {
-                item.className += " " + accordionItemVariants({ variant });
+                item.className = cn(accordionItemVariants({ variant }), "accordion-item", ...userClasses);
             }
 
             const trigger = item.querySelector(".accordion-trigger");
@@ -59,7 +53,8 @@ function initAccordion() {
 
             if (trigger) {
                 // Berikan style trigger
-                trigger.className += " " + accordionTrigger;
+                const triggerClasses = Array.from(trigger.classList).filter(c => c !== "accordion-trigger");
+                trigger.className = cn(accordionTrigger, "accordion-trigger", ...triggerClasses);
                 trigger.setAttribute("data-scope", "accordion");
                 trigger.setAttribute("data-part", "item-trigger");
 
@@ -96,7 +91,8 @@ function initAccordion() {
             }
 
             if (content) {
-                content.className += " " + accordionContent;
+                const contentClasses = Array.from(content.classList).filter(c => c !== "accordion-content");
+                content.className = cn(accordionContent, "accordion-content", ...contentClasses);
                 content.setAttribute("data-scope", "accordion");
                 content.setAttribute("data-part", "item-content");
             }

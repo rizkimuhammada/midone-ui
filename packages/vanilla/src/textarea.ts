@@ -3,7 +3,8 @@ import { textarea } from "@midoneui/core/src/styles/textarea.styles";
 
 function initTextarea() {
     document.querySelectorAll<HTMLTextAreaElement>("textarea.textarea").forEach((el) => {
-        el.className = cn(textarea, el.className);
+        const userClasses = Array.from(el.classList).filter(c => c !== "textarea");
+        el.className = cn(textarea, "textarea", ...userClasses);
         el.setAttribute("data-scope", "textarea");
         el.setAttribute("data-part", "root");
     });

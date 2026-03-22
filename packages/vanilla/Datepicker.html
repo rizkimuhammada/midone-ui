@@ -1,11 +1,14 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Datepicker - Midone UI Vanilla</title>
+  <link rel="stylesheet" href="/src/style.css" />
 </head>
+
 <body class="p-10">
   <div class="flex flex-col gap-20">
     <div class="grid grid-cols-2">
@@ -21,24 +24,29 @@
           </div>
           <div class="datepicker-positioner">
             <div class="datepicker-content" data-raised="single">
-              <div>
                 <select class="datepicker-year-select"></select>
                 <select class="datepicker-month-select"></select>
                 <div class="datepicker-view" data-view="day">
                   <div class="datepicker-view-control">
                     <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-view-trigger">
+                      <div class="datepicker-range-text"></div>
+                    </button>
                     <button class="datepicker-next-trigger"></button>
                   </div>
                   <table class="datepicker-table">
-                    <thead class="datepicker-table-head"><tr class="datepicker-table-row"></tr></thead>
+                    <thead class="datepicker-table-head">
+                      <tr class="datepicker-table-row"></tr>
+                    </thead>
                     <tbody class="datepicker-table-body"></tbody>
                   </table>
                 </div>
                 <div class="datepicker-view" data-view="month">
                   <div class="datepicker-view-control">
                     <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-view-trigger">
+                      <div class="datepicker-range-text"></div>
+                    </button>
                     <button class="datepicker-next-trigger"></button>
                   </div>
                   <table class="datepicker-table">
@@ -48,14 +56,15 @@
                 <div class="datepicker-view" data-view="year">
                   <div class="datepicker-view-control">
                     <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-view-trigger">
+                      <div class="datepicker-range-text"></div>
+                    </button>
                     <button class="datepicker-next-trigger"></button>
                   </div>
                   <table class="datepicker-table">
                     <tbody class="datepicker-table-body"></tbody>
                   </table>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -72,30 +81,38 @@
             <button class="datepicker-clear-trigger">Clear</button>
           </div>
           <div class="flex gap-1">
-            <button class="datepicker-preset-trigger badge" data-value="thisWeek" data-variant="secondary" data-look="outline">This Week</button>
-            <button class="datepicker-preset-trigger badge" data-value="lastWeek" data-variant="secondary" data-look="outline">Last Week</button>
-            <button class="datepicker-preset-trigger badge" data-value="thisMonth" data-variant="secondary" data-look="outline">This Month</button>
+            <button class="datepicker-preset-trigger badge" data-value="thisWeek" data-variant="secondary"
+              data-look="outline">This Week</button>
+            <button class="datepicker-preset-trigger badge" data-value="lastWeek" data-variant="secondary"
+              data-look="outline">Last Week</button>
+            <button class="datepicker-preset-trigger badge" data-value="thisMonth" data-variant="secondary"
+              data-look="outline">This Month</button>
           </div>
           <div class="datepicker-positioner">
             <div class="datepicker-content" data-raised="single">
-              <div>
                 <select class="datepicker-year-select"></select>
                 <select class="datepicker-month-select"></select>
                 <div class="datepicker-view" data-view="day">
                   <div class="datepicker-view-control">
                     <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-view-trigger">
+                      <div class="datepicker-range-text"></div>
+                    </button>
                     <button class="datepicker-next-trigger"></button>
                   </div>
                   <table class="datepicker-table">
-                    <thead class="datepicker-table-head"><tr class="datepicker-table-row"></tr></thead>
+                    <thead class="datepicker-table-head">
+                      <tr class="datepicker-table-row"></tr>
+                    </thead>
                     <tbody class="datepicker-table-body"></tbody>
                   </table>
                 </div>
                 <div class="datepicker-view" data-view="month">
                   <div class="datepicker-view-control">
                     <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-view-trigger">
+                      <div class="datepicker-range-text"></div>
+                    </button>
                     <button class="datepicker-next-trigger"></button>
                   </div>
                   <table class="datepicker-table">
@@ -105,14 +122,15 @@
                 <div class="datepicker-view" data-view="year">
                   <div class="datepicker-view-control">
                     <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                    <button class="datepicker-view-trigger">
+                      <div class="datepicker-range-text"></div>
+                    </button>
                     <button class="datepicker-next-trigger"></button>
                   </div>
                   <table class="datepicker-table">
                     <tbody class="datepicker-table-body"></tbody>
                   </table>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -129,7 +147,6 @@
           </div>
           <div class="datepicker-positioner">
             <div class="datepicker-content" data-raised="single">
-              <div>
                 <select class="datepicker-year-select"></select>
                 <select class="datepicker-month-select"></select>
                 <div class="datepicker-view-control">
@@ -139,15 +156,18 @@
                 </div>
                 <div class="datepicker-view flex-row" data-view="day">
                   <table class="datepicker-table" data-month-offset="0">
-                    <thead class="datepicker-table-head"><tr class="datepicker-table-row"></tr></thead>
+                    <thead class="datepicker-table-head">
+                      <tr class="datepicker-table-row"></tr>
+                    </thead>
                     <tbody class="datepicker-table-body"></tbody>
                   </table>
                   <table class="datepicker-table" data-month-offset="1">
-                    <thead class="datepicker-table-head"><tr class="datepicker-table-row"></tr></thead>
+                    <thead class="datepicker-table-head">
+                      <tr class="datepicker-table-row"></tr>
+                    </thead>
                     <tbody class="datepicker-table-body"></tbody>
                   </table>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -161,18 +181,24 @@
             <div class="datepicker-view" data-view="day">
               <div class="datepicker-view-control">
                 <button class="datepicker-prev-trigger"></button>
-                <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                <button class="datepicker-view-trigger">
+                  <div class="datepicker-range-text"></div>
+                </button>
                 <button class="datepicker-next-trigger"></button>
               </div>
               <table class="datepicker-table">
-                <thead class="datepicker-table-head"><tr class="datepicker-table-row"></tr></thead>
+                <thead class="datepicker-table-head">
+                  <tr class="datepicker-table-row"></tr>
+                </thead>
                 <tbody class="datepicker-table-body"></tbody>
               </table>
             </div>
             <div class="datepicker-view" data-view="month">
               <div class="datepicker-view-control">
                 <button class="datepicker-prev-trigger"></button>
-                <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                <button class="datepicker-view-trigger">
+                  <div class="datepicker-range-text"></div>
+                </button>
                 <button class="datepicker-next-trigger"></button>
               </div>
               <table class="datepicker-table">
@@ -182,7 +208,9 @@
             <div class="datepicker-view" data-view="year">
               <div class="datepicker-view-control">
                 <button class="datepicker-prev-trigger"></button>
-                <button class="datepicker-view-trigger"><div class="datepicker-range-text"></div></button>
+                <button class="datepicker-view-trigger">
+                  <div class="datepicker-range-text"></div>
+                </button>
                 <button class="datepicker-next-trigger"></button>
               </div>
               <table class="datepicker-table">
@@ -197,4 +225,5 @@
   </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
+
 </html>

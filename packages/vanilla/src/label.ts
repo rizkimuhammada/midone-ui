@@ -3,7 +3,8 @@ import { label } from "@midoneui/core/src/styles/label.styles";
 
 function initLabels() {
     document.querySelectorAll<HTMLElement>("label.label").forEach(el => {
-        el.className = cn(label, el.className);
+        const userClasses = Array.from(el.classList).filter(c => c !== "label");
+        el.className = cn(label, "label", ...userClasses);
         el.setAttribute("data-scope", "label");
         el.setAttribute("data-part", "root");
     });

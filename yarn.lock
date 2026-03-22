@@ -510,6 +510,7 @@
   version "1.0.0"
   resolved "file:packages/vanilla"
   dependencies:
+    "@floating-ui/dom" "^1.7.4"
     chart.js "^4.5.1"
     maplibre-gl "^5.20.2"
 
@@ -2355,6 +2356,11 @@ lucide-vue-next@^0.542.0:
   version "0.542.0"
   resolved "https://registry.npmjs.org/lucide-vue-next/-/lucide-vue-next-0.542.0.tgz"
   integrity sha512-cJfyhFoneDgYTouHwUJEutXaCW5EQuRrBsvfELudWnMiwfqvcEtpZTFZLdZ5Nrqow+znzn+Iyhu3KeYIfa3mEg==
+
+lucide@^0.577.0:
+  version "0.577.0"
+  resolved "https://registry.npmjs.org/lucide/-/lucide-0.577.0.tgz"
+  integrity sha512-PpC/m5eOItp/WU/GlQPFBXDOhq6HibL73KzYP37OX3LM7VmzWQF8voEj8QRWUFvy9FIKfeDQkWYoyS1D/MdWFA==
 
 magic-string@^0.30.21:
   version "0.30.21"

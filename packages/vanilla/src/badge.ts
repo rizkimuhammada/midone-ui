@@ -6,15 +6,12 @@ function initBadges() {
         const variant = badge.getAttribute("data-variant") as any || "primary";
         const look = badge.getAttribute("data-look") as any || "flat";
 
-        badge.className = cn(badgeVariants({ variant, look }), badge.className);
+        const userClasses = Array.from(badge.classList).filter((c) => c !== "badge");
+        badge.className = cn(badgeVariants({ variant, look }), "badge", ...userClasses);
         badge.setAttribute("data-scope", "badge");
         badge.setAttribute("data-part", "root");
 
-        // Map data-content to native title for basic tooltip support
-        const content = badge.getAttribute("data-content");
-        if (content) {
-            badge.setAttribute("title", content);
-        }
+        // Tooltip is handled globally by tooltip.ts for all elements with [data-content]
     });
 }
 

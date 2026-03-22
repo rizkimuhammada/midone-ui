@@ -10,21 +10,13 @@ function initAvatars() {
         const borderedAttr = root.getAttribute("data-bordered");
         const bordered = borderedAttr === "false" ? false : true;
 
-        // Capture user classes (e.g. rounded-full) before overwriting className
+        // Capture user classes (e.g. rounded-full, size-8) before overwriting className
         const userClasses = Array.from(root.classList).filter(c => c !== "avatar-root");
 
-        // Apply variant classes, then re-apply user classes so they win over base (e.g. rounded-full > rounded-xl)
-        root.className = cn(avatarRootVariants({ bordered }), "avatar-root");
+        // Use cn to merge variants with user classes correctly (replicates Vue twMerge behavior)
+        root.className = cn(avatarRootVariants({ bordered }), "avatar-root", ...userClasses);
         root.setAttribute("data-scope", "avatar");
         root.setAttribute("data-part", "root");
-        for (const cls of userClasses) {
-            if (/^rounded-/.test(cls)) {
-                Array.from(root.classList)
-                    .filter(c => /^rounded-/.test(c))
-                    .forEach(c => root.classList.remove(c));
-            }
-            root.classList.add(cls);
-        }
 
         // Apply fallback class
         root.querySelectorAll(".avatar-fallback").forEach((el) => {

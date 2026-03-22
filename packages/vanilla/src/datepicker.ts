@@ -202,8 +202,14 @@ function initDatePickerRoot(root: HTMLElement) {
         contentEl.className = cn(boxClasses, datePickerContent, ...userClasses);
         contentEl.setAttribute("data-scope", "date-picker");
         contentEl.setAttribute("data-part", "content");
-        // p-0 override (datePickerContent has p-0 which should win over box padding)
-        (contentEl as HTMLElement).style.padding = "0";
+
+        // Vue DatePickerContent wraps slot in <div><slot /></div>
+        // The [&>div] selectors in datePickerContent target this inner wrapper
+        const innerWrapper = document.createElement("div");
+        while (contentEl.firstChild) {
+            innerWrapper.appendChild(contentEl.firstChild);
+        }
+        contentEl.appendChild(innerWrapper);
     }
 
     // Year select

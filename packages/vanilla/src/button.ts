@@ -10,7 +10,8 @@ function initButtons() {
 
         // Tambahkan class dari core styles menggunakan cn untuk resolusi konflik
         const variantClasses = buttonVariants({ variant, size, look });
-        btn.className = cn(variantClasses, btn.className);
+        const userClasses = Array.from(btn.classList).filter((c) => c !== "button");
+        btn.className = cn(variantClasses, "button", ...userClasses);
         btn.setAttribute("data-scope", "button");
         btn.setAttribute("data-part", "root");
         

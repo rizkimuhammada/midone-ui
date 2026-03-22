@@ -21,6 +21,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.7.4",
     "chart.js": "^4.5.1",
+    "lucide": "^0.577.0",
     "maplibre-gl": "^5.20.2"
   }
 }

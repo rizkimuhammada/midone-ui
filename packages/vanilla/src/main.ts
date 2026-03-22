@@ -1,4 +1,4 @@
-import './style.css'
+import './lucide'
 import './accordion'
 import './button'
 import './alert'

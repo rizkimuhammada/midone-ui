@@ -14,20 +14,23 @@ function initAlerts() {
         const look = alert.getAttribute("data-look") as any || "flat";
 
         // Terapkan gaya root menggunakan cn untuk resolusi konflik
-        alert.className = cn(alertRootVariants({ variant, look }), alert.className);
+        const userClasses = Array.from(alert.classList).filter((c) => c !== "alert");
+        alert.className = cn(alertRootVariants({ variant, look }), "alert", ...userClasses);
         alert.setAttribute("data-scope", "alert");
         alert.setAttribute("data-part", "root");
 
         // 2. Inisialisasi Title
         alert.querySelectorAll(".alert-title").forEach((title) => {
-            title.className = cn(title.className, alertTitle);
+            const userClasses = Array.from(title.classList).filter((c) => c !== "alert-title");
+            title.className = cn(alertTitle, "alert-title", ...userClasses);
             title.setAttribute("data-scope", "alert");
             title.setAttribute("data-part", "title");
         });
 
         // 3. Inisialisasi Description
         alert.querySelectorAll(".alert-description").forEach((desc) => {
-            desc.className = cn(desc.className, alertDescription);
+            const userClasses = Array.from(desc.classList).filter((c) => c !== "alert-description");
+            desc.className = cn(alertDescription, "alert-description", ...userClasses);
             desc.setAttribute("data-scope", "alert");
             desc.setAttribute("data-part", "description");
         });

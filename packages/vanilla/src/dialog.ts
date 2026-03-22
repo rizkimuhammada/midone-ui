@@ -137,6 +137,11 @@ function initDialog() {
         // Register by root ID for programmatic triggers
         const id = root.id;
         if (id) dialogRegistry.set(id, controls);
+
+        // Auto open if data-open is true
+        if (root.getAttribute("data-open") === "true") {
+            controls.open();
+        }
     });
 
     // Wire up external programmatic triggers
