@@ -1,19 +1,32 @@
 import { cn } from "@midoneui/core/src/utils/cn";
-import { boxVariants } from "@midoneui/core/src/styles/box.styles";
 
-function initSlot() {
-    document.querySelectorAll<HTMLElement>(".as-child-box").forEach((wrapper) => {
-        const child = wrapper.firstElementChild as HTMLElement | null;
-        if (!child) return;
-        child.className = cn(boxVariants(), child.className);
-        child.setAttribute("data-scope", "slot");
-        child.setAttribute("data-part", "root");
-        wrapper.replaceWith(child);
-    });
-}
+export function handleAsChild(element: HTMLElement) {
+    const asChild =
+        element.hasAttribute("as-child") ||
+        element.hasAttribute("data-as-child");
 
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initSlot);
-} else {
-    initSlot();
+    if (asChild) {
+        const firstChild = element.firstElementChild as HTMLElement;
+        if (firstChild) {
+            // Copy all attributes from parent to firstChild (part, scope, etc)
+            Array.from(element.attributes).forEach((attr) => {
+                if (
+                    attr.name !== "class" &&
+                    attr.name !== "as-child" &&
+                    attr.name !== "data-as-child"
+                ) {
+                    firstChild.setAttribute(attr.name, attr.value);
+                }
+            });
+            // Merge classes: parent's custom classes + child's classes
+            // We strip 'as-child' from the parent classes
+            const parentClasses = element.className
+                .replace("as-child", "")
+                .replace("data-as-child", "");
+            firstChild.className = cn(parentClasses, firstChild.className);
+            element.replaceWith(firstChild);
+            return firstChild;
+        }
+    }
+    return element;
 }

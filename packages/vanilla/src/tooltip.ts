@@ -7,11 +7,11 @@ import {
     tooltipArrowTip,
 } from "@midoneui/core/src/styles/tooltip.styles";
 import { buttonVariants } from "@midoneui/core/src/styles/button.styles";
+import { handleAsChild } from "./slot";
 
 const PLACEMENT_OFFSET = 4;
 const ARROW_SIZE = 10;
 
-// Singleton style positioner to reuse for all data-content tooltips
 let globalPositioner: HTMLElement | null = null;
 let globalContent: HTMLElement | null = null;
 
@@ -25,12 +25,10 @@ function createGlobalTooltipNode() {
     globalContent = document.createElement("div");
     globalContent.className = cn(tooltipContent);
     
-    // Inner text container
     const textNode = document.createElement("div");
     textNode.id = "global-tooltip-text";
     globalContent.appendChild(textNode);
 
-    // Arrow container
     const arrowEl = document.createElement("div");
     arrowEl.className = cn(tooltipArrow);
     arrowEl.style.cssText = "position:absolute;bottom:calc(var(--arrow-size,10px)/-2);left:50%;transform:translateX(-50%);width:var(--arrow-size,10px);height:var(--arrow-size,10px);";
@@ -47,72 +45,74 @@ function createGlobalTooltipNode() {
 }
 
 function initTooltip() {
-    // 1. Initial manual .tooltip-root setup (Current standard for complex tooltips)
-    document.querySelectorAll<HTMLElement>(".tooltip-root").forEach((root) => {
-        const triggerEl = root.querySelector<HTMLElement>(".tooltip-trigger")!;
-        const positionerEl = root.querySelector<HTMLElement>(".tooltip-positioner")!;
-        const contentEl = root.querySelector<HTMLElement>(".tooltip-content")!;
+    document.querySelectorAll<HTMLElement>(".tooltip-root").forEach((rootEl) => {
+        const root = handleAsChild(rootEl);
+        const triggerEl = root.querySelector<HTMLElement>(".tooltip-trigger");
+        const positionerEl = root.querySelector<HTMLElement>(".tooltip-positioner");
+        const contentEl = root.querySelector<HTMLElement>(".tooltip-content");
         if (!triggerEl || !positionerEl || !contentEl) return;
 
-        // Apply trigger classes (secondary/outline button)
-        triggerEl.className = cn(buttonVariants({ variant: "secondary", look: "outline" }), tooltipTrigger, triggerEl.className);
-        triggerEl.setAttribute("data-scope", "tooltip");
-        triggerEl.setAttribute("data-part", "trigger");
+        const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");
+        const trigger = handleAsChild(triggerEl);
+        if (!isAsChildTrigger) {
+            trigger.className = cn(buttonVariants({ variant: "secondary", look: "outline" }), tooltipTrigger, trigger.className);
+        }
+        trigger.setAttribute("data-scope", "tooltip");
+        trigger.setAttribute("data-part", "trigger");
 
-        // Apply content classes
-        contentEl.className = cn(tooltipContent, contentEl.className);
-        contentEl.setAttribute("data-scope", "tooltip");
-        contentEl.setAttribute("data-part", "content");
+        const isAsChildContent = contentEl.hasAttribute("data-as-child");
+        const content = handleAsChild(contentEl);
+        if (!isAsChildContent) {
+            content.className = cn(tooltipContent, content.className);
+            const innerDiv = document.createElement("div");
+            while (content.firstChild) innerDiv.appendChild(content.firstChild);
 
-        // Wrap content children in inner div, inject arrow
-        const innerDiv = document.createElement("div");
-        while (contentEl.firstChild) innerDiv.appendChild(contentEl.firstChild);
+            const arrowEl = document.createElement("div");
+            arrowEl.className = cn(tooltipArrow);
+            arrowEl.setAttribute("data-scope", "tooltip");
+            arrowEl.setAttribute("data-part", "arrow");
+            arrowEl.style.cssText = "position:absolute;bottom:calc(var(--arrow-size,10px)/-2);left:50%;transform:translateX(-50%);width:var(--arrow-size,10px);height:var(--arrow-size,10px);";
 
-        // Arrow container
-        const arrowEl = document.createElement("div");
-        arrowEl.className = cn(tooltipArrow);
-        arrowEl.setAttribute("data-scope", "tooltip");
-        arrowEl.setAttribute("data-part", "arrow");
-        arrowEl.style.cssText = "position:absolute;bottom:calc(var(--arrow-size,10px)/-2);left:50%;transform:translateX(-50%);width:var(--arrow-size,10px);height:var(--arrow-size,10px);";
+            const arrowTipEl = document.createElement("div");
+            arrowTipEl.className = cn(tooltipArrowTip);
+            arrowTipEl.setAttribute("data-scope", "tooltip");
+            arrowTipEl.setAttribute("data-part", "arrow-tip");
+            arrowTipEl.style.cssText = "width:100%;height:100%;transform:rotate(225deg);";
 
-        // Arrow tip
-        const arrowTipEl = document.createElement("div");
-        arrowTipEl.className = cn(tooltipArrowTip);
-        arrowTipEl.setAttribute("data-scope", "tooltip");
-        arrowTipEl.setAttribute("data-part", "arrow-tip");
-        arrowTipEl.style.cssText = "width:100%;height:100%;transform:rotate(225deg);";
+            arrowEl.appendChild(arrowTipEl);
+            innerDiv.appendChild(arrowEl);
+            content.appendChild(innerDiv);
+        }
+        
+        content.setAttribute("data-scope", "tooltip");
+        content.setAttribute("data-part", "content");
 
-        arrowEl.appendChild(arrowTipEl);
-        innerDiv.appendChild(arrowEl);
-        contentEl.appendChild(innerDiv);
-
-        // Apply positioner classes, detach from root, append to body hidden
-        positionerEl.className = cn(tooltipPositioner, positionerEl.className);
-        positionerEl.setAttribute("data-scope", "tooltip");
-        positionerEl.setAttribute("data-part", "positioner");
-        positionerEl.style.cssText = "position:fixed;z-index:50;display:none;";
-        positionerEl.remove();
-        document.body.appendChild(positionerEl);
+        const positioner = handleAsChild(positionerEl);
+        positioner.className = cn(tooltipPositioner, positioner.className);
+        positioner.setAttribute("data-scope", "tooltip");
+        positioner.setAttribute("data-part", "positioner");
+        positioner.style.cssText = "position:fixed;z-index:50;display:none;";
+        positioner.remove();
+        document.body.appendChild(positioner);
 
         function show() {
-            positionerEl.style.display = "block";
-            const triggerRect = triggerEl!.getBoundingClientRect();
-            const posRect = positionerEl.getBoundingClientRect();
+            positioner.style.display = "block";
+            const triggerRect = trigger.getBoundingClientRect();
+            const posRect = positioner.getBoundingClientRect();
             const top = triggerRect.top - posRect.height - ARROW_SIZE - PLACEMENT_OFFSET;
             const left = triggerRect.left + triggerRect.width / 2 - posRect.width / 2;
-            positionerEl.style.top = `${top}px`;
-            positionerEl.style.left = `${left}px`;
+            positioner.style.top = `${top}px`;
+            positioner.style.left = `${left}px`;
         }
 
         function hide() {
-            positionerEl.style.display = "none";
+            positioner.style.display = "none";
         }
 
-        triggerEl.addEventListener("mouseenter", show);
-        triggerEl.addEventListener("mouseleave", hide);
+        trigger.addEventListener("mouseenter", show);
+        trigger.addEventListener("mouseleave", hide);
     });
 
-    // 2. Automated tooltips for [data-content] (Simple Directive-like behavior)
     createGlobalTooltipNode();
 
     document.addEventListener("mouseenter", (e) => {
@@ -123,13 +123,10 @@ function initTooltip() {
             if (textNode) textNode.textContent = contentText;
 
             globalPositioner.style.display = "block";
-
             const triggerRect = (target as HTMLElement).getBoundingClientRect();
             const posRect = globalPositioner.getBoundingClientRect();
-
             const top = triggerRect.top - posRect.height - ARROW_SIZE - PLACEMENT_OFFSET;
             const left = triggerRect.left + triggerRect.width / 2 - posRect.width / 2;
-
             globalPositioner.style.top = `${top}px`;
             globalPositioner.style.left = `${left}px`;
         }

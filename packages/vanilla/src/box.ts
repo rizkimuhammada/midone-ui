@@ -1,24 +1,18 @@
 import { cn } from "@midoneui/core/src/utils/cn";
 import { boxVariants } from "@midoneui/core/src/styles/box.styles";
+import { handleAsChild } from "./slot";
 
 function initBoxes() {
-    document.querySelectorAll(".box").forEach((box) => {
-        const raised = box.getAttribute("data-raised") as any;
+    document.querySelectorAll<HTMLElement>(".box").forEach((boxEl) => {
+        const box = handleAsChild(boxEl);
+        const raisedAttr = box.getAttribute("data-raised") as any;
+        const userClasses = Array.from(box.classList);
 
-        // Capture user-specified extra classes (excluding the 'box' selector class)
-        const userClasses = Array.from(box.classList).filter((c) => c !== "box");
+        const options: any = {};
+        if (raisedAttr) options.raised = raisedAttr;
 
-        // Apply variant classes (full, including p-5 default)
-        const variantClasses = boxVariants({ raised });
-        
-        // Merge variant classes with user classes using cn() to properly resolve conflicts
-        box.className = cn(variantClasses, "box", userClasses.join(" "));
+        box.className = cn(boxVariants(options), box.className);
 
-        box.setAttribute("data-scope", "box");
-        box.setAttribute("data-part", "root");
-
-        // Last resort: if user specified p-0, force it via inline style so it
-        // wins regardless of CSS cascade or external class overrides.
         if (userClasses.includes("p-0")) {
             (box as HTMLElement).style.padding = "0";
         }

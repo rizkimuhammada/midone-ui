@@ -4,14 +4,16 @@ import {
     avatarFallback,
     avatarImage,
 } from "@midoneui/core/src/styles/avatar.styles";
+import { handleAsChild } from "./slot";
 
 function initAvatars() {
-    document.querySelectorAll(".avatar-root").forEach((root) => {
+    document.querySelectorAll<HTMLElement>(".avatar-root").forEach((rootEl) => {
+        const root = handleAsChild(rootEl);
         const borderedAttr = root.getAttribute("data-bordered");
         const bordered = borderedAttr === "false" ? false : true;
 
         // Capture user classes (e.g. rounded-full, size-8) before overwriting className
-        const userClasses = Array.from(root.classList).filter(c => c !== "avatar-root");
+        const userClasses = Array.from(root.classList).filter((c) => c !== "avatar-root");
 
         // Use cn to merge variants with user classes correctly (replicates Vue twMerge behavior)
         root.className = cn(avatarRootVariants({ bordered }), "avatar-root", ...userClasses);
@@ -19,14 +21,16 @@ function initAvatars() {
         root.setAttribute("data-part", "root");
 
         // Apply fallback class
-        root.querySelectorAll(".avatar-fallback").forEach((el) => {
+        root.querySelectorAll<HTMLElement>(".avatar-fallback").forEach((fallbackEl) => {
+            const el = handleAsChild(fallbackEl);
             el.className = cn(avatarFallback, el.className);
             el.setAttribute("data-scope", "avatar");
             el.setAttribute("data-part", "fallback");
         });
 
         // Apply image class + show/hide logic (replicates zag-js avatar behavior)
-        root.querySelectorAll(".avatar-image").forEach((el) => {
+        root.querySelectorAll<HTMLElement>(".avatar-image").forEach((imageEl) => {
+            const el = handleAsChild(imageEl);
             const img = el as HTMLImageElement;
             img.className = cn(avatarImage, img.className);
             img.setAttribute("data-scope", "avatar");

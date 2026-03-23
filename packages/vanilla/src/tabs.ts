@@ -6,41 +6,42 @@ import {
     tabsTrigger,
     tabsContent,
 } from "@midoneui/core/src/styles/tabs.styles";
+import { handleAsChild } from "./slot";
 
-function initTabsRoot(root: HTMLElement) {
+function initTabsRoot(rootEl: HTMLElement) {
+    const root = handleAsChild(rootEl);
     const defaultValue = root.getAttribute("data-default-value") ?? "";
 
     root.className = cn(tabsRoot, root.className);
     root.setAttribute("data-scope", "tabs");
     root.setAttribute("data-part", "root");
 
-    const list = root.querySelector<HTMLElement>(":scope > .tabs-list");
+    const listEl = root.querySelector<HTMLElement>(":scope > .tabs-list");
     const triggers = Array.from(root.querySelectorAll<HTMLElement>(".tabs-trigger"));
     const contents = Array.from(root.querySelectorAll<HTMLElement>(".tabs-content"));
 
-    // Apply content classes
-    contents.forEach(content => {
+    contents.forEach(contentEl => {
+        const content = handleAsChild(contentEl);
         content.className = cn(tabsContent, content.className);
         content.setAttribute("data-scope", "tabs");
         content.setAttribute("data-part", "content");
     });
 
-    if (!list) return;
+    if (!listEl) return;
+    const list = handleAsChild(listEl);
 
-    // Add flex + gap-1 via class (not inline style) — in Vue these come from [&>div]:flex [&>div]:gap-1
-    // targeting the inner div, but in vanilla there's no inner div so we apply directly to list
     list.className = cn(tabsList, "flex", list.className);
     list.setAttribute("data-scope", "tabs");
     list.setAttribute("data-part", "list");
 
-    // Apply trigger classes (direct children of list, no inner div wrapper)
-    triggers.forEach(trigger => {
+    triggers.forEach(triggerEl => {
+        const trigger = handleAsChild(triggerEl);
         trigger.className = cn(tabsTrigger, trigger.className);
         trigger.setAttribute("data-scope", "tabs");
         trigger.setAttribute("data-part", "trigger");
+        trigger.addEventListener("click", () => activate(trigger.dataset.value ?? ""));
     });
 
-    // Indicator is a direct sibling of triggers inside list
     const indicator = document.createElement("div");
     indicator.className = cn(tabsIndicator);
     indicator.setAttribute("data-scope", "tabs");
@@ -56,7 +57,7 @@ function initTabsRoot(root: HTMLElement) {
     }
 
     function activate(value: string) {
-        triggers.forEach(t => {
+        root.querySelectorAll<HTMLElement>(".tabs-trigger").forEach(t => {
             if (t.dataset.value === value) {
                 t.setAttribute("data-selected", "");
                 updateIndicator(t);
@@ -64,19 +65,15 @@ function initTabsRoot(root: HTMLElement) {
                 t.removeAttribute("data-selected");
             }
         });
-        contents.forEach(c => {
+        root.querySelectorAll<HTMLElement>(".tabs-content").forEach(c => {
             if (c.dataset.value === value) c.removeAttribute("hidden");
             else c.setAttribute("hidden", "");
         });
     }
 
-    triggers.forEach(trigger => {
-        trigger.addEventListener("click", () => activate(trigger.dataset.value ?? ""));
-    });
-
-    // Use rAF so CSS is applied and offsetWidth/Height are accurate
     requestAnimationFrame(() => {
-        activate(defaultValue || triggers[0]?.dataset.value || "");
+        const firstTrigger = root.querySelector<HTMLElement>(".tabs-trigger");
+        activate(defaultValue || firstTrigger?.dataset.value || "");
     });
 }
 
