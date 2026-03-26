@@ -131,6 +131,24 @@ function initDatePickerRoot(root: HTMLElement) {
         selectedDates: [] as Date[],
     };
 
+    const defaultValueAttr = root.getAttribute("data-value");
+    if (defaultValueAttr) {
+        try {
+            const vals = JSON.parse(defaultValueAttr);
+            if (Array.isArray(vals)) {
+                state.selectedDates = vals.map((v: string) => new Date(v));
+            } else {
+                state.selectedDates = [new Date(vals)];
+            }
+            if (state.selectedDates.length > 0) {
+                state.viewYear = state.selectedDates[0].getFullYear();
+                state.viewMonth = state.selectedDates[0].getMonth();
+            }
+        } catch (e) {
+            console.error("Invalid datepicker value", defaultValueAttr);
+        }
+    }
+
     // Apply root class
     root.className = cn(datePickerRoot, root.className);
     root.setAttribute("data-scope", "date-picker");
@@ -659,6 +677,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Initial render
+    updateInputs();
     render();
 
     // If inline, also render the standalone day view table directly in box
