@@ -20,10 +20,9 @@ export function handleAsChild(element: HTMLElement) {
             });
             // Merge classes: parent's custom classes + child's classes
             // We strip 'as-child' from the parent classes
-            const parentClasses = element.className
-                .replace("as-child", "")
-                .replace("data-as-child", "");
-            firstChild.className = cn(parentClasses, firstChild.className);
+            const parentClasses = element.getAttribute("class")?.replace("data-as-child", "").replace("as-child", "") || "";
+            const childClasses = firstChild.getAttribute("class") || "";
+            firstChild.setAttribute("class", cn(parentClasses, childClasses));
             element.replaceWith(firstChild);
             return firstChild;
         }
