@@ -5,6 +5,12 @@ import { handleAsChild } from "./slot";
 function initBoxes() {
     document.querySelectorAll<HTMLElement>(".box").forEach((boxEl) => {
         const box = handleAsChild(boxEl);
+
+        const skipClasses = ["input", "native-select"];
+        if (skipClasses.some((c) => box.classList.contains(c))) {
+            return;
+        }
+
         const raisedAttr = box.getAttribute("data-raised") as any;
         const userClasses = Array.from(box.classList);
 
