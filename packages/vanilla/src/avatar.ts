@@ -7,21 +7,18 @@ import {
 import { handleAsChild } from "./slot";
 
 function initAvatars() {
-    document.querySelectorAll<HTMLElement>(".avatar-root").forEach((rootEl) => {
+    document.querySelectorAll<HTMLElement>('[data-component="avatar-root"]').forEach((rootEl) => {
         const root = handleAsChild(rootEl);
         const borderedAttr = root.getAttribute("data-bordered");
         const bordered = borderedAttr === "false" ? false : true;
 
-        // Capture user classes (e.g. rounded-full, size-8) before overwriting className
-        const userClasses = Array.from(root.classList).filter((c) => c !== "avatar-root");
-
-        // Use cn to merge variants with user classes correctly (replicates Vue twMerge behavior)
-        root.className = cn(avatarRootVariants({ bordered }), "avatar-root", ...userClasses);
+        // Use cn to merge variants with user classes correctly
+        root.className = cn(avatarRootVariants({ bordered }), root.className);
         root.setAttribute("data-scope", "avatar");
         root.setAttribute("data-part", "root");
 
         // Apply fallback class
-        root.querySelectorAll<HTMLElement>(".avatar-fallback").forEach((fallbackEl) => {
+        root.querySelectorAll<HTMLElement>('[data-component="avatar-fallback"]').forEach((fallbackEl) => {
             const el = handleAsChild(fallbackEl);
             el.className = cn(avatarFallback, el.className);
             el.setAttribute("data-scope", "avatar");
@@ -29,14 +26,14 @@ function initAvatars() {
         });
 
         // Apply image class + show/hide logic (replicates zag-js avatar behavior)
-        root.querySelectorAll<HTMLElement>(".avatar-image").forEach((imageEl) => {
+        root.querySelectorAll<HTMLElement>('[data-component="avatar-image"]').forEach((imageEl) => {
             const el = handleAsChild(imageEl);
             const img = el as HTMLImageElement;
             img.className = cn(avatarImage, img.className);
             img.setAttribute("data-scope", "avatar");
             img.setAttribute("data-part", "image");
 
-            const fallback = root.querySelector(".avatar-fallback") as HTMLElement | null;
+            const fallback = root.querySelector('[data-component="avatar-fallback"]') as HTMLElement | null;
 
             const showImage = () => {
                 img.style.display = "";

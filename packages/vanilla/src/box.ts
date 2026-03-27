@@ -3,7 +3,7 @@ import { boxVariants } from "@midoneui/core/src/styles/box.styles";
 import { handleAsChild } from "./slot";
 
 function initBoxes() {
-    document.querySelectorAll<HTMLElement>(".box").forEach((boxEl) => {
+    document.querySelectorAll<HTMLElement>('[data-component="box"]').forEach((boxEl) => {
         const box = handleAsChild(boxEl);
         const raisedAttr = box.getAttribute("data-raised") as any;
         const userClasses = Array.from(box.classList);
