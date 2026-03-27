@@ -46,19 +46,29 @@ function initAlerts() {
             });
 
         // 4. Inisialisasi Icon - apply classes directly to the inner SVG element,
-        //    then unwrap the div, matching Vue's <Slot> behavior in AlertIcon.vue
+        //    matching Vue's behavior where Lucide icons can be direct children
         alert.querySelectorAll<HTMLElement>('[data-component="alert-icon"]').forEach((iconEl) => {
             const icon = handleAsChild(iconEl);
             const innerIcon = icon.firstElementChild;
             if (innerIcon) {
                 innerIcon.setAttribute(
                     "class",
-                    cn(alertIcon, innerIcon.getAttribute("class") ?? "")
+                    cn(innerIcon.getAttribute("class") ?? "", alertIcon)
                 );
                 innerIcon.setAttribute("data-scope", "alert");
                 innerIcon.setAttribute("data-part", "icon");
                 icon.replaceWith(innerIcon);
             }
+        });
+
+        // Handle direct Lucide icons (could be <i> before lucide.ts or <svg> after)
+        alert.querySelectorAll<HTMLElement | SVGElement>(':scope > [data-component="lucide"]').forEach((iconEl) => {
+            iconEl.setAttribute(
+                "class",
+                cn(iconEl.getAttribute("class") ?? "", alertIcon)
+            );
+            iconEl.setAttribute("data-scope", "alert");
+            iconEl.setAttribute("data-part", "icon");
         });
 
         // 5. Inisialisasi Close Trigger
