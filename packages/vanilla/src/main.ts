@@ -1,4 +1,5 @@
 import './lucide'
+import './accordion'
 import './box'
 import './badge'
 import './button'

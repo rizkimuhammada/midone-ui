@@ -10,47 +10,36 @@ import { handleAsChild } from "./slot";
 
 function initAlerts() {
     // 1. Inisialisasi Root Alert
-    document.querySelectorAll<HTMLElement>(".alert").forEach((alertEl) => {
+    document.querySelectorAll<HTMLElement>('[data-component="alert"]').forEach((alertEl) => {
         const alert = handleAsChild(alertEl);
         const variant =
             (alert.getAttribute("data-variant") as any) || "primary";
         const look = (alert.getAttribute("data-look") as any) || "flat";
 
         // Terapkan gaya root menggunakan cn untuk resolusi konflik
-        const userClasses = Array.from(alert.classList).filter(
-            (c) => c !== "alert"
-        );
         alert.className = cn(
             alertRootVariants({ variant, look }),
-            "alert",
-            ...userClasses
+            alert.className
         );
         alert.setAttribute("data-scope", "alert");
         alert.setAttribute("data-part", "root");
 
         // 2. Inisialisasi Title
-        alert.querySelectorAll<HTMLElement>(".alert-title").forEach((titleEl) => {
+        alert.querySelectorAll<HTMLElement>('[data-component="alert-title"]').forEach((titleEl) => {
             const title = handleAsChild(titleEl);
-            const userClasses = Array.from(title.classList).filter(
-                (c) => c !== "alert-title"
-            );
-            title.className = cn(alertTitle, "alert-title", ...userClasses);
+            title.className = cn(alertTitle, title.className);
             title.setAttribute("data-scope", "alert");
             title.setAttribute("data-part", "title");
         });
 
         // 3. Inisialisasi Description
         alert
-            .querySelectorAll<HTMLElement>(".alert-description")
+            .querySelectorAll<HTMLElement>('[data-component="alert-description"]')
             .forEach((descEl) => {
                 const desc = handleAsChild(descEl);
-                const userClasses = Array.from(desc.classList).filter(
-                    (c) => c !== "alert-description"
-                );
                 desc.className = cn(
                     alertDescription,
-                    "alert-description",
-                    ...userClasses
+                    desc.className
                 );
                 desc.setAttribute("data-scope", "alert");
                 desc.setAttribute("data-part", "description");
@@ -58,7 +47,7 @@ function initAlerts() {
 
         // 4. Inisialisasi Icon - apply classes directly to the inner SVG element,
         //    then unwrap the div, matching Vue's <Slot> behavior in AlertIcon.vue
-        alert.querySelectorAll<HTMLElement>(".alert-icon").forEach((iconEl) => {
+        alert.querySelectorAll<HTMLElement>('[data-component="alert-icon"]').forEach((iconEl) => {
             const icon = handleAsChild(iconEl);
             const innerIcon = icon.firstElementChild;
             if (innerIcon) {
@@ -74,10 +63,10 @@ function initAlerts() {
 
         // 5. Inisialisasi Close Trigger
         alert
-            .querySelectorAll<HTMLElement>(".alert-close-trigger")
+            .querySelectorAll<HTMLElement>('[data-component="alert-close-trigger"]')
             .forEach((triggerEl) => {
                 const trigger = handleAsChild(triggerEl);
-                trigger.className = cn(trigger.className, alertCloseTrigger);
+                trigger.className = cn(alertCloseTrigger, trigger.className);
                 trigger.setAttribute("data-scope", "alert");
                 trigger.setAttribute("data-part", "close-trigger");
 
