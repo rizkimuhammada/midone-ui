@@ -30,20 +30,20 @@ function buildDialog(contentEl: HTMLElement) {
         while (content.firstChild) innerDiv.appendChild(content.firstChild);
         content.appendChild(innerDiv);
         
-        innerDiv.querySelectorAll<HTMLElement>(".dialog-title").forEach(el => {
+        innerDiv.querySelectorAll<HTMLElement>('[data-component="dialog-title"]').forEach(el => {
             const title = handleAsChild(el);
             title.className = cn(dialogTitle, title.className);
             title.setAttribute("data-scope", "dialog");
             title.setAttribute("data-part", "title");
         });
-        innerDiv.querySelectorAll<HTMLElement>(".dialog-description").forEach(el => {
+        innerDiv.querySelectorAll<HTMLElement>('[data-component="dialog-description"]').forEach(el => {
             const desc = handleAsChild(el);
             desc.className = cn(dialogDescription, desc.className);
             desc.setAttribute("data-scope", "dialog");
             desc.setAttribute("data-part", "description");
         });
 
-        innerDiv.querySelectorAll<HTMLElement>(".dialog-close-trigger").forEach(btnEl => {
+        innerDiv.querySelectorAll<HTMLElement>('[data-component="dialog-close-trigger"]').forEach(btnEl => {
             const isAsChildTrigger = btnEl.hasAttribute("data-as-child");
             const btn = handleAsChild(btnEl);
             btn.setAttribute("data-scope", "dialog");
@@ -61,7 +61,7 @@ function buildDialog(contentEl: HTMLElement) {
             }
         });
         
-        innerDiv.querySelectorAll<HTMLElement>(".dialog-close-trigger").forEach(btn => {
+        innerDiv.querySelectorAll<HTMLElement>('[data-component="dialog-close-trigger"]').forEach(btn => {
             btn.addEventListener("click", closeDialog);
         });
     } else {
@@ -69,7 +69,7 @@ function buildDialog(contentEl: HTMLElement) {
         content.setAttribute("data-scope", "dialog");
         content.setAttribute("data-part", "content");
         
-        content.querySelectorAll<HTMLElement>(".dialog-close-trigger").forEach(btn => {
+        content.querySelectorAll<HTMLElement>('[data-component="dialog-close-trigger"]').forEach(btn => {
             btn.addEventListener("click", closeDialog);
         });
     }
@@ -124,10 +124,10 @@ function buildDialog(contentEl: HTMLElement) {
 }
 
 function initDialog() {
-    document.querySelectorAll<HTMLElement>(".dialog-root").forEach(rootEl => {
+    document.querySelectorAll<HTMLElement>('[data-component="dialog-root"]').forEach(rootEl => {
         const root = handleAsChild(rootEl);
-        const triggerEl = root.querySelector<HTMLElement>(".dialog-trigger");
-        const contentEl = root.querySelector<HTMLElement>(".dialog-content");
+        const triggerEl = root.querySelector<HTMLElement>('[data-component="dialog-trigger"]');
+        const contentEl = root.querySelector<HTMLElement>('[data-component="dialog-content"]');
         if (!contentEl) return;
 
         if (triggerEl) {

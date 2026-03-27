@@ -13,11 +13,11 @@
 
       <!-- Example 1: Open Dialog -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div class="dialog-root">
-          <button class="dialog-trigger">Open Dialog</button>
-          <div class="dialog-content">
-            <div class="dialog-title">Dialog Title</div>
-            <div class="dialog-description">Make changes to your profile here. Click save when you're done.</div>
+        <div data-component="dialog-root" class="">
+          <button data-component="dialog-trigger" class="">Open Dialog</button>
+          <div data-component="dialog-content" class="">
+            <div data-component="dialog-title" class="">Dialog Title</div>
+            <div data-component="dialog-description" class="">Make changes to your profile here. Click save when you're done.</div>
             <div class="grid gap-4 mt-2">
               <div class="grid gap-2.5">
                 <label class="label" for="name-1">Name</label>
@@ -29,7 +29,7 @@
               </div>
             </div>
             <div class="flex gap-2 justify-end mt-7">
-              <button class="dialog-close-trigger">
+              <button data-component="dialog-close-trigger" class="">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
                 Close
               </button>
@@ -38,23 +38,23 @@
                 Submit
               </button>
             </div>
-            <button class="dialog-close-trigger"></button>
+            <button data-component="dialog-close-trigger" class=""></button>
           </div>
         </div>
       </div>
 
       <!-- Example 2: Custom Close -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div class="dialog-root">
-          <button class="dialog-trigger">Custom Close</button>
-          <div class="dialog-content">
-            <div class="dialog-title">Share Link</div>
-            <div class="dialog-description">Anyone who has this link will be able to view this.</div>
+        <div data-component="dialog-root" class="">
+          <button data-component="dialog-trigger" class="">Custom Close</button>
+          <div data-component="dialog-content" class="">
+            <div data-component="dialog-title" class="">Share Link</div>
+            <div data-component="dialog-description" class="">Anyone who has this link will be able to view this.</div>
             <div class="grid gap-4 mt-2">
               <input class="input" id="link-1" name="link" value="https://midone-ui.com/docs/installation" />
             </div>
             <div class="flex gap-2 mt-5">
-              <button class="dialog-close-trigger">
+              <button data-component="dialog-close-trigger" class="">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
                 Share Link
               </button>
@@ -66,15 +66,15 @@
       <!-- Example 3: Programmatic Trigger -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
         <button class="button" data-variant="secondary" data-look="outline" data-dialog-target="dialog-programmatic">Programmatic Trigger</button>
-        <div class="dialog-root" id="dialog-programmatic">
-          <div class="dialog-content">
-            <div class="dialog-title">Share Link</div>
-            <div class="dialog-description">Anyone who has this link will be able to view this.</div>
+        <div data-component="dialog-root" class="" id="dialog-programmatic">
+          <div data-component="dialog-content" class="">
+            <div data-component="dialog-title" class="">Share Link</div>
+            <div data-component="dialog-description" class="">Anyone who has this link will be able to view this.</div>
             <div class="grid gap-4 mt-2">
               <input class="input" id="link-2" name="link" value="https://midone-ui.com/docs/installation" />
             </div>
             <div class="flex gap-2 mt-5">
-              <button class="dialog-close-trigger">
+              <button data-component="dialog-close-trigger" class="">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
                 Share Link
               </button>
