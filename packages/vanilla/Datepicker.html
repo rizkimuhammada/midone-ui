@@ -15,54 +15,54 @@
 
       <!-- Example 1: Basic -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div class="datepicker-root w-84">
-          <label class="label datepicker-label">Basic</label>
-          <div class="datepicker-control">
-            <input type="text" class="input datepicker-input">
-            <button class="datepicker-trigger"></button>
-            <button class="datepicker-clear-trigger">Clear</button>
+        <div data-component="datepicker-root" class=" w-84">
+          <label data-component="datepicker-label" class="label">Basic</label>
+          <div data-component="datepicker-control" class="">
+            <input type="text" data-component="datepicker-input" class="input">
+            <button data-component="datepicker-trigger" class=""></button>
+            <button data-component="datepicker-clear-trigger" class="">Clear</button>
           </div>
-          <div class="datepicker-positioner">
-            <div class="datepicker-content" data-raised="single">
-                <select class="datepicker-year-select"></select>
-                <select class="datepicker-month-select"></select>
-                <div class="datepicker-view" data-view="day">
-                  <div class="datepicker-view-control">
-                    <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger">
-                      <div class="datepicker-range-text"></div>
+          <div data-component="datepicker-positioner" class="">
+            <div data-component="datepicker-content" class="" data-raised="single">
+                <select data-component="datepicker-year-select" class=""></select>
+                <select data-component="datepicker-month-select" class=""></select>
+                <div data-component="datepicker-view" class="" data-view="day">
+                  <div data-component="datepicker-view" class="-control">
+                    <button data-component="datepicker-prev-trigger" class=""></button>
+                    <button data-component="datepicker-view" class="-trigger">
+                      <div data-component="datepicker-range-text" class=""></div>
                     </button>
-                    <button class="datepicker-next-trigger"></button>
+                    <button data-component="datepicker-next-trigger" class=""></button>
                   </div>
-                  <table class="datepicker-table">
-                    <thead class="datepicker-table-head">
-                      <tr class="datepicker-table-row"></tr>
+                  <table data-component="datepicker-table" class="">
+                    <thead data-component="datepicker-table" class="-head">
+                      <tr data-component="datepicker-table" class="-row"></tr>
                     </thead>
-                    <tbody class="datepicker-table-body"></tbody>
+                    <tbody data-component="datepicker-table" class="-body"></tbody>
                   </table>
                 </div>
-                <div class="datepicker-view" data-view="month">
-                  <div class="datepicker-view-control">
-                    <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger">
-                      <div class="datepicker-range-text"></div>
+                <div data-component="datepicker-view" class="" data-view="month">
+                  <div data-component="datepicker-view" class="-control">
+                    <button data-component="datepicker-prev-trigger" class=""></button>
+                    <button data-component="datepicker-view" class="-trigger">
+                      <div data-component="datepicker-range-text" class=""></div>
                     </button>
-                    <button class="datepicker-next-trigger"></button>
+                    <button data-component="datepicker-next-trigger" class=""></button>
                   </div>
-                  <table class="datepicker-table">
-                    <tbody class="datepicker-table-body"></tbody>
+                  <table data-component="datepicker-table" class="">
+                    <tbody data-component="datepicker-table" class="-body"></tbody>
                   </table>
                 </div>
-                <div class="datepicker-view" data-view="year">
-                  <div class="datepicker-view-control">
-                    <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger">
-                      <div class="datepicker-range-text"></div>
+                <div data-component="datepicker-view" class="" data-view="year">
+                  <div data-component="datepicker-view" class="-control">
+                    <button data-component="datepicker-prev-trigger" class=""></button>
+                    <button data-component="datepicker-view" class="-trigger">
+                      <div data-component="datepicker-range-text" class=""></div>
                     </button>
-                    <button class="datepicker-next-trigger"></button>
+                    <button data-component="datepicker-next-trigger" class=""></button>
                   </div>
-                  <table class="datepicker-table">
-                    <tbody class="datepicker-table-body"></tbody>
+                  <table data-component="datepicker-table" class="">
+                    <tbody data-component="datepicker-table" class="-body"></tbody>
                   </table>
                 </div>
             </div>
@@ -72,63 +72,63 @@
 
       <!-- Example 2: Range Selection -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div class="datepicker-root w-140" data-selection-mode="range">
-          <label class="label datepicker-label">Range Selection</label>
-          <div class="datepicker-control">
-            <input type="text" class="input datepicker-input" data-index="0">
-            <input type="text" class="input datepicker-input" data-index="1">
-            <button class="datepicker-trigger"></button>
-            <button class="datepicker-clear-trigger">Clear</button>
+        <div data-component="datepicker-root" class=" w-140" data-selection-mode="range">
+          <label data-component="datepicker-label" class="label">Range Selection</label>
+          <div data-component="datepicker-control" class="">
+            <input type="text" data-component="datepicker-input" class="input" data-index="0">
+            <input type="text" data-component="datepicker-input" class="input" data-index="1">
+            <button data-component="datepicker-trigger" class=""></button>
+            <button data-component="datepicker-clear-trigger" class="">Clear</button>
           </div>
           <div class="flex gap-1">
-            <button class="datepicker-preset-trigger badge" data-value="thisWeek" data-variant="secondary"
+            <button data-component="datepicker-preset-trigger" class=" badge" data-value="thisWeek" data-variant="secondary"
               data-look="outline">This Week</button>
-            <button class="datepicker-preset-trigger badge" data-value="lastWeek" data-variant="secondary"
+            <button data-component="datepicker-preset-trigger" class=" badge" data-value="lastWeek" data-variant="secondary"
               data-look="outline">Last Week</button>
-            <button class="datepicker-preset-trigger badge" data-value="thisMonth" data-variant="secondary"
+            <button data-component="datepicker-preset-trigger" class=" badge" data-value="thisMonth" data-variant="secondary"
               data-look="outline">This Month</button>
           </div>
-          <div class="datepicker-positioner">
-            <div class="datepicker-content" data-raised="single">
-                <select class="datepicker-year-select"></select>
-                <select class="datepicker-month-select"></select>
-                <div class="datepicker-view" data-view="day">
-                  <div class="datepicker-view-control">
-                    <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger">
-                      <div class="datepicker-range-text"></div>
+          <div data-component="datepicker-positioner" class="">
+            <div data-component="datepicker-content" class="" data-raised="single">
+                <select data-component="datepicker-year-select" class=""></select>
+                <select data-component="datepicker-month-select" class=""></select>
+                <div data-component="datepicker-view" class="" data-view="day">
+                  <div data-component="datepicker-view" class="-control">
+                    <button data-component="datepicker-prev-trigger" class=""></button>
+                    <button data-component="datepicker-view" class="-trigger">
+                      <div data-component="datepicker-range-text" class=""></div>
                     </button>
-                    <button class="datepicker-next-trigger"></button>
+                    <button data-component="datepicker-next-trigger" class=""></button>
                   </div>
-                  <table class="datepicker-table">
-                    <thead class="datepicker-table-head">
-                      <tr class="datepicker-table-row"></tr>
+                  <table data-component="datepicker-table" class="">
+                    <thead data-component="datepicker-table" class="-head">
+                      <tr data-component="datepicker-table" class="-row"></tr>
                     </thead>
-                    <tbody class="datepicker-table-body"></tbody>
+                    <tbody data-component="datepicker-table" class="-body"></tbody>
                   </table>
                 </div>
-                <div class="datepicker-view" data-view="month">
-                  <div class="datepicker-view-control">
-                    <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger">
-                      <div class="datepicker-range-text"></div>
+                <div data-component="datepicker-view" class="" data-view="month">
+                  <div data-component="datepicker-view" class="-control">
+                    <button data-component="datepicker-prev-trigger" class=""></button>
+                    <button data-component="datepicker-view" class="-trigger">
+                      <div data-component="datepicker-range-text" class=""></div>
                     </button>
-                    <button class="datepicker-next-trigger"></button>
+                    <button data-component="datepicker-next-trigger" class=""></button>
                   </div>
-                  <table class="datepicker-table">
-                    <tbody class="datepicker-table-body"></tbody>
+                  <table data-component="datepicker-table" class="">
+                    <tbody data-component="datepicker-table" class="-body"></tbody>
                   </table>
                 </div>
-                <div class="datepicker-view" data-view="year">
-                  <div class="datepicker-view-control">
-                    <button class="datepicker-prev-trigger"></button>
-                    <button class="datepicker-view-trigger">
-                      <div class="datepicker-range-text"></div>
+                <div data-component="datepicker-view" class="" data-view="year">
+                  <div data-component="datepicker-view" class="-control">
+                    <button data-component="datepicker-prev-trigger" class=""></button>
+                    <button data-component="datepicker-view" class="-trigger">
+                      <div data-component="datepicker-range-text" class=""></div>
                     </button>
-                    <button class="datepicker-next-trigger"></button>
+                    <button data-component="datepicker-next-trigger" class=""></button>
                   </div>
-                  <table class="datepicker-table">
-                    <tbody class="datepicker-table-body"></tbody>
+                  <table data-component="datepicker-table" class="">
+                    <tbody data-component="datepicker-table" class="-body"></tbody>
                   </table>
                 </div>
             </div>
@@ -138,34 +138,34 @@
 
       <!-- Example 3: Multiple Months -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div class="datepicker-root w-84" data-num-of-months="2">
-          <label class="label datepicker-label">Multiple Months</label>
-          <div class="datepicker-control">
-            <input type="text" class="input datepicker-input" data-index="0">
-            <button class="datepicker-trigger"></button>
-            <button class="datepicker-clear-trigger">Clear</button>
+        <div data-component="datepicker-root" class=" w-84" data-num-of-months="2">
+          <label data-component="datepicker-label" class="label">Multiple Months</label>
+          <div data-component="datepicker-control" class="">
+            <input type="text" data-component="datepicker-input" class="input" data-index="0">
+            <button data-component="datepicker-trigger" class=""></button>
+            <button data-component="datepicker-clear-trigger" class="">Clear</button>
           </div>
-          <div class="datepicker-positioner">
-            <div class="datepicker-content" data-raised="single">
-                <select class="datepicker-year-select"></select>
-                <select class="datepicker-month-select"></select>
-                <div class="datepicker-view-control">
-                  <button class="datepicker-prev-trigger"></button>
-                  <div class="datepicker-range-text"></div>
-                  <button class="datepicker-next-trigger"></button>
+          <div data-component="datepicker-positioner" class="">
+            <div data-component="datepicker-content" class="" data-raised="single">
+                <select data-component="datepicker-year-select" class=""></select>
+                <select data-component="datepicker-month-select" class=""></select>
+                <div data-component="datepicker-view" class="-control">
+                  <button data-component="datepicker-prev-trigger" class=""></button>
+                  <div data-component="datepicker-range-text" class=""></div>
+                  <button data-component="datepicker-next-trigger" class=""></button>
                 </div>
-                <div class="datepicker-view flex-row" data-view="day">
-                  <table class="datepicker-table" data-month-offset="0">
-                    <thead class="datepicker-table-head">
-                      <tr class="datepicker-table-row"></tr>
+                <div data-component="datepicker-view" class=" flex-row" data-view="day">
+                  <table data-component="datepicker-table" class="" data-month-offset="0">
+                    <thead data-component="datepicker-table" class="-head">
+                      <tr data-component="datepicker-table" class="-row"></tr>
                     </thead>
-                    <tbody class="datepicker-table-body"></tbody>
+                    <tbody data-component="datepicker-table" class="-body"></tbody>
                   </table>
-                  <table class="datepicker-table" data-month-offset="1">
-                    <thead class="datepicker-table-head">
-                      <tr class="datepicker-table-row"></tr>
+                  <table data-component="datepicker-table" class="" data-month-offset="1">
+                    <thead data-component="datepicker-table" class="-head">
+                      <tr data-component="datepicker-table" class="-row"></tr>
                     </thead>
-                    <tbody class="datepicker-table-body"></tbody>
+                    <tbody data-component="datepicker-table" class="-body"></tbody>
                   </table>
                 </div>
             </div>
@@ -175,46 +175,46 @@
 
       <!-- Example 4: Inline/Open -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div class="datepicker-root" data-open>
-          <input type="text" class="input datepicker-input w-84 mx-auto">
+        <div data-component="datepicker-root" class="" data-open>
+          <input type="text" data-component="datepicker-input" class="input w-84 mx-auto">
           <div class="box mx-auto" data-raised="single">
-            <div class="datepicker-view" data-view="day">
-              <div class="datepicker-view-control">
-                <button class="datepicker-prev-trigger"></button>
-                <button class="datepicker-view-trigger">
-                  <div class="datepicker-range-text"></div>
+            <div data-component="datepicker-view" class="" data-view="day">
+              <div data-component="datepicker-view" class="-control">
+                <button data-component="datepicker-prev-trigger" class=""></button>
+                <button data-component="datepicker-view" class="-trigger">
+                  <div data-component="datepicker-range-text" class=""></div>
                 </button>
-                <button class="datepicker-next-trigger"></button>
+                <button data-component="datepicker-next-trigger" class=""></button>
               </div>
-              <table class="datepicker-table">
-                <thead class="datepicker-table-head">
-                  <tr class="datepicker-table-row"></tr>
+              <table data-component="datepicker-table" class="">
+                <thead data-component="datepicker-table" class="-head">
+                  <tr data-component="datepicker-table" class="-row"></tr>
                 </thead>
-                <tbody class="datepicker-table-body"></tbody>
+                <tbody data-component="datepicker-table" class="-body"></tbody>
               </table>
             </div>
-            <div class="datepicker-view" data-view="month">
-              <div class="datepicker-view-control">
-                <button class="datepicker-prev-trigger"></button>
-                <button class="datepicker-view-trigger">
-                  <div class="datepicker-range-text"></div>
+            <div data-component="datepicker-view" class="" data-view="month">
+              <div data-component="datepicker-view" class="-control">
+                <button data-component="datepicker-prev-trigger" class=""></button>
+                <button data-component="datepicker-view" class="-trigger">
+                  <div data-component="datepicker-range-text" class=""></div>
                 </button>
-                <button class="datepicker-next-trigger"></button>
+                <button data-component="datepicker-next-trigger" class=""></button>
               </div>
-              <table class="datepicker-table">
-                <tbody class="datepicker-table-body"></tbody>
+              <table data-component="datepicker-table" class="">
+                <tbody data-component="datepicker-table" class="-body"></tbody>
               </table>
             </div>
-            <div class="datepicker-view" data-view="year">
-              <div class="datepicker-view-control">
-                <button class="datepicker-prev-trigger"></button>
-                <button class="datepicker-view-trigger">
-                  <div class="datepicker-range-text"></div>
+            <div data-component="datepicker-view" class="" data-view="year">
+              <div data-component="datepicker-view" class="-control">
+                <button data-component="datepicker-prev-trigger" class=""></button>
+                <button data-component="datepicker-view" class="-trigger">
+                  <div data-component="datepicker-range-text" class=""></div>
                 </button>
-                <button class="datepicker-next-trigger"></button>
+                <button data-component="datepicker-next-trigger" class=""></button>
               </div>
-              <table class="datepicker-table">
-                <tbody class="datepicker-table-body"></tbody>
+              <table data-component="datepicker-table" class="">
+                <tbody data-component="datepicker-table" class="-body"></tbody>
               </table>
             </div>
           </div>

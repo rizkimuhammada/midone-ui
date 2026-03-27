@@ -23,7 +23,7 @@ import {
     datePickerTableCell,
     datePickerTableCellTrigger,
 } from "@midoneui/core/src/styles/datepicker.styles";
-import { input } from "@midoneui/core/src/styles/input.styles";
+import { input as inputStyles } from "@midoneui/core/src/styles/input.styles";
 import { nativeSelect } from "@midoneui/core/src/styles/native-select.styles";
 import { boxVariants } from "@midoneui/core/src/styles/box.styles";
 import { buttonVariants } from "@midoneui/core/src/styles/button.styles";
@@ -155,7 +155,7 @@ function initDatePickerRoot(root: HTMLElement) {
     root.setAttribute("data-part", "root");
 
     // Label
-    const labelEl = root.querySelector<HTMLElement>(":scope > .datepicker-label");
+    const labelEl = root.querySelector<HTMLElement>(':scope > [data-component="datepicker-label"]');
     if (labelEl) {
         labelEl.className = cn(labelStyles, datePickerLabel, labelEl.className);
         labelEl.setAttribute("data-scope", "date-picker");
@@ -163,7 +163,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Control
-    const controlEl = root.querySelector<HTMLElement>(":scope > .datepicker-control");
+    const controlEl = root.querySelector<HTMLElement>(':scope > [data-component="datepicker-control"]');
     if (controlEl) {
         controlEl.className = cn(datePickerControl, controlEl.className);
         controlEl.setAttribute("data-scope", "date-picker");
@@ -171,16 +171,16 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Inputs
-    const inputs = Array.from(root.querySelectorAll<HTMLInputElement>(".datepicker-input"));
+    const inputs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-component="datepicker-input"]'));
     inputs.forEach(inp => {
-        inp.className = cn(input, datePickerInput, inp.className);
+        inp.className = cn(inputStyles, datePickerInput, inp.className);
         inp.setAttribute("data-scope", "date-picker");
         inp.setAttribute("data-part", "input");
         inp.placeholder = "mm/dd/yyyy";
     });
 
     // Trigger button
-    const triggerBtn = root.querySelector<HTMLButtonElement>(".datepicker-trigger");
+    const triggerBtn = root.querySelector<HTMLButtonElement>('[data-component="datepicker-trigger"]');
     if (triggerBtn) {
         triggerBtn.className = cn(buttonVariants({ variant: "ghost" }), datePickerTrigger, triggerBtn.className);
         triggerBtn.setAttribute("data-scope", "date-picker");
@@ -189,7 +189,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Clear trigger
-    const clearBtn = root.querySelector<HTMLButtonElement>(".datepicker-clear-trigger");
+    const clearBtn = root.querySelector<HTMLButtonElement>('[data-component="datepicker-clear-trigger"]');
     if (clearBtn) {
         clearBtn.className = cn(buttonVariants({ variant: "ghost" }), datePickerClearTrigger, clearBtn.className);
         clearBtn.setAttribute("data-scope", "date-picker");
@@ -200,24 +200,23 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Preset triggers (range example)
-    root.querySelectorAll<HTMLButtonElement>(".datepicker-preset-trigger").forEach(btn => {
+    root.querySelectorAll<HTMLButtonElement>('[data-component="datepicker-preset-trigger"]').forEach(btn => {
         const variant = (btn.getAttribute("data-variant") ?? "secondary") as any;
         const look = (btn.getAttribute("data-look") ?? "outline") as any;
         btn.className = cn(badgeVariants({ variant, look }), "datepicker-preset-trigger");
     });
 
     // Positioner (dropdown mode) — will teleport to body after all queries
-    const positioner = root.querySelector<HTMLElement>(":scope > .datepicker-positioner");
+    const positioner = root.querySelector<HTMLElement>(':scope > [data-component="datepicker-positioner"]');
     if (positioner && !isInline) {
         positioner.style.cssText = "position:fixed;z-index:50;min-width:max-content;display:none;";
     }
 
     // Content box (datepicker-content)
-    const contentEl = root.querySelector<HTMLElement>(".datepicker-content");
+    const contentEl = root.querySelector<HTMLElement>('[data-component="datepicker-content"]');
     if (contentEl) {
-        const userClasses = Array.from(contentEl.classList).filter(c => c !== "datepicker-content");
         const boxClasses = boxVariants({ raised: "single" });
-        contentEl.className = cn(boxClasses, datePickerContent, ...userClasses);
+        contentEl.className = cn(boxClasses, datePickerContent, contentEl.className);
         contentEl.setAttribute("data-scope", "date-picker");
         contentEl.setAttribute("data-part", "content");
 
@@ -231,22 +230,22 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Year select
-    const yearSelect = root.querySelector<HTMLSelectElement>(".datepicker-year-select");
+    const yearSelect = root.querySelector<HTMLSelectElement>('[data-component="datepicker-year-select"]');
     if (yearSelect) {
-        yearSelect.className = cn(input, nativeSelect, datePickerYearSelect, yearSelect.className);
+        yearSelect.className = cn(inputStyles, nativeSelect, datePickerYearSelect, yearSelect.className);
         populateYearSelect(yearSelect, state.viewYear);
     }
 
     // Month select
-    const monthSelect = root.querySelector<HTMLSelectElement>(".datepicker-month-select");
+    const monthSelect = root.querySelector<HTMLSelectElement>('[data-component="datepicker-month-select"]');
     if (monthSelect) {
-        monthSelect.className = cn(input, nativeSelect, datePickerMonthSelect, monthSelect.className);
+        monthSelect.className = cn(inputStyles, nativeSelect, datePickerMonthSelect, monthSelect.className);
         populateMonthSelect(monthSelect);
         monthSelect.value = String(state.viewMonth);
     }
 
     // Views
-    const viewEls = Array.from(root.querySelectorAll<HTMLElement>(".datepicker-view"));
+    const viewEls = Array.from(root.querySelectorAll<HTMLElement>('[data-component="datepicker-view"]'));
     viewEls.forEach(v => {
         v.className = cn(datePickerView, v.className);
         v.setAttribute("data-scope", "date-picker");
@@ -254,37 +253,37 @@ function initDatePickerRoot(root: HTMLElement) {
     });
 
     // View controls (standalone, e.g. multiple months)
-    const standaloneViewControls = Array.from(root.querySelectorAll<HTMLElement>(".datepicker-view-control")).filter(el => !el.closest(".datepicker-view"));
+    const standaloneViewControls = Array.from(root.querySelectorAll<HTMLElement>('[data-component="datepicker-view-control"]')).filter(el => !el.closest('[data-component="datepicker-view"]'));
     standaloneViewControls.forEach(vc => {
         vc.className = cn(datePickerViewControl, vc.className);
     });
 
     // View controls inside views
     viewEls.forEach(v => {
-        const vc = v.querySelector<HTMLElement>(":scope > .datepicker-view-control");
+        const vc = v.querySelector<HTMLElement>(':scope > [data-component="datepicker-view-control"]');
         if (vc) vc.className = cn(datePickerViewControl, vc.className);
     });
 
     // Apply table/thead/tbody/tr/th classes to all tables
-    root.querySelectorAll<HTMLElement>(".datepicker-table").forEach(t => {
+    root.querySelectorAll<HTMLElement>('[data-component="datepicker-table"]').forEach(t => {
         t.className = cn(datePickerTable, t.className);
     });
-    root.querySelectorAll<HTMLElement>(".datepicker-table-head").forEach(el => {
+    root.querySelectorAll<HTMLElement>('[data-component="datepicker-table-head"]').forEach(el => {
         el.className = cn(datePickerTableHead, el.className);
     });
-    root.querySelectorAll<HTMLElement>(".datepicker-table-body").forEach(el => {
+    root.querySelectorAll<HTMLElement>('[data-component="datepicker-table-body"]').forEach(el => {
         el.className = cn(datePickerTableBody, el.className);
     });
-    root.querySelectorAll<HTMLElement>(".datepicker-table-row").forEach(el => {
+    root.querySelectorAll<HTMLElement>('[data-component="datepicker-table-row"]').forEach(el => {
         el.className = cn(datePickerTableRow, el.className);
     });
 
     // Setup view buttons (prev/view-trigger/next) inside all view-controls
     function setupViewControl(vc: HTMLElement, viewEl: HTMLElement | null) {
-        const prev = vc.querySelector<HTMLButtonElement>(":scope > .datepicker-prev-trigger");
-        const viewBtn = vc.querySelector<HTMLButtonElement>(":scope > .datepicker-view-trigger");
-        const next = vc.querySelector<HTMLButtonElement>(":scope > .datepicker-next-trigger");
-        const rangeText = vc.querySelector<HTMLElement>(".datepicker-range-text");
+        const prev = vc.querySelector<HTMLButtonElement>(':scope > [data-component="datepicker-prev-trigger"]');
+        const viewBtn = vc.querySelector<HTMLButtonElement>(':scope > [data-component="datepicker-view-trigger"]');
+        const next = vc.querySelector<HTMLButtonElement>(':scope > [data-component="datepicker-next-trigger"]');
+        const rangeText = vc.querySelector<HTMLElement>('[data-component="datepicker-range-text"]');
 
         if (prev) {
             prev.className = cn(datePickerPrevTrigger, prev.className);
@@ -318,17 +317,15 @@ function initDatePickerRoot(root: HTMLElement) {
 
     // Setup view controls in views
     viewEls.forEach(v => {
-        const vc = v.querySelector<HTMLElement>(":scope > .datepicker-view-control");
+        const vc = v.querySelector<HTMLElement>(':scope > [data-component="datepicker-view-control"]');
         if (vc) setupViewControl(vc, v);
     });
     // Setup standalone view controls (multiple months)
     standaloneViewControls.forEach(vc => {
-        // For standalone controls, they control the "day" view
-        const dayView = root.querySelector<HTMLElement>(".datepicker-view[data-view='day']");
-        // But standalone controls use range-text as direct child div
-        const prev = vc.querySelector<HTMLButtonElement>(":scope > .datepicker-prev-trigger");
-        const next = vc.querySelector<HTMLButtonElement>(":scope > .datepicker-next-trigger");
-        const rangeText = vc.querySelector<HTMLElement>(":scope > .datepicker-range-text");
+        const dayView = root.querySelector<HTMLElement>('[data-component="datepicker-view"][data-view="day"]');
+        const prev = vc.querySelector<HTMLButtonElement>(':scope > [data-component="datepicker-prev-trigger"]');
+        const next = vc.querySelector<HTMLButtonElement>(':scope > [data-component="datepicker-next-trigger"]');
+        const rangeText = vc.querySelector<HTMLElement>(':scope > [data-component="datepicker-range-text"]');
 
         if (prev) {
             prev.className = cn(datePickerPrevTrigger, prev.className);
@@ -450,7 +447,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Preset triggers
-    root.querySelectorAll<HTMLButtonElement>(".datepicker-preset-trigger").forEach(btn => {
+    root.querySelectorAll<HTMLButtonElement>('[data-component="datepicker-preset-trigger"]').forEach(btn => {
         btn.addEventListener("click", () => {
             const preset = btn.getAttribute("data-value") ?? "";
             const [start, end] = getPresetRange(preset);
@@ -599,11 +596,10 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     function updateRangeTexts() {
-        // Query from both root (inline/standalone controls) and positioner (teleported dropdown)
         const containers = positioner && !isInline ? [root, positioner] : [root];
-        const rangeTextEls = containers.flatMap(c => Array.from(c.querySelectorAll<HTMLElement>(".datepicker-range-text")));
+        const rangeTextEls = containers.flatMap(c => Array.from(c.querySelectorAll<HTMLElement>('[data-component="datepicker-range-text"]')));
         rangeTextEls.forEach(el => {
-            const viewEl = el.closest<HTMLElement>(".datepicker-view");
+            const viewEl = el.closest<HTMLElement>('[data-component="datepicker-view"]');
             const view = viewEl ? viewEl.getAttribute("data-view") : state.currentView;
             if (view === "day") {
                 el.textContent = `${MONTHS_LONG[state.viewMonth]} ${state.viewYear}`;
@@ -634,33 +630,28 @@ function initDatePickerRoot(root: HTMLElement) {
             if (view === "day") {
                 if (numOfMonths > 1) {
                     // Multiple month tables
-                    v.querySelectorAll<HTMLElement>(".datepicker-table").forEach(table => {
-                        const offset = parseInt(table.getAttribute("data-month-offset") ?? "0");
-                        const d = new Date(state.viewYear, state.viewMonth + offset, 1);
-                        const tbody = table.querySelector<HTMLElement>(".datepicker-table-body");
-                        const theadRow = table.querySelector<HTMLElement>(".datepicker-table-row");
+                    v.querySelectorAll<HTMLElement>('[data-component="datepicker-table"]').forEach(table => {
+                        const offsetAttr = parseInt(table.getAttribute("data-month-offset") ?? "0");
+                        const d = new Date(state.viewYear, state.viewMonth + offsetAttr, 1);
+                        const tbody = table.querySelector<HTMLElement>('[data-component="datepicker-table-body"]');
+                        const theadRow = table.querySelector<HTMLElement>('[data-component="datepicker-table-row"]');
                         if (tbody) renderDayTable(tbody, theadRow, d.getFullYear(), d.getMonth());
                     });
                 } else {
-                    const tbody = v.querySelector<HTMLElement>(".datepicker-table-body");
-                    const theadRow = v.querySelector<HTMLElement>(".datepicker-table-row");
+                    const tbody = v.querySelector<HTMLElement>('[data-component="datepicker-table-body"]');
+                    const theadRow = v.querySelector<HTMLElement>('[data-component="datepicker-table-row"]');
                     if (tbody) renderDayTable(tbody, theadRow, state.viewYear, state.viewMonth);
                 }
             } else if (view === "month") {
-                const tbody = v.querySelector<HTMLElement>(".datepicker-table-body");
+                const tbody = v.querySelector<HTMLElement>('[data-component="datepicker-table-body"]');
                 if (tbody) renderMonthTable(tbody);
             } else if (view === "year") {
-                const tbody = v.querySelector<HTMLElement>(".datepicker-table-body");
+                const tbody = v.querySelector<HTMLElement>('[data-component="datepicker-table-body"]');
                 if (tbody) renderYearTable(tbody);
             }
         });
 
-        // Inline root: render day view (no views array switch needed, always day)
-        if (isInline && viewEls.length === 0) {
-            // fallback - won't happen with our structure
-        }
-
-        // Initial view: show day, hide others (skip for multiple-months which has no view switching)
+        // Initial view: show day, hide others
         if (numOfMonths === 1) {
             viewEls.forEach(v => {
                 const view = v.getAttribute("data-view");
@@ -670,18 +661,14 @@ function initDatePickerRoot(root: HTMLElement) {
         }
     }
 
-    // Teleport positioner to body (after all queries are done)
+    // Teleport positioner to body
     if (positioner && !isInline) {
         positioner.remove();
         document.body.appendChild(positioner);
     }
 
-    // Initial render
     updateInputs();
     render();
-
-    // If inline, also render the standalone day view table directly in box
-    // (handled by viewEls above since we query all .datepicker-view in root)
 }
 
 function populateYearSelect(sel: HTMLSelectElement, centerYear: number) {
@@ -707,7 +694,7 @@ function populateMonthSelect(sel: HTMLSelectElement) {
 }
 
 function initDatepickers() {
-    document.querySelectorAll<HTMLElement>(".datepicker-root").forEach(root => initDatePickerRoot(root));
+    document.querySelectorAll<HTMLElement>('[data-component="datepicker-root"]').forEach(root => initDatePickerRoot(root));
 }
 
 if (document.readyState === "loading") {
