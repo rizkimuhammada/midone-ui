@@ -14,7 +14,7 @@ function getColor(name: string, opacity = 1): string {
 
 function initChart() {
     document.querySelectorAll<HTMLCanvasElement>('[data-component="chart"]').forEach((canvas) => {
-        if ((canvas as any).._chartInstance) return;
+        if ((canvas as any)._chartInstance) return;
 
         const type = (canvas.getAttribute("data-type") ?? "bar") as any;
         const labelsStr = canvas.getAttribute("data-labels") ?? "[]";
@@ -62,7 +62,7 @@ function initChart() {
             },
         });
 
-        (canvas as any).._chartInstance = instance;
+        (canvas as any)._chartInstance = instance;
     });
 }
 
