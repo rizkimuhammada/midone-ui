@@ -17,7 +17,6 @@ const ARROW_LEFT = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="2
 const ARROW_RIGHT = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
 
 function initCarouselRoot(rootEl: HTMLElement) {
-    const isAsChildRoot = rootEl.hasAttribute("data-as-child");
     const root = handleAsChild(rootEl);
     const slidesPerPage = root.getAttribute("data-slides-per-page") ?? "1";
     const slideSpacing = root.getAttribute("data-slide-spacing") ?? "2rem";
@@ -34,16 +33,16 @@ function initCarouselRoot(rootEl: HTMLElement) {
     root.style.setProperty("--slide-spacing", slideSpacing);
     root.style.setProperty("--slide-item-size", `calc(100% / var(--slides-per-page) - var(--slide-spacing) * (var(--slides-per-page) - 1) / var(--slides-per-page))`);
 
-    const control = root.querySelector<HTMLElement>(".carousel-control");
-    const indicatorGroup = root.querySelector<HTMLElement>(".carousel-indicator-group");
-    const itemGroup = root.querySelector<HTMLElement>(".carousel-item-group");
+    const control = root.querySelector<HTMLElement>('[data-component="carousel-control"]');
+    const indicatorGroup = root.querySelector<HTMLElement>('[data-component="carousel-indicator-group"]');
+    const itemGroup = root.querySelector<HTMLElement>('[data-component="carousel-item-group"]');
     
     if (!itemGroup) return;
 
-    const prevTriggerEl = root.querySelector<HTMLButtonElement>(".carousel-prev-trigger");
-    const nextTriggerEl = root.querySelector<HTMLButtonElement>(".carousel-next-trigger");
-    const indicators = indicatorGroup ? Array.from(indicatorGroup.querySelectorAll<HTMLButtonElement>(":scope > .carousel-indicator")) : [];
-    const items = Array.from(itemGroup.querySelectorAll<HTMLElement>(":scope > .carousel-item"));
+    const prevTriggerEl = root.querySelector<HTMLButtonElement>('[data-component="carousel-prev-trigger"]');
+    const nextTriggerEl = root.querySelector<HTMLButtonElement>('[data-component="carousel-next-trigger"]');
+    const indicators = indicatorGroup ? Array.from(indicatorGroup.querySelectorAll<HTMLButtonElement>(':scope > [data-component="carousel-indicator"]')) : [];
+    const items = Array.from(itemGroup.querySelectorAll<HTMLElement>(':scope > [data-component="carousel-item"]'));
 
     if (control) {
         control.className = cn(carouselControl, control.className);
@@ -195,7 +194,7 @@ function initCarousels() {
         s.textContent = ".carousel-item-group::-webkit-scrollbar{display:none}";
         document.head.appendChild(s);
     }
-    document.querySelectorAll<HTMLElement>(".carousel-root").forEach(root => initCarouselRoot(root));
+    document.querySelectorAll<HTMLElement>('[data-component="carousel-root"]').forEach(root => initCarouselRoot(root));
 }
 
 if (document.readyState === "loading") {

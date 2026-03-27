@@ -95,7 +95,7 @@ function buildBreadcrumb(items: string[]): HTMLElement {
 }
 
 function initBreadcrumbs() {
-    document.querySelectorAll(".breadcrumb").forEach((el) => {
+    document.querySelectorAll('[data-component="breadcrumb"]').forEach((el) => {
         const raw = el.getAttribute("data-items") ?? "[]";
         let items: string[] = [];
         try {

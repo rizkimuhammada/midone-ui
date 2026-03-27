@@ -3,7 +3,7 @@ import { buttonVariants } from "@midoneui/core/src/styles/button.styles";
 import { handleAsChild } from "./slot";
 
 function initButtons() {
-    document.querySelectorAll<HTMLElement>(".button").forEach((btnEl) => {
+    document.querySelectorAll<HTMLElement>('[data-component="button"]').forEach((btnEl) => {
         const button = handleAsChild(btnEl);
         
         const look = button.getAttribute("data-look") as any;
