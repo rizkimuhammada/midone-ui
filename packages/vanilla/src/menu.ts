@@ -33,14 +33,14 @@ function processItem(itemEl: HTMLElement) {
     const item = handleAsChild(itemEl);
     const type = item.dataset.type as "checkbox" | "radio" | undefined;
     const shortcut = item.getAttribute("data-shortcut");
-    const isTriggerItem = item.classList.contains("menu-trigger-item");
+    const isTriggerItem = item.matches('[data-component="menu-trigger-item"]');
 
     item.className = cn(menuItem, item.className);
     item.setAttribute("data-scope", "menu");
     item.setAttribute("data-part", "item");
 
     if (!isAsChild) {
-        const nestedPos = item.querySelector<HTMLElement>(":scope > .menu-positioner-nested");
+        const nestedPos = item.querySelector<HTMLElement>(':scope > [data-component="menu-positioner-nested"]');
         if (nestedPos) item.removeChild(nestedPos);
 
         if (type) {
@@ -108,8 +108,8 @@ function initMenuRoot(rootEl: Element) {
     root.setAttribute("data-part", "root");
     (root as HTMLElement).style.cssText = "display:inline-flex;flex-direction:column;";
 
-    const triggerEl = root.querySelector<HTMLElement>(":scope > .menu-trigger");
-    const positionerEl = root.querySelector<HTMLElement>(":scope > .menu-positioner");
+    const triggerEl = root.querySelector<HTMLElement>(':scope > [data-component="menu-trigger"]');
+    const positionerEl = root.querySelector<HTMLElement>(':scope > [data-component="menu-positioner"]');
     if (!triggerEl || !positionerEl) return;
 
     const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");
@@ -147,33 +147,33 @@ function initMenuRoot(rootEl: Element) {
         });
     }
 
-    const contentEl = positioner.querySelector<HTMLElement>(":scope > .menu-content");
+    const contentEl = positioner.querySelector<HTMLElement>(':scope > [data-component="menu-content"]');
     if (!contentEl) return;
     const innerContainer = processContent(contentEl);
 
-    innerContainer.querySelectorAll<HTMLElement>(":scope > .menu-item").forEach(processItem);
-    innerContainer.querySelectorAll<HTMLElement>(":scope > .menu-separator").forEach(sepEl => {
+    innerContainer.querySelectorAll<HTMLElement>(':scope > [data-component="menu-item"]').forEach(processItem);
+    innerContainer.querySelectorAll<HTMLElement>(':scope > [data-component="menu-separator"]').forEach(sepEl => {
         const sep = handleAsChild(sepEl);
         sep.className = cn(menuSeparator, sep.className);
         sep.setAttribute("data-scope", "menu");
         sep.setAttribute("data-part", "separator");
     });
-    innerContainer.querySelectorAll<HTMLElement>(":scope > .menu-radio-group").forEach(groupEl => {
+    innerContainer.querySelectorAll<HTMLElement>(':scope > [data-component="menu-radio-group"]').forEach(groupEl => {
         const group = handleAsChild(groupEl);
         group.className = cn(menuRadioItemGroup, group.className);
         group.setAttribute("data-scope", "menu");
         group.setAttribute("data-part", "item-group");
-        group.querySelectorAll<HTMLElement>(":scope > .menu-group-label").forEach(labelEl => {
+        group.querySelectorAll<HTMLElement>(':scope > [data-component="menu-group-label"]').forEach(labelEl => {
             const label = handleAsChild(labelEl);
             label.className = cn(menuItemGroupLabel, label.className);
             label.setAttribute("data-scope", "menu");
             label.setAttribute("data-part", "item-group-label");
         });
-        group.querySelectorAll<HTMLElement>(":scope > .menu-item").forEach(processItem);
+        group.querySelectorAll<HTMLElement>(':scope > [data-component="menu-item"]').forEach(processItem);
     });
 
-    innerContainer.querySelectorAll<HTMLElement>(":scope > .menu-trigger-item").forEach(triggerItem => {
-        const nestedPos = triggerItem.querySelector<HTMLElement>(":scope > .menu-positioner-nested");
+    innerContainer.querySelectorAll<HTMLElement>(':scope > [data-component="menu-trigger-item"]').forEach(triggerItem => {
+        const nestedPos = triggerItem.querySelector<HTMLElement>(':scope > [data-component="menu-positioner-nested"]');
         if (!nestedPos) return;
 
         const nested = handleAsChild(nestedPos);
@@ -181,10 +181,10 @@ function initMenuRoot(rootEl: Element) {
         nested.classList.add("hidden");
         nested.style.cssText = "position:fixed;z-index:50;min-width:12rem;";
 
-        const nestedContentEl = nested.querySelector<HTMLElement>(":scope > .menu-content");
+        const nestedContentEl = nested.querySelector<HTMLElement>(':scope > [data-component="menu-content"]');
         if (nestedContentEl) {
             const nestedInner = processContent(nestedContentEl);
-            nestedInner.querySelectorAll<HTMLElement>(":scope > .menu-item").forEach(processItem);
+            nestedInner.querySelectorAll<HTMLElement>(':scope > [data-component="menu-item"]').forEach(processItem);
         }
 
         nested.remove();
@@ -203,7 +203,7 @@ function initMenuRoot(rootEl: Element) {
         triggerItem.addEventListener("click", (e) => {
             e.stopPropagation();
             const isNestedOpen = !nested.classList.contains("hidden");
-            document.querySelectorAll<HTMLElement>(".menu-positioner-nested").forEach(p => p.classList.add("hidden"));
+            document.querySelectorAll<HTMLElement>(".menu-positioner-nested-teleported").forEach(p => p.classList.add("hidden"));
             if (!isNestedOpen) {
                 nested.classList.remove("hidden");
                 updateNestedPosition();
@@ -211,19 +211,20 @@ function initMenuRoot(rootEl: Element) {
         });
 
         nested.addEventListener("click", (e) => e.stopPropagation());
+        nested.classList.add("menu-positioner-nested-teleported");
     });
 
-    innerContainer.querySelectorAll<HTMLElement>(".menu-item[data-type='checkbox']").forEach(item => {
+    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="checkbox"]').forEach(item => {
         item.addEventListener("click", () => {
             const ind = item.querySelector<HTMLElement>("[data-part='item-indicator']");
             if (ind) ind.hidden = !ind.hidden;
         });
     });
 
-    innerContainer.querySelectorAll(".menu-radio-group").forEach(group => {
-        group.querySelectorAll<HTMLElement>(".menu-item[data-type='radio']").forEach(item => {
+    innerContainer.querySelectorAll('[data-component="menu-radio-group"]').forEach(group => {
+        group.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="radio"]').forEach(item => {
             item.addEventListener("click", () => {
-                group.querySelectorAll<HTMLElement>(".menu-item[data-type='radio']").forEach(sibling => {
+                group.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="radio"]').forEach(sibling => {
                     const ind = sibling.querySelector<HTMLElement>("[data-part='item-indicator']");
                     if (ind) ind.hidden = sibling !== item;
                 });
@@ -257,11 +258,14 @@ function initMenuRoot(rootEl: Element) {
 }
 
 function initMenus() {
-    document.querySelectorAll(".menu-root").forEach(root => initMenuRoot(root));
+    document.querySelectorAll('[data-component="menu-root"]').forEach(root => initMenuRoot(root));
 
     document.addEventListener("click", () => {
         document.querySelectorAll<HTMLElement>(".menu-positioner-teleported").forEach(p => {
             closeMenu(p, menuIndicatorMap.get(p) ?? null);
+        });
+        document.querySelectorAll<HTMLElement>(".menu-positioner-nested-teleported").forEach(p => {
+            closeMenu(p, null);
         });
     });
 }
