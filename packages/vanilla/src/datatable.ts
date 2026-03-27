@@ -52,7 +52,7 @@ function makeCheckbox(checked: boolean, indeterminate = false): HTMLElement {
 }
 
 function initDataTable() {
-    document.querySelectorAll<HTMLElement>(".data-table").forEach((root) => {
+    document.querySelectorAll<HTMLElement>('[data-component="datatable"]').forEach((root) => {
         let filterValue = "";
         let sortAsc = true;
         let sortActive = false;
