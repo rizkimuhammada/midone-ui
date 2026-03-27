@@ -18,7 +18,7 @@ function clamp(value: number, min: number, max: number) {
 }
 
 function initSlider() {
-    document.querySelectorAll<HTMLElement>(".slider-root").forEach((root) => {
+    document.querySelectorAll<HTMLElement>('[data-component="slider-root"]').forEach((root) => {
         const min = parseFloat(root.getAttribute("data-min") ?? "0");
         const max = parseFloat(root.getAttribute("data-max") ?? "100");
         const step = parseFloat(root.getAttribute("data-step") ?? "1");
@@ -29,17 +29,17 @@ function initSlider() {
         root.setAttribute("data-scope", "slider");
         root.setAttribute("data-part", "root");
 
-        const labelEl = root.querySelector<HTMLElement>(".slider-label");
+        const labelEl = root.querySelector<HTMLElement>('[data-component="slider-label"]');
         if (labelEl) labelEl.className = cn(label, sliderLabel, labelEl.className);
 
-        const valueTextEl = root.querySelector<HTMLElement>(".slider-value-text");
+        const valueTextEl = root.querySelector<HTMLElement>('[data-component="slider-value-text"]');
         if (valueTextEl) valueTextEl.className = cn(sliderValueText, valueTextEl.className);
 
-        const controlEl = root.querySelector<HTMLElement>(".slider-control");
-        const trackEl = root.querySelector<HTMLElement>(".slider-track");
-        const rangeEl = root.querySelector<HTMLElement>(".slider-range");
-        const thumbEls = Array.from(root.querySelectorAll<HTMLElement>(".slider-thumb"));
-        const markerGroupEl = root.querySelector<HTMLElement>(".slider-marker-group");
+        const controlEl = root.querySelector<HTMLElement>('[data-component="slider-control"]');
+        const trackEl = root.querySelector<HTMLElement>('[data-component="slider-track"]');
+        const rangeEl = root.querySelector<HTMLElement>('[data-component="slider-range"]');
+        const thumbEls = Array.from(root.querySelectorAll<HTMLElement>('[data-component="slider-thumb"]'));
+        const markerGroupEl = root.querySelector<HTMLElement>('[data-component="slider-marker-group"]');
 
         if (!controlEl || !trackEl || !rangeEl) return;
 
@@ -82,7 +82,7 @@ function initSlider() {
             markerGroupEl.style.position = "relative";
             markerGroupEl.setAttribute("data-scope", "slider");
             markerGroupEl.setAttribute("data-part", "marker-group");
-            markerGroupEl.querySelectorAll<HTMLElement>(".slider-marker").forEach((marker) => {
+            markerGroupEl.querySelectorAll<HTMLElement>('[data-component="slider-marker"]').forEach((marker) => {
                 marker.className = cn(sliderMarker, marker.className);
                 const val = parseFloat(marker.getAttribute("data-value") ?? "0");
                 const pct = ((val - min) / (max - min)) * 100;

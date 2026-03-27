@@ -45,11 +45,11 @@ function createGlobalTooltipNode() {
 }
 
 function initTooltip() {
-    document.querySelectorAll<HTMLElement>(".tooltip-root").forEach((rootEl) => {
+    document.querySelectorAll<HTMLElement>('[data-component="tooltip-root"]').forEach((rootEl) => {
         const root = handleAsChild(rootEl);
-        const triggerEl = root.querySelector<HTMLElement>(".tooltip-trigger");
-        const positionerEl = root.querySelector<HTMLElement>(".tooltip-positioner");
-        const contentEl = root.querySelector<HTMLElement>(".tooltip-content");
+        const triggerEl = root.querySelector<HTMLElement>('[data-component="tooltip-trigger"]');
+        const positionerEl = root.querySelector<HTMLElement>('[data-component="tooltip-positioner"]');
+        const contentEl = root.querySelector<HTMLElement>('[data-component="tooltip-content"]');
         if (!triggerEl || !positionerEl || !contentEl) return;
 
         const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");

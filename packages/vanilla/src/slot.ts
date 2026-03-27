@@ -9,11 +9,13 @@ export function handleAsChild(element: HTMLElement) {
         const firstChild = element.firstElementChild as HTMLElement;
         if (firstChild) {
             // Copy all attributes from parent to firstChild (part, scope, etc)
+            // Skip data-component if child already has its own identity
             Array.from(element.attributes).forEach((attr) => {
                 if (
                     attr.name !== "class" &&
                     attr.name !== "as-child" &&
-                    attr.name !== "data-as-child"
+                    attr.name !== "data-as-child" &&
+                    !(attr.name === "data-component" && firstChild.hasAttribute("data-component"))
                 ) {
                     firstChild.setAttribute(attr.name, attr.value);
                 }

@@ -173,6 +173,7 @@ function initMenuRoot(rootEl: Element) {
     });
 
     innerContainer.querySelectorAll<HTMLElement>(':scope > [data-component="menu-trigger-item"]').forEach(triggerItem => {
+        processItem(triggerItem);
         const nestedPos = triggerItem.querySelector<HTMLElement>(':scope > [data-component="menu-positioner-nested"]');
         if (!nestedPos) return;
 

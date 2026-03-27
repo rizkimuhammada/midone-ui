@@ -10,40 +10,40 @@
 </head>
 
 <body class="p-10">
-  <div class="tabs-root" data-default-value="update-profile">
-    <div class="tabs-list">
-      <button class="tabs-trigger" data-value="update-profile">Update Profile</button>
-      <button class="tabs-trigger" data-value="share-profile">Share Profile</button>
+  <div data-component="tabs-root" data-default-value="update-profile">
+    <div data-component="tabs-list">
+      <button data-component="tabs-trigger" data-value="update-profile">Update Profile</button>
+      <button data-component="tabs-trigger" data-value="share-profile">Share Profile</button>
     </div>
-    <div class="box w-90" data-raised="single">
-      <div class="tabs-content" data-value="update-profile">
+    <div data-component="box" class="w-90" data-raised="single">
+      <div data-component="tabs-content" data-value="update-profile">
         <div class="grid gap-4 mt-2">
           <div class="grid gap-2.5">
-            <label class="label" for="name-1">Name</label>
-            <input class="input" id="name-1" name="name" value="Pedro Duarte" />
+            <label data-component="label" for="name-1">Name</label>
+            <input data-component="input" id="name-1" name="name" value="Pedro Duarte" />
           </div>
           <div class="grid gap-2.5">
-            <label class="label" for="username-1">Username</label>
-            <input class="input" id="username-1" name="username" value="@peduarte" />
+            <label data-component="label" for="username-1">Username</label>
+            <input data-component="input" id="username-1" name="username" value="@peduarte" />
           </div>
         </div>
         <div class="flex gap-2 justify-end mt-7">
-          <button class="button" data-look="outline" data-variant="secondary">
+          <button data-component="button" data-look="outline" data-variant="secondary">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
             Close
           </button>
-          <button class="button" data-variant="primary">
+          <button data-component="button" data-variant="primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
             Submit
           </button>
         </div>
       </div>
-      <div class="tabs-content" data-value="share-profile">
+      <div data-component="tabs-content" data-value="share-profile">
         <div class="grid gap-4 mt-2">
-          <input class="input" id="share-url" name="name" value="https://midone-ui.com/docs/installation" />
+          <input data-component="input" id="share-url" name="name" value="https://midone-ui.com/docs/installation" />
         </div>
         <div class="flex gap-2 mt-5">
-          <button class="button" data-look="outline" data-variant="secondary">
+          <button data-component="button" data-look="outline" data-variant="secondary">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
             Share Link
           </button>

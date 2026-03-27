@@ -8,28 +8,28 @@
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body class="p-10">
-  <div class="popover-root">
-    <button class="popover-trigger w-56">Open Popover</button>
-    <div class="popover-positioner">
-      <div class="popover-content w-100">
-        <div class="popover-title">Dimensions</div>
-        <div class="popover-description">Set the dimensions for the layer.</div>
+  <div data-component="popover-root">
+    <button data-component="popover-trigger" class="w-56">Open Popover</button>
+    <div data-component="popover-positioner">
+      <div data-component="popover-content" class="w-100">
+        <div data-component="popover-title">Dimensions</div>
+        <div data-component="popover-description">Set the dimensions for the layer.</div>
         <div class="grid gap-3 mt-4 mb-2">
           <div class="grid grid-cols-3 items-center gap-4">
-            <label class="label" for="width">Width</label>
-            <input class="input col-span-2" id="width" value="100%" />
+            <label data-component="label" for="width">Width</label>
+            <input data-component="input" class="col-span-2" id="width" value="100%" />
           </div>
           <div class="grid grid-cols-3 items-center gap-4">
-            <label class="label" for="maxWidth">Max. width</label>
-            <input class="input col-span-2" id="maxWidth" value="300px" />
+            <label data-component="label" for="maxWidth">Max. width</label>
+            <input data-component="input" class="col-span-2" id="maxWidth" value="300px" />
           </div>
           <div class="grid grid-cols-3 items-center gap-4">
-            <label class="label" for="height">Height</label>
-            <input class="input col-span-2" id="height" value="25px" />
+            <label data-component="label" for="height">Height</label>
+            <input data-component="input" class="col-span-2" id="height" value="25px" />
           </div>
           <div class="grid grid-cols-3 items-center gap-4">
-            <label class="label" for="maxHeight">Max. height</label>
-            <input class="input col-span-2" id="maxHeight" value="none" />
+            <label data-component="label" for="maxHeight">Max. height</label>
+            <input data-component="input" class="col-span-2" id="maxHeight" value="none" />
           </div>
         </div>
       </div>

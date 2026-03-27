@@ -2,7 +2,7 @@ import { icons } from "lucide";
 import { cn } from "@midoneui/core/src/utils/cn";
 
 export function initLucideIcons() {
-  document.querySelectorAll<HTMLElement>("i.lucide").forEach((el) => {
+  document.querySelectorAll<HTMLElement>('[data-component="lucide"]').forEach((el) => {
     let iconName = el.getAttribute("data-icon") as string;
     const formattedIconName = iconName
       .split("-")

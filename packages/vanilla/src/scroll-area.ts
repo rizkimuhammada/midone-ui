@@ -9,17 +9,17 @@ import {
 } from "@midoneui/core/src/styles/scroll-area.styles";
 
 function initScrollArea() {
-    document.querySelectorAll<HTMLElement>(".scroll-area-root").forEach((root) => {
+    document.querySelectorAll<HTMLElement>('[data-component="scroll-area-root"]').forEach((root) => {
         root.className = cn(scrollAreaRoot, root.className);
         root.setAttribute("data-scope", "scroll-area");
         root.setAttribute("data-part", "root");
         root.style.cssText += ";position:relative;overflow:hidden;";
 
-        const viewportEl = root.querySelector<HTMLElement>(".scroll-area-viewport");
-        const contentEl = root.querySelector<HTMLElement>(".scroll-area-content");
-        const scrollbarEl = root.querySelector<HTMLElement>(".scroll-area-scrollbar");
-        const thumbEl = root.querySelector<HTMLElement>(".scroll-area-thumb");
-        const cornerEl = root.querySelector<HTMLElement>(".scroll-area-corner");
+        const viewportEl = root.querySelector<HTMLElement>('[data-component="scroll-area-viewport"]');
+        const contentEl = root.querySelector<HTMLElement>('[data-component="scroll-area-content"]');
+        const scrollbarEl = root.querySelector<HTMLElement>('[data-component="scroll-area-scrollbar"]');
+        const thumbEl = root.querySelector<HTMLElement>('[data-component="scroll-area-thumb"]');
+        const cornerEl = root.querySelector<HTMLElement>('[data-component="scroll-area-corner"]');
 
         if (!viewportEl) return;
 

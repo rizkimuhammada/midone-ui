@@ -8,13 +8,9 @@
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body class="p-10">
-  <button
-    class="button toast-trigger"
-    data-variant="secondary"
-    data-look="outline"
-    data-toast-title="Event has been created"
-    data-toast-description="Sunday, December 03, 2023 at 9:00 AM"
-  >Show Toast</button>
+  <div data-component="toast-trigger" data-as-child data-toast-title="Event has been created" data-toast-description="Sunday, December 03, 2023 at 9:00 AM">
+    <button data-component="button" data-variant="secondary" data-look="outline">Show Toast</button>
+  </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

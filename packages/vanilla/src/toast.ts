@@ -8,6 +8,7 @@ import {
 } from "@midoneui/core/src/styles/toast.styles";
 import { boxVariants } from "@midoneui/core/src/styles/box.styles";
 import { buttonVariants } from "@midoneui/core/src/styles/button.styles";
+import { handleAsChild } from "./slot";
 
 const X_SVG = `<svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
 
@@ -183,10 +184,11 @@ function createToast(options: ToastOptions) {
 }
 
 function initToast() {
-    document.querySelectorAll<HTMLButtonElement>(".toast-trigger").forEach(btn => {
-        const title       = btn.getAttribute("data-toast-title")       ?? "Notification";
-        const description = btn.getAttribute("data-toast-description") ?? undefined;
-        btn.addEventListener("click", () => createToast({ title, description }));
+    document.querySelectorAll<HTMLElement>('[data-component="toast-trigger"]').forEach(el => {
+        const trigger = handleAsChild(el);
+        const title       = trigger.getAttribute("data-toast-title")       ?? "Notification";
+        const description = trigger.getAttribute("data-toast-description") ?? undefined;
+        trigger.addEventListener("click", () => createToast({ title, description }));
     });
 }
 

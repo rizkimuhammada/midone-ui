@@ -110,7 +110,7 @@ function initBreadcrumbs() {
 
     // Close all dropdowns on outside click
     document.addEventListener("click", () => {
-        document.querySelectorAll(".breadcrumb-dropdown").forEach((d) => {
+        document.querySelectorAll('[data-component="breadcrumb-dropdown"]').forEach((d) => {
             d.classList.add("hidden");
         });
     });

@@ -14,50 +14,50 @@ import { label } from "@midoneui/core/src/styles/label.styles";
 import { separator } from "@midoneui/core/src/styles/separator.styles";
 
 function initField() {
-    document.querySelectorAll<HTMLElement>(".field-group").forEach((el) => {
+    document.querySelectorAll<HTMLElement>('[data-component="field-group"]').forEach((el) => {
         el.className = cn(fieldGroup, el.className);
         el.setAttribute("data-scope", "field");
         el.setAttribute("data-part", "field-group");
     });
 
-    document.querySelectorAll<HTMLElement>(".field-set").forEach((el) => {
+    document.querySelectorAll<HTMLElement>('[data-component="field-set"]').forEach((el) => {
         el.className = cn(fieldSet, el.className);
         el.setAttribute("data-scope", "field");
         el.setAttribute("data-part", "field-set");
     });
 
-    document.querySelectorAll<HTMLElement>(".field-legend").forEach((el) => {
+    document.querySelectorAll<HTMLElement>('[data-component="field-legend"]').forEach((el) => {
         if (!el.getAttribute("data-variant")) el.setAttribute("data-variant", "legend");
         el.className = cn(fieldLegend, el.className);
         el.setAttribute("data-scope", "field");
         el.setAttribute("data-part", "field-legend");
     });
 
-    document.querySelectorAll<HTMLElement>(".field-content").forEach((el) => {
+    document.querySelectorAll<HTMLElement>('[data-component="field-content"]').forEach((el) => {
         el.className = cn(fieldContent, el.className);
         el.setAttribute("data-scope", "field");
         el.setAttribute("data-part", "field-content");
     });
 
-    document.querySelectorAll<HTMLElement>(".field-title").forEach((el) => {
+    document.querySelectorAll<HTMLElement>('[data-component="field-title"]').forEach((el) => {
         el.className = cn(fieldTitle, el.className);
         el.setAttribute("data-scope", "field");
         el.setAttribute("data-part", "field-label");
     });
 
-    document.querySelectorAll<HTMLElement>(".field-description").forEach((el) => {
+    document.querySelectorAll<HTMLElement>('[data-component="field-description"]').forEach((el) => {
         el.className = cn(fieldDescription, el.className);
         el.setAttribute("data-scope", "field");
         el.setAttribute("data-part", "field-description");
     });
 
-    document.querySelectorAll<HTMLElement>(".field-label").forEach((el) => {
+    document.querySelectorAll<HTMLElement>('[data-component="field-label"]').forEach((el) => {
         el.className = cn(label, fieldLabel, el.className);
         el.setAttribute("data-scope", "field");
         el.setAttribute("data-part", "field-label");
     });
 
-    document.querySelectorAll<HTMLElement>(".field").forEach((el) => {
+    document.querySelectorAll<HTMLElement>('[data-component="field"]').forEach((el) => {
         const orientation = (el.getAttribute("data-orientation") as any) ?? "vertical";
         el.setAttribute("data-orientation", orientation);
         el.setAttribute("role", "group");
@@ -66,7 +66,7 @@ function initField() {
         el.className = cn(fieldVariants({ orientation }), el.className);
     });
 
-    document.querySelectorAll<HTMLElement>(".field-separator").forEach((el) => {
+    document.querySelectorAll<HTMLElement>('[data-component="field-separator"]').forEach((el) => {
         el.className = cn(fieldSeparator, el.className);
         el.setAttribute("data-scope", "field");
         el.setAttribute("data-part", "field-separator");

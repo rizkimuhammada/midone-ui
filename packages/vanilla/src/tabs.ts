@@ -16,9 +16,9 @@ function initTabsRoot(rootEl: HTMLElement) {
     root.setAttribute("data-scope", "tabs");
     root.setAttribute("data-part", "root");
 
-    const listEl = root.querySelector<HTMLElement>(":scope > .tabs-list");
-    const triggers = Array.from(root.querySelectorAll<HTMLElement>(".tabs-trigger"));
-    const contents = Array.from(root.querySelectorAll<HTMLElement>(".tabs-content"));
+    const listEl = root.querySelector<HTMLElement>(':scope > [data-component="tabs-list"]');
+    const triggers = Array.from(root.querySelectorAll<HTMLElement>('[data-component="tabs-trigger"]'));
+    const contents = Array.from(root.querySelectorAll<HTMLElement>('[data-component="tabs-content"]'));
 
     contents.forEach(contentEl => {
         const content = handleAsChild(contentEl);
@@ -57,7 +57,7 @@ function initTabsRoot(rootEl: HTMLElement) {
     }
 
     function activate(value: string) {
-        root.querySelectorAll<HTMLElement>(".tabs-trigger").forEach(t => {
+        root.querySelectorAll<HTMLElement>('[data-component="tabs-trigger"]').forEach(t => {
             if (t.dataset.value === value) {
                 t.setAttribute("data-selected", "");
                 updateIndicator(t);
@@ -65,20 +65,20 @@ function initTabsRoot(rootEl: HTMLElement) {
                 t.removeAttribute("data-selected");
             }
         });
-        root.querySelectorAll<HTMLElement>(".tabs-content").forEach(c => {
+        root.querySelectorAll<HTMLElement>('[data-component="tabs-content"]').forEach(c => {
             if (c.dataset.value === value) c.removeAttribute("hidden");
             else c.setAttribute("hidden", "");
         });
     }
 
     requestAnimationFrame(() => {
-        const firstTrigger = root.querySelector<HTMLElement>(".tabs-trigger");
+        const firstTrigger = root.querySelector<HTMLElement>('[data-component="tabs-trigger"]');
         activate(defaultValue || firstTrigger?.dataset.value || "");
     });
 }
 
 function initTabs() {
-    document.querySelectorAll<HTMLElement>(".tabs-root").forEach(root => initTabsRoot(root));
+    document.querySelectorAll<HTMLElement>('[data-component="tabs-root"]').forEach(root => initTabsRoot(root));
 }
 
 if (document.readyState === "loading") {

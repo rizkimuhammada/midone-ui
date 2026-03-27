@@ -10,7 +10,7 @@ import { handleAsChild } from "./slot";
 
 function initAlerts() {
     // 1. Inisialisasi Root Alert
-    document.querySelectorAll<HTMLElement>('[data-component="alert"]').forEach((alertEl) => {
+    document.querySelectorAll<HTMLElement>('[data-component="alert-root"]').forEach((alertEl) => {
         const alert = handleAsChild(alertEl);
         const variant =
             (alert.getAttribute("data-variant") as any) || "primary";

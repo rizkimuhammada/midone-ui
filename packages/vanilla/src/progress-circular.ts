@@ -15,7 +15,7 @@ const RADIUS = (VIEW_BOX - STROKE_WIDTH) / 2; // 47
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 function initProgressCircular() {
-    document.querySelectorAll<HTMLElement>(".progress-circular-root").forEach((root) => {
+    document.querySelectorAll<HTMLElement>('[data-component="progress-circular-root"]').forEach((root) => {
         const min = parseFloat(root.getAttribute("data-min") ?? "0");
         const max = parseFloat(root.getAttribute("data-max") ?? "100");
         const value = parseFloat(root.getAttribute("data-default-value") ?? root.getAttribute("data-value") ?? "0");
@@ -28,14 +28,14 @@ function initProgressCircular() {
         root.setAttribute("aria-valuemax", String(max));
         root.setAttribute("aria-valuenow", String(value));
 
-        const labelEl = root.querySelector<HTMLElement>(".progress-label");
+        const labelEl = root.querySelector<HTMLElement>('[data-component="progress-label"]');
         if (labelEl) {
             labelEl.className = cn(label, progressLabel, labelEl.className);
             labelEl.setAttribute("data-scope", "progress");
             labelEl.setAttribute("data-part", "label");
         }
 
-        const valueTextEl = root.querySelector<HTMLElement>(".progress-value-text");
+        const valueTextEl = root.querySelector<HTMLElement>('[data-component="progress-value-text"]');
         if (valueTextEl) {
             valueTextEl.className = cn(progressValueText, valueTextEl.className);
             valueTextEl.setAttribute("data-scope", "progress");
@@ -43,7 +43,7 @@ function initProgressCircular() {
             valueTextEl.textContent = `${Math.round(value)}%`;
         }
 
-        const svgEl = root.querySelector<SVGSVGElement>(".progress-circle");
+        const svgEl = root.querySelector<SVGSVGElement>('[data-component="progress-circle"]');
         if (!svgEl) return;
 
         // Hide until attributes are set, then fade in
@@ -63,7 +63,7 @@ function initProgressCircular() {
         const r = String(RADIUS);
         const sw = String(STROKE_WIDTH);
 
-        const trackEl = root.querySelector<SVGCircleElement>(".progress-circle-track");
+        const trackEl = root.querySelector<SVGCircleElement>('[data-component="progress-circle-track"]');
         if (trackEl) {
             trackEl.setAttribute("class", cn(progressCircleTrack, trackEl.getAttribute("class") ?? ""));
             trackEl.setAttribute("data-scope", "progress");
@@ -75,7 +75,7 @@ function initProgressCircular() {
             trackEl.setAttribute("stroke-width", sw);
         }
 
-        const rangeEl = root.querySelector<SVGCircleElement>(".progress-circle-range");
+        const rangeEl = root.querySelector<SVGCircleElement>('[data-component="progress-circle-range"]');
         if (rangeEl) {
             const dashOffset = CIRCUMFERENCE * (1 - percent);
             rangeEl.setAttribute("class", cn(progressCircleRange, rangeEl.getAttribute("class") ?? ""));

@@ -9,9 +9,9 @@ import {
 import { label } from "@midoneui/core/src/styles/label.styles";
 
 function initSwitch() {
-    document.querySelectorAll<HTMLElement>(".switch-root").forEach((root) => {
-        const control = root.querySelector<HTMLElement>(".switch-control");
-        const labelEl = root.querySelector<HTMLElement>(".switch-label");
+    document.querySelectorAll<HTMLElement>('[data-component="switch-root"]').forEach((root) => {
+        const control = root.querySelector<HTMLElement>('[data-component="switch-control"]');
+        const labelEl = root.querySelector<HTMLElement>('[data-component="switch-label"]');
 
         // Inject thumb into control
         const thumb = document.createElement("span");

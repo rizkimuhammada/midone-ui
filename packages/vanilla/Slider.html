@@ -14,16 +14,16 @@
       <!-- Example 1: Single Thumb -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
         <div class="text-sm text-muted-foreground">
-          <div class="slider-root w-72" data-default-value="[20]">
-            <span class="slider-label">Max Items</span>
-            <div class="slider-control">
-              <div class="slider-track">
-                <div class="slider-range"></div>
+          <div data-component="slider-root" class="w-72" data-default-value="[20]">
+            <span data-component="slider-label">Max Items</span>
+            <div data-component="slider-control">
+              <div data-component="slider-track">
+                <div data-component="slider-range"></div>
               </div>
-              <div class="slider-thumb" data-index="0"></div>
+              <div data-component="slider-thumb" data-index="0"></div>
             </div>
             <div class="flex items-center text-xs gap-1 font-medium justify-center opacity-70">
-              <output class="slider-value-text"></output> Items
+              <output data-component="slider-value-text"></output> Items
             </div>
           </div>
         </div>
@@ -32,21 +32,21 @@
       <!-- Example 2: Range (Two Thumbs) -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
         <div class="text-sm text-muted-foreground">
-          <div class="slider-root w-72" data-default-value="[20, 80]">
-            <span class="slider-label">Price Range</span>
-            <div class="slider-control">
-              <div class="slider-track">
-                <div class="slider-range"></div>
+          <div data-component="slider-root" class="w-72" data-default-value="[20, 80]">
+            <span data-component="slider-label">Price Range</span>
+            <div data-component="slider-control">
+              <div data-component="slider-track">
+                <div data-component="slider-range"></div>
               </div>
-              <div class="slider-thumb" data-index="0"></div>
-              <div class="slider-thumb" data-index="1"></div>
+              <div data-component="slider-thumb" data-index="0"></div>
+              <div data-component="slider-thumb" data-index="1"></div>
             </div>
-            <div class="slider-marker-group">
-              <div class="slider-marker" data-value="0">$0</div>
-              <div class="slider-marker" data-value="25">$25</div>
-              <div class="slider-marker" data-value="50">$50</div>
-              <div class="slider-marker" data-value="75">$75</div>
-              <div class="slider-marker" data-value="100">$100</div>
+            <div data-component="slider-marker-group">
+              <div data-component="slider-marker" data-value="0">$0</div>
+              <div data-component="slider-marker" data-value="25">$25</div>
+              <div data-component="slider-marker" data-value="50">$50</div>
+              <div data-component="slider-marker" data-value="75">$75</div>
+              <div data-component="slider-marker" data-value="100">$100</div>
             </div>
           </div>
         </div>

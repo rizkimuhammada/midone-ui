@@ -13,7 +13,7 @@ import { label } from "@midoneui/core/src/styles/label.styles";
 const DOT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/></svg>`;
 
 function initRadioGroup() {
-    document.querySelectorAll<HTMLElement>(".radio-group-root").forEach((root) => {
+    document.querySelectorAll<HTMLElement>('[data-component="radio-group-root"]').forEach((root) => {
         const defaultValue = root.getAttribute("data-default-value") ?? "";
 
         root.className = cn(radioGroupRoot, root.className);
@@ -22,7 +22,7 @@ function initRadioGroup() {
         root.setAttribute("data-part", "root");
         root.setAttribute("role", "radiogroup");
 
-        const labelEl = root.querySelector<HTMLElement>(".radio-group-label");
+        const labelEl = root.querySelector<HTMLElement>('[data-component="radio-group-label"]');
         if (labelEl) {
             labelEl.className = cn(label, radioGroupLabel, labelEl.className);
             labelEl.setAttribute("data-scope", "radio-group");
@@ -38,7 +38,7 @@ function initRadioGroup() {
 
         function updateIndicator() {
             const selectedControl = root.querySelector<HTMLElement>(
-                `.radio-group-item[data-state="checked"] .radio-group-item-control`
+                '[data-component="radio-group-item"][data-state="checked"] [data-component="radio-group-item-control"]'
             );
             if (!selectedControl) return;
             const rootRect = root.getBoundingClientRect();
@@ -48,21 +48,21 @@ function initRadioGroup() {
             indicatorEl.style.setProperty("--height", `${controlRect.height}px`);
         }
 
-        root.querySelectorAll<HTMLElement>(".radio-group-item").forEach((item) => {
+        root.querySelectorAll<HTMLElement>('[data-component="radio-group-item"]').forEach((item) => {
             item.className = cn(radioGroupItem, item.className);
             item.setAttribute("data-scope", "radio-group");
             item.setAttribute("data-part", "item");
             item.style.cursor = "pointer";
             const val = item.getAttribute("data-value") ?? "";
 
-            const controlEl = item.querySelector<HTMLElement>(".radio-group-item-control");
+            const controlEl = item.querySelector<HTMLElement>('[data-component="radio-group-item-control"]');
             if (controlEl) {
                 controlEl.className = cn(radioGroupItemControl, controlEl.className);
                 controlEl.setAttribute("data-scope", "radio-group");
                 controlEl.setAttribute("data-part", "item-control");
             }
 
-            const textEl = item.querySelector<HTMLElement>(".radio-group-item-text");
+            const textEl = item.querySelector<HTMLElement>('[data-component="radio-group-item-text"]');
             if (textEl) {
                 textEl.className = cn(radioGroupItemText, textEl.className);
                 textEl.setAttribute("data-scope", "radio-group");
@@ -78,9 +78,9 @@ function initRadioGroup() {
             item.appendChild(hiddenInput);
 
             function select() {
-                root.querySelectorAll<HTMLElement>(".radio-group-item").forEach((i) => {
+                root.querySelectorAll<HTMLElement>('[data-component="radio-group-item"]').forEach((i) => {
                     i.removeAttribute("data-state");
-                    i.querySelector<HTMLElement>(".radio-group-item-control")?.removeAttribute("data-state");
+                    i.querySelector<HTMLElement>('[data-component="radio-group-item-control"]')?.removeAttribute("data-state");
                 });
                 item.setAttribute("data-state", "checked");
                 controlEl?.setAttribute("data-state", "checked");

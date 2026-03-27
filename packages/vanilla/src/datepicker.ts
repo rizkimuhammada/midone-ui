@@ -30,6 +30,7 @@ import { buttonVariants } from "@midoneui/core/src/styles/button.styles";
 import { label as labelStyles } from "@midoneui/core/src/styles/label.styles";
 import { badgeVariants } from "@midoneui/core/src/styles/badge.styles";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
+import { handleAsChild } from "./slot";
 
 const MONTHS_LONG = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -200,10 +201,11 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Preset triggers (range example)
-    root.querySelectorAll<HTMLButtonElement>('[data-component="datepicker-preset-trigger"]').forEach(btn => {
-        const variant = (btn.getAttribute("data-variant") ?? "secondary") as any;
-        const look = (btn.getAttribute("data-look") ?? "outline") as any;
-        btn.className = cn(badgeVariants({ variant, look }), "datepicker-preset-trigger");
+    root.querySelectorAll<HTMLElement>('[data-component="datepicker-preset-trigger"]').forEach(el => {
+        const presetEl = handleAsChild(el);
+        const variant = (presetEl.getAttribute("data-variant") ?? "secondary") as any;
+        const look = (presetEl.getAttribute("data-look") ?? "outline") as any;
+        presetEl.className = cn(badgeVariants({ variant, look }), presetEl.className);
     });
 
     // Positioner (dropdown mode) — will teleport to body after all queries
@@ -447,7 +449,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Preset triggers
-    root.querySelectorAll<HTMLButtonElement>('[data-component="datepicker-preset-trigger"]').forEach(btn => {
+    root.querySelectorAll<HTMLElement>('[data-component="datepicker-preset-trigger"]').forEach(btn => {
         btn.addEventListener("click", () => {
             const preset = btn.getAttribute("data-value") ?? "";
             const [start, end] = getPresetRange(preset);

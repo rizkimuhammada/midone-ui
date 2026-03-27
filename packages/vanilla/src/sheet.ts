@@ -15,9 +15,9 @@ const X_SVG = `<svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0
 const CLOSE_DURATION = 400;
 
 function initSheet() {
-    document.querySelectorAll<HTMLElement>(".sheet-root").forEach(root => {
-        const triggerEl = root.querySelector<HTMLElement>(".sheet-trigger");
-        const contentEl = root.querySelector<HTMLElement>(".sheet-content")!;
+    document.querySelectorAll<HTMLElement>('[data-component="sheet-root"]').forEach(root => {
+        const triggerEl = root.querySelector<HTMLElement>('[data-component="sheet-trigger"]');
+        const contentEl = root.querySelector<HTMLElement>('[data-component="sheet-content"]')!;
         if (!contentEl) return;
 
         const side = (contentEl.getAttribute("data-side") ?? "right") as string;
@@ -44,19 +44,19 @@ function initSheet() {
         contentEl.appendChild(innerDiv);
 
         // Apply sub-element styles
-        innerDiv.querySelectorAll<HTMLElement>(".sheet-title").forEach(el => {
+        innerDiv.querySelectorAll<HTMLElement>('[data-component="sheet-title"]').forEach(el => {
             el.className = cn(sheetTitle, el.className);
             el.setAttribute("data-scope", "sheet");
             el.setAttribute("data-part", "title");
         });
-        innerDiv.querySelectorAll<HTMLElement>(".sheet-description").forEach(el => {
+        innerDiv.querySelectorAll<HTMLElement>('[data-component="sheet-description"]').forEach(el => {
             el.className = cn(sheetDescription, el.className);
             el.setAttribute("data-scope", "sheet");
             el.setAttribute("data-part", "description");
         });
 
         // Process close triggers
-        innerDiv.querySelectorAll<HTMLElement>(".sheet-close-trigger").forEach(btn => {
+        innerDiv.querySelectorAll<HTMLElement>('[data-component="sheet-close-trigger"]').forEach(btn => {
             btn.setAttribute("data-scope", "sheet");
             btn.setAttribute("data-part", "close-trigger");
             if (btn.childElementCount === 0 && !btn.textContent?.trim()) {
@@ -116,7 +116,7 @@ function initSheet() {
         }
 
         // Close triggers click
-        innerDiv.querySelectorAll<HTMLElement>(".sheet-close-trigger").forEach(btn => {
+        innerDiv.querySelectorAll<HTMLElement>('[data-component="sheet-close-trigger"]').forEach(btn => {
             btn.addEventListener("click", closeSheet);
         });
 

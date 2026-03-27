@@ -19,11 +19,11 @@ const ARROW_SIZE = 10;
 const CHEVRON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>`;
 
 function initPopover() {
-    document.querySelectorAll<HTMLElement>(".popover-root").forEach((rootEl) => {
+    document.querySelectorAll<HTMLElement>('[data-component="popover-root"]').forEach((rootEl) => {
         const root = handleAsChild(rootEl);
-        const triggerEl = root.querySelector<HTMLElement>(".popover-trigger");
-        const positionerEl = root.querySelector<HTMLElement>(".popover-positioner");
-        const contentEl = root.querySelector<HTMLElement>(".popover-content");
+        const triggerEl = root.querySelector<HTMLElement>('[data-component="popover-trigger"]');
+        const positionerEl = root.querySelector<HTMLElement>('[data-component="popover-positioner"]');
+        const contentEl = root.querySelector<HTMLElement>('[data-component="popover-content"]');
         if (!triggerEl || !positionerEl || !contentEl) return;
 
         const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");
@@ -47,19 +47,19 @@ function initPopover() {
         
         if (!isAsChildContent) {
             content.className = cn(boxVariants({ raised: "single" }), popoverContent, content.className);
-            content.querySelectorAll<HTMLElement>(".popover-title").forEach((el) => {
+            content.querySelectorAll<HTMLElement>('[data-component="popover-title"]').forEach((el) => {
                 const title = handleAsChild(el);
                 title.className = cn(popoverTitle, title.className);
                 title.setAttribute("data-scope", "popover");
                 title.setAttribute("data-part", "title");
             });
-            content.querySelectorAll<HTMLElement>(".popover-description").forEach((el) => {
+            content.querySelectorAll<HTMLElement>('[data-component="popover-description"]').forEach((el) => {
                 const desc = handleAsChild(el);
                 desc.className = cn(popoverDescription, desc.className);
                 desc.setAttribute("data-scope", "popover");
                 desc.setAttribute("data-part", "description");
             });
-            content.querySelectorAll<HTMLElement>(".label").forEach((el) => {
+            content.querySelectorAll<HTMLElement>('[data-component="label"]').forEach((el) => {
                 el.className = cn(label, el.className);
             });
 

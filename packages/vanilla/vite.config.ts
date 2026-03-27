@@ -10,4 +10,9 @@ export default defineConfig({
       "@midoneui/core": path.resolve(__dirname, "../core"),
     },
   },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: "es2022",
+    },
+  },
 });

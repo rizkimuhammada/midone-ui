@@ -24,14 +24,16 @@ import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 const CHEVRON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>`;
 const CHECK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
 
+const openSelects = new Set<() => void>();
+
 function initSelect() {
-    document.querySelectorAll<HTMLElement>(".select-root").forEach((root) => {
+    document.querySelectorAll<HTMLElement>('[data-component="select-root"]').forEach((root) => {
         const isMultiple = root.getAttribute("data-multiple") === "true";
-        const labelEl = root.querySelector<HTMLElement>(".select-label");
-        const controlEl = root.querySelector<HTMLElement>(".select-control")!;
-        const triggerEl = root.querySelector<HTMLElement>(".select-trigger");
-        const valueTextEl = root.querySelector<HTMLElement>(".select-value-text");
-        const contentEl = root.querySelector<HTMLElement>(".select-content")!;
+        const labelEl = root.querySelector<HTMLElement>('[data-component="select-label"]');
+        const controlEl = root.querySelector<HTMLElement>('[data-component="select-control"]')!;
+        const triggerEl = root.querySelector<HTMLElement>('[data-component="select-trigger"]');
+        const valueTextEl = root.querySelector<HTMLElement>('[data-component="select-value-text"]');
+        const contentEl = root.querySelector<HTMLElement>('[data-component="select-content"]')!;
         if (!controlEl || !triggerEl || !contentEl) return;
 
         // Apply root & label classes
@@ -80,17 +82,17 @@ function initSelect() {
         contentEl.setAttribute("data-part", "content");
 
         // Apply item group & item classes, inject item indicators
-        contentEl.querySelectorAll<HTMLElement>(".select-item-group").forEach((group) => {
+        contentEl.querySelectorAll<HTMLElement>('[data-component="select-item-group"]').forEach((group) => {
             group.className = cn(selectItemGroup, group.className);
             group.setAttribute("data-scope", "select");
             group.setAttribute("data-part", "item-group");
-            group.querySelectorAll<HTMLElement>(".select-item-group-label").forEach((gl) => {
+            group.querySelectorAll<HTMLElement>('[data-component="select-item-group-label"]').forEach((gl) => {
                 gl.className = cn(selectItemGroupLabel, gl.className);
                 gl.setAttribute("data-scope", "select");
                 gl.setAttribute("data-part", "item-group-label");
             });
-            group.querySelectorAll<HTMLElement>(".select-item").forEach((item) => {
-                const itemTextEl = item.querySelector<HTMLElement>(".select-item-text");
+            group.querySelectorAll<HTMLElement>('[data-component="select-item"]').forEach((item) => {
+                const itemTextEl = item.querySelector<HTMLElement>('[data-component="select-item-text"]');
                 if (itemTextEl) {
                     itemTextEl.className = cn(selectItemText, itemTextEl.className);
                     itemTextEl.setAttribute("data-scope", "select");
@@ -143,10 +145,10 @@ function initSelect() {
                 clearBtn.style.display = "none";
             } else {
                 const labels: string[] = [];
-                contentEl.querySelectorAll<HTMLElement>(".select-item").forEach((item) => {
+                contentEl.querySelectorAll<HTMLElement>('[data-component="select-item"]').forEach((item) => {
                     const val = item.getAttribute("data-value");
                     if (val && selectedValues.has(val)) {
-                        labels.push(item.querySelector(".select-item-text")?.textContent?.trim() ?? val);
+                        labels.push(item.querySelector('[data-component="select-item-text"]')?.textContent?.trim() ?? val);
                     }
                 });
                 valueTextEl.textContent = labels.join(", ");
@@ -155,7 +157,7 @@ function initSelect() {
         }
 
         function updateItemIndicators() {
-            contentEl.querySelectorAll<HTMLElement>(".select-item").forEach((item) => {
+            contentEl.querySelectorAll<HTMLElement>('[data-component="select-item"]').forEach((item) => {
                 const val = item.getAttribute("data-value");
                 const ind = item.querySelector<HTMLElement>("[data-part='item-indicator']");
                 if (!ind) return;
@@ -184,7 +186,10 @@ function initSelect() {
         }
 
         function openDropdown() {
+            // Close any other open selects first
+            openSelects.forEach(close => close());
             isOpen = true;
+            openSelects.add(closeDropdown);
             contentEl.style.setProperty("--reference-width", `${controlEl.offsetWidth}px`);
             positionerEl.style.display = "block";
             indicatorEl.setAttribute("data-state", "open");
@@ -193,6 +198,7 @@ function initSelect() {
 
         function closeDropdown() {
             isOpen = false;
+            openSelects.delete(closeDropdown);
             positionerEl.style.display = "none";
             indicatorEl.removeAttribute("data-state");
         }
@@ -202,7 +208,7 @@ function initSelect() {
             isOpen ? closeDropdown() : openDropdown();
         });
 
-        contentEl.querySelectorAll<HTMLElement>(".select-item").forEach((item) => {
+        contentEl.querySelectorAll<HTMLElement>('[data-component="select-item"]').forEach((item) => {
             item.addEventListener("click", () => {
                 const val = item.getAttribute("data-value");
                 if (!val) return;

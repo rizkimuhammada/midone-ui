@@ -49,7 +49,7 @@ function getPages(current: number, total: number, siblings: number): PageItem[] 
 }
 
 function initPagination() {
-    document.querySelectorAll<HTMLElement>(".pagination-root").forEach((root) => {
+    document.querySelectorAll<HTMLElement>('[data-component="pagination-root"]').forEach((root) => {
         const count = parseInt(root.getAttribute("data-count") ?? "100");
         const pageSize = parseInt(root.getAttribute("data-page-size") ?? "10");
         const siblingCount = parseInt(root.getAttribute("data-sibling-count") ?? "1");

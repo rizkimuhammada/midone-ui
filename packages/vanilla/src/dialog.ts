@@ -130,6 +130,9 @@ function initDialog() {
         const contentEl = root.querySelector<HTMLElement>('[data-component="dialog-content"]');
         if (!contentEl) return;
 
+        contentEl.remove();
+        const controls = buildDialog(contentEl);
+
         if (triggerEl) {
             const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");
             const trigger = handleAsChild(triggerEl);
@@ -138,14 +141,8 @@ function initDialog() {
             }
             trigger.setAttribute("data-scope", "dialog");
             trigger.setAttribute("data-part", "trigger");
-            trigger.addEventListener("click", () => {
-                 const controls = dialogRegistry.get(root.id);
-                 if (controls) controls.open();
-            });
+            trigger.addEventListener("click", () => controls.open());
         }
-
-        contentEl.remove();
-        const controls = buildDialog(contentEl);
 
         const id = root.id;
         if (id) dialogRegistry.set(id, controls);
