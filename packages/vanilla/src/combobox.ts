@@ -33,8 +33,8 @@ function processItem(item: HTMLElement) {
     item.setAttribute("data-scope", "combobox");
     item.setAttribute("data-part", "item");
 
-    // Apply comboboxItemText class to the .combobox-item-text child
-    const itemText = item.querySelector<HTMLElement>(":scope > .combobox-item-text");
+    // Apply comboboxItemText class to the [data-component="combobox-item-text"] child
+    const itemText = item.querySelector<HTMLElement>(':scope > [data-component="combobox-item-text"]');
     if (itemText) {
         itemText.className = cn(comboboxItemText, itemText.className);
         itemText.setAttribute("data-scope", "combobox");
@@ -53,13 +53,13 @@ function processItem(item: HTMLElement) {
 
 function initComboboxRoot(root: HTMLElement) {
     const isMultiple = root.getAttribute("data-multiple") === "true";
-    const label = root.querySelector<HTMLElement>(":scope > .combobox-label");
-    const control = root.querySelector<HTMLElement>(":scope > .combobox-control");
-    const positioner = root.querySelector<HTMLElement>(":scope > .combobox-positioner");
+    const label = root.querySelector<HTMLElement>(':scope > [data-component="combobox-label"]');
+    const control = root.querySelector<HTMLElement>(':scope > [data-component="combobox-control"]');
+    const positioner = root.querySelector<HTMLElement>(':scope > [data-component="combobox-positioner"]');
     if (!control || !positioner) return;
 
-    const trigger = control.querySelector<HTMLElement>(":scope > .combobox-trigger");
-    const content = positioner.querySelector<HTMLElement>(":scope > .combobox-content");
+    const trigger = control.querySelector<HTMLElement>(':scope > [data-component="combobox-trigger"]');
+    const content = positioner.querySelector<HTMLElement>(':scope > [data-component="combobox-content"]');
     if (!trigger || !content) return;
 
     // Apply root classes (data-multiple attr is already set in HTML)
@@ -137,27 +137,27 @@ function initComboboxRoot(root: HTMLElement) {
     content.appendChild(innerDiv);
 
     // Apply input styles
-    const searchInput = innerDiv.querySelector<HTMLInputElement>(":scope > .combobox-input");
+    const searchInput = innerDiv.querySelector<HTMLInputElement>(':scope > [data-component="combobox-input"]');
     if (searchInput) {
         searchInput.className = cn(inputStyles, comboboxInput, searchInput.className);
     }
 
     // Apply item group + item styles
-    innerDiv.querySelectorAll<HTMLElement>(":scope > .combobox-item-group").forEach(group => {
+    innerDiv.querySelectorAll<HTMLElement>(':scope > [data-component="combobox-item-group"]').forEach(group => {
         group.className = cn(comboboxItemGroup, group.className);
         group.setAttribute("data-scope", "combobox");
         group.setAttribute("data-part", "item-group");
-        const groupLabel = group.querySelector<HTMLElement>(":scope > .combobox-item-group-label");
+        const groupLabel = group.querySelector<HTMLElement>(':scope > [data-component="combobox-item-group-label"]');
         if (groupLabel) {
             groupLabel.className = cn(comboboxItemGroupLabel, groupLabel.className);
             groupLabel.setAttribute("data-scope", "combobox");
             groupLabel.setAttribute("data-part", "item-group-label");
         }
-        group.querySelectorAll<HTMLElement>(":scope > .combobox-item").forEach(processItem);
+        group.querySelectorAll<HTMLElement>(':scope > [data-component="combobox-item"]').forEach(processItem);
     });
 
     // Direct items (ungrouped)
-    innerDiv.querySelectorAll<HTMLElement>(":scope > .combobox-item").forEach(processItem);
+    innerDiv.querySelectorAll<HTMLElement>(':scope > [data-component="combobox-item"]').forEach(processItem);
 
     // State
     const selectedValues = new Set<string>();
@@ -171,7 +171,7 @@ function initComboboxRoot(root: HTMLElement) {
         // Show clear trigger only when items are selected (multiple mode)
         clearSpan.style.display = (isMultiple && selectedValues.size > 0) ? "" : "none";
         // Update item indicators
-        content.querySelectorAll<HTMLElement>(".combobox-item").forEach(item => {
+        content.querySelectorAll<HTMLElement>('[data-part="item"]').forEach(item => {
             const val = item.dataset.value ?? "";
             const indicator = item.querySelector<HTMLElement>("[data-part='item-indicator']");
             if (indicator) indicator.hidden = !selectedValues.has(val);
@@ -180,18 +180,18 @@ function initComboboxRoot(root: HTMLElement) {
 
     function filterItems(query: string) {
         const q = query.toLowerCase();
-        innerDiv.querySelectorAll<HTMLElement>(".combobox-item-group").forEach(group => {
+        innerDiv.querySelectorAll<HTMLElement>('[data-part="item-group"]').forEach(group => {
             let hasVisible = false;
-            group.querySelectorAll<HTMLElement>(".combobox-item").forEach(item => {
-                const text = (item.querySelector(".combobox-item-text")?.textContent ?? "").toLowerCase();
+            group.querySelectorAll<HTMLElement>('[data-part="item"]').forEach(item => {
+                const text = (item.querySelector('[data-part="item-text"]')?.textContent ?? "").toLowerCase();
                 const visible = text.includes(q);
                 item.style.display = visible ? "" : "none";
                 if (visible) hasVisible = true;
             });
             group.style.display = hasVisible ? "" : "none";
         });
-        innerDiv.querySelectorAll<HTMLElement>(":scope > .combobox-item").forEach(item => {
-            const text = (item.querySelector(".combobox-item-text")?.textContent ?? "").toLowerCase();
+        innerDiv.querySelectorAll<HTMLElement>(':scope > [data-part="item"]').forEach(item => {
+            const text = (item.querySelector('[data-part="item-text"]')?.textContent ?? "").toLowerCase();
             item.style.display = text.includes(q) ? "" : "none";
         });
     }
@@ -230,7 +230,7 @@ function initComboboxRoot(root: HTMLElement) {
     }
 
     // Item selection
-    content.querySelectorAll<HTMLElement>(".combobox-item").forEach(item => {
+    content.querySelectorAll<HTMLElement>('[data-part="item"]').forEach(item => {
         item.addEventListener("click", (e) => {
             e.stopPropagation();
             const val = item.dataset.value ?? "";
@@ -274,7 +274,7 @@ function initComboboxRoot(root: HTMLElement) {
 }
 
 function initComboboxes() {
-    document.querySelectorAll<HTMLElement>(".combobox-root").forEach(root => {
+    document.querySelectorAll<HTMLElement>('[data-component="combobox-root"]').forEach(root => {
         initComboboxRoot(root);
     });
 }

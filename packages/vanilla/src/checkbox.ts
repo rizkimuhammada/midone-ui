@@ -6,16 +6,16 @@ import {
     checkboxLabel,
     checkboxHiddenInput,
 } from "@midoneui/core/src/styles/checkbox.styles";
-import { label } from "@midoneui/core/src/styles/label.styles";
+import { label as labelStyles } from "@midoneui/core/src/styles/label.styles";
 import { handleAsChild } from "./slot";
 
 const CHECK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
 
 function initCheckbox() {
-    document.querySelectorAll<HTMLElement>(".checkbox-root").forEach((rootEl) => {
+    document.querySelectorAll<HTMLElement>('[data-component="checkbox-root"]').forEach((rootEl) => {
         const root = handleAsChild(rootEl);
-        const controlEl = root.querySelector<HTMLElement>(".checkbox-control");
-        const labelEl = root.querySelector<HTMLElement>(".checkbox-label");
+        const controlEl = root.querySelector<HTMLElement>('[data-component="checkbox-control"]');
+        const labelEl = root.querySelector<HTMLElement>('[data-component="checkbox-label"]');
 
         const indicator = document.createElement("div");
         indicator.innerHTML = CHECK_SVG;
@@ -41,7 +41,7 @@ function initCheckbox() {
         indicator.setAttribute("data-part", "indicator");
         if (labelEl) {
             const labelNode = handleAsChild(labelEl);
-            labelNode.className = cn(label, checkboxLabel, labelNode.className);
+            labelNode.className = cn(labelStyles, checkboxLabel, labelNode.className);
             labelNode.setAttribute("data-scope", "checkbox");
             labelNode.setAttribute("data-part", "label");
         }
@@ -51,7 +51,7 @@ function initCheckbox() {
 
         function setState(checked: boolean) {
             const state = checked ? "checked" : "unchecked";
-            const currentControl = root.querySelector("[data-part='control']");
+            const currentControl = root.querySelector('[data-part="control"]');
             currentControl?.setAttribute("data-state", state);
             indicator.setAttribute("data-state", state);
             if (checked) indicator.removeAttribute("hidden");
