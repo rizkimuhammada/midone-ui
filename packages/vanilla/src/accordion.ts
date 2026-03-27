@@ -10,7 +10,7 @@ import { boxVariants } from "@midoneui/core/src/styles/box.styles";
 import { handleAsChild } from "./slot";
 
 function initAccordion() {
-    document.querySelectorAll<HTMLElement>(".accordion-root").forEach((rootEl) => {
+    document.querySelectorAll<HTMLElement>('[data-component="accordion-root"]').forEach((rootEl) => {
         const root = handleAsChild(rootEl);
         const variant = (root.getAttribute("data-variant") as any) || "default";
         
@@ -29,8 +29,7 @@ function initAccordion() {
             console.warn("Failed to parse data-default-value. Expected JSON format.", e);
         }
 
-        root.querySelectorAll<HTMLElement>(".accordion-item").forEach((itemEl) => {
-            const isAsChild = itemEl.hasAttribute("data-as-child");
+        root.querySelectorAll<HTMLElement>('[data-component="accordion-item"]').forEach((itemEl) => {
             const item = handleAsChild(itemEl);
             const value = item.getAttribute("data-value") || "";
             const raised = item.getAttribute("data-raised") as any;
@@ -44,8 +43,8 @@ function initAccordion() {
                 item.className = cn(accordionItemVariants({ variant }), item.className);
             }
 
-            const triggerEl = item.querySelector<HTMLElement>(".accordion-trigger");
-            const contentEl = item.querySelector<HTMLElement>(".accordion-content");
+            const triggerEl = item.querySelector<HTMLElement>('[data-component="accordion-trigger"]');
+            const contentEl = item.querySelector<HTMLElement>('[data-component="accordion-content"]');
 
             if (triggerEl) {
                 const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");
@@ -55,10 +54,11 @@ function initAccordion() {
                 trigger.setAttribute("data-part", "item-trigger");
 
                 if (!isAsChildTrigger) {
-                    let indicator = trigger.querySelector(".accordion-indicator");
+                    let indicator = trigger.querySelector('[data-component="accordion-indicator"]');
                     if (!indicator) {
                         indicator = document.createElement("span");
-                        indicator.className = "accordion-indicator " + accordionItemIndicator;
+                        indicator.className = accordionItemIndicator;
+                        indicator.setAttribute("data-component", "accordion-indicator");
                         indicator.setAttribute("data-scope", "accordion");
                         indicator.setAttribute("data-part", "item-indicator");
                         indicator.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>`;
@@ -69,7 +69,7 @@ function initAccordion() {
                 trigger.addEventListener("click", () => {
                     const isCurrentlyOpen = item.getAttribute("data-state") === "open";
                     if (!isCurrentlyOpen) {
-                        root.querySelectorAll(".accordion-item").forEach((i) => setItemState(i, "closed"));
+                        root.querySelectorAll('[data-component="accordion-item"]').forEach((i) => setItemState(i, "closed"));
                     }
                     setItemState(item, isCurrentlyOpen ? "closed" : "open");
                 });
@@ -93,8 +93,8 @@ function initAccordion() {
 
 function setItemState(item: Element, state: "open" | "closed") {
     item.setAttribute("data-state", state);
-    const content = item.querySelector(".accordion-content") as HTMLElement;
-    const indicator = item.querySelector(".accordion-indicator");
+    const content = item.querySelector('[data-component="accordion-content"]') as HTMLElement;
+    const indicator = item.querySelector('[data-component="accordion-indicator"]');
     if (content) {
         content.setAttribute("data-state", state);
         content.style.display = state === "closed" ? "none" : "block";
