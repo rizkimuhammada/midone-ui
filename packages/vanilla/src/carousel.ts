@@ -41,8 +41,8 @@ function initCarouselRoot(rootEl: HTMLElement) {
 
     const prevTriggerEl = root.querySelector<HTMLButtonElement>('[data-component="carousel-prev-trigger"]');
     const nextTriggerEl = root.querySelector<HTMLButtonElement>('[data-component="carousel-next-trigger"]');
-    const indicators = indicatorGroup ? Array.from(indicatorGroup.querySelectorAll<HTMLButtonElement>(':scope > [data-component="carousel-indicator"]')) : [];
-    const items = Array.from(itemGroup.querySelectorAll<HTMLElement>(':scope > [data-component="carousel-item"]'));
+    const indicators = indicatorGroup ? Array.from(indicatorGroup.querySelectorAll<HTMLButtonElement>('[data-component="carousel-indicator"]')) : [];
+    const items = Array.from(itemGroup.querySelectorAll<HTMLElement>('[data-component="carousel-item"]'));
 
     if (control) {
         control.className = cn(carouselControl, control.className);

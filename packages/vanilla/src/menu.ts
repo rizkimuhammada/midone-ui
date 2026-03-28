@@ -40,7 +40,7 @@ function processItem(itemEl: HTMLElement) {
     item.setAttribute("data-part", "item");
 
     if (!isAsChild) {
-        const nestedPos = item.querySelector<HTMLElement>(':scope > [data-component="menu-positioner-nested"]');
+        const nestedPos = item.querySelector<HTMLElement>('[data-component="menu-positioner-nested"]');
         if (nestedPos) item.removeChild(nestedPos);
 
         if (type) {
@@ -108,8 +108,8 @@ function initMenuRoot(rootEl: Element) {
     root.setAttribute("data-part", "root");
     (root as HTMLElement).style.cssText = "display:inline-flex;flex-direction:column;";
 
-    const triggerEl = root.querySelector<HTMLElement>(':scope > [data-component="menu-trigger"]');
-    const positionerEl = root.querySelector<HTMLElement>(':scope > [data-component="menu-positioner"]');
+    const triggerEl = root.querySelector<HTMLElement>('[data-component="menu-trigger"]');
+    const positionerEl = root.querySelector<HTMLElement>('[data-component="menu-positioner"]');
     if (!triggerEl || !positionerEl) return;
 
     const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");
@@ -147,34 +147,34 @@ function initMenuRoot(rootEl: Element) {
         });
     }
 
-    const contentEl = positioner.querySelector<HTMLElement>(':scope > [data-component="menu-content"]');
+    const contentEl = positioner.querySelector<HTMLElement>('[data-component="menu-content"]');
     if (!contentEl) return;
     const innerContainer = processContent(contentEl);
 
-    innerContainer.querySelectorAll<HTMLElement>(':scope > [data-component="menu-item"]').forEach(processItem);
-    innerContainer.querySelectorAll<HTMLElement>(':scope > [data-component="menu-separator"]').forEach(sepEl => {
+    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-item"]').forEach(processItem);
+    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-separator"]').forEach(sepEl => {
         const sep = handleAsChild(sepEl);
         sep.className = cn(menuSeparator, sep.className);
         sep.setAttribute("data-scope", "menu");
         sep.setAttribute("data-part", "separator");
     });
-    innerContainer.querySelectorAll<HTMLElement>(':scope > [data-component="menu-radio-group"]').forEach(groupEl => {
+    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-radio-group"]').forEach(groupEl => {
         const group = handleAsChild(groupEl);
         group.className = cn(menuRadioItemGroup, group.className);
         group.setAttribute("data-scope", "menu");
         group.setAttribute("data-part", "item-group");
-        group.querySelectorAll<HTMLElement>(':scope > [data-component="menu-group-label"]').forEach(labelEl => {
+        group.querySelectorAll<HTMLElement>('[data-component="menu-group-label"]').forEach(labelEl => {
             const label = handleAsChild(labelEl);
             label.className = cn(menuItemGroupLabel, label.className);
             label.setAttribute("data-scope", "menu");
             label.setAttribute("data-part", "item-group-label");
         });
-        group.querySelectorAll<HTMLElement>(':scope > [data-component="menu-item"]').forEach(processItem);
+        group.querySelectorAll<HTMLElement>('[data-component="menu-item"]').forEach(processItem);
     });
 
-    innerContainer.querySelectorAll<HTMLElement>(':scope > [data-component="menu-trigger-item"]').forEach(triggerItem => {
+    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-trigger-item"]').forEach(triggerItem => {
         processItem(triggerItem);
-        const nestedPos = triggerItem.querySelector<HTMLElement>(':scope > [data-component="menu-positioner-nested"]');
+        const nestedPos = triggerItem.querySelector<HTMLElement>('[data-component="menu-positioner-nested"]');
         if (!nestedPos) return;
 
         const nested = handleAsChild(nestedPos);
@@ -182,10 +182,10 @@ function initMenuRoot(rootEl: Element) {
         nested.classList.add("hidden");
         nested.style.cssText = "position:fixed;z-index:50;min-width:12rem;";
 
-        const nestedContentEl = nested.querySelector<HTMLElement>(':scope > [data-component="menu-content"]');
+        const nestedContentEl = nested.querySelector<HTMLElement>('[data-component="menu-content"]');
         if (nestedContentEl) {
             const nestedInner = processContent(nestedContentEl);
-            nestedInner.querySelectorAll<HTMLElement>(':scope > [data-component="menu-item"]').forEach(processItem);
+            nestedInner.querySelectorAll<HTMLElement>('[data-component="menu-item"]').forEach(processItem);
         }
 
         nested.remove();

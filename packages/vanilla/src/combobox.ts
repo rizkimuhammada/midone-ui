@@ -34,7 +34,7 @@ function processItem(item: HTMLElement) {
     item.setAttribute("data-part", "item");
 
     // Apply comboboxItemText class to the [data-component="combobox-item-text"] child
-    const itemText = item.querySelector<HTMLElement>(':scope > [data-component="combobox-item-text"]');
+    const itemText = item.querySelector<HTMLElement>('[data-component="combobox-item-text"]');
     if (itemText) {
         itemText.className = cn(comboboxItemText, itemText.className);
         itemText.setAttribute("data-scope", "combobox");
@@ -53,13 +53,13 @@ function processItem(item: HTMLElement) {
 
 function initComboboxRoot(root: HTMLElement) {
     const isMultiple = root.getAttribute("data-multiple") === "true";
-    const label = root.querySelector<HTMLElement>(':scope > [data-component="combobox-label"]');
-    const control = root.querySelector<HTMLElement>(':scope > [data-component="combobox-control"]');
-    const positioner = root.querySelector<HTMLElement>(':scope > [data-component="combobox-positioner"]');
+    const label = root.querySelector<HTMLElement>('[data-component="combobox-label"]');
+    const control = root.querySelector<HTMLElement>('[data-component="combobox-control"]');
+    const positioner = root.querySelector<HTMLElement>('[data-component="combobox-positioner"]');
     if (!control || !positioner) return;
 
-    const trigger = control.querySelector<HTMLElement>(':scope > [data-component="combobox-trigger"]');
-    const content = positioner.querySelector<HTMLElement>(':scope > [data-component="combobox-content"]');
+    const trigger = control.querySelector<HTMLElement>('[data-component="combobox-trigger"]');
+    const content = positioner.querySelector<HTMLElement>('[data-component="combobox-content"]');
     if (!trigger || !content) return;
 
     // Apply root classes (data-multiple attr is already set in HTML)
@@ -137,27 +137,27 @@ function initComboboxRoot(root: HTMLElement) {
     content.appendChild(innerDiv);
 
     // Apply input styles
-    const searchInput = innerDiv.querySelector<HTMLInputElement>(':scope > [data-component="combobox-input"]');
+    const searchInput = innerDiv.querySelector<HTMLInputElement>('[data-component="combobox-input"]');
     if (searchInput) {
         searchInput.className = cn(inputStyles, comboboxInput, searchInput.className);
     }
 
     // Apply item group + item styles
-    innerDiv.querySelectorAll<HTMLElement>(':scope > [data-component="combobox-item-group"]').forEach(group => {
+    innerDiv.querySelectorAll<HTMLElement>('[data-component="combobox-item-group"]').forEach(group => {
         group.className = cn(comboboxItemGroup, group.className);
         group.setAttribute("data-scope", "combobox");
         group.setAttribute("data-part", "item-group");
-        const groupLabel = group.querySelector<HTMLElement>(':scope > [data-component="combobox-item-group-label"]');
+        const groupLabel = group.querySelector<HTMLElement>('[data-component="combobox-item-group-label"]');
         if (groupLabel) {
             groupLabel.className = cn(comboboxItemGroupLabel, groupLabel.className);
             groupLabel.setAttribute("data-scope", "combobox");
             groupLabel.setAttribute("data-part", "item-group-label");
         }
-        group.querySelectorAll<HTMLElement>(':scope > [data-component="combobox-item"]').forEach(processItem);
+        group.querySelectorAll<HTMLElement>('[data-component="combobox-item"]').forEach(processItem);
     });
 
     // Direct items (ungrouped)
-    innerDiv.querySelectorAll<HTMLElement>(':scope > [data-component="combobox-item"]').forEach(processItem);
+    innerDiv.querySelectorAll<HTMLElement>('[data-component="combobox-item"]').forEach(processItem);
 
     // State
     const selectedValues = new Set<string>();
@@ -190,7 +190,7 @@ function initComboboxRoot(root: HTMLElement) {
             });
             group.style.display = hasVisible ? "" : "none";
         });
-        innerDiv.querySelectorAll<HTMLElement>(':scope > [data-part="item"]').forEach(item => {
+        innerDiv.querySelectorAll<HTMLElement>('[data-part="item"]').forEach(item => {
             const text = (item.querySelector('[data-part="item-text"]')?.textContent ?? "").toLowerCase();
             item.style.display = text.includes(q) ? "" : "none";
         });

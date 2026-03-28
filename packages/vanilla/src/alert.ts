@@ -53,7 +53,7 @@ function initAlerts() {
             if (innerIcon) {
                 innerIcon.setAttribute(
                     "class",
-                    cn(innerIcon.getAttribute("class") ?? "", alertIcon)
+                    cn(alertIcon, innerIcon.getAttribute("class") ?? "")
                 );
                 innerIcon.setAttribute("data-scope", "alert");
                 innerIcon.setAttribute("data-part", "icon");
@@ -62,7 +62,7 @@ function initAlerts() {
         });
 
         // Handle direct Lucide icons (could be <i> before lucide.ts or <svg> after)
-        alert.querySelectorAll<HTMLElement | SVGElement>(':scope > [data-component="lucide"]').forEach((iconEl) => {
+        alert.querySelectorAll<HTMLElement | SVGElement>('[data-component="lucide"]').forEach((iconEl) => {
             iconEl.setAttribute(
                 "class",
                 cn(iconEl.getAttribute("class") ?? "", alertIcon)

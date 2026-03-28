@@ -16,9 +16,13 @@ function initTabsRoot(rootEl: HTMLElement) {
     root.setAttribute("data-scope", "tabs");
     root.setAttribute("data-part", "root");
 
-    const listEl = root.querySelector<HTMLElement>(':scope > [data-component="tabs-list"]');
-    const triggers = Array.from(root.querySelectorAll<HTMLElement>('[data-component="tabs-trigger"]'));
-    const contents = Array.from(root.querySelectorAll<HTMLElement>('[data-component="tabs-content"]'));
+    const listEl = root.querySelector<HTMLElement>('[data-component="tabs-list"]');
+    // Filter triggers/contents to only those belonging to this root (to avoid conflicts with nested tabs)
+    const allTriggers = Array.from(root.querySelectorAll<HTMLElement>('[data-component="tabs-trigger"]'));
+    const allContents = Array.from(root.querySelectorAll<HTMLElement>('[data-component="tabs-content"]'));
+    
+    const triggers = allTriggers.filter(el => el.closest('[data-component="tabs-root"]') === root);
+    const contents = allContents.filter(el => el.closest('[data-component="tabs-root"]') === root);
 
     contents.forEach(contentEl => {
         const content = handleAsChild(contentEl);
@@ -50,6 +54,7 @@ function initTabsRoot(rootEl: HTMLElement) {
     list.appendChild(indicator);
 
     function updateIndicator(activeTrigger: HTMLElement) {
+        if (!activeTrigger || activeTrigger.offsetWidth === 0) return;
         indicator.style.setProperty("--height", `${activeTrigger.offsetHeight}px`);
         indicator.style.setProperty("--width", `${activeTrigger.offsetWidth}px`);
         indicator.style.setProperty("--left", `${activeTrigger.offsetLeft}px`);
@@ -57,7 +62,7 @@ function initTabsRoot(rootEl: HTMLElement) {
     }
 
     function activate(value: string) {
-        root.querySelectorAll<HTMLElement>('[data-component="tabs-trigger"]').forEach(t => {
+        triggers.forEach(t => {
             if (t.dataset.value === value) {
                 t.setAttribute("data-selected", "");
                 updateIndicator(t);
@@ -65,15 +70,21 @@ function initTabsRoot(rootEl: HTMLElement) {
                 t.removeAttribute("data-selected");
             }
         });
-        root.querySelectorAll<HTMLElement>('[data-component="tabs-content"]').forEach(c => {
+        contents.forEach(c => {
             if (c.dataset.value === value) c.removeAttribute("hidden");
             else c.setAttribute("hidden", "");
         });
     }
 
+    // Update indicator when root becomes visible (e.g. menu/dialog opens)
+    const observer = new ResizeObserver(() => {
+        const activeTrigger = triggers.find(t => t.hasAttribute("data-selected"));
+        if (activeTrigger) updateIndicator(activeTrigger);
+    });
+    observer.observe(root);
+
     requestAnimationFrame(() => {
-        const firstTrigger = root.querySelector<HTMLElement>('[data-component="tabs-trigger"]');
-        activate(defaultValue || firstTrigger?.dataset.value || "");
+        activate(defaultValue || triggers[0]?.dataset.value || "");
     });
 }
 

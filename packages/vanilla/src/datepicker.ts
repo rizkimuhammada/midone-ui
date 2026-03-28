@@ -156,7 +156,7 @@ function initDatePickerRoot(root: HTMLElement) {
     root.setAttribute("data-part", "root");
 
     // Label
-    const labelEl = root.querySelector<HTMLElement>(':scope > [data-component="datepicker-label"]');
+    const labelEl = root.querySelector<HTMLElement>('[data-component="datepicker-label"]');
     if (labelEl) {
         labelEl.className = cn(labelStyles, datePickerLabel, labelEl.className);
         labelEl.setAttribute("data-scope", "date-picker");
@@ -164,7 +164,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Control
-    const controlEl = root.querySelector<HTMLElement>(':scope > [data-component="datepicker-control"]');
+    const controlEl = root.querySelector<HTMLElement>('[data-component="datepicker-control"]');
     if (controlEl) {
         controlEl.className = cn(datePickerControl, controlEl.className);
         controlEl.setAttribute("data-scope", "date-picker");
@@ -209,7 +209,7 @@ function initDatePickerRoot(root: HTMLElement) {
     });
 
     // Positioner (dropdown mode) — will teleport to body after all queries
-    const positioner = root.querySelector<HTMLElement>(':scope > [data-component="datepicker-positioner"]');
+    const positioner = root.querySelector<HTMLElement>('[data-component="datepicker-positioner"]');
     if (positioner && !isInline) {
         positioner.style.cssText = "position:fixed;z-index:50;min-width:max-content;display:none;";
     }
@@ -262,7 +262,7 @@ function initDatePickerRoot(root: HTMLElement) {
 
     // View controls inside views
     viewEls.forEach(v => {
-        const vc = v.querySelector<HTMLElement>(':scope > [data-component="datepicker-view-control"]');
+        const vc = v.querySelector<HTMLElement>('[data-component="datepicker-view-control"]');
         if (vc) vc.className = cn(datePickerViewControl, vc.className);
     });
 
@@ -282,9 +282,9 @@ function initDatePickerRoot(root: HTMLElement) {
 
     // Setup view buttons (prev/view-trigger/next) inside all view-controls
     function setupViewControl(vc: HTMLElement, viewEl: HTMLElement | null) {
-        const prev = vc.querySelector<HTMLButtonElement>(':scope > [data-component="datepicker-prev-trigger"]');
-        const viewBtn = vc.querySelector<HTMLButtonElement>(':scope > [data-component="datepicker-view-trigger"]');
-        const next = vc.querySelector<HTMLButtonElement>(':scope > [data-component="datepicker-next-trigger"]');
+        const prev = vc.querySelector<HTMLButtonElement>('[data-component="datepicker-prev-trigger"]');
+        const viewBtn = vc.querySelector<HTMLButtonElement>('[data-component="datepicker-view-trigger"]');
+        const next = vc.querySelector<HTMLButtonElement>('[data-component="datepicker-next-trigger"]');
         const rangeText = vc.querySelector<HTMLElement>('[data-component="datepicker-range-text"]');
 
         if (prev) {
@@ -319,15 +319,15 @@ function initDatePickerRoot(root: HTMLElement) {
 
     // Setup view controls in views
     viewEls.forEach(v => {
-        const vc = v.querySelector<HTMLElement>(':scope > [data-component="datepicker-view-control"]');
+        const vc = v.querySelector<HTMLElement>('[data-component="datepicker-view-control"]');
         if (vc) setupViewControl(vc, v);
     });
     // Setup standalone view controls (multiple months)
     standaloneViewControls.forEach(vc => {
         const dayView = root.querySelector<HTMLElement>('[data-component="datepicker-view"][data-view="day"]');
-        const prev = vc.querySelector<HTMLButtonElement>(':scope > [data-component="datepicker-prev-trigger"]');
-        const next = vc.querySelector<HTMLButtonElement>(':scope > [data-component="datepicker-next-trigger"]');
-        const rangeText = vc.querySelector<HTMLElement>(':scope > [data-component="datepicker-range-text"]');
+        const prev = vc.querySelector<HTMLButtonElement>('[data-component="datepicker-prev-trigger"]');
+        const next = vc.querySelector<HTMLButtonElement>('[data-component="datepicker-next-trigger"]');
+        const rangeText = vc.querySelector<HTMLElement>('[data-component="datepicker-range-text"]');
 
         if (prev) {
             prev.className = cn(datePickerPrevTrigger, prev.className);
