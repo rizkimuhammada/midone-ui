@@ -26,6 +26,13 @@ const CHECK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" view
 
 const openSelects = new Set<() => void>();
 
+type SelectControls = { open: () => void; close: () => void; toggle: () => void };
+const selectRegistry = new Map<string, SelectControls>();
+
+// Expose registry to window
+(window as any).Midone = (window as any).Midone || {};
+(window as any).Midone.select = selectRegistry;
+
 function initSelect() {
     document.querySelectorAll<HTMLElement>('[data-component="select-root"]').forEach((root) => {
         const isMultiple = root.getAttribute("data-multiple") === "true";
@@ -36,7 +43,6 @@ function initSelect() {
         const contentEl = root.querySelector<HTMLElement>('[data-component="select-content"]')!;
         if (!controlEl || !triggerEl || !contentEl) return;
 
-        // Apply root & label classes
         root.className = cn(selectRoot, root.className);
         root.setAttribute("data-scope", "select");
         root.setAttribute("data-part", "root");
@@ -49,7 +55,6 @@ function initSelect() {
         controlEl.setAttribute("data-scope", "select");
         controlEl.setAttribute("data-part", "control");
 
-        // Apply trigger classes (ghost button + selectTrigger)
         triggerEl.className = cn(buttonVariants({ variant: "ghost" }), selectTrigger, triggerEl.className);
         triggerEl.setAttribute("data-scope", "select");
         triggerEl.setAttribute("data-part", "trigger");
@@ -59,7 +64,6 @@ function initSelect() {
             valueTextEl.setAttribute("data-part", "value-text");
         }
 
-        // Inject clear trigger into trigger
         const clearBtn = document.createElement("span");
         clearBtn.setAttribute("data-scope", "select");
         clearBtn.setAttribute("data-part", "clear-trigger");
@@ -67,7 +71,6 @@ function initSelect() {
         clearBtn.textContent = "Clear";
         triggerEl.appendChild(clearBtn);
 
-        // Inject indicator (chevron) into trigger
         const indicatorEl = document.createElement("div");
         indicatorEl.className = cn(selectIndicator);
         indicatorEl.setAttribute("data-scope", "select");
@@ -75,13 +78,11 @@ function initSelect() {
         indicatorEl.innerHTML = CHEVRON_SVG;
         triggerEl.appendChild(indicatorEl);
 
-        // Detach content, build positioner structure
         contentEl.remove();
         contentEl.className = cn(boxVariants({ raised: "single" }), selectContent, contentEl.className);
         contentEl.setAttribute("data-scope", "select");
         contentEl.setAttribute("data-part", "content");
 
-        // Apply item group & item classes, inject item indicators
         contentEl.querySelectorAll<HTMLElement>('[data-component="select-item-group"]').forEach((group) => {
             group.className = cn(selectItemGroup, group.className);
             group.setAttribute("data-scope", "select");
@@ -113,12 +114,10 @@ function initSelect() {
             });
         });
 
-        // Wrap content children in scroll div
         const scrollDiv = document.createElement("div");
         while (contentEl.firstChild) scrollDiv.appendChild(contentEl.firstChild);
         contentEl.appendChild(scrollDiv);
 
-        // Positioner
         const positionerEl = document.createElement("div");
         positionerEl.className = cn(selectPositioner);
         positionerEl.setAttribute("data-scope", "select");
@@ -127,14 +126,12 @@ function initSelect() {
         positionerEl.appendChild(contentEl);
         document.body.appendChild(positionerEl);
 
-        // Inject hidden select into root
         const hiddenSelect = document.createElement("select");
         hiddenSelect.className = cn(selectHiddenSelect);
         hiddenSelect.style.display = "none";
         if (isMultiple) hiddenSelect.multiple = true;
         root.appendChild(hiddenSelect);
 
-        // State
         const selectedValues = new Set<string>();
         let isOpen = false;
 
@@ -147,9 +144,7 @@ function initSelect() {
                 const labels: string[] = [];
                 contentEl.querySelectorAll<HTMLElement>('[data-component="select-item"]').forEach((item) => {
                     const val = item.getAttribute("data-value");
-                    if (val && selectedValues.has(val)) {
-                        labels.push(item.querySelector('[data-component="select-item-text"]')?.textContent?.trim() ?? val);
-                    }
+                    if (val && selectedValues.has(val)) labels.push(item.querySelector('[data-component="select-item-text"]')?.textContent?.trim() ?? val);
                 });
                 valueTextEl.textContent = labels.join(", ");
                 clearBtn.style.display = "inline";
@@ -162,11 +157,9 @@ function initSelect() {
                 const ind = item.querySelector<HTMLElement>("[data-part='item-indicator']");
                 if (!ind) return;
                 if (val && selectedValues.has(val)) {
-                    ind.removeAttribute("hidden");
-                    item.setAttribute("data-state", "checked");
+                    ind.removeAttribute("hidden"); item.setAttribute("data-state", "checked");
                 } else {
-                    ind.setAttribute("hidden", "");
-                    item.removeAttribute("data-state");
+                    ind.setAttribute("hidden", ""); item.removeAttribute("data-state");
                 }
             });
         }
@@ -174,38 +167,36 @@ function initSelect() {
         function updatePosition() {
             computePosition(controlEl, positionerEl, {
                 placement: "bottom-start",
-                middleware: [
-                    offset(8),
-                    flip(),
-                    shift({ padding: 8 }),
-                ],
+                middleware: [offset(8), flip(), shift({ padding: 8 })],
             }).then(({ x, y }) => {
                 positionerEl.style.left = `${x}px`;
                 positionerEl.style.top = `${y}px`;
             });
         }
 
-        function openDropdown() {
-            // Close any other open selects first
+        function show() {
             openSelects.forEach(close => close());
             isOpen = true;
-            openSelects.add(closeDropdown);
+            openSelects.add(hide);
             contentEl.style.setProperty("--reference-width", `${controlEl.offsetWidth}px`);
             positionerEl.style.display = "block";
             indicatorEl.setAttribute("data-state", "open");
             updatePosition();
         }
 
-        function closeDropdown() {
+        function hide() {
             isOpen = false;
-            openSelects.delete(closeDropdown);
+            openSelects.delete(hide);
             positionerEl.style.display = "none";
             indicatorEl.removeAttribute("data-state");
         }
 
+        function toggle() {
+            isOpen ? hide() : show();
+        }
+
         triggerEl.addEventListener("click", (e) => {
-            e.stopPropagation();
-            isOpen ? closeDropdown() : openDropdown();
+            e.stopPropagation(); toggle();
         });
 
         contentEl.querySelectorAll<HTMLElement>('[data-component="select-item"]').forEach((item) => {
@@ -213,36 +204,41 @@ function initSelect() {
                 const val = item.getAttribute("data-value");
                 if (!val) return;
                 if (isMultiple) {
-                    if (selectedValues.has(val)) selectedValues.delete(val);
-                    else selectedValues.add(val);
+                    if (selectedValues.has(val)) selectedValues.delete(val); else selectedValues.add(val);
                 } else {
-                    selectedValues.clear();
-                    selectedValues.add(val);
-                    closeDropdown();
+                    selectedValues.clear(); selectedValues.add(val); hide();
                 }
-                updateValueText();
-                updateItemIndicators();
+                updateValueText(); updateItemIndicators();
             });
         });
 
         clearBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            selectedValues.clear();
-            updateValueText();
-            updateItemIndicators();
+            selectedValues.clear(); updateValueText(); updateItemIndicators();
         });
 
         document.addEventListener("click", (e) => {
             if (isOpen && !root.contains(e.target as Node) && !positionerEl.contains(e.target as Node)) {
-                closeDropdown();
+                hide();
             }
         });
 
         document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && isOpen) closeDropdown();
+            if (e.key === "Escape" && isOpen) hide();
         });
 
         updateValueText();
+        
+        const id = root.id;
+        if (id) {
+            selectRegistry.set(id, { open: show, close: hide, toggle });
+        }
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-select-target]").forEach(btn => {
+        const targetId = btn.getAttribute("data-select-target")!;
+        const controls = selectRegistry.get(targetId);
+        if (controls) btn.addEventListener("click", controls.toggle);
     });
 }
 

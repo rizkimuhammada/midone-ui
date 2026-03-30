@@ -18,6 +18,13 @@ import { handleAsChild } from "./slot";
 const ARROW_SIZE = 10;
 const CHEVRON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>`;
 
+type PopoverControls = { open: () => void; close: () => void; toggle: () => void };
+const popoverRegistry = new Map<string, PopoverControls>();
+
+// Expose registry to window
+(window as any).Midone = (window as any).Midone || {};
+(window as any).Midone.popover = popoverRegistry;
+
 function initPopover() {
     document.querySelectorAll<HTMLElement>('[data-component="popover-root"]').forEach((rootEl) => {
         const root = handleAsChild(rootEl);
@@ -158,9 +165,13 @@ function initPopover() {
             indicator?.removeAttribute("data-state");
         }
 
+        function toggle() {
+            isOpen ? hide() : show();
+        }
+
         trigger.addEventListener("click", (e) => {
             e.stopPropagation();
-            isOpen ? hide() : show();
+            toggle();
         });
 
         document.addEventListener("click", (e) => {
@@ -172,6 +183,17 @@ function initPopover() {
         document.addEventListener("keydown", (e) => {
             if (e.key === "Escape" && isOpen) hide();
         });
+
+        const id = root.id;
+        if (id) {
+            popoverRegistry.set(id, { open: show, close: hide, toggle });
+        }
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-popover-target]").forEach(btn => {
+        const targetId = btn.getAttribute("data-popover-target")!;
+        const controls = popoverRegistry.get(targetId);
+        if (controls) btn.addEventListener("click", controls.toggle);
     });
 }
 

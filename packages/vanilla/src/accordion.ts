@@ -9,6 +9,13 @@ import {
 import { boxVariants } from "@midoneui/core/src/styles/box.styles";
 import { handleAsChild } from "./slot";
 
+type AccordionControls = { setItemState: (value: string, state: "open" | "closed") => void };
+const accordionRegistry = new Map<string, AccordionControls>();
+
+// Expose registry to window
+(window as any).Midone = (window as any).Midone || {};
+(window as any).Midone.accordion = accordionRegistry;
+
 function initAccordion() {
     document.querySelectorAll<HTMLElement>('[data-component="accordion-root"]').forEach((rootEl) => {
         const root = handleAsChild(rootEl);
@@ -27,6 +34,19 @@ function initAccordion() {
             }
         } catch (e) {
             console.warn("Failed to parse data-default-value. Expected JSON format.", e);
+        }
+
+        const isMultiple = root.hasAttribute("data-multiple");
+
+        function setItemState(item: Element, state: "open" | "closed") {
+            item.setAttribute("data-state", state);
+            const content = item.querySelector('[data-component="accordion-content"]') as HTMLElement;
+            const indicator = item.querySelector('[data-component="accordion-indicator"]');
+            if (content) {
+                content.setAttribute("data-state", state);
+                content.style.display = state === "closed" ? "none" : "block";
+            }
+            if (indicator) indicator.setAttribute("data-state", state);
         }
 
         root.querySelectorAll<HTMLElement>('[data-component="accordion-item"]').forEach((itemEl) => {
@@ -68,17 +88,14 @@ function initAccordion() {
 
                 trigger.addEventListener("click", () => {
                     const isCurrentlyOpen = item.getAttribute("data-state") === "open";
-                    if (!isCurrentlyOpen) {
+                    if (!isCurrentlyOpen && !isMultiple) {
                         root.querySelectorAll('[data-component="accordion-item"]').forEach((i) => setItemState(i, "closed"));
                     }
                     setItemState(item, isCurrentlyOpen ? "closed" : "open");
                 });
 
-                if (openValues.includes(value)) {
-                    setItemState(item, "open");
-                } else {
-                    setItemState(item, "closed");
-                }
+                if (openValues.includes(value)) setItemState(item, "open");
+                else setItemState(item, "closed");
             }
 
             if (contentEl) {
@@ -88,18 +105,17 @@ function initAccordion() {
                 content.setAttribute("data-part", "item-content");
             }
         });
-    });
-}
 
-function setItemState(item: Element, state: "open" | "closed") {
-    item.setAttribute("data-state", state);
-    const content = item.querySelector('[data-component="accordion-content"]') as HTMLElement;
-    const indicator = item.querySelector('[data-component="accordion-indicator"]');
-    if (content) {
-        content.setAttribute("data-state", state);
-        content.style.display = state === "closed" ? "none" : "block";
-    }
-    if (indicator) indicator.setAttribute("data-state", state);
+        const id = root.id;
+        if (id) {
+            accordionRegistry.set(id, {
+                setItemState: (val, state) => {
+                    const item = root.querySelector(`[data-component="accordion-item"][data-value="${val}"]`);
+                    if (item) setItemState(item, state);
+                }
+            });
+        }
+    });
 }
 
 if (document.readyState === "loading") {

@@ -23,6 +23,10 @@ interface ToastEntry {
     timer: number;
 }
 
+// Expose registry to window
+(window as any).Midone = (window as any).Midone || {};
+(window as any).Midone.toast = createToast;
+
 let toasts: ToastEntry[] = []; // [0] = newest (front)
 let containerEl: HTMLElement | null = null;
 let isHovered = false;

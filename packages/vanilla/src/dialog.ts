@@ -23,18 +23,22 @@ const CLOSE_DURATION = 400;
 type DialogControls = { open: () => void; close: () => void };
 const dialogRegistry = new Map<string, DialogControls>();
 
+// Expose registry to window
+(window as any).Midone = (window as any).Midone || {};
+(window as any).Midone.dialog = dialogRegistry;
+
 function buildDialog(contentEl: HTMLElement) {
     const isAsChild = contentEl.hasAttribute("data-as-child");
     const content = handleAsChild(contentEl);
-    
+
     if (!isAsChild) {
         content.className = cn(boxVariants({ raised: "double" }), dialogContent, content.className);
-        
+
         // Internal structural div for non-as-child
         const innerDiv = document.createElement("div");
         while (content.firstChild) innerDiv.appendChild(content.firstChild);
         content.appendChild(innerDiv);
-        
+
         innerDiv.querySelectorAll<HTMLElement>('[data-component="dialog-title"]').forEach(el => {
             const title = handleAsChild(el);
             title.className = cn(dialogTitle, title.className);
@@ -53,7 +57,7 @@ function buildDialog(contentEl: HTMLElement) {
             const btn = handleAsChild(btnEl);
             btn.setAttribute("data-scope", "dialog");
             btn.setAttribute("data-part", "close-trigger");
-            
+
             if (!isAsChildTrigger) {
                 if (btn.childElementCount === 0 && !btn.textContent?.trim()) {
                     btn.className = cn(buttonVariants({ variant: "ghost" }), dialogCloseTrigger, btn.className);
@@ -65,7 +69,7 @@ function buildDialog(contentEl: HTMLElement) {
                 }
             }
         });
-        
+
         innerDiv.querySelectorAll<HTMLElement>('[data-component="dialog-close-trigger"]').forEach(btn => {
             btn.addEventListener("click", closeDialog);
         });
@@ -73,7 +77,7 @@ function buildDialog(contentEl: HTMLElement) {
         // Just apply basic parts if as-child
         content.setAttribute("data-scope", "dialog");
         content.setAttribute("data-part", "content");
-        
+
         content.querySelectorAll<HTMLElement>('[data-component="dialog-close-trigger"]').forEach(btn => {
             btn.addEventListener("click", closeDialog);
         });

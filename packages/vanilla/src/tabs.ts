@@ -8,6 +8,13 @@ import {
 } from "@midoneui/core/src/styles/tabs.styles";
 import { handleAsChild } from "./slot";
 
+type TabsControls = { activate: (value: string) => void };
+const tabsRegistry = new Map<string, TabsControls>();
+
+// Expose registry to window
+(window as any).Midone = (window as any).Midone || {};
+(window as any).Midone.tabs = tabsRegistry;
+
 function initTabsRoot(rootEl: HTMLElement) {
     const root = handleAsChild(rootEl);
     const defaultValue = root.getAttribute("data-default-value") ?? "";
@@ -17,7 +24,6 @@ function initTabsRoot(rootEl: HTMLElement) {
     root.setAttribute("data-part", "root");
 
     const listEl = root.querySelector<HTMLElement>('[data-component="tabs-list"]');
-    // Filter triggers/contents to only those belonging to this root (to avoid conflicts with nested tabs)
     const allTriggers = Array.from(root.querySelectorAll<HTMLElement>('[data-component="tabs-trigger"]'));
     const allContents = Array.from(root.querySelectorAll<HTMLElement>('[data-component="tabs-content"]'));
     
@@ -76,7 +82,6 @@ function initTabsRoot(rootEl: HTMLElement) {
         });
     }
 
-    // Update indicator when root becomes visible (e.g. menu/dialog opens)
     const observer = new ResizeObserver(() => {
         const activeTrigger = triggers.find(t => t.hasAttribute("data-selected"));
         if (activeTrigger) updateIndicator(activeTrigger);
@@ -86,6 +91,11 @@ function initTabsRoot(rootEl: HTMLElement) {
     requestAnimationFrame(() => {
         activate(defaultValue || triggers[0]?.dataset.value || "");
     });
+
+    const id = root.id;
+    if (id) {
+        tabsRegistry.set(id, { activate });
+    }
 }
 
 function initTabs() {

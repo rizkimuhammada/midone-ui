@@ -22,6 +22,13 @@ const DOT = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" view
 
 const menuIndicatorMap = new WeakMap<Element, Element>();
 
+type MenuControls = { open: () => void; close: () => void; toggle: () => void };
+const menuRegistry = new Map<string, MenuControls>();
+
+// Expose registry to window
+(window as any).Midone = (window as any).Midone || {};
+(window as any).Midone.menu = menuRegistry;
+
 function parseSvg(html: string): Element {
     const tmp = document.createElement("div");
     tmp.innerHTML = html;
@@ -72,7 +79,7 @@ function processItem(itemEl: HTMLElement) {
 function processContent(elEl: HTMLElement): HTMLElement {
     const isAsChild = elEl.hasAttribute("data-as-child");
     const el = handleAsChild(elEl);
-    
+
     el.className = cn(menuContent, el.className);
     el.setAttribute("data-scope", "menu");
     el.setAttribute("data-part", "content");
@@ -87,7 +94,7 @@ function processContent(elEl: HTMLElement): HTMLElement {
         el.appendChild(innerDiv);
         return innerDiv;
     }
-    
+
     return el;
 }
 
@@ -113,7 +120,7 @@ function initMenuRoot(rootEl: Element) {
 
     const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");
     const trigger = handleAsChild(triggerEl);
-    
+
     if (!isAsChildTrigger) {
         trigger.className = cn(buttonVariants({ variant: "ghost", size: "default", look: "flat" }), menuTrigger, trigger.className);
         const indicatorSpan = document.createElement("span");
@@ -123,7 +130,7 @@ function initMenuRoot(rootEl: Element) {
         indicatorSpan.innerHTML = CHEVRON_DOWN;
         trigger.appendChild(indicatorSpan);
     }
-    
+
     trigger.setAttribute("data-scope", "menu");
     trigger.setAttribute("data-part", "trigger");
 
@@ -234,6 +241,23 @@ function initMenuRoot(rootEl: Element) {
 
     positioner.addEventListener("click", (e) => e.stopPropagation());
 
+    const indicator = trigger.querySelector('[data-part="indicator"]');
+
+    function show() {
+        positioner.style.minWidth = `${(root as HTMLElement).offsetWidth}px`;
+        openMenu(positioner, indicator as HTMLElement);
+        updatePosition();
+    }
+
+    function hide() {
+        closeMenu(positioner, indicator as HTMLElement);
+    }
+
+    function toggle() {
+        const isOpen = !positioner.classList.contains("hidden");
+        if (isOpen) hide(); else show();
+    }
+
     trigger.addEventListener("click", (e) => {
         e.stopPropagation();
         const isOpen = !positioner.classList.contains("hidden");
@@ -242,19 +266,16 @@ function initMenuRoot(rootEl: Element) {
                 closeMenu(p, menuIndicatorMap.get(p) ?? null);
             }
         });
-        const indicator = trigger.querySelector('[data-part="indicator"]');
-        if (isOpen) {
-            closeMenu(positioner, indicator as HTMLElement);
-        } else {
-            positioner.style.minWidth = `${(root as HTMLElement).offsetWidth}px`;
-            openMenu(positioner, indicator as HTMLElement);
-            updatePosition();
-        }
+        toggle();
     });
 
-    const indicator = trigger.querySelector('[data-part="indicator"]');
     menuIndicatorMap.set(positioner, indicator as HTMLElement);
     positioner.classList.add("menu-positioner-teleported");
+
+    const id = (root as HTMLElement).id;
+    if (id) {
+        menuRegistry.set(id, { open: show, close: hide, toggle });
+    }
 }
 
 function initMenus() {
@@ -267,6 +288,12 @@ function initMenus() {
         document.querySelectorAll<HTMLElement>(".menu-positioner-nested-teleported").forEach(p => {
             closeMenu(p, null);
         });
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-menu-target]").forEach(btn => {
+        const targetId = btn.getAttribute("data-menu-target")!;
+        const controls = menuRegistry.get(targetId);
+        if (controls) btn.addEventListener("click", controls.toggle);
     });
 }
 
