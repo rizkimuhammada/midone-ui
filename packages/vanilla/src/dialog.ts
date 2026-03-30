@@ -11,6 +11,11 @@ import {
 import { boxVariants } from "@midoneui/core/src/styles/box.styles";
 import { buttonVariants } from "@midoneui/core/src/styles/button.styles";
 import { handleAsChild } from "./slot";
+import { initField } from "./field";
+import { initTextarea } from "./textarea";
+import { initInputs } from "./input";
+import { initButtons } from "./button";
+import { initLucideIcons } from "./lucide";
 
 const X_SVG = `<svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
 const CLOSE_DURATION = 400;
@@ -84,6 +89,13 @@ function buildDialog(contentEl: HTMLElement) {
     positionerEl.setAttribute("data-scope", "dialog");
     positionerEl.setAttribute("data-part", "positioner");
     positionerEl.appendChild(content);
+
+    // Re-initialize sub-components inside the dialog content
+    initField(content);
+    initTextarea(content);
+    initInputs(content);
+    initButtons(content);
+    initLucideIcons(content);
 
     function openDialog() {
         document.body.appendChild(backdropEl);

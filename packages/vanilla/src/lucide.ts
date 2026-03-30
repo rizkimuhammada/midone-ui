@@ -1,9 +1,11 @@
 import { icons } from "lucide";
 import { cn } from "@midoneui/core/src/utils/cn";
 
-export function initLucideIcons() {
-  document.querySelectorAll<HTMLElement>('[data-component="lucide"]').forEach((el) => {
-    let iconName = el.getAttribute("data-icon") as string;
+export function initLucideIcons(root: ParentNode = document) {
+  root.querySelectorAll<HTMLElement>('[data-component="lucide"]').forEach((el) => {
+    let iconName = el.getAttribute("data-icon");
+    if (!iconName) return;
+
     const formattedIconName = iconName
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -61,7 +63,7 @@ export function initLucideIcons() {
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initLucideIcons);
+  document.addEventListener("DOMContentLoaded", () => initLucideIcons());
 } else {
   initLucideIcons();
 }

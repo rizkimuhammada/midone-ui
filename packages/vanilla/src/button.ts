@@ -2,8 +2,8 @@ import { cn } from "@midoneui/core/src/utils/cn";
 import { buttonVariants } from "@midoneui/core/src/styles/button.styles";
 import { handleAsChild } from "./slot";
 
-function initButtons() {
-    document.querySelectorAll<HTMLElement>('[data-component="button"]').forEach((btnEl) => {
+export function initButtons(root: ParentNode = document) {
+    root.querySelectorAll<HTMLElement>('[data-component="button"]').forEach((btnEl) => {
         const button = handleAsChild(btnEl);
         
         const look = button.getAttribute("data-look") as any;
@@ -20,7 +20,7 @@ function initButtons() {
 }
 
 if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initButtons);
+    document.addEventListener("DOMContentLoaded", () => initButtons());
 } else {
     initButtons();
 }
