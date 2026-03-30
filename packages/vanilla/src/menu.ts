@@ -106,7 +106,6 @@ function initMenuRoot(rootEl: Element) {
     root.className = cn(menuRoot, root.className);
     root.setAttribute("data-scope", "menu");
     root.setAttribute("data-part", "root");
-    (root as HTMLElement).style.cssText = "display:inline-flex;flex-direction:column;";
 
     const triggerEl = root.querySelector<HTMLElement>('[data-component="menu-trigger"]');
     const positionerEl = root.querySelector<HTMLElement>('[data-component="menu-positioner"]');

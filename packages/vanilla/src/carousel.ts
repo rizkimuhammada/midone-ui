@@ -102,6 +102,7 @@ function initCarouselRoot(rootEl: HTMLElement) {
     itemGroup.setAttribute("tabindex", "-1");
     
     itemGroup.style.display = "grid";
+    itemGroup.style.position = "relative";
     itemGroup.style.gap = "var(--slide-spacing)";
     itemGroup.style.scrollSnapType = "x mandatory";
     itemGroup.style.gridAutoFlow = "column";
@@ -112,6 +113,9 @@ function initCarouselRoot(rootEl: HTMLElement) {
 
     items.forEach((itemEl, i) => {
         const isAsChild = itemEl.hasAttribute("data-as-child");
+        if (isAsChild) {
+            itemEl.className = "";
+        }
         const item = handleAsChild(itemEl);
         items[i] = item;
         
