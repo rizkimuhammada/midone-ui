@@ -11,7 +11,7 @@ import {
   SelectItem,
   SelectItemText,
 } from "@/components/ui/select";
-import * as select from "@zag-js/select";
+import { ref } from "vue";
 
 const comboboxData = [
   { label: "React", code: "react" },
@@ -78,77 +78,73 @@ const timezoneData = [
   },
 ];
 
-const collection = select.collection({
-  items: comboboxData,
-  itemToValue: (item) => item.label,
-});
-
-const collectionTimezone = select.collection({
-  items: timezoneData.flatMap((region) =>
-    region.items.map((item) => ({
-      region: region.label,
-      value: item.value,
-      label: item.label,
-    }))
-  ),
-});
+const stateSingle = ref<string[]>([]);
+const stateMultiple = ref<string[]>([]);
+const stateTimezone = ref<string[]>([]);
 </script>
 
 <template>
   <div class="flex flex-col gap-20">
     <div class="grid grid-cols-2">
+      <!-- Full static items -->
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <SelectRoot class="w-56" :collection="collection">
+        <SelectRoot v-model:value="stateSingle" class="w-56">
           <SelectLabel>Single</SelectLabel>
-          <SelectControl>
-            <SelectTrigger>
-              <SelectValueText placeholder="Select a Framework" />
-            </SelectTrigger>
-          </SelectControl>
+          <SelectControl placeholder="Select a Framework" />
           <SelectContent>
             <SelectItemGroup>
-              <SelectItemGroupLabel> Frameworks </SelectItemGroupLabel>
-              <SelectItem
-                v-for="item in collection.items"
-                :key="item.code"
-                :item="item"
-              >
-                <SelectItemText>{{ item.label }}</SelectItemText>
-              </SelectItem>
+              <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
+              <SelectItem value="React" />
+              <SelectItem value="Solid" />
+              <SelectItem value="Vue" />
+              <SelectItem value="Svelte" />
+              <SelectItem value="Vanilla" text="Vanilla JS" />
             </SelectItemGroup>
           </SelectContent>
         </SelectRoot>
       </div>
+      <!-- Dynamic items + static Vanilla -->
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <SelectRoot class="w-56" :collection="collection" multiple>
+        <SelectRoot :items="comboboxData" v-model:value="stateSingle" class="w-56" v-slot="{ items }">
+          <SelectLabel>Single</SelectLabel>
+          <SelectControl placeholder="Select a Framework" />
+          <SelectContent>
+            <SelectItemGroup>
+              <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
+              <SelectItem v-for="item in items" :key="item.code" :item="item">
+                <SelectItemText>{{ item.label }}</SelectItemText>
+              </SelectItem>
+              <SelectItem value="Vanilla" />
+            </SelectItemGroup>
+          </SelectContent>
+        </SelectRoot>
+      </div>
+      <!-- Multiple -->
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
+        <SelectRoot :items="comboboxData" v-model:value="stateMultiple" class="w-56" multiple v-slot="{ items }">
           <SelectLabel>Multiple</SelectLabel>
-          <SelectControl>
-            <SelectTrigger>
-              <SelectValueText placeholder="Select a Framework" />
-            </SelectTrigger>
-          </SelectControl>
+          <SelectControl placeholder="Select a Framework" />
           <SelectContent>
             <SelectItemGroup>
-              <SelectItemGroupLabel> Frameworks </SelectItemGroupLabel>
-              <SelectItem
-                v-for="item in collection.items"
-                :key="item.code"
-                :item="item"
-              >
+              <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
+              <SelectItem v-for="item in items" :key="item.code" :item="item">
                 <SelectItemText>{{ item.label }}</SelectItemText>
               </SelectItem>
             </SelectItemGroup>
           </SelectContent>
         </SelectRoot>
       </div>
+      <!-- Scrollable timezone -->
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
-        <SelectRoot class="w-56" :collection="collectionTimezone" multiple>
+        <SelectRoot v-model:value="stateTimezone" class="w-56" multiple>
           <SelectLabel>Scrollable</SelectLabel>
           <SelectControl>
             <SelectTrigger>
@@ -156,15 +152,14 @@ const collectionTimezone = select.collection({
             </SelectTrigger>
           </SelectControl>
           <SelectContent>
-            <SelectItemGroup v-for="item in timezoneData" :key="item.label">
-              <SelectItemGroupLabel>{{ item.label }}</SelectItemGroupLabel>
+            <SelectItemGroup v-for="group in timezoneData" :key="group.label">
+              <SelectItemGroupLabel>{{ group.label }}</SelectItemGroupLabel>
               <SelectItem
-                v-for="timezoneItem in item.items"
-                :key="timezoneItem.value"
-                :item="timezoneItem.value"
-              >
-                <SelectItemText>{{ timezoneItem.label }}</SelectItemText>
-              </SelectItem>
+                v-for="tzItem in group.items"
+                :key="tzItem.value"
+                :value="tzItem.value"
+                :text="tzItem.label"
+              />
             </SelectItemGroup>
           </SelectContent>
         </SelectRoot>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
 import { comboboxRoot } from "@midoneui/core/styles/combobox.styles";
-import { provide, computed, ref, toRef } from "vue";
+import { provide, computed, ref } from "vue";
 import * as combobox from "@zag-js/combobox";
 import { useMachine, normalizeProps } from "@zag-js/vue";
 import type { Props } from "@zag-js/combobox";

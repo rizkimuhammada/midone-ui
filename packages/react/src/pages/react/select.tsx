@@ -2,15 +2,12 @@ import {
   SelectRoot,
   SelectLabel,
   SelectControl,
-  SelectTrigger,
-  SelectValueText,
   SelectContent,
   SelectItemGroup,
   SelectItemGroupLabel,
   SelectItem,
   SelectItemText,
 } from "@/components/ui/select";
-import * as select from "@zag-js/select";
 import {
   Preview,
   SectionTitle,
@@ -85,21 +82,6 @@ const timezoneData = [
 ];
 
 function Main() {
-  const collection = select.collection({
-    items: comboboxData,
-    itemToValue: (item) => item.label,
-  });
-
-  const collectionTimezone = select.collection({
-    items: timezoneData.flatMap((region) =>
-      region.items.map((item) => ({
-        region: region.label,
-        value: item.value,
-        label: item.label,
-      }))
-    ),
-  });
-
   return (
     <>
       <div id="preview" className="-mt-20">
@@ -107,21 +89,32 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <SelectRoot className="w-56" collection={collection}>
+                <SelectRoot className="w-56">
                   <SelectLabel>Single</SelectLabel>
-                  <SelectControl>
-                    <SelectTrigger>
-                      <SelectValueText placeholder="Select a Framework" />
-                    </SelectTrigger>
-                  </SelectControl>
+                  <SelectControl placeholder="Select a Framework" />
                   <SelectContent>
                     <SelectItemGroup>
                       <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
-                      {collection.items.map((item) => (
+                      <SelectItem value="React" />
+                      <SelectItem value="Solid" />
+                      <SelectItem value="Vue" />
+                      <SelectItem value="Svelte" />
+                      <SelectItem value="Vanilla" text="Vanilla JS" />
+                    </SelectItemGroup>
+                  </SelectContent>
+                </SelectRoot>
+                <SelectRoot items={comboboxData} className="w-56">
+                  <SelectLabel>Single (dynamic)</SelectLabel>
+                  <SelectControl placeholder="Select a Framework" />
+                  <SelectContent>
+                    <SelectItemGroup>
+                      <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
+                      {comboboxData.map((item) => (
                         <SelectItem key={item.code} item={item}>
                           <SelectItemText>{item.label}</SelectItemText>
                         </SelectItem>
                       ))}
+                      <SelectItem value="Vanilla" />
                     </SelectItemGroup>
                   </SelectContent>
                 </SelectRoot>
@@ -667,17 +660,13 @@ import {
           {() => ({
             preview: (
               <>
-                <SelectRoot className="w-56" collection={collection} multiple>
+                <SelectRoot items={comboboxData} className="w-56" multiple>
                   <SelectLabel>Multiple</SelectLabel>
-                  <SelectControl>
-                    <SelectTrigger>
-                      <SelectValueText placeholder="Select a Framework" />
-                    </SelectTrigger>
-                  </SelectControl>
+                  <SelectControl placeholder="Select a Framework" />
                   <SelectContent>
                     <SelectItemGroup>
                       <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
-                      {collection.items.map((item) => (
+                      {comboboxData.map((item) => (
                         <SelectItem key={item.code} item={item}>
                           <SelectItemText>{item.label}</SelectItemText>
                         </SelectItem>
@@ -717,27 +706,21 @@ import {
           {() => ({
             preview: (
               <>
-                <SelectRoot
-                  className="w-56"
-                  collection={collectionTimezone}
-                  multiple
-                >
+                <SelectRoot className="w-56" multiple>
                   <SelectLabel>Scrollable</SelectLabel>
-                  <SelectControl>
-                    <SelectTrigger>
-                      <SelectValueText placeholder="Select a Timezone" />
-                    </SelectTrigger>
-                  </SelectControl>
+                  <SelectControl placeholder="Select a Timezone" />
                   <SelectContent>
-                    {timezoneData.map((item) => (
-                      <SelectItemGroup key={item.label}>
+                    {timezoneData.map((group) => (
+                      <SelectItemGroup key={group.label}>
                         <SelectItemGroupLabel>
-                          {item.label}
+                          {group.label}
                         </SelectItemGroupLabel>
-                        {item.items.map((item) => (
-                          <SelectItem key={item.value} item={item.value}>
-                            <SelectItemText>{item.label}</SelectItemText>
-                          </SelectItem>
+                        {group.items.map((tzItem) => (
+                          <SelectItem
+                            key={tzItem.value}
+                            value={tzItem.value}
+                            text={tzItem.label}
+                          />
                         ))}
                       </SelectItemGroup>
                     ))}

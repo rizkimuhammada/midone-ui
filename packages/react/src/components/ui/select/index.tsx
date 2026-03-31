@@ -20,7 +20,14 @@ import {
   selectItemIndicator,
   selectHiddenSelect,
 } from "@midoneui/core/styles/select.styles";
-import { createContext, useContext, useId } from "react";
+import {
+  createContext,
+  useContext,
+  useId,
+  useState,
+  useEffect,
+  useMemo,
+} from "react";
 import * as select from "@zag-js/select";
 import { useMachine, normalizeProps, Portal } from "@zag-js/react";
 import type { Api, Props, ItemGroupProps, ItemProps } from "@zag-js/select";
@@ -29,17 +36,77 @@ import { Slot } from "@/components/ui/slot";
 const ApiContext = createContext<Api | null>(null);
 const ItemGroupContext = createContext<ItemGroupProps | undefined>(undefined);
 const ItemContext = createContext<ItemProps | undefined>(undefined);
+const RegisterStaticItemContext = createContext<
+  ((item: { value: string; label: string }) => void) | null
+>(null);
+const UnregisterStaticItemContext = createContext<
+  ((item: { value: string; label: string }) => void) | null
+>(null);
 
 export function SelectRoot({
   children,
   className,
   multiple = false,
   asChild = false,
+  value,
+  collection,
+  items = [],
+  itemToValue,
+  itemToString,
+  onValueChange,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> &
+  Partial<Props> & {
+    asChild?: boolean;
+    items?: any[];
+    itemToValue?: (item: any) => string;
+    itemToString?: (item: any) => string;
+  }) {
+  const [internalValue, setInternalValue] = useState<string[]>(
+    (value as string[]) || []
+  );
+  const [staticItems, setStaticItems] = useState<
+    { value: string; label: string }[]
+  >([]);
+
+  const _value = value !== undefined ? (value as string[]) : internalValue;
+
+  const registerStaticItem = (item: { value: string; label: string }) => {
+    setStaticItems((prev) => {
+      if (prev.some((i) => i.value === item.value)) return prev;
+      return [...prev, item];
+    });
+  };
+
+  const unregisterStaticItem = (item: { value: string; label: string }) => {
+    setStaticItems((prev) => prev.filter((i) => i.value !== item.value));
+  };
+
+  const internalCollection = useMemo(() => {
+    if (collection) return collection;
+    const allItems = [...(items || []), ...staticItems];
+    return select.collection({
+      items: allItems,
+      itemToValue:
+        itemToValue ||
+        ((item) =>
+          typeof item === "string" ? item : item.value || item.label),
+      itemToString:
+        itemToString ||
+        ((item) =>
+          typeof item === "string" ? item : item.label || item.value),
+    });
+  }, [collection, items, staticItems, itemToValue, itemToString]);
+
   const service = useMachine(select.machine, {
     multiple,
     ...props,
+    collection: internalCollection,
+    value: _value,
+    onValueChange(details) {
+      setInternalValue(details.value);
+      onValueChange?.(details);
+    },
     id: useId(),
   });
 
@@ -47,21 +114,25 @@ export function SelectRoot({
 
   return (
     <ApiContext.Provider value={api}>
-      <Slot
-        className={cn(selectRoot, className)}
-        data-multiple={multiple}
-        {...api.getRootProps()}
-        {...props}
-      >
-        {asChild ? (
-          children
-        ) : (
-          <div>
-            {children}
-            <SelectHiddenSelect />
-          </div>
-        )}
-      </Slot>
+      <RegisterStaticItemContext.Provider value={registerStaticItem}>
+        <UnregisterStaticItemContext.Provider value={unregisterStaticItem}>
+          <Slot
+            className={cn(selectRoot, className)}
+            data-multiple={multiple}
+            {...api.getRootProps()}
+            {...props}
+          >
+            {asChild ? (
+              children
+            ) : (
+              <div>
+                {children}
+                <SelectHiddenSelect />
+              </div>
+            )}
+          </Slot>
+        </UnregisterStaticItemContext.Provider>
+      </RegisterStaticItemContext.Provider>
     </ApiContext.Provider>
   );
 }
@@ -89,9 +160,21 @@ export function SelectControl({
   children,
   className,
   asChild = false,
+  placeholder,
   ...props
-}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & { asChild?: boolean; placeholder?: string }) {
   const api = useContext(ApiContext);
+
+  const content = useMemo(() => {
+    if (asChild) return children;
+    if (children)
+      return <div>{children}</div>;
+    return (
+      <SelectTrigger>
+        <SelectValueText placeholder={placeholder} />
+      </SelectTrigger>
+    );
+  }, [children, asChild, placeholder]);
 
   return (
     <Slot
@@ -99,7 +182,7 @@ export function SelectControl({
       {...api?.getControlProps()}
       {...props}
     >
-      {asChild ? children : <div>{children}</div>}
+      {content}
     </Slot>
   );
 }
@@ -131,8 +214,9 @@ export function SelectValueText({
   children,
   className,
   asChild = false,
+  placeholder,
   ...props
-}: React.ComponentProps<"input"> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & { asChild?: boolean; placeholder?: string }) {
   const api = useContext(ApiContext);
 
   return (
@@ -144,7 +228,7 @@ export function SelectValueText({
       {asChild ? (
         children
       ) : (
-        <div>{api?.valueAsString || props.placeholder}</div>
+        <div>{api?.valueAsString || placeholder}</div>
       )}
     </Slot>
   );
@@ -284,22 +368,52 @@ export function SelectItem({
   children,
   className,
   asChild = false,
+  value: valueProp,
+  item: itemProp,
+  text: textProp,
   ...props
-}: React.ComponentProps<"div"> & ItemProps & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> &
+  Omit<ItemProps, "item"> & {
+    item?: any;
+    value?: string;
+    text?: string;
+    asChild?: boolean;
+  }) {
   const api = useContext(ApiContext);
+  const registerStaticItem = useContext(RegisterStaticItemContext);
+  const unregisterStaticItem = useContext(UnregisterStaticItemContext);
+
+  const isStaticItem = itemProp === undefined && valueProp !== undefined;
+  const displayLabel = textProp ?? valueProp ?? "";
+
+  const resolvedItem = useMemo(() => {
+    if (itemProp !== undefined) return itemProp;
+    if (valueProp !== undefined) return { value: valueProp, label: displayLabel };
+    return undefined;
+  }, [itemProp, valueProp, displayLabel]);
+
+  useEffect(() => {
+    if (!isStaticItem || !valueProp) return;
+    registerStaticItem?.({ value: valueProp, label: displayLabel });
+    return () => {
+      unregisterStaticItem?.({ value: valueProp, label: displayLabel });
+    };
+  }, [isStaticItem, valueProp, displayLabel]);
+
+  const itemProps = { item: resolvedItem, ...props };
 
   return (
-    <ItemContext.Provider value={props}>
+    <ItemContext.Provider value={itemProps}>
       <Slot
         className={cn(selectItem, className)}
-        {...api?.getItemProps(props)}
-        {...props}
+        {...api?.getItemProps(itemProps)}
+        {...itemProps}
       >
         {asChild ? (
           children
         ) : (
           <div>
-            {children}
+            {children ?? <SelectItemText>{displayLabel}</SelectItemText>}
             <SelectItemIndicator />
           </div>
         )}
