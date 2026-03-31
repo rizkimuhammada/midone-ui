@@ -4,7 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import { Label } from "@/components/ui/label";
 import { Check, ChevronsUpDownIcon } from "lucide-react";
-import { createContext, useContext, useId } from "react";
+import {
+  createContext,
+  useContext,
+  useId,
+  useState,
+  useEffect,
+  useMemo,
+} from "react";
 import {
   comboboxRoot,
   comboboxLabel,
@@ -28,6 +35,13 @@ import { Slot } from "@/components/ui/slot";
 const ApiContext = createContext<Api | null>(null);
 const ItemGroupContext = createContext<ItemGroupProps | undefined>(undefined);
 const ItemContext = createContext<ItemProps | undefined>(undefined);
+const InputValueContext = createContext<string>("");
+const RegisterStaticItemContext = createContext<
+  ((item: { value: string; label: string }) => void) | null
+>(null);
+const UnregisterStaticItemContext = createContext<
+  ((item: { value: string; label: string }) => void) | null
+>(null);
 
 export function ComboboxRoot({
   children,
@@ -39,15 +53,75 @@ export function ComboboxRoot({
   onOpenChange,
   onInputValueChange,
   onValueChange,
+  items = [],
+  itemToValue,
+  itemToString,
+  collection,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> &
+  Partial<Props> & {
+    asChild?: boolean;
+    items?: any[];
+    itemToValue?: (item: any) => string;
+    itemToString?: (item: any) => string;
+  }) {
+  const [internalInputValue, setInternalInputValue] = useState("");
+  const [staticItems, setStaticItems] = useState<
+    { value: string; label: string }[]
+  >([]);
+
+  const filteredItems = useMemo(() => {
+    if (!items || items.length === 0) return [];
+    const query = internalInputValue.toLowerCase();
+    if (!query) return items;
+    return items.filter((item) => {
+      const label = itemToString
+        ? itemToString(item)
+        : typeof item === "string"
+        ? item
+        : item.label || item.value;
+      return label?.toLowerCase().includes(query);
+    });
+  }, [items, internalInputValue, itemToString]);
+
+  const internalCollection = useMemo(() => {
+    if (collection) return collection;
+    const allItems = [...filteredItems, ...staticItems];
+    return combobox.collection({
+      items: allItems,
+      itemToValue:
+        itemToValue ||
+        ((item) =>
+          typeof item === "string" ? item : item.value || item.label),
+      itemToString:
+        itemToString ||
+        ((item) =>
+          typeof item === "string" ? item : item.label || item.value),
+    });
+  }, [collection, filteredItems, staticItems, itemToValue, itemToString]);
+
+  const registerStaticItem = (item: { value: string; label: string }) => {
+    setStaticItems((prev) => {
+      if (prev.some((i) => i.value === item.value)) return prev;
+      return [...prev, item];
+    });
+  };
+
+  const unregisterStaticItem = (item: { value: string; label: string }) => {
+    setStaticItems((prev) => prev.filter((i) => i.value !== item.value));
+  };
+
   const service = useMachine(combobox.machine, {
     multiple,
     selectionBehavior,
     onOpenChange,
-    onInputValueChange,
+    onInputValueChange(details) {
+      setInternalInputValue(details.inputValue);
+      onInputValueChange?.(details);
+    },
     onValueChange,
     ...props,
+    collection: internalCollection,
     id: useId(),
   });
 
@@ -55,14 +129,20 @@ export function ComboboxRoot({
 
   return (
     <ApiContext.Provider value={api}>
-      <Slot
-        className={cn(comboboxRoot, className)}
-        data-multiple={multiple}
-        {...api.getRootProps()}
-        {...props}
-      >
-        {asChild ? children : <div>{children}</div>}
-      </Slot>
+      <InputValueContext.Provider value={internalInputValue}>
+        <RegisterStaticItemContext.Provider value={registerStaticItem}>
+          <UnregisterStaticItemContext.Provider value={unregisterStaticItem}>
+            <Slot
+              className={cn(comboboxRoot, className)}
+              data-multiple={multiple}
+              {...api.getRootProps()}
+              {...props}
+            >
+              {asChild ? children : <div>{children}</div>}
+            </Slot>
+          </UnregisterStaticItemContext.Provider>
+        </RegisterStaticItemContext.Provider>
+      </InputValueContext.Provider>
     </ApiContext.Provider>
   );
 }
@@ -94,13 +174,19 @@ export function ComboboxControl({
 }: React.ComponentProps<"div"> & { asChild?: boolean }) {
   const api = useContext(ApiContext);
 
+  const content = useMemo(() => {
+    if (asChild) return children;
+    if (children) return <div>{children}</div>;
+    return <ComboboxTrigger />;
+  }, [children, asChild]);
+
   return (
     <Slot
       className={cn(comboboxControl, className)}
       {...api?.getControlProps()}
       {...props}
     >
-      {asChild ? children : <div>{children}</div>}
+      {content}
     </Slot>
   );
 }
@@ -254,22 +340,77 @@ export function ComboboxItem({
   children,
   className,
   asChild = false,
+  value: valueProp,
+  item: itemProp,
+  text: textProp,
   ...props
-}: React.ComponentProps<"div"> & ItemProps & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> &
+  Omit<ItemProps, "item"> & {
+    item?: any;
+    value?: string;
+    text?: string;
+    asChild?: boolean;
+  }) {
   const api = useContext(ApiContext);
+  const inputValue = useContext(InputValueContext);
+  const registerStaticItem = useContext(RegisterStaticItemContext);
+  const unregisterStaticItem = useContext(UnregisterStaticItemContext);
+
+  const isStaticItem = itemProp === undefined && valueProp !== undefined;
+
+  const resolvedItem = useMemo(() => {
+    if (itemProp !== undefined) return itemProp;
+    if (valueProp !== undefined) return { value: valueProp, label: valueProp };
+    return undefined;
+  }, [itemProp, valueProp]);
+
+  const shouldShow = useMemo(() => {
+    if (!isStaticItem) return true;
+    if (!inputValue) return true;
+    return (valueProp ?? "").toLowerCase().includes(inputValue.toLowerCase());
+  }, [isStaticItem, valueProp, inputValue]);
+
+  const itemText = useMemo(() => {
+    if (textProp) return textProp;
+    if (!resolvedItem) return "";
+    return typeof resolvedItem === "string"
+      ? resolvedItem
+      : resolvedItem.label || resolvedItem.value || "";
+  }, [textProp, resolvedItem]);
+
+  // Register/unregister based on visibility
+  useEffect(() => {
+    if (!isStaticItem || !valueProp) return;
+    if (shouldShow) {
+      registerStaticItem?.({ value: valueProp, label: valueProp });
+    } else {
+      unregisterStaticItem?.({ value: valueProp, label: valueProp });
+    }
+  }, [isStaticItem, valueProp, shouldShow]);
+
+  useEffect(() => {
+    if (!isStaticItem || !valueProp) return;
+    return () => {
+      unregisterStaticItem?.({ value: valueProp, label: valueProp });
+    };
+  }, []);
+
+  if (isStaticItem && !shouldShow) return null;
+
+  const itemProps = { item: resolvedItem, ...props };
 
   return (
-    <ItemContext.Provider value={props}>
+    <ItemContext.Provider value={itemProps}>
       <Slot
         className={cn(comboboxItem, className)}
-        {...api?.getItemProps(props)}
-        {...props}
+        {...api?.getItemProps(itemProps)}
+        {...itemProps}
       >
         {asChild ? (
           children
         ) : (
           <div>
-            {children}
+            {children ?? <ComboboxItemText>{itemText}</ComboboxItemText>}
             <ComboboxItemIndicator />
           </div>
         )}

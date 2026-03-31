@@ -19,8 +19,9 @@ const ApiContext = createContext<Api | null>(null);
 export function CheckboxRoot({
   children,
   className,
+  label,
   ...props
-}: React.ComponentProps<"label"> & Partial<Props>) {
+}: React.ComponentProps<"label"> & Partial<Props> & { label?: string }) {
   const service = useMachine(checkbox.machine, { ...props, id: useId() });
   const api = checkbox.connect(service, normalizeProps);
 
@@ -31,7 +32,14 @@ export function CheckboxRoot({
         {...props}
         className={cn(checkboxRoot, className)}
       >
-        {children}
+        {children ? (
+          children
+        ) : (
+          <>
+            <CheckboxControl />
+            {label && <CheckboxLabel>{label}</CheckboxLabel>}
+          </>
+        )}
         <CheckboxHiddenInput />
       </label>
     </ApiContext.Provider>

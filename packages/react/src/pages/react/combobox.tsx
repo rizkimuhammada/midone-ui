@@ -86,9 +86,9 @@ function Main() {
     },
   ];
 
-  const [stateSingle, setStateSingle] = useState([""]);
-  const [stateMultiple, setStateMultiple] = useState([""]);
-  const [stateTimezone, setStateTimezone] = useState([""]);
+  const [stateSingle, setStateSingle] = useState<string[]>([]);
+  const [stateMultiple, setStateMultiple] = useState<string[]>([]);
+  const [stateTimezone, setStateTimezone] = useState<string[]>([]);
   const [options, setOptions] = useState(comboboxData);
   const [timezoneOptions, setTimezoneOptions] = useState(timezoneData);
 
@@ -115,39 +115,48 @@ function Main() {
             preview: (
               <>
                 <ComboboxRoot
-                  collection={collection}
                   value={stateSingle}
                   onValueChange={(details) => {
                     setStateSingle(details.value);
                   }}
-                  onOpenChange={() => {
-                    setOptions(comboboxData);
-                  }}
-                  onInputValueChange={({ inputValue }) => {
-                    const filtered = comboboxData.filter((item) =>
-                      item.label
-                        .toLowerCase()
-                        .includes(inputValue.toLowerCase())
-                    );
-                    setOptions(filtered.length > 0 ? filtered : comboboxData);
-                  }}
                   className="w-56"
                 >
-                  <ComboboxLabel>Single</ComboboxLabel>
-                  <ComboboxControl>
-                    <ComboboxTrigger />
-                  </ComboboxControl>
+                  <ComboboxLabel>Single (static)</ComboboxLabel>
+                  <ComboboxControl />
                   <ComboboxContent>
                     <ComboboxInput placeholder="Search frameworks..." />
                     <ComboboxItemGroup>
                       <ComboboxItemGroupLabel>
                         Frameworks
                       </ComboboxItemGroupLabel>
-                      {collection.items.map((item) => (
-                        <ComboboxItem key={item.code} item={item}>
-                          <ComboboxItemText>{item.label}</ComboboxItemText>
-                        </ComboboxItem>
+                      <ComboboxItem value="React" />
+                      <ComboboxItem value="Solid" />
+                      <ComboboxItem value="Vue" />
+                      <ComboboxItem value="Svelte" />
+                      <ComboboxItem value="Vanilla" text="Vanilla JS" />
+                    </ComboboxItemGroup>
+                  </ComboboxContent>
+                </ComboboxRoot>
+                <ComboboxRoot
+                  items={comboboxData}
+                  value={stateSingle}
+                  onValueChange={(details) => {
+                    setStateSingle(details.value);
+                  }}
+                  className="w-56"
+                >
+                  <ComboboxLabel>Single (dynamic)</ComboboxLabel>
+                  <ComboboxControl />
+                  <ComboboxContent>
+                    <ComboboxInput placeholder="Search frameworks..." />
+                    <ComboboxItemGroup>
+                      <ComboboxItemGroupLabel>
+                        Frameworks
+                      </ComboboxItemGroupLabel>
+                      {comboboxData.map((item) => (
+                        <ComboboxItem key={item.code} item={item} />
                       ))}
+                      <ComboboxItem value="Vanilla" />
                     </ComboboxItemGroup>
                   </ComboboxContent>
                 </ComboboxRoot>
@@ -260,9 +269,7 @@ const collectionTimezone = combobox.collection({
   className="w-56"
 >
   <ComboboxLabel>Single</ComboboxLabel>
-  <ComboboxControl>
-    <ComboboxTrigger />
-  </ComboboxControl>
+  <ComboboxControl />
   <ComboboxContent>
     <ComboboxInput placeholder="Search frameworks..." />
     <ComboboxItemGroup>
@@ -386,13 +393,19 @@ export function ComboboxControl({
 }: React.ComponentProps<"div"> & { asChild?: boolean }) {
   const api = useContext(ApiContext);
 
+  const content = useMemo(() => {
+    if (asChild) return children;
+    if (children) return <div>{children}</div>;
+    return <ComboboxTrigger />;
+  }, [children, asChild]);
+
   return (
     <Slot
       className={cn(comboboxControl, className)}
       {...api?.getControlProps()}
       {...props}
     >
-      {asChild ? children : <div>{children}</div>}
+      {content}
     </Slot>
   );
 }
@@ -546,22 +559,77 @@ export function ComboboxItem({
   children,
   className,
   asChild = false,
+  value: valueProp,
+  item: itemProp,
+  text: textProp,
   ...props
-}: React.ComponentProps<"div"> & ItemProps & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> &
+  Omit<ItemProps, "item"> & {
+    item?: any;
+    value?: string;
+    text?: string;
+    asChild?: boolean;
+  }) {
   const api = useContext(ApiContext);
+  const inputValue = useContext(InputValueContext);
+  const registerStaticItem = useContext(RegisterStaticItemContext);
+  const unregisterStaticItem = useContext(UnregisterStaticItemContext);
+
+  const isStaticItem = itemProp === undefined && valueProp !== undefined;
+
+  const resolvedItem = useMemo(() => {
+    if (itemProp !== undefined) return itemProp;
+    if (valueProp !== undefined) return { value: valueProp, label: valueProp };
+    return undefined;
+  }, [itemProp, valueProp]);
+
+  const shouldShow = useMemo(() => {
+    if (!isStaticItem) return true;
+    if (!inputValue) return true;
+    return (valueProp ?? "").toLowerCase().includes(inputValue.toLowerCase());
+  }, [isStaticItem, valueProp, inputValue]);
+
+  const itemText = useMemo(() => {
+    if (textProp) return textProp;
+    if (!resolvedItem) return "";
+    return typeof resolvedItem === "string"
+      ? resolvedItem
+      : resolvedItem.label || resolvedItem.value || "";
+  }, [textProp, resolvedItem]);
+
+  // Register/unregister based on visibility
+  useEffect(() => {
+    if (!isStaticItem || !valueProp) return;
+    if (shouldShow) {
+      registerStaticItem?.({ value: valueProp, label: valueProp });
+    } else {
+      unregisterStaticItem?.({ value: valueProp, label: valueProp });
+    }
+  }, [isStaticItem, valueProp, shouldShow]);
+
+  useEffect(() => {
+    if (!isStaticItem || !valueProp) return;
+    return () => {
+      unregisterStaticItem?.({ value: valueProp, label: valueProp });
+    };
+  }, []);
+
+  if (isStaticItem && !shouldShow) return null;
+
+  const itemProps = { item: resolvedItem, ...props };
 
   return (
-    <ItemContext.Provider value={props}>
+    <ItemContext.Provider value={itemProps}>
       <Slot
         className={cn(comboboxItem, className)}
-        {...api?.getItemProps(props)}
-        {...props}
+        {...api?.getItemProps(itemProps)}
+        {...itemProps}
       >
         {asChild ? (
           children
         ) : (
           <div>
-            {children}
+            {children ?? <ComboboxItemText>{itemText}</ComboboxItemText>}
             <ComboboxItemIndicator />
           </div>
         )}
@@ -661,9 +729,7 @@ import {
   className="w-56"
 >
   <ComboboxLabel>Single</ComboboxLabel>
-  <ComboboxControl>
-    <ComboboxTrigger />
-  </ComboboxControl>
+  <ComboboxControl />
   <ComboboxContent>
     <ComboboxInput placeholder="Search frameworks..." />
     <ComboboxItemGroup>
@@ -671,9 +737,7 @@ import {
         Frameworks
       </ComboboxItemGroupLabel>
       {collection.items.map((item) => (
-        <ComboboxItem key={item.code} item={item}>
-          <ComboboxItemText>{item.label}</ComboboxItemText>
-        </ComboboxItem>
+        <ComboboxItem key={item.code} item={item} />
       ))}
     </ComboboxItemGroup>
   </ComboboxContent>
@@ -709,9 +773,7 @@ import {
                   multiple
                 >
                   <ComboboxLabel>Multiple</ComboboxLabel>
-                  <ComboboxControl>
-                    <ComboboxTrigger />
-                  </ComboboxControl>
+                  <ComboboxControl />
                   <ComboboxContent>
                     <ComboboxInput placeholder="Search frameworks..." />
                     <ComboboxItemGroup>
@@ -719,9 +781,7 @@ import {
                         Frameworks
                       </ComboboxItemGroupLabel>
                       {collection.items.map((item) => (
-                        <ComboboxItem key={item.code} item={item}>
-                          <ComboboxItemText>{item.label}</ComboboxItemText>
-                        </ComboboxItem>
+                        <ComboboxItem key={item.code} item={item} />
                       ))}
                     </ComboboxItemGroup>
                   </ComboboxContent>
@@ -836,17 +896,13 @@ const collectionTimezone = combobox.collection({
   multiple
 >
   <ComboboxLabel>Multiple</ComboboxLabel>
-  <ComboboxControl>
-    <ComboboxTrigger />
-  </ComboboxControl>
+  <ComboboxControl />
   <ComboboxContent>
     <ComboboxInput placeholder="Search frameworks..." />
     <ComboboxItemGroup>
       <ComboboxItemGroupLabel>Frameworks</ComboboxItemGroupLabel>
       {collection.items.map((item) => (
-        <ComboboxItem key={item.code} item={item}>
-          <ComboboxItemText>{item.label}</ComboboxItemText>
-        </ComboboxItem>
+        <ComboboxItem key={item.code} item={item} />
       ))}
     </ComboboxItemGroup>
   </ComboboxContent>
@@ -893,9 +949,7 @@ const collectionTimezone = combobox.collection({
                   multiple
                 >
                   <ComboboxLabel>Scrollable</ComboboxLabel>
-                  <ComboboxControl>
-                    <ComboboxTrigger />
-                  </ComboboxControl>
+                  <ComboboxControl />
                   <ComboboxContent>
                     <ComboboxInput placeholder="Search region..." />
                     {timezoneData

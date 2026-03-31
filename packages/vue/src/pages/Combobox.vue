@@ -11,7 +11,7 @@ import {
   ComboboxItem,
   ComboboxItemText,
 } from "@/components/ui/combobox";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import * as combobox from "@zag-js/combobox";
 
 const comboboxData = [
@@ -79,9 +79,13 @@ const timezoneData = [
   },
 ];
 
-const stateSingle = ref([""]);
-const stateMultiple = ref([""]);
-const stateTimezone = ref([""]);
+const stateSingle = ref<string[]>([]);
+const stateMultiple = ref<string[]>([]);
+const stateTimezone = ref<string[]>([]);
+
+watch(stateSingle, (val) => {
+  console.log("[stateSingle changed]", val);
+});
 
 const options = ref(comboboxData);
 const timezoneOptions = ref(timezoneData);
@@ -113,33 +117,44 @@ const collectionTimezone = computed(() =>
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
         <ComboboxRoot
-          :collection="collection"
-          :value="stateSingle"
-          @value-change="(details) => (stateSingle = details.value)"
-          @input-value-change="
-            ({ inputValue }) => {
-              const filtered = comboboxData.filter((item) =>
-                item.label.toLowerCase().includes(inputValue.toLowerCase())
-              );
-              options = filtered.length > 0 ? filtered : comboboxData;
-            }
-          "
+          v-model:value="stateSingle"
           class="w-56"
         >
           <ComboboxLabel>Single</ComboboxLabel>
-          <ComboboxControl>
-            <ComboboxTrigger />
-          </ComboboxControl>
+          <ComboboxControl />
           <ComboboxContent>
             <ComboboxInput placeholder="Search frameworks..." />
             <ComboboxItemGroup>
               <ComboboxItemGroupLabel>Frameworks</ComboboxItemGroupLabel>
-              <ComboboxItem
-                v-for="item in collection.items"
-                :key="item.code"
-                :item="item"
-              >
+              <ComboboxItem value="React" />
+              <ComboboxItem value="Solid" />
+              <ComboboxItem value="Vue" />
+              <ComboboxItem value="Svelte" />
+              <ComboboxItem value="Vanilla" text="Vanilla JS" />
+            </ComboboxItemGroup>
+          </ComboboxContent>
+        </ComboboxRoot>
+      </div>
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
+        <ComboboxRoot
+          :items="comboboxData"
+          v-model:value="stateSingle"
+          class="w-56"
+          v-slot="{ items }"
+        >
+          <ComboboxLabel>Single</ComboboxLabel>
+          <ComboboxControl />
+          <ComboboxContent>
+            <ComboboxInput placeholder="Search frameworks..." />
+            <ComboboxItemGroup>
+              <ComboboxItemGroupLabel>Frameworks</ComboboxItemGroupLabel>
+              <ComboboxItem v-for="item in items" :key="item.code" :item="item">
                 <ComboboxItemText>{{ item.label }}</ComboboxItemText>
+              </ComboboxItem>
+              <ComboboxItem value="Vanilla">
+                <ComboboxItemText>Vanilla</ComboboxItemText>
               </ComboboxItem>
             </ComboboxItemGroup>
           </ComboboxContent>
@@ -164,9 +179,7 @@ const collectionTimezone = computed(() =>
           multiple
         >
           <ComboboxLabel>Multiple</ComboboxLabel>
-          <ComboboxControl>
-            <ComboboxTrigger />
-          </ComboboxControl>
+          <ComboboxControl />
           <ComboboxContent>
             <ComboboxInput placeholder="Search frameworks..." />
             <ComboboxItemGroup>

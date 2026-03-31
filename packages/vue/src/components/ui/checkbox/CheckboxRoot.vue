@@ -4,14 +4,22 @@ import { checkboxRoot } from "@midoneui/core/styles/checkbox.styles";
 import * as checkbox from "@zag-js/checkbox";
 import { useMachine, normalizeProps } from "@zag-js/vue";
 import type { Props } from "@zag-js/checkbox";
-import { CheckboxHiddenInput } from ".";
-import { computed, provide } from "vue";
+import { CheckboxHiddenInput, CheckboxLabel, CheckboxControl } from ".";
+import { computed, provide, useSlots } from "vue";
 
 const {
   class: className,
   checked = undefined,
+  label,
   ...props
-} = defineProps<Partial<Props> & { class?: string }>();
+} = defineProps<
+  Partial<Props> & {
+    class?: string;
+    label?: string;
+  }
+>();
+
+const slots = useSlots();
 
 const service = useMachine(
   checkbox.machine,
@@ -32,7 +40,13 @@ provide("checkboxApi", api);
     :class="cn(checkboxRoot, className)"
     v-bind="{ ...props, ...$attrs, ...api.getRootProps() }"
   >
-    <slot />
+    <slot v-if="slots.default" />
+    <template v-else>
+      <CheckboxControl />
+      <CheckboxLabel v-if="label">
+        {{ label }}
+      </CheckboxLabel>
+    </template>
     <CheckboxHiddenInput />
   </label>
 </template>

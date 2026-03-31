@@ -18,7 +18,10 @@ const api = inject<Api>("comboboxApi");
 </script>
 
 <template>
-  <Slot v-bind="{ ...props, ...$attrs, ...api?.getClearTriggerProps() }">
+  <Slot
+    v-if="api?.value.length"
+    v-bind="{ ...props, ...$attrs, ...api?.getClearTriggerProps() }"
+  >
     <slot v-if="asChild" />
     <span :class="cn(comboboxClearTrigger, className)" v-else>
       <slot />

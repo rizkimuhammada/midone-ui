@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import { ComboboxTrigger } from ".";
 import type { Api } from "@zag-js/combobox";
-import { inject } from "vue";
+import { inject, useSlots } from "vue";
 import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { comboboxControl } from "@midoneui/core/styles/combobox.styles";
@@ -15,16 +16,18 @@ const {
 }>();
 
 const api = inject<Api>("comboboxApi");
+const slots = useSlots();
 </script>
 
 <template>
   <Slot
     :class="cn(comboboxControl, className)"
-    v-bind="{ ...props, ...$attrs, ...api?.getLabelProps() }"
+    v-bind="{ ...props, ...$attrs, ...api?.getControlProps() }"
   >
     <slot v-if="asChild" />
     <div v-else>
-      <slot />
+      <slot v-if="slots.default" />
+      <ComboboxTrigger v-else />
     </div>
   </Slot>
 </template>
