@@ -64,12 +64,22 @@ function initSelect() {
             valueTextEl.setAttribute("data-part", "value-text");
         }
 
-        const clearBtn = document.createElement("span");
-        clearBtn.setAttribute("data-scope", "select");
-        clearBtn.setAttribute("data-part", "clear-trigger");
-        clearBtn.className = cn(selectClearTrigger);
-        clearBtn.textContent = "Clear";
-        triggerEl.appendChild(clearBtn);
+        let clearBtn: HTMLElement | null = null;
+        if (isMultiple) {
+            clearBtn = document.createElement("span");
+            clearBtn.setAttribute("data-scope", "select");
+            clearBtn.setAttribute("data-part", "clear-trigger");
+            clearBtn.className = cn(selectClearTrigger);
+            clearBtn.textContent = "Clear";
+            triggerEl.appendChild(clearBtn);
+
+            clearBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                selectedValues.clear();
+                updateValueText();
+                updateItemIndicators();
+            });
+        }
 
         const indicatorEl = document.createElement("div");
         indicatorEl.className = cn(selectIndicator);
@@ -139,7 +149,7 @@ function initSelect() {
             if (!valueTextEl) return;
             if (selectedValues.size === 0) {
                 valueTextEl.textContent = valueTextEl.getAttribute("data-placeholder") ?? "";
-                clearBtn.style.display = "none";
+                if (clearBtn) clearBtn.style.display = "none";
             } else {
                 const labels: string[] = [];
                 contentEl.querySelectorAll<HTMLElement>('[data-component="select-item"]').forEach((item) => {
@@ -147,7 +157,7 @@ function initSelect() {
                     if (val && selectedValues.has(val)) labels.push(item.querySelector('[data-component="select-item-text"]')?.textContent?.trim() ?? val);
                 });
                 valueTextEl.textContent = labels.join(", ");
-                clearBtn.style.display = "inline";
+                if (clearBtn) clearBtn.style.display = labels.length > 0 ? "inline" : "none";
             }
         }
 
@@ -212,11 +222,6 @@ function initSelect() {
             });
         });
 
-        clearBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            selectedValues.clear(); updateValueText(); updateItemIndicators();
-        });
-
         document.addEventListener("click", (e) => {
             if (isOpen && !root.contains(e.target as Node) && !positionerEl.contains(e.target as Node)) {
                 hide();
@@ -228,7 +233,7 @@ function initSelect() {
         });
 
         updateValueText();
-        
+
         const id = root.id;
         if (id) {
             selectRegistry.set(id, { open: show, close: hide, toggle });

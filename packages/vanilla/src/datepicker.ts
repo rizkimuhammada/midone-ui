@@ -32,9 +32,9 @@ import { badgeVariants } from "@midoneui/core/src/styles/badge.styles";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 import { handleAsChild } from "./slot";
 
-const MONTHS_LONG = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-const MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const WEEKDAYS_SHORT = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const MONTHS_LONG = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const WEEKDAYS_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const CALENDAR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>`;
 const X_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
@@ -120,7 +120,69 @@ function getPresetRange(preset: string): [Date, Date] {
     return [today, today];
 }
 
+function injectDefaultTemplate(root: HTMLElement) {
+    const label = root.getAttribute("data-label") ?? "";
+    root.innerHTML = `
+        ${label ? `<label data-component="datepicker-label">${label}</label>` : ""}
+        <div data-component="datepicker-control">
+            <input type="text" data-component="datepicker-input">
+            <button data-component="datepicker-trigger"></button>
+            <button data-component="datepicker-clear-trigger">Clear</button>
+        </div>
+        <div data-component="datepicker-positioner">
+            <div data-component="datepicker-content">
+                <select data-component="datepicker-year-select"></select>
+                <select data-component="datepicker-month-select"></select>
+                <div data-component="datepicker-view" data-view="day">
+                    <div data-component="datepicker-view-control">
+                        <button data-component="datepicker-prev-trigger"></button>
+                        <button data-component="datepicker-view-trigger">
+                            <div data-component="datepicker-range-text"></div>
+                        </button>
+                        <button data-component="datepicker-next-trigger"></button>
+                    </div>
+                    <table data-component="datepicker-table">
+                        <thead data-component="datepicker-table-head">
+                            <tr data-component="datepicker-table-row"></tr>
+                        </thead>
+                        <tbody data-component="datepicker-table-body"></tbody>
+                    </table>
+                </div>
+                <div data-component="datepicker-view" data-view="month">
+                    <div data-component="datepicker-view-control">
+                        <button data-component="datepicker-prev-trigger"></button>
+                        <button data-component="datepicker-view-trigger">
+                            <div data-component="datepicker-range-text"></div>
+                        </button>
+                        <button data-component="datepicker-next-trigger"></button>
+                    </div>
+                    <table data-component="datepicker-table">
+                        <tbody data-component="datepicker-table-body"></tbody>
+                    </table>
+                </div>
+                <div data-component="datepicker-view" data-view="year">
+                    <div data-component="datepicker-view-control">
+                        <button data-component="datepicker-prev-trigger"></button>
+                        <button data-component="datepicker-view-trigger">
+                            <div data-component="datepicker-range-text"></div>
+                        </button>
+                        <button data-component="datepicker-next-trigger"></button>
+                    </div>
+                    <table data-component="datepicker-table">
+                        <tbody data-component="datepicker-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 function initDatePickerRoot(root: HTMLElement) {
+    // Compact/shorthand form: no children → auto-inject default template
+    if (root.children.length === 0) {
+        injectDefaultTemplate(root);
+    }
+
     const selectionMode = (root.getAttribute("data-selection-mode") ?? "single") as "single" | "range";
     const numOfMonths = parseInt(root.getAttribute("data-num-of-months") ?? "1");
     const isInline = root.hasAttribute("data-open");

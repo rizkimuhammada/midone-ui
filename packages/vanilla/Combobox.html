@@ -13,29 +13,32 @@
   <div class="flex flex-col gap-20">
     <div class="grid grid-cols-2">
 
-      <!-- Col 1: Single select -->
+      <!-- Example 1: Single (Basic) -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div data-component="combobox-root" class=" w-56">
-          <label data-component="combobox-label" class="">Single</label>
-          <div data-component="combobox-control" class="">
-            <button data-component="combobox-trigger" class=""></button>
+        <div data-component="combobox-root" class="w-56">
+          <label data-component="combobox-label">Single</label>
+          <div data-component="combobox-control">
+            <button data-component="combobox-trigger"></button>
           </div>
-          <div data-component="combobox-positioner" class="">
-            <div data-component="combobox-content" class="">
-              <input data-component="combobox-input" class="" placeholder="Search frameworks..." />
-              <div data-component="combobox-item-group" class="">
-                <label data-component="combobox-item-group-label" class="">Frameworks</label>
-                <div data-component="combobox-item" class="" data-value="React">
-                  <div data-component="combobox-item-text" class="">React</div>
+          <div data-component="combobox-positioner">
+            <div data-component="combobox-content">
+              <input data-component="combobox-input" placeholder="Search frameworks..." />
+              <div data-component="combobox-item-group">
+                <label data-component="combobox-item-group-label">Frameworks</label>
+                <div data-component="combobox-item" data-value="React">
+                  <div data-component="combobox-item-text">React</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="Solid">
-                  <div data-component="combobox-item-text" class="">Solid</div>
+                <div data-component="combobox-item" data-value="Solid">
+                  <div data-component="combobox-item-text">Solid</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="Vue">
-                  <div data-component="combobox-item-text" class="">Vue</div>
+                <div data-component="combobox-item" data-value="Vue">
+                  <div data-component="combobox-item-text">Vue</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="Svelte">
-                  <div data-component="combobox-item-text" class="">Svelte</div>
+                <div data-component="combobox-item" data-value="Svelte">
+                  <div data-component="combobox-item-text">Svelte</div>
+                </div>
+                <div data-component="combobox-item" data-value="Vanilla">
+                  <div data-component="combobox-item-text">Vanilla JS</div>
                 </div>
               </div>
             </div>
@@ -43,29 +46,32 @@
         </div>
       </div>
 
-      <!-- Col 2: Multiple select -->
+      <!-- Example 2: Single (Dynamic Reference) -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div data-component="combobox-root" class=" w-56" data-multiple="true">
-          <label data-component="combobox-label" class="">Multiple</label>
-          <div data-component="combobox-control" class="">
-            <button data-component="combobox-trigger" class=""></button>
+        <div data-component="combobox-root" class="w-56">
+          <label data-component="combobox-label">Single</label>
+          <div data-component="combobox-control">
+            <button data-component="combobox-trigger"></button>
           </div>
-          <div data-component="combobox-positioner" class="">
-            <div data-component="combobox-content" class="">
-              <input data-component="combobox-input" class="" placeholder="Search frameworks..." />
-              <div data-component="combobox-item-group" class="">
-                <label data-component="combobox-item-group-label" class="">Frameworks</label>
-                <div data-component="combobox-item" class="" data-value="React">
-                  <div data-component="combobox-item-text" class="">React</div>
+          <div data-component="combobox-positioner">
+            <div data-component="combobox-content">
+              <input data-component="combobox-input" placeholder="Search frameworks..." />
+              <div data-component="combobox-item-group">
+                <label data-component="combobox-item-group-label">Frameworks</label>
+                <div data-component="combobox-item" data-value="React">
+                  <div data-component="combobox-item-text">React</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="Solid">
-                  <div data-component="combobox-item-text" class="">Solid</div>
+                <div data-component="combobox-item" data-value="Solid">
+                  <div data-component="combobox-item-text">Solid</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="Vue">
-                  <div data-component="combobox-item-text" class="">Vue</div>
+                <div data-component="combobox-item" data-value="Vue">
+                  <div data-component="combobox-item-text">Vue</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="Svelte">
-                  <div data-component="combobox-item-text" class="">Svelte</div>
+                <div data-component="combobox-item" data-value="Svelte">
+                  <div data-component="combobox-item-text">Svelte</div>
+                </div>
+                <div data-component="combobox-item" data-value="Vanilla">
+                  <div data-component="combobox-item-text">Vanilla</div>
                 </div>
               </div>
             </div>
@@ -73,110 +79,143 @@
         </div>
       </div>
 
-      <!-- Col 3: Scrollable multiple with grouped timezones -->
+      <!-- Example 3: Multiple select -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div data-component="combobox-root" class=" w-56" data-multiple="true">
-          <label data-component="combobox-label" class="">Scrollable</label>
-          <div data-component="combobox-control" class="">
-            <button data-component="combobox-trigger" class=""></button>
+        <div data-component="combobox-root" class="w-56" data-multiple="true">
+          <label data-component="combobox-label">Multiple</label>
+          <div data-component="combobox-control">
+            <button data-component="combobox-trigger"></button>
           </div>
-          <div data-component="combobox-positioner" class="">
-            <div data-component="combobox-content" class="">
-              <input data-component="combobox-input" class="" placeholder="Search region..." />
-              <div data-component="combobox-item-group" class="">
-                <label data-component="combobox-item-group-label" class="">North America</label>
-                <div data-component="combobox-item" class="" data-value="est">
-                  <div data-component="combobox-item-text" class="">Eastern Standard Time (EST)</div>
+          <div data-component="combobox-positioner">
+            <div data-component="combobox-content">
+              <input data-component="combobox-input" placeholder="Search frameworks..." />
+              <div data-component="combobox-item-group">
+                <label data-component="combobox-item-group-label">Frameworks</label>
+                <div data-component="combobox-item" data-value="React">
+                  <div data-component="combobox-item-text">React</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="cst">
-                  <div data-component="combobox-item-text" class="">Central Standard Time (CST)</div>
+                <div data-component="combobox-item" data-value="Solid">
+                  <div data-component="combobox-item-text">Solid</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="mst">
-                  <div data-component="combobox-item-text" class="">Mountain Standard Time (MST)</div>
+                <div data-component="combobox-item" data-value="Vue">
+                  <div data-component="combobox-item-text">Vue</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="pst">
-                  <div data-component="combobox-item-text" class="">Pacific Standard Time (PST)</div>
+                <div data-component="combobox-item" data-value="Svelte">
+                  <div data-component="combobox-item-text">Svelte</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="akst">
-                  <div data-component="combobox-item-text" class="">Alaska Standard Time (AKST)</div>
-                </div>
-                <div data-component="combobox-item" class="" data-value="hst">
-                  <div data-component="combobox-item-text" class="">Hawaii Standard Time (HST)</div>
+                <div data-component="combobox-item" data-value="Vanilla">
+                  <div data-component="combobox-item-text">Vanilla JS</div>
                 </div>
               </div>
-              <div data-component="combobox-item-group" class="">
-                <label data-component="combobox-item-group-label" class="">Europe & Africa</label>
-                <div data-component="combobox-item" class="" data-value="gmt">
-                  <div data-component="combobox-item-text" class="">Greenwich Mean Time (GMT)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 4: Scrollable multiple with grouped timezones -->
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div data-component="combobox-root" class="w-56" data-multiple="true">
+          <label data-component="combobox-label">Scrollable</label>
+          <div data-component="combobox-control">
+            <button data-component="combobox-trigger"></button>
+          </div>
+          <div data-component="combobox-positioner">
+            <div data-component="combobox-content">
+              <input data-component="combobox-input" placeholder="Search region..." />
+              <div data-component="combobox-item-group">
+                <label data-component="combobox-item-group-label">North America</label>
+                <div data-component="combobox-item" data-value="est">
+                  <div data-component="combobox-item-text">Eastern Standard Time (EST)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="cet">
-                  <div data-component="combobox-item-text" class="">Central European Time (CET)</div>
+                <div data-component="combobox-item" data-value="cst">
+                  <div data-component="combobox-item-text">Central Standard Time (CST)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="eet">
-                  <div data-component="combobox-item-text" class="">Eastern European Time (EET)</div>
+                <div data-component="combobox-item" data-value="mst">
+                  <div data-component="combobox-item-text">Mountain Standard Time (MST)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="west">
-                  <div data-component="combobox-item-text" class="">Western European Summer Time (WEST)</div>
+                <div data-component="combobox-item" data-value="pst">
+                  <div data-component="combobox-item-text">Pacific Standard Time (PST)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="cat">
-                  <div data-component="combobox-item-text" class="">Central Africa Time (CAT)</div>
+                <div data-component="combobox-item" data-value="akst">
+                  <div data-component="combobox-item-text">Alaska Standard Time (AKST)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="eat">
-                  <div data-component="combobox-item-text" class="">East Africa Time (EAT)</div>
-                </div>
-              </div>
-              <div data-component="combobox-item-group" class="">
-                <label data-component="combobox-item-group-label" class="">Asia</label>
-                <div data-component="combobox-item" class="" data-value="msk">
-                  <div data-component="combobox-item-text" class="">Moscow Time (MSK)</div>
-                </div>
-                <div data-component="combobox-item" class="" data-value="ist">
-                  <div data-component="combobox-item-text" class="">India Standard Time (IST)</div>
-                </div>
-                <div data-component="combobox-item" class="" data-value="cst_china">
-                  <div data-component="combobox-item-text" class="">China Standard Time (CST)</div>
-                </div>
-                <div data-component="combobox-item" class="" data-value="jst">
-                  <div data-component="combobox-item-text" class="">Japan Standard Time (JST)</div>
-                </div>
-                <div data-component="combobox-item" class="" data-value="kst">
-                  <div data-component="combobox-item-text" class="">Korea Standard Time (KST)</div>
-                </div>
-                <div data-component="combobox-item" class="" data-value="ist_indonesia">
-                  <div data-component="combobox-item-text" class="">Indonesia Central Standard Time (WITA)</div>
+                <div data-component="combobox-item" data-value="hst">
+                  <div data-component="combobox-item-text">Hawaii Standard Time (HST)</div>
                 </div>
               </div>
-              <div data-component="combobox-item-group" class="">
-                <label data-component="combobox-item-group-label" class="">Australia & Pacific</label>
-                <div data-component="combobox-item" class="" data-value="awst">
-                  <div data-component="combobox-item-text" class="">Australian Western Standard Time (AWST)</div>
+              <div data-component="combobox-item-group">
+                <label data-component="combobox-item-group-label">Europe & Africa</label>
+                <div data-component="combobox-item" data-value="gmt">
+                  <div data-component="combobox-item-text">Greenwich Mean Time (GMT)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="acst">
-                  <div data-component="combobox-item-text" class="">Australian Central Standard Time (ACST)</div>
+                <div data-component="combobox-item" data-value="cet">
+                  <div data-component="combobox-item-text">Central European Time (CET)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="aest">
-                  <div data-component="combobox-item-text" class="">Australian Eastern Standard Time (AEST)</div>
+                <div data-component="combobox-item" data-value="eet">
+                  <div data-component="combobox-item-text">Eastern European Time (EET)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="nzst">
-                  <div data-component="combobox-item-text" class="">New Zealand Standard Time (NZST)</div>
+                <div data-component="combobox-item" data-value="west">
+                  <div data-component="combobox-item-text">Western European Summer Time (WEST)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="fjt">
-                  <div data-component="combobox-item-text" class="">Fiji Time (FJT)</div>
+                <div data-component="combobox-item" data-value="cat">
+                  <div data-component="combobox-item-text">Central Africa Time (CAT)</div>
+                </div>
+                <div data-component="combobox-item" data-value="eat">
+                  <div data-component="combobox-item-text">East Africa Time (EAT)</div>
                 </div>
               </div>
-              <div data-component="combobox-item-group" class="">
-                <label data-component="combobox-item-group-label" class="">South America</label>
-                <div data-component="combobox-item" class="" data-value="art">
-                  <div data-component="combobox-item-text" class="">Argentina Time (ART)</div>
+              <div data-component="combobox-item-group">
+                <label data-component="combobox-item-group-label">Asia</label>
+                <div data-component="combobox-item" data-value="msk">
+                  <div data-component="combobox-item-text">Moscow Time (MSK)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="bot">
-                  <div data-component="combobox-item-text" class="">Bolivia Time (BOT)</div>
+                <div data-component="combobox-item" data-value="ist">
+                  <div data-component="combobox-item-text">India Standard Time (IST)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="brt">
-                  <div data-component="combobox-item-text" class="">Brasilia Time (BRT)</div>
+                <div data-component="combobox-item" data-value="cst_china">
+                  <div data-component="combobox-item-text">China Standard Time (CST)</div>
                 </div>
-                <div data-component="combobox-item" class="" data-value="clt">
-                  <div data-component="combobox-item-text" class="">Chile Standard Time (CLT)</div>
+                <div data-component="combobox-item" data-value="jst">
+                  <div data-component="combobox-item-text">Japan Standard Time (JST)</div>
+                </div>
+                <div data-component="combobox-item" data-value="kst">
+                  <div data-component="combobox-item-text">Korea Standard Time (KST)</div>
+                </div>
+                <div data-component="combobox-item" data-value="ist_indonesia">
+                  <div data-component="combobox-item-text">Indonesia Central Standard Time (WITA)</div>
+                </div>
+              </div>
+              <div data-component="combobox-item-group">
+                <label data-component="combobox-item-group-label">Australia & Pacific</label>
+                <div data-component="combobox-item" data-value="awst">
+                  <div data-component="combobox-item-text">Australian Western Standard Time (AWST)</div>
+                </div>
+                <div data-component="combobox-item" data-value="acst">
+                  <div data-component="combobox-item-text">Australian Central Standard Time (ACST)</div>
+                </div>
+                <div data-component="combobox-item" data-value="aest">
+                  <div data-component="combobox-item-text">Australian Eastern Standard Time (AEST)</div>
+                </div>
+                <div data-component="combobox-item" data-value="nzst">
+                  <div data-component="combobox-item-text">New Zealand Standard Time (NZST)</div>
+                </div>
+                <div data-component="combobox-item" data-value="fjt">
+                  <div data-component="combobox-item-text">Fiji Time (FJT)</div>
+                </div>
+              </div>
+              <div data-component="combobox-item-group">
+                <label data-component="combobox-item-group-label">South America</label>
+                <div data-component="combobox-item" data-value="art">
+                  <div data-component="combobox-item-text">Argentina Time (ART)</div>
+                </div>
+                <div data-component="combobox-item" data-value="bot">
+                  <div data-component="combobox-item-text">Bolivia Time (BOT)</div>
+                </div>
+                <div data-component="combobox-item" data-value="brt">
+                  <div data-component="combobox-item-text">Brasilia Time (BRT)</div>
+                </div>
+                <div data-component="combobox-item" data-value="clt">
+                  <div data-component="combobox-item-text">Chile Standard Time (CLT)</div>
                 </div>
               </div>
             </div>

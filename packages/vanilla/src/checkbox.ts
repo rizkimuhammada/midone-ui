@@ -14,6 +14,16 @@ const CHECK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" f
 function initCheckbox() {
     document.querySelectorAll<HTMLElement>('[data-component="checkbox-root"]').forEach((rootEl) => {
         const root = handleAsChild(rootEl);
+
+        // Shorthand support (Auto-rendering)
+        if (root.children.length === 0) {
+            const labelText = root.getAttribute("data-label");
+            root.innerHTML = `
+                <span data-component="checkbox-control"></span>
+                ${labelText ? `<span data-component="checkbox-label">${labelText}</span>` : ""}
+            `;
+        }
+
         const controlEl = root.querySelector<HTMLElement>('[data-component="checkbox-control"]');
         const labelEl = root.querySelector<HTMLElement>('[data-component="checkbox-label"]');
 
