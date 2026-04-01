@@ -79,7 +79,7 @@ const timezoneData = [
   },
 ];
 
-const stateSingle = ref<string[]>([]);
+const stateSingle = ref<string[]>(["React"]);
 const stateMultiple = ref<string[]>([]);
 const stateTimezone = ref<string[]>([]);
 

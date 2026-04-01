@@ -36,6 +36,7 @@ const ApiContext = createContext<Api | null>(null);
 const ItemGroupContext = createContext<ItemGroupProps | undefined>(undefined);
 const ItemContext = createContext<ItemProps | undefined>(undefined);
 const InputValueContext = createContext<string>("");
+const DisplayValueContext = createContext<string>("");
 const RegisterStaticItemContext = createContext<
   ((item: { value: string; label: string }) => void) | null
 >(null);
@@ -66,9 +67,14 @@ export function ComboboxRoot({
     itemToString?: (item: any) => string;
   }) {
   const [internalInputValue, setInternalInputValue] = useState("");
+  const [internalValue, setInternalValue] = useState<string[]>(
+    (value as string[]) || []
+  );
   const [staticItems, setStaticItems] = useState<
     { value: string; label: string }[]
   >([]);
+
+  const _value = value !== undefined ? (value as string[]) : internalValue;
 
   const filteredItems = useMemo(() => {
     if (!items || items.length === 0) return [];
@@ -111,6 +117,19 @@ export function ComboboxRoot({
     setStaticItems((prev) => prev.filter((i) => i.value !== item.value));
   };
 
+  const resolveItemToValue = itemToValue || ((item: any) => typeof item === "string" ? item : item.value || item.label);
+  const resolveItemToString = itemToString || ((item: any) => typeof item === "string" ? item : item.label || item.value);
+
+  const displayValue = useMemo(() => {
+    if (!_value.length) return "";
+    return _value
+      .map((v) => {
+        const found = internalCollection.items.find((item: any) => resolveItemToValue(item) === v);
+        return found ? resolveItemToString(found) : v;
+      })
+      .join(", ");
+  }, [_value, internalCollection]);
+
   const service = useMachine(combobox.machine, {
     multiple,
     selectionBehavior,
@@ -119,9 +138,13 @@ export function ComboboxRoot({
       setInternalInputValue(details.inputValue);
       onInputValueChange?.(details);
     },
-    onValueChange,
+    onValueChange(details) {
+      setInternalValue(details.value);
+      onValueChange?.(details);
+    },
     ...props,
     collection: internalCollection,
+    value: _value,
     id: useId(),
   });
 
@@ -129,6 +152,7 @@ export function ComboboxRoot({
 
   return (
     <ApiContext.Provider value={api}>
+      <DisplayValueContext.Provider value={displayValue}>
       <InputValueContext.Provider value={internalInputValue}>
         <RegisterStaticItemContext.Provider value={registerStaticItem}>
           <UnregisterStaticItemContext.Provider value={unregisterStaticItem}>
@@ -143,6 +167,7 @@ export function ComboboxRoot({
           </UnregisterStaticItemContext.Provider>
         </RegisterStaticItemContext.Provider>
       </InputValueContext.Provider>
+      </DisplayValueContext.Provider>
     </ApiContext.Provider>
   );
 }
@@ -210,15 +235,17 @@ export function ComboboxTrigger({
   children,
   className,
   asChild = false,
+  placeholder = "Select Options...",
   ...props
-}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+}: React.ComponentProps<"button"> & { asChild?: boolean; placeholder?: string }) {
   const api = useContext(ApiContext);
+  const displayValue = useContext(DisplayValueContext);
 
   return (
     <Slot {...api?.getTriggerProps()} {...props}>
       {!asChild ? (
         <Button variant="ghost" className={cn(comboboxTrigger, className)}>
-          <div>{api?.valueAsString || "Select Options..."}</div>
+          <div>{displayValue || placeholder}</div>
           <ComboboxClearTrigger>Clear</ComboboxClearTrigger>
           <ChevronsUpDownIcon />
         </Button>

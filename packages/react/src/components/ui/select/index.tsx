@@ -36,6 +36,7 @@ import { Slot } from "@/components/ui/slot";
 const ApiContext = createContext<Api | null>(null);
 const ItemGroupContext = createContext<ItemGroupProps | undefined>(undefined);
 const ItemContext = createContext<ItemProps | undefined>(undefined);
+const DisplayValueContext = createContext<string>("");
 const RegisterStaticItemContext = createContext<
   ((item: { value: string; label: string }) => void) | null
 >(null);
@@ -98,6 +99,20 @@ export function SelectRoot({
     });
   }, [collection, items, staticItems, itemToValue, itemToString]);
 
+  const resolveItemToValue = itemToValue || ((item: any) => typeof item === "string" ? item : item.value || item.label);
+  const resolveItemToString = itemToString || ((item: any) => typeof item === "string" ? item : item.label || item.value);
+
+  const displayValue = useMemo(() => {
+    const values = _value;
+    if (!values.length) return "";
+    return values
+      .map((v) => {
+        const found = internalCollection.items.find((item: any) => resolveItemToValue(item) === v);
+        return found ? resolveItemToString(found) : v;
+      })
+      .join(", ");
+  }, [_value, internalCollection]);
+
   const service = useMachine(select.machine, {
     multiple,
     ...props,
@@ -114,6 +129,7 @@ export function SelectRoot({
 
   return (
     <ApiContext.Provider value={api}>
+      <DisplayValueContext.Provider value={displayValue}>
       <RegisterStaticItemContext.Provider value={registerStaticItem}>
         <UnregisterStaticItemContext.Provider value={unregisterStaticItem}>
           <Slot
@@ -133,6 +149,7 @@ export function SelectRoot({
           </Slot>
         </UnregisterStaticItemContext.Provider>
       </RegisterStaticItemContext.Provider>
+      </DisplayValueContext.Provider>
     </ApiContext.Provider>
   );
 }
@@ -218,6 +235,7 @@ export function SelectValueText({
   ...props
 }: React.ComponentProps<"div"> & { asChild?: boolean; placeholder?: string }) {
   const api = useContext(ApiContext);
+  const displayValue = useContext(DisplayValueContext);
 
   return (
     <Slot
@@ -228,7 +246,7 @@ export function SelectValueText({
       {asChild ? (
         children
       ) : (
-        <div>{api?.valueAsString || placeholder}</div>
+        <div>{displayValue || placeholder}</div>
       )}
     </Slot>
   );

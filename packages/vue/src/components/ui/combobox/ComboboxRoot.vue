@@ -96,6 +96,25 @@ provide("unregisterStaticItem", (item: any) => {
 // Provide input value so ComboboxItem can self-filter when static
 provide("comboboxInputValue", _inputValue);
 
+const _resolveItemToValue = (item: any) =>
+  itemToValue ? itemToValue(item) : typeof item === "string" ? item : item.value || item.label;
+const _resolveItemToString = (item: any) =>
+  itemToString ? itemToString(item) : typeof item === "string" ? item : item.label || item.value;
+
+const displayValue = computed(() => {
+  const values = _value.value;
+  if (!values.length) return "";
+  const col = internalCollection.value;
+  return values
+    .map((v) => {
+      const found = col.items.find((item: any) => _resolveItemToValue(item) === v);
+      return found ? _resolveItemToString(found) : v;
+    })
+    .join(", ");
+});
+
+provide("comboboxDisplayValue", displayValue);
+
 const internalCollection = computed(() => {
   if (collection) return collection;
   const allItems = [...filteredItems.value, ...staticItems.value];

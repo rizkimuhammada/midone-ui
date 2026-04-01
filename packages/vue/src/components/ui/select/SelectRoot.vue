@@ -4,7 +4,7 @@ import type { Props } from "@zag-js/select";
 import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
-import { computed, provide, ref } from "vue";
+import { computed, provide, ref, type Ref } from "vue";
 import { selectRoot } from "@midoneui/core/styles/select.styles";
 import { SelectHiddenSelect } from ".";
 
@@ -100,6 +100,25 @@ const service = useMachine(
 const api = computed(() => select.connect(service, normalizeProps));
 
 provide("selectApi", api);
+
+const _resolveItemToValue = (item: any) =>
+  itemToValue ? itemToValue(item) : typeof item === "string" ? item : item.value || item.label;
+const _resolveItemToString = (item: any) =>
+  itemToString ? itemToString(item) : typeof item === "string" ? item : item.label || item.value;
+
+const displayValue = computed(() => {
+  const values = _value.value;
+  if (!values.length) return "";
+  const col = internalCollection.value;
+  return values
+    .map((v) => {
+      const found = col.items.find((item: any) => _resolveItemToValue(item) === v);
+      return found ? _resolveItemToString(found) : v;
+    })
+    .join(", ");
+});
+
+provide("selectDisplayValue", displayValue);
 </script>
 
 <template>

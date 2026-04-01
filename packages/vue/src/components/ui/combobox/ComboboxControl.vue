@@ -9,10 +9,12 @@ import { comboboxControl } from "@midoneui/core/styles/combobox.styles";
 const {
   class: className,
   asChild = false,
+  placeholder,
   ...props
 } = defineProps<{
   class?: string;
   asChild?: boolean;
+  placeholder?: string;
 }>();
 
 const api = inject<Api>("comboboxApi");
@@ -27,7 +29,7 @@ const slots = useSlots();
     <slot v-if="asChild" />
     <div v-else>
       <slot v-if="slots.default" />
-      <ComboboxTrigger v-else />
+      <ComboboxTrigger v-else :placeholder="placeholder" />
     </div>
   </Slot>
 </template>

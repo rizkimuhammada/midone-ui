@@ -5,19 +5,22 @@ import { ChevronsUpDownIcon } from "lucide-vue-next";
 import { comboboxTrigger } from "@midoneui/core/styles/combobox.styles";
 import { ComboboxClearTrigger } from ".";
 import type { Api } from "@zag-js/combobox";
-import { inject } from "vue";
+import { inject, type Ref } from "vue";
 import { Slot } from "@/components/ui/slot";
 
 const {
   class: className,
   asChild = false,
+  placeholder = "Select Options...",
   ...props
 } = defineProps<{
   class?: string;
   asChild?: boolean;
+  placeholder?: string;
 }>();
 
 const api = inject<Api>("comboboxApi");
+const displayValue = inject<Ref<string>>("comboboxDisplayValue");
 </script>
 
 <template>
@@ -27,7 +30,7 @@ const api = inject<Api>("comboboxApi");
       v-if="!asChild"
       :class="cn(comboboxTrigger, className)"
     >
-      <div>{{ api?.valueAsString || "Select Options..." }}</div>
+      <div>{{ displayValue || placeholder }}</div>
       <ComboboxClearTrigger>Clear</ComboboxClearTrigger>
       <ChevronsUpDownIcon />
     </Button>
