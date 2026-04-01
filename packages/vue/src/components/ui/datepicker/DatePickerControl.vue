@@ -3,7 +3,8 @@ import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerControl } from "@midoneui/core/styles/datepicker.styles";
 import type { Api } from "@zag-js/date-picker";
-import { inject } from "vue";
+import { DatePickerInput, DatePickerTrigger, DatePickerClearTrigger } from ".";
+import { inject, useSlots } from "vue";
 
 const {
   class: className,
@@ -15,6 +16,7 @@ const {
 }>();
 
 const api = inject<Api>("datepickerApi");
+const slots = useSlots();
 </script>
 
 <template>
@@ -24,7 +26,12 @@ const api = inject<Api>("datepickerApi");
   >
     <slot v-if="asChild" />
     <div v-else>
-      <slot />
+      <template v-if="!slots.default">
+        <DatePickerInput />
+        <DatePickerTrigger />
+        <DatePickerClearTrigger>Clear</DatePickerClearTrigger>
+      </template>
+      <slot v-else />
     </div>
   </Slot>
 </template>

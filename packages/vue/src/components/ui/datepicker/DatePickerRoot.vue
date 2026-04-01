@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerRoot } from "@midoneui/core/styles/datepicker.styles";
-import { provide, computed } from "vue";
+import { DatePickerPositioner, DatePickerContent, DatePickerLabel, DatePickerControl } from ".";
+import { provide, computed, useSlots, ref } from "vue";
 import * as datepicker from "@zag-js/date-picker";
 import type { Props } from "@zag-js/date-picker";
 import { useMachine, normalizeProps } from "@zag-js/vue";
@@ -11,13 +12,17 @@ const {
   class: className,
   asChild = false,
   open = undefined,
+  label = undefined,
   ...props
 } = defineProps<
   Partial<Props> & {
     class?: string;
     asChild?: boolean;
+    label?: string;
   }
 >();
+
+const slots = useSlots();
 
 const service = useMachine(datepicker.machine, {
   ...props,
@@ -27,7 +32,12 @@ const service = useMachine(datepicker.machine, {
 
 const api = computed(() => datepicker.connect(service, normalizeProps));
 
+const hasManualContent = ref(false);
+
 provide("datepickerApi", api);
+provide("registerDatePickerContent", () => {
+  hasManualContent.value = true;
+});
 </script>
 
 <template>
@@ -37,7 +47,16 @@ provide("datepickerApi", api);
   >
     <slot v-if="asChild" />
     <div v-else>
-      <slot />
+      <template v-if="!slots.default">
+        <DatePickerLabel v-if="label">{{ label }}</DatePickerLabel>
+        <DatePickerControl />
+      </template>
+      <slot v-else />
+      <template v-if="!slots.content && !hasManualContent">
+        <DatePickerPositioner :is-manual="false">
+          <DatePickerContent :is-manual="false" />
+        </DatePickerPositioner>
+      </template>
     </div>
   </Slot>
 </template>

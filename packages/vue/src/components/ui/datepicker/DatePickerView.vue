@@ -8,15 +8,22 @@ import { provide, inject } from "vue";
 const {
   class: className,
   asChild = false,
+  isManual = true,
   ...props
 } = defineProps<
   ViewProps & {
     class?: string;
     asChild?: boolean;
+    isManual?: boolean;
   }
 >();
 
 const api = inject<Api>("datepickerApi");
+const registerContent = inject<(() => void) | undefined>("registerDatePickerContent", undefined);
+
+if (isManual && registerContent) {
+  registerContent();
+}
 
 provide("datepickerView", props);
 </script>

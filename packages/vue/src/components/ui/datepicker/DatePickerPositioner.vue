@@ -8,17 +8,24 @@ import { inject } from "vue";
 const {
   class: className,
   asChild = false,
+  isManual = true,
   ...props
 } = defineProps<{
   class?: string;
   asChild?: boolean;
+  isManual?: boolean;
 }>();
 
 const api = inject<Api>("datepickerApi");
+const registerContent = inject<(() => void) | undefined>("registerDatePickerContent", undefined);
+
+if (isManual && registerContent) {
+  registerContent();
+}
 </script>
 
 <template>
-  <Teleport to="body">
+  <Teleport to="body" v-if="api?.open">
     <Slot
       :class="cn(datePickerPositioner, className)"
       v-bind="{ ...props, ...$attrs, ...api?.getPositionerProps() }"
