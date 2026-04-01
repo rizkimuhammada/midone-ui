@@ -40,6 +40,12 @@ function processItem(item: HTMLElement) {
     item.setAttribute("data-scope", "combobox");
     item.setAttribute("data-part", "item");
 
+    // Shorthand item text & indicator
+    if (item.children.length === 0) {
+        const text = item.getAttribute("data-text") || item.getAttribute("data-value") || "";
+        item.innerHTML = `<span data-component="combobox-item-text">${text}</span>`;
+    }
+
     const itemText = item.querySelector<HTMLElement>('[data-component="combobox-item-text"]');
     if (itemText) {
         itemText.className = cn(comboboxItemText, itemText.className);
@@ -58,10 +64,32 @@ function processItem(item: HTMLElement) {
 
 function initComboboxRoot(root: HTMLElement) {
     const isMultiple = root.getAttribute("data-multiple") === "true";
+
+    // Shorthand root template (Auto-rendering)
+    if (root.children.length === 0) {
+        const labelText = root.getAttribute("data-label");
+        root.innerHTML = `
+            ${labelText ? `<label data-component="combobox-label">${labelText}</label>` : ""}
+            <div data-component="combobox-control">
+                <button data-component="combobox-trigger"></button>
+            </div>
+            <div data-component="combobox-positioner">
+                <div data-component="combobox-content">
+                    <input data-component="combobox-input" placeholder="Search..." />
+                </div>
+            </div>
+        `;
+    }
+
     const label = root.querySelector<HTMLElement>('[data-component="combobox-label"]');
     const control = root.querySelector<HTMLElement>('[data-component="combobox-control"]');
     const positioner = root.querySelector<HTMLElement>('[data-component="combobox-positioner"]');
     if (!control || !positioner) return;
+
+    // Shorthand control (Auto-render trigger if empty)
+    if (control.children.length === 0) {
+        control.innerHTML = `<button data-component="combobox-trigger"></button>`;
+    }
 
     const trigger = control.querySelector<HTMLElement>('[data-component="combobox-trigger"]');
     const content = positioner.querySelector<HTMLElement>('[data-component="combobox-content"]');
@@ -110,8 +138,10 @@ function initComboboxRoot(root: HTMLElement) {
             placement: "bottom-start",
             middleware: [offset(8), flip(), shift({ padding: 8 })],
         }).then(({ x, y }) => {
-            positioner!.style.left = `${x}px`;
-            positioner!.style.top = `${y}px`;
+            if (positioner) {
+                positioner.style.left = `${x}px`;
+                positioner.style.top = `${y}px`;
+            }
         });
     }
 
@@ -154,11 +184,13 @@ function initComboboxRoot(root: HTMLElement) {
             valueDiv.textContent = "Select Options...";
         }
         clearSpan.style.display = (isMultiple && selectedValues.size > 0) ? "" : "none";
-        content.querySelectorAll<HTMLElement>('[data-part="item"]').forEach(item => {
-            const val = item.dataset.value ?? "";
-            const indicator = item.querySelector<HTMLElement>("[data-part='item-indicator']");
-            if (indicator) indicator.hidden = !selectedValues.has(val);
-        });
+        if (content) {
+            content.querySelectorAll<HTMLElement>('[data-part="item"]').forEach(item => {
+                const val = item.dataset.value ?? "";
+                const indicator = item.querySelector<HTMLElement>("[data-part='item-indicator']");
+                if (indicator) indicator.hidden = !selectedValues.has(val);
+            });
+        }
     }
 
     function filterItems(query: string) {
@@ -180,23 +212,27 @@ function initComboboxRoot(root: HTMLElement) {
     }
 
     function show() {
-        content.style.setProperty("--reference-width", `${control.offsetWidth}px`);
-        positioner.style.display = "";
-        updatePosition();
-        if (searchInput) {
-            searchInput.value = "";
-            filterItems("");
-            searchInput.focus();
+        if (content && control && positioner) {
+            content.style.setProperty("--reference-width", `${control.offsetWidth}px`);
+            positioner.style.display = "";
+            updatePosition();
+            if (searchInput) {
+                searchInput.value = "";
+                filterItems("");
+                searchInput.focus();
+            }
         }
     }
 
     function hide() {
-        positioner.style.display = "none";
+        if (positioner) positioner.style.display = "none";
     }
 
     function toggle() {
-        const isOpen = positioner.style.display !== "none";
-        if (isOpen) hide(); else show();
+        if (positioner) {
+            const isOpen = positioner.style.display !== "none";
+            if (isOpen) hide(); else show();
+        }
     }
 
     trigger.addEventListener("click", (e) => {
@@ -213,38 +249,42 @@ function initComboboxRoot(root: HTMLElement) {
         searchInput.addEventListener("click", (e) => e.stopPropagation());
     }
 
-    content.querySelectorAll<HTMLElement>('[data-part="item"]').forEach(item => {
-        item.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const val = item.dataset.value ?? "";
-            if (isMultiple) {
-                if (selectedValues.has(val)) selectedValues.delete(val);
-                else selectedValues.add(val);
-                updateDisplay();
-            } else {
-                selectedValues.clear(); selectedValues.add(val);
-                updateDisplay(); hide();
-            }
+    if (content) {
+        content.querySelectorAll<HTMLElement>('[data-part="item"]').forEach(item => {
+            item.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const val = item.dataset.value ?? "";
+                if (isMultiple) {
+                    if (selectedValues.has(val)) selectedValues.delete(val);
+                    else selectedValues.add(val);
+                    updateDisplay();
+                } else {
+                    selectedValues.clear(); selectedValues.add(val);
+                    updateDisplay(); hide();
+                }
+            });
         });
-    });
+    }
 
     clearSpan.addEventListener("click", (e) => {
         e.stopPropagation();
         selectedValues.clear(); updateDisplay();
     });
 
-    positioner.addEventListener("click", (e) => e.stopPropagation());
-    document.addEventListener("click", (e) => {
-        if (positioner.style.display !== "none" && !root.contains(e.target as Node) && !positioner.contains(e.target as Node)) {
-            hide();
-        }
-    });
+    if (positioner) {
+        positioner.addEventListener("click", (e) => e.stopPropagation());
+        document.addEventListener("click", (e) => {
+            if (positioner.style.display !== "none" && !root.contains(e.target as Node) && !positioner.contains(e.target as Node)) {
+                hide();
+            }
+        });
 
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && positioner.style.display !== "none") hide();
-    });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && positioner.style.display !== "none") hide();
+        });
 
-    positioner.classList.add("combobox-positioner");
+        positioner.classList.add("combobox-positioner");
+    }
 
     const id = root.id;
     if (id) {
