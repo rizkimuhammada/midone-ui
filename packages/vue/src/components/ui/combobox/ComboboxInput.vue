@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import type { Api } from "@zag-js/combobox";
 import { inject } from "vue";
 
-const { class: className, ...props } = defineProps<{
+const { class: className, placeholder } = defineProps<{
   class?: string;
+  placeholder?: string;
 }>();
 
 const api = inject<Api>("comboboxApi");
@@ -15,6 +16,7 @@ const api = inject<Api>("comboboxApi");
 <template>
   <Input
     :class="cn(comboboxInput, className)"
-    v-bind="{ ...props, ...$attrs, ...api?.getInputProps() }"
+    v-bind="{ ...$attrs, ...api?.getInputProps() }"
+    :placeholder="placeholder"
   />
 </template>

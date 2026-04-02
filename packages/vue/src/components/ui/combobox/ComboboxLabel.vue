@@ -1,26 +1,16 @@
 <script lang="ts" setup>
-import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { comboboxLabel } from "@midoneui/core/styles/combobox.styles";
 import { Label } from "@/components/ui/label";
-import type { Api } from "@zag-js/combobox";
 import { inject } from "vue";
 
-const {
-  class: className,
-  asChild = false,
-  ...props
-} = defineProps<{
-  class?: string;
-  asChild?: boolean;
-}>();
+const { class: className } = defineProps<{ class?: string }>();
 
-const api = inject<Api>("comboboxApi");
+const api = inject<any>("comboboxApi");
 </script>
 
 <template>
-  <Slot v-bind="{ ...props, ...$attrs, ...api?.getLabelProps() }">
-    <slot v-if="asChild" />
-    <Label v-else :class="cn(comboboxLabel, className)"><slot /></Label>
-  </Slot>
+  <Label :class="cn(comboboxLabel, className)" v-bind="api?.getLabelProps()">
+    <slot />
+  </Label>
 </template>

@@ -1,19 +1,14 @@
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
-import { comboboxContent } from "@midoneui/core/styles/combobox.styles";
+import { comboboxContent, comboboxPositioner } from "@midoneui/core/styles/combobox.styles";
 import { Box } from "@/components/ui/box";
-import { ComboboxPositioner } from ".";
 import type { Api } from "@zag-js/combobox";
 import { inject } from "vue";
-import { Slot } from "@/components/ui/slot";
+import ComboboxInput from "./ComboboxInput.vue";
 
-const {
-  class: className,
-  asChild = false,
-  ...props
-} = defineProps<{
+const { class: className, searchPlaceholder } = defineProps<{
   class?: string;
-  asChild?: boolean;
+  searchPlaceholder?: string;
 }>();
 
 const api = inject<Api>("comboboxApi");
@@ -21,13 +16,18 @@ const api = inject<Api>("comboboxApi");
 
 <template>
   <Teleport to="body">
-    <ComboboxPositioner>
-      <Slot v-bind="{ ...props, ...$attrs, ...api?.getContentProps() }">
-        <slot v-if="asChild" />
-        <Box v-else raised="single" :class="cn(comboboxContent, className)">
-          <div><slot /></div>
+    <div :class="comboboxPositioner" v-bind="api?.getPositionerProps()">
+      <div v-bind="api?.getContentProps()">
+        <Box raised="single" :class="cn(comboboxContent, className)">
+          <div>
+            <ComboboxInput
+              v-if="searchPlaceholder"
+              :placeholder="searchPlaceholder"
+            />
+            <slot />
+          </div>
         </Box>
-      </Slot>
-    </ComboboxPositioner>
+      </div>
+    </div>
   </Teleport>
 </template>

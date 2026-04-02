@@ -42,7 +42,7 @@ function processItem(item: HTMLElement) {
 
     // Shorthand item text & indicator
     if (item.children.length === 0) {
-        const text = item.getAttribute("data-text") || item.getAttribute("data-value") || "";
+        const text = item.getAttribute("data-text") || item.textContent || item.getAttribute("data-value") || "";
         item.innerHTML = `<span data-component="combobox-item-text">${text}</span>`;
     }
 
@@ -64,24 +64,39 @@ function processItem(item: HTMLElement) {
 
 function initComboboxRoot(root: HTMLElement) {
     const isMultiple = root.getAttribute("data-multiple") === "true";
+    const labelText = root.getAttribute("data-label") || root.getAttribute("data-combobox-label");
 
-    // Shorthand root template (Auto-rendering)
-    if (root.children.length === 0) {
-        const labelText = root.getAttribute("data-label");
-        root.innerHTML = `
-            ${labelText ? `<label data-component="combobox-label">${labelText}</label>` : ""}
-            <div data-component="combobox-control">
-                <button data-component="combobox-trigger"></button>
-            </div>
-            <div data-component="combobox-positioner">
-                <div data-component="combobox-content">
-                    <input data-component="combobox-input" placeholder="Search..." />
-                </div>
-            </div>
-        `;
+    // If root has children but they are not the standard parts, they are items.
+    // Wrap them in the standard structure.
+    const hasStandardParts = root.querySelector('[data-component="combobox-control"]') || root.querySelector('[data-component="combobox-positioner"]');
+    
+    if (!hasStandardParts) {
+        const items = Array.from(root.childNodes);
+        root.innerHTML = "";
+        
+        if (labelText) {
+            const label = document.createElement("label");
+            label.setAttribute("data-component", "combobox-label");
+            label.textContent = labelText;
+            root.appendChild(label);
+        }
+
+        const control = document.createElement("div");
+        control.setAttribute("data-component", "combobox-control");
+        root.appendChild(control);
+
+        const positioner = document.createElement("div");
+        positioner.setAttribute("data-component", "combobox-positioner");
+        root.appendChild(positioner);
+
+        const content = document.createElement("div");
+        content.setAttribute("data-component", "combobox-content");
+        positioner.appendChild(content);
+
+        items.forEach(child => content.appendChild(child));
     }
 
-    const label = root.querySelector<HTMLElement>('[data-component="combobox-label"]');
+    let label = root.querySelector<HTMLElement>('[data-component="combobox-label"]');
     const control = root.querySelector<HTMLElement>('[data-component="combobox-control"]');
     const positioner = root.querySelector<HTMLElement>('[data-component="combobox-positioner"]');
     if (!control || !positioner) return;
@@ -155,7 +170,16 @@ function initComboboxRoot(root: HTMLElement) {
     while (content.firstChild) innerDiv.appendChild(content.firstChild);
     content.appendChild(innerDiv);
 
-    const searchInput = innerDiv.querySelector<HTMLInputElement>('[data-component="combobox-input"]');
+    const placeholderAttr = root.getAttribute("data-combobox-input-placeholder");
+    let searchInput = innerDiv.querySelector<HTMLInputElement>('[data-component="combobox-input"]');
+
+    if (placeholderAttr && !searchInput) {
+        searchInput = document.createElement("input");
+        searchInput.setAttribute("data-component", "combobox-input");
+        searchInput.placeholder = placeholderAttr;
+        innerDiv.prepend(searchInput);
+    }
+
     if (searchInput) {
         searchInput.className = cn(inputStyles, comboboxInput, searchInput.className);
     }
@@ -164,7 +188,17 @@ function initComboboxRoot(root: HTMLElement) {
         group.className = cn(comboboxItemGroup, group.className);
         group.setAttribute("data-scope", "combobox");
         group.setAttribute("data-part", "item-group");
-        const groupLabel = group.querySelector<HTMLElement>('[data-component="combobox-item-group-label"]');
+
+        const groupLabelText = group.getAttribute("data-label");
+        let groupLabel = group.querySelector<HTMLElement>('[data-component="combobox-item-group-label"]');
+
+        if (groupLabelText && !groupLabel) {
+            groupLabel = document.createElement("label");
+            groupLabel.setAttribute("data-component", "combobox-item-group-label");
+            groupLabel.textContent = groupLabelText;
+            group.prepend(groupLabel);
+        }
+
         if (groupLabel) {
             groupLabel.className = cn(comboboxItemGroupLabel, groupLabel.className);
             groupLabel.setAttribute("data-scope", "combobox");
@@ -179,7 +213,15 @@ function initComboboxRoot(root: HTMLElement) {
 
     function updateDisplay() {
         if (selectedValues.size > 0) {
-            valueDiv.textContent = Array.from(selectedValues).join(", ");
+            const labels = Array.from(selectedValues).map(val => {
+                const item = innerDiv.querySelector(`[data-part="item"][data-value="${val}"]`);
+                if (item) {
+                    const textEl = item.querySelector('[data-part="item-text"]');
+                    return textEl?.textContent || val;
+                }
+                return val;
+            });
+            valueDiv.textContent = labels.join(", ");
         } else {
             valueDiv.textContent = "Select Options...";
         }

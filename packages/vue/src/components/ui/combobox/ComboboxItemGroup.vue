@@ -1,17 +1,13 @@
 <script lang="ts" setup>
-import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { comboboxItemGroup } from "@midoneui/core/styles/combobox.styles";
+import { comboboxItemGroupLabel } from "@midoneui/core/styles/combobox.styles";
 import type { Api } from "@zag-js/combobox";
 import { provide, inject } from "vue";
 
-const {
-  class: className,
-  asChild = false,
-  ...props
-} = defineProps<{
+const { class: className, label } = defineProps<{
   class?: string;
-  asChild?: boolean;
+  label?: string;
 }>();
 
 const api = inject<Api>("comboboxApi");
@@ -21,13 +17,17 @@ provide("comboboxItemGroupId", itemGroupId);
 </script>
 
 <template>
-  <Slot
+  <div
     :class="cn(comboboxItemGroup, className)"
-    v-bind="{ ...props, ...$attrs, ...api?.getItemGroupProps(itemGroupId) }"
+    v-bind="api?.getItemGroupProps(itemGroupId)"
   >
-    <slot v-if="asChild" />
-    <div v-else>
-      <slot />
-    </div>
-  </Slot>
+    <label
+      v-if="label"
+      :class="comboboxItemGroupLabel"
+      v-bind="api?.getItemGroupLabelProps({ htmlFor: itemGroupId.id })"
+    >
+      {{ label }}
+    </label>
+    <slot />
+  </div>
 </template>

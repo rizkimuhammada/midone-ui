@@ -43,6 +43,7 @@ const RegisterStaticItemContext = createContext<
 const UnregisterStaticItemContext = createContext<
   ((item: { value: string; label: string }) => void) | null
 >(null);
+const ComboboxInputPlaceholderContext = createContext<string | undefined>(undefined);
 
 export function ComboboxRoot({
   children,
@@ -50,61 +51,23 @@ export function ComboboxRoot({
   multiple = false,
   selectionBehavior = "clear",
   value,
-  asChild = false,
-  onOpenChange,
-  onInputValueChange,
   onValueChange,
-  items = [],
-  itemToValue,
-  itemToString,
-  collection,
+  comboboxInputPlaceholder,
+  label,
   ...props
-}: React.ComponentProps<"div"> &
-  Partial<Props> & {
-    asChild?: boolean;
-    items?: any[];
-    itemToValue?: (item: any) => string;
-    itemToString?: (item: any) => string;
+}: React.ComponentProps<"div"> & {
+    multiple?: boolean;
+    selectionBehavior?: "clear" | "replace" | "preserve";
+    value?: string[];
+    onValueChange?: (details: { value: string[] }) => void;
+    comboboxInputPlaceholder?: string;
+    label?: string;
   }) {
+  const [internalValue, setInternalValue] = useState<string[]>(value || []);
   const [internalInputValue, setInternalInputValue] = useState("");
-  const [internalValue, setInternalValue] = useState<string[]>(
-    (value as string[]) || []
-  );
-  const [staticItems, setStaticItems] = useState<
-    { value: string; label: string }[]
-  >([]);
+  const [staticItems, setStaticItems] = useState<{ value: string; label: string }[]>([]);
 
-  const _value = value !== undefined ? (value as string[]) : internalValue;
-
-  const filteredItems = useMemo(() => {
-    if (!items || items.length === 0) return [];
-    const query = internalInputValue.toLowerCase();
-    if (!query) return items;
-    return items.filter((item) => {
-      const label = itemToString
-        ? itemToString(item)
-        : typeof item === "string"
-        ? item
-        : item.label || item.value;
-      return label?.toLowerCase().includes(query);
-    });
-  }, [items, internalInputValue, itemToString]);
-
-  const internalCollection = useMemo(() => {
-    if (collection) return collection;
-    const allItems = [...filteredItems, ...staticItems];
-    return combobox.collection({
-      items: allItems,
-      itemToValue:
-        itemToValue ||
-        ((item) =>
-          typeof item === "string" ? item : item.value || item.label),
-      itemToString:
-        itemToString ||
-        ((item) =>
-          typeof item === "string" ? item : item.label || item.value),
-    });
-  }, [collection, filteredItems, staticItems, itemToValue, itemToString]);
+  const _value = value !== undefined ? value : internalValue;
 
   const registerStaticItem = (item: { value: string; label: string }) => {
     setStaticItems((prev) => {
@@ -117,32 +80,36 @@ export function ComboboxRoot({
     setStaticItems((prev) => prev.filter((i) => i.value !== item.value));
   };
 
-  const resolveItemToValue = itemToValue || ((item: any) => typeof item === "string" ? item : item.value || item.label);
-  const resolveItemToString = itemToString || ((item: any) => typeof item === "string" ? item : item.label || item.value);
+  const internalCollection = useMemo(() => {
+    return combobox.collection({
+      items: staticItems,
+      itemToValue: (item) => (typeof item === "string" ? item : item.value || item.label),
+      itemToString: (item) => (typeof item === "string" ? item : item.label || item.value),
+    });
+  }, [staticItems]);
 
   const displayValue = useMemo(() => {
     if (!_value.length) return "";
     return _value
       .map((v) => {
-        const found = internalCollection.items.find((item: any) => resolveItemToValue(item) === v);
-        return found ? resolveItemToString(found) : v;
+        const found = staticItems.find(
+          (item: any) => (typeof item === "string" ? item : item.value || item.label) === v
+        );
+        return found ? (typeof found === "string" ? found : found.label || found.value) : v;
       })
       .join(", ");
-  }, [_value, internalCollection]);
+  }, [_value, staticItems]);
 
   const service = useMachine(combobox.machine, {
     multiple,
     selectionBehavior,
-    onOpenChange,
     onInputValueChange(details) {
       setInternalInputValue(details.inputValue);
-      onInputValueChange?.(details);
     },
     onValueChange(details) {
       setInternalValue(details.value);
       onValueChange?.(details);
     },
-    ...props,
     collection: internalCollection,
     value: _value,
     id: useId(),
@@ -153,20 +120,24 @@ export function ComboboxRoot({
   return (
     <ApiContext.Provider value={api}>
       <DisplayValueContext.Provider value={displayValue}>
-      <InputValueContext.Provider value={internalInputValue}>
-        <RegisterStaticItemContext.Provider value={registerStaticItem}>
-          <UnregisterStaticItemContext.Provider value={unregisterStaticItem}>
-            <Slot
-              className={cn(comboboxRoot, className)}
-              data-multiple={multiple}
-              {...api.getRootProps()}
-              {...props}
-            >
-              {asChild ? children : <div>{children}</div>}
-            </Slot>
-          </UnregisterStaticItemContext.Provider>
-        </RegisterStaticItemContext.Provider>
-      </InputValueContext.Provider>
+        <InputValueContext.Provider value={internalInputValue}>
+          <RegisterStaticItemContext.Provider value={registerStaticItem}>
+            <UnregisterStaticItemContext.Provider value={unregisterStaticItem}>
+              <ComboboxInputPlaceholderContext.Provider value={comboboxInputPlaceholder}>
+                <div
+                  className={cn(comboboxRoot, className)}
+                  data-multiple={multiple}
+                  {...api.getRootProps()}
+                  {...props}
+                >
+                  {label && <ComboboxLabel>{label}</ComboboxLabel>}
+                  <ComboboxControl />
+                  <ComboboxContent>{children}</ComboboxContent>
+                </div>
+              </ComboboxInputPlaceholderContext.Provider>
+            </UnregisterStaticItemContext.Provider>
+          </RegisterStaticItemContext.Provider>
+        </InputValueContext.Provider>
       </DisplayValueContext.Provider>
     </ApiContext.Provider>
   );
@@ -175,44 +146,32 @@ export function ComboboxRoot({
 export function ComboboxLabel({
   children,
   className,
-  asChild = false,
   ...props
-}: React.ComponentProps<"label"> & { asChild?: boolean }) {
+}: React.ComponentProps<"label">) {
   const api = useContext(ApiContext);
 
   return (
-    <Slot {...api?.getLabelProps()} {...props}>
-      {asChild ? (
-        children
-      ) : (
-        <Label className={cn(comboboxLabel, className)}>{children}</Label>
-      )}
-    </Slot>
+    <Label className={cn(comboboxLabel, className)} {...api?.getLabelProps()} {...props}>
+      {children}
+    </Label>
   );
 }
 
 export function ComboboxControl({
   children,
   className,
-  asChild = false,
   ...props
-}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+}: React.ComponentProps<"div">) {
   const api = useContext(ApiContext);
 
-  const content = useMemo(() => {
-    if (asChild) return children;
-    if (children) return <div>{children}</div>;
-    return <ComboboxTrigger />;
-  }, [children, asChild]);
-
   return (
-    <Slot
+    <div
       className={cn(comboboxControl, className)}
       {...api?.getControlProps()}
       {...props}
     >
-      {content}
-    </Slot>
+      <ComboboxTrigger />
+    </div>
   );
 }
 
@@ -297,23 +256,24 @@ export function ComboboxPositioner({
 export function ComboboxContent({
   children,
   className,
-  asChild = false,
   ...props
-}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+}: React.ComponentProps<"div">) {
   const api = useContext(ApiContext);
+  const comboboxInputPlaceholder = useContext(ComboboxInputPlaceholderContext);
 
   return (
     <Portal>
       <ComboboxPositioner>
-        <Slot {...api?.getContentProps()} {...props}>
-          {asChild ? (
-            children
-          ) : (
-            <Box raised="single" className={cn(comboboxContent, className)}>
-              <div>{children}</div>
-            </Box>
-          )}
-        </Slot>
+        <div {...api?.getContentProps()} {...props}>
+          <Box raised="single" className={cn(comboboxContent, className)}>
+            <div>
+              {comboboxInputPlaceholder && (
+                <ComboboxInput placeholder={comboboxInputPlaceholder} />
+              )}
+              {children}
+            </div>
+          </Box>
+        </div>
       </ComboboxPositioner>
     </Portal>
   );
@@ -322,21 +282,22 @@ export function ComboboxContent({
 export function ComboboxItemGroup({
   children,
   className,
-  asChild = false,
+  label,
   ...props
-}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & { label?: string }) {
   const api = useContext(ApiContext);
   const itemGroupId = { id: useId() };
 
   return (
     <ItemGroupContext.Provider value={itemGroupId}>
-      <Slot
+      <div
         className={cn(comboboxItemGroup, className)}
         {...api?.getItemGroupProps(itemGroupId)}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
-      </Slot>
+        {label && <ComboboxItemGroupLabel>{label}</ComboboxItemGroupLabel>}
+        {children}
+      </div>
     </ItemGroupContext.Provider>
   );
 }
