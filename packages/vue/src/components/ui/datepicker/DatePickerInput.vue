@@ -1,26 +1,31 @@
 <script lang="ts" setup>
-import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerInput } from "@midoneui/core/styles/datepicker.styles";
 import { Input } from "@/components/ui/input";
 import type { Api } from "@zag-js/date-picker";
 import { inject } from "vue";
+import type { ComputedRef } from "vue";
 
-const {
-  class: className,
-  asChild = false,
-  ...props
-} = defineProps<{
+const { class: className, index } = defineProps<{
   class?: string;
-  asChild?: boolean;
+  index?: number;
 }>();
 
-const api = inject<Api>("datepickerApi");
+const api = inject<ComputedRef<Api>>("datepickerApi");
+const withTrigger = inject<boolean>("datepickerWithTrigger", true);
+const inline = inject<boolean>("datepickerInline", false);
+
+const handleClick = () => {
+  if (!withTrigger && !inline && api?.value) {
+    api.value.setOpen(true);
+  }
+};
 </script>
 
 <template>
-  <Slot v-bind="{ ...props, ...$attrs, ...api?.getInputProps() }">
-    <slot v-if="asChild" />
-    <Input v-else :class="cn(datePickerInput, className)" />
-  </Slot>
+  <Input
+    :class="cn(datePickerInput, className)"
+    v-bind="{ ...$attrs, ...(api as any)?.getInputProps({ index }) }"
+    @click="handleClick"
+  />
 </template>

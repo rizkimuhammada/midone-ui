@@ -1,37 +1,27 @@
 <script lang="ts" setup>
-import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { datePickerControl } from "@midoneui/core/styles/datepicker.styles";
 import type { Api } from "@zag-js/date-picker";
 import { DatePickerInput, DatePickerTrigger, DatePickerClearTrigger } from ".";
-import { inject, useSlots } from "vue";
+import { inject } from "vue";
+import type { ComputedRef } from "vue";
 
-const {
-  class: className,
-  asChild = false,
-  ...props
-} = defineProps<{
-  class?: string;
-  asChild?: boolean;
-}>();
+const { class: className } = defineProps<{ class?: string }>();
 
-const api = inject<Api>("datepickerApi");
-const slots = useSlots();
+const api = inject<ComputedRef<Api>>("datepickerApi");
+const selectionMode = inject<string>("datepickerSelectionMode", "single");
+const inline = inject<boolean>("datepickerInline", false);
+const withTrigger = inject<boolean>("datepickerWithTrigger", true);
 </script>
 
 <template>
-  <Slot
-    :class="cn(datePickerControl, className)"
-    v-bind="{ ...props, ...$attrs, ...api?.getControlProps() }"
-  >
-    <slot v-if="asChild" />
-    <div v-else>
-      <template v-if="!slots.default">
-        <DatePickerInput />
-        <DatePickerTrigger />
-        <DatePickerClearTrigger>Clear</DatePickerClearTrigger>
-      </template>
-      <slot v-else />
-    </div>
-  </Slot>
+  <div :class="cn(datePickerControl, className)" v-bind="(api as any)?.getControlProps()">
+    <template v-if="selectionMode === 'range'">
+      <DatePickerInput :index="0" />
+      <DatePickerInput :index="1" />
+    </template>
+    <DatePickerInput v-else />
+    <DatePickerTrigger v-if="!inline && withTrigger" />
+    <DatePickerClearTrigger />
+  </div>
 </template>

@@ -20,6 +20,7 @@ export const datePickerPrevTrigger =
   "px-2.5 py-1.5 rounded-lg hover:bg-foreground/5 cursor-pointer [&>svg]:size-4 [&>svg]:stroke-[1.5]";
 export const datePickerViewTrigger =
   "mx-auto px-4 py-1.5 rounded-lg hover:bg-foreground/5 cursor-pointer [&>svg]:size-4 [&>svg]:stroke-[1.5]";
+export const datePickerPresets = "flex gap-1";
 export const datePickerNextTrigger =
   "px-2.5 py-1.5 rounded-lg hover:bg-foreground/5 cursor-pointer [&>svg]:size-4 [&>svg]:stroke-[1.5]";
 export const datePickerRangeText = "mx-auto font-medium";

@@ -3,7 +3,6 @@ import { cn } from "@midoneui/core/utils/cn";
 import { datePickerContent } from "@midoneui/core/styles/datepicker.styles";
 import type { Api } from "@zag-js/date-picker";
 import { Box } from "@/components/ui/box";
-import { Slot } from "@/components/ui/slot";
 import {
   DatePickerYearSelect,
   DatePickerMonthSelect,
@@ -22,33 +21,86 @@ import {
   DatePickerTableCell,
   DatePickerTableCellTrigger,
 } from ".";
-import { inject, useSlots } from "vue";
+import { inject } from "vue";
 
-const {
-  class: className,
-  asChild = false,
-  isManual = true,
-  ...props
-} = defineProps<{
+const { class: className, isManual = true } = defineProps<{
   class?: string;
-  asChild?: boolean;
   isManual?: boolean;
 }>();
 
 const api = inject<Api>("datepickerApi");
+const numOfMonths = inject<number>("datepickerNumOfMonths", 1);
 const registerContent = inject<(() => void) | undefined>("registerDatePickerContent", undefined);
 
 if (isManual && registerContent) {
   registerContent();
 }
-const slots = useSlots();
 </script>
 
 <template>
-  <Slot v-bind="{ ...props, ...$attrs, ...api?.getContentProps() }">
-    <slot v-if="asChild" />
-    <Box v-else raised="single" :class="cn(datePickerContent, className)">
-      <div v-if="!slots.default">
+  <Box raised="single" :class="cn(datePickerContent, className)" v-bind="api?.getContentProps()">
+    <!-- Multi-month layout -->
+    <template v-if="numOfMonths > 1">
+      <div>
+        <DatePickerYearSelect />
+        <DatePickerMonthSelect />
+        <DatePickerViewControl>
+          <DatePickerPrevTrigger />
+          <DatePickerRangeText />
+          <DatePickerNextTrigger />
+        </DatePickerViewControl>
+        <DatePickerView view="day" :is-manual="false" class="flex-row">
+          <DatePickerContext v-slot="{ datePicker }">
+            <DatePickerTable>
+              <DatePickerTableHead>
+                <DatePickerTableRow>
+                  <DatePickerTableHeader v-for="(weekDay, id) in datePicker?.weekDays" :key="id">
+                    {{ weekDay.short }}
+                  </DatePickerTableHeader>
+                </DatePickerTableRow>
+              </DatePickerTableHead>
+              <DatePickerTableBody>
+                <DatePickerTableRow v-for="(week, id) in datePicker?.weeks" :key="id">
+                  <DatePickerTableCell v-for="(day, id) in week" :key="id" :value="day">
+                    <DatePickerTableCellTrigger>{{ day.day }}</DatePickerTableCellTrigger>
+                  </DatePickerTableCell>
+                </DatePickerTableRow>
+              </DatePickerTableBody>
+            </DatePickerTable>
+          </DatePickerContext>
+          <DatePickerContext v-slot="{ datePicker }">
+            <DatePickerTable>
+              <DatePickerTableHead>
+                <DatePickerTableRow>
+                  <DatePickerTableHeader v-for="(weekDay, id) in datePicker?.weekDays" :key="id">
+                    {{ weekDay.short }}
+                  </DatePickerTableHeader>
+                </DatePickerTableRow>
+              </DatePickerTableHead>
+              <DatePickerTableBody>
+                <DatePickerTableRow
+                  v-for="(week, id) in datePicker?.getOffset({ months: 1 }).weeks"
+                  :key="id"
+                >
+                  <DatePickerTableCell
+                    v-for="(day, id) in week"
+                    :key="id"
+                    :value="day"
+                    :visible-range="datePicker?.getOffset({ months: 1 }).visibleRange"
+                  >
+                    <DatePickerTableCellTrigger>{{ day.day }}</DatePickerTableCellTrigger>
+                  </DatePickerTableCell>
+                </DatePickerTableRow>
+              </DatePickerTableBody>
+            </DatePickerTable>
+          </DatePickerContext>
+        </DatePickerView>
+      </div>
+    </template>
+
+    <!-- Standard single-month layout -->
+    <template v-else>
+      <div>
         <DatePickerYearSelect />
         <DatePickerMonthSelect />
         <DatePickerView view="day" :is-manual="false">
@@ -63,27 +115,15 @@ const slots = useSlots();
             <DatePickerTable>
               <DatePickerTableHead>
                 <DatePickerTableRow>
-                  <DatePickerTableHeader
-                    v-for="(weekDay, id) in datePicker?.weekDays"
-                    :key="id"
-                  >
+                  <DatePickerTableHeader v-for="(weekDay, id) in datePicker?.weekDays" :key="id">
                     {{ weekDay.short }}
                   </DatePickerTableHeader>
                 </DatePickerTableRow>
               </DatePickerTableHead>
               <DatePickerTableBody>
-                <DatePickerTableRow
-                  v-for="(week, id) in datePicker?.weeks"
-                  :key="id"
-                >
-                  <DatePickerTableCell
-                    v-for="(day, id) in week"
-                    :key="id"
-                    :value="day"
-                  >
-                    <DatePickerTableCellTrigger>
-                      {{ day.day }}
-                    </DatePickerTableCellTrigger>
+                <DatePickerTableRow v-for="(week, id) in datePicker?.weeks" :key="id">
+                  <DatePickerTableCell v-for="(day, id) in week" :key="id" :value="day">
+                    <DatePickerTableCellTrigger>{{ day.day }}</DatePickerTableCellTrigger>
                   </DatePickerTableCell>
                 </DatePickerTableRow>
               </DatePickerTableBody>
@@ -102,20 +142,11 @@ const slots = useSlots();
             <DatePickerTable>
               <DatePickerTableBody>
                 <DatePickerTableRow
-                  v-for="(months, id) in datePicker?.getMonthsGrid({
-                    columns: 4,
-                    format: 'short',
-                  })"
+                  v-for="(months, id) in datePicker?.getMonthsGrid({ columns: 4, format: 'short' })"
                   :key="id"
                 >
-                  <DatePickerTableCell
-                    v-for="(month, id) in months"
-                    :key="id"
-                    :value="month.value"
-                  >
-                    <DatePickerTableCellTrigger>{{
-                      month.label
-                    }}</DatePickerTableCellTrigger>
+                  <DatePickerTableCell v-for="(month, id) in months" :key="id" :value="month.value">
+                    <DatePickerTableCellTrigger>{{ month.label }}</DatePickerTableCellTrigger>
                   </DatePickerTableCell>
                 </DatePickerTableRow>
               </DatePickerTableBody>
@@ -134,19 +165,11 @@ const slots = useSlots();
             <DatePickerTable>
               <DatePickerTableBody>
                 <DatePickerTableRow
-                  v-for="(years, id) in datePicker?.getYearsGrid({
-                    columns: 4,
-                  })"
+                  v-for="(years, id) in datePicker?.getYearsGrid({ columns: 4 })"
                   :key="id"
                 >
-                  <DatePickerTableCell
-                    v-for="(year, id) in years"
-                    :key="id"
-                    :value="year.value"
-                  >
-                    <DatePickerTableCellTrigger>{{
-                      year.label
-                    }}</DatePickerTableCellTrigger>
+                  <DatePickerTableCell v-for="(year, id) in years" :key="id" :value="year.value">
+                    <DatePickerTableCellTrigger>{{ year.label }}</DatePickerTableCellTrigger>
                   </DatePickerTableCell>
                 </DatePickerTableRow>
               </DatePickerTableBody>
@@ -154,7 +177,6 @@ const slots = useSlots();
           </DatePickerContext>
         </DatePickerView>
       </div>
-      <div v-else><slot /></div>
-    </Box>
-  </Slot>
+    </template>
+  </Box>
 </template>
