@@ -26,6 +26,7 @@ const {
   open = undefined,
   label = undefined,
   withPresets = undefined,
+  withTrigger = false,
   numOfMonths = undefined,
   selectionMode = "single",
   ...props
@@ -65,7 +66,7 @@ provide("datepickerApi", api);
 provide("datepickerNumOfMonths", numOfMonths ?? 1);
 provide("datepickerInline", inline);
 provide("datepickerSelectionMode", selectionMode);
-provide("datepickerWithTrigger", props.withTrigger ?? true);
+provide("datepickerWithTrigger", withTrigger);
 provide("registerDatePickerContent", () => {
   hasManualContent.value = true;
 });

@@ -13,6 +13,7 @@ import {
     datePickerViewControl,
     datePickerPrevTrigger,
     datePickerViewTrigger,
+    datePickerPresets,
     datePickerNextTrigger,
     datePickerRangeText,
     datePickerTable,
@@ -40,6 +41,17 @@ const CALENDAR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height=
 const X_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
 const MOVE_LEFT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8 2 12l4 4"/><path d="M2 12h20"/></svg>`;
 const MOVE_RIGHT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8l4 4-4 4"/><path d="M2 12h20"/></svg>`;
+
+const PRESET_LABELS: Record<string, string> = {
+    today: "Today",
+    yesterday: "Yesterday",
+    thisWeek: "This Week",
+    lastWeek: "Last Week",
+    thisMonth: "This Month",
+    lastMonth: "Last Month",
+    thisYear: "This Year",
+    lastYear: "Last Year",
+};
 
 function isSameDay(a: Date, b: Date) {
     return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -98,6 +110,16 @@ function getYearsGrid(centerYear: number, columns = 4): { value: number; label: 
 
 function getPresetRange(preset: string): [Date, Date] {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (preset === "today") {
+        return [new Date(today), new Date(today)];
+    }
+    if (preset === "yesterday") {
+        const d = new Date(today);
+        d.setDate(today.getDate() - 1);
+        return [new Date(d), new Date(d)];
+    }
     if (preset === "thisWeek") {
         const start = new Date(today);
         start.setDate(today.getDate() - today.getDay());
@@ -117,20 +139,80 @@ function getPresetRange(preset: string): [Date, Date] {
         const end = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         return [start, end];
     }
+    if (preset === "lastMonth") {
+        const start = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+        const end = new Date(today.getFullYear(), today.getMonth(), 0);
+        return [start, end];
+    }
+    if (preset === "thisYear") {
+        const start = new Date(today.getFullYear(), 0, 1);
+        const end = new Date(today.getFullYear(), 11, 31);
+        return [start, end];
+    }
+    if (preset === "lastYear") {
+        const start = new Date(today.getFullYear() - 1, 0, 1);
+        const end = new Date(today.getFullYear() - 1, 11, 31);
+        return [start, end];
+    }
     return [today, today];
 }
 
 function injectDefaultTemplate(root: HTMLElement) {
     const label = root.getAttribute("data-label") ?? "";
-    root.innerHTML = `
+    const selectionMode = root.getAttribute("data-selection-mode") ?? "single";
+    const withTrigger = root.getAttribute("data-with-trigger") === "true";
+    const withPresets = root.getAttribute("data-with-presets") ?? "";
+    const numOfMonths = parseInt(root.getAttribute("data-num-of-months") ?? "1");
+    const isInline = root.hasAttribute("data-open");
+
+    const presets = withPresets
+        ? withPresets.split("|").map((v) => {
+            const key = v.trim();
+            return { value: key, label: PRESET_LABELS[key] ?? key };
+        })
+        : [];
+
+    let html = `
         ${label ? `<label data-component="datepicker-label">${label}</label>` : ""}
         <div data-component="datepicker-control">
-            <input type="text" data-component="datepicker-input">
-            <button data-component="datepicker-trigger"></button>
-            <button data-component="datepicker-clear-trigger">Clear</button>
+            ${selectionMode === "range"
+            ? `<input type="text" data-component="datepicker-input" data-index="0">
+               <input type="text" data-component="datepicker-input" data-index="1">`
+            : `<input type="text" data-component="datepicker-input">`
+        }
+            ${!isInline && withTrigger ? `<button data-component="datepicker-trigger"></button>` : ""}
+            <button data-component="datepicker-clear-trigger"></button>
         </div>
-        <div data-component="datepicker-positioner">
-            <div data-component="datepicker-content">
+        ${presets.length > 0 ? `
+            <div class="${datePickerPresets}">
+                ${presets.map(p => `<div data-component="datepicker-preset-trigger" data-value="${m(p.value)}">${m(p.label)}</div>`).join("")}
+            </div>
+        ` : ""}
+    `;
+
+    const contentHtml = `
+        <div data-component="datepicker-content">
+            ${numOfMonths > 1 ? `
+                <select data-component="datepicker-year-select"></select>
+                <select data-component="datepicker-month-select"></select>
+                <div data-component="datepicker-view-control">
+                    <button data-component="datepicker-prev-trigger"></button>
+                    <button data-component="datepicker-view-trigger">
+                        <div data-component="datepicker-range-text"></div>
+                    </button>
+                    <button data-component="datepicker-next-trigger"></button>
+                </div>
+                <div data-component="datepicker-view" data-view="day" class="flex-row">
+                    ${Array.from({ length: numOfMonths }).map((_, i) => `
+                        <table data-component="datepicker-table" data-month-offset="${i}">
+                            <thead data-component="datepicker-table-head">
+                                <tr data-component="datepicker-table-row"></tr>
+                            </thead>
+                            <tbody data-component="datepicker-table-body"></tbody>
+                        </table>
+                    `).join("")}
+                </div>
+            ` : `
                 <select data-component="datepicker-year-select"></select>
                 <select data-component="datepicker-month-select"></select>
                 <div data-component="datepicker-view" data-view="day">
@@ -148,7 +230,7 @@ function injectDefaultTemplate(root: HTMLElement) {
                         <tbody data-component="datepicker-table-body"></tbody>
                     </table>
                 </div>
-                <div data-component="datepicker-view" data-view="month">
+                <div data-component="datepicker-view" data-view="month" hidden>
                     <div data-component="datepicker-view-control">
                         <button data-component="datepicker-prev-trigger"></button>
                         <button data-component="datepicker-view-trigger">
@@ -160,7 +242,7 @@ function injectDefaultTemplate(root: HTMLElement) {
                         <tbody data-component="datepicker-table-body"></tbody>
                     </table>
                 </div>
-                <div data-component="datepicker-view" data-view="year">
+                <div data-component="datepicker-view" data-view="year" hidden>
                     <div data-component="datepicker-view-control">
                         <button data-component="datepicker-prev-trigger"></button>
                         <button data-component="datepicker-view-trigger">
@@ -172,9 +254,25 @@ function injectDefaultTemplate(root: HTMLElement) {
                         <tbody data-component="datepicker-table-body"></tbody>
                     </table>
                 </div>
-            </div>
+            `}
         </div>
     `;
+
+    if (isInline) {
+        html += contentHtml;
+    } else {
+        html += `
+            <div data-component="datepicker-positioner">
+                ${contentHtml}
+            </div>
+        `;
+    }
+
+    root.innerHTML = html;
+}
+
+function m(val: string) {
+    return val.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
 
 function initDatePickerRoot(root: HTMLElement) {
@@ -217,6 +315,11 @@ function initDatePickerRoot(root: HTMLElement) {
     root.setAttribute("data-scope", "date-picker");
     root.setAttribute("data-part", "root");
 
+    // For inline, we need to set the reference width on the root
+    if (isInline) {
+        root.style.setProperty("--reference-width", `${root.offsetWidth}px`);
+    }
+
     // Label
     const labelEl = root.querySelector<HTMLElement>('[data-component="datepicker-label"]');
     if (labelEl) {
@@ -244,11 +347,17 @@ function initDatePickerRoot(root: HTMLElement) {
 
     // Trigger button
     const triggerBtn = root.querySelector<HTMLButtonElement>('[data-component="datepicker-trigger"]');
+    const withTrigger = root.getAttribute("data-with-trigger") === "true";
+
     if (triggerBtn) {
-        triggerBtn.className = cn(buttonVariants({ variant: "ghost" }), datePickerTrigger, triggerBtn.className);
-        triggerBtn.setAttribute("data-scope", "date-picker");
-        triggerBtn.setAttribute("data-part", "trigger");
-        triggerBtn.innerHTML = CALENDAR_SVG;
+        if (!withTrigger) {
+            triggerBtn.style.display = "none";
+        } else {
+            triggerBtn.className = cn(buttonVariants({ variant: "ghost" }), datePickerTrigger, triggerBtn.className);
+            triggerBtn.setAttribute("data-scope", "date-picker");
+            triggerBtn.setAttribute("data-part", "trigger");
+            triggerBtn.innerHTML = CALENDAR_SVG;
+        }
     }
 
     // Clear trigger
@@ -257,8 +366,7 @@ function initDatePickerRoot(root: HTMLElement) {
         clearBtn.className = cn(buttonVariants({ variant: "ghost" }), datePickerClearTrigger, clearBtn.className);
         clearBtn.setAttribute("data-scope", "date-picker");
         clearBtn.setAttribute("data-part", "clear-trigger");
-        // Prepend X svg before text
-        clearBtn.innerHTML = X_SVG + clearBtn.textContent;
+        clearBtn.innerHTML = X_SVG;
         clearBtn.style.display = "none";
     }
 
@@ -485,11 +593,20 @@ function initDatePickerRoot(root: HTMLElement) {
         positioner.style.display = "none";
     }
 
-    if (triggerBtn && !isInline) {
+    if (triggerBtn && !isInline && withTrigger) {
         triggerBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             const isOpen = positioner?.style.display !== "none";
             if (isOpen) closeDropdown(); else openDropdown();
+        });
+    }
+
+    if (!withTrigger && !isInline) {
+        inputs.forEach(inp => {
+            inp.addEventListener("click", (e) => {
+                e.stopPropagation();
+                openDropdown();
+            });
         });
     }
 
@@ -677,6 +794,9 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     function render() {
+        if (isInline) {
+            root.style.setProperty("--reference-width", `${root.offsetWidth}px`);
+        }
         // Update year/month selects
         if (yearSelect) {
             populateYearSelect(yearSelect, state.viewYear);
