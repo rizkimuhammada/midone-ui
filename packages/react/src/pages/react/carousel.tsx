@@ -3,8 +3,6 @@ import {
   CarouselControl,
   CarouselPrevTrigger,
   CarouselNextTrigger,
-  CarouselIndicatorGroup,
-  CarouselIndicator,
   CarouselItemGroup,
   CarouselItem,
 } from "@/components/ui/carousel";
@@ -32,17 +30,13 @@ function Main() {
                 <CarouselRoot
                   defaultPage={0}
                   slideCount={images.length}
+                  showIndicators
                   className="size-72"
                 >
                   <CarouselControl>
                     <CarouselPrevTrigger />
                     <CarouselNextTrigger />
                   </CarouselControl>
-                  <CarouselIndicatorGroup>
-                    {images.map((_, index) => (
-                      <CarouselIndicator key={index} index={index} />
-                    ))}
-                  </CarouselIndicatorGroup>
                   <CarouselItemGroup>
                     {images.map((_image, index) => (
                       <CarouselItem
@@ -136,8 +130,10 @@ export function CarouselRoot({
   spacing = "2rem",
   allowMouseDrag = true,
   asChild = false,
+  showIndicators = false,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> &
+  Partial<Props> & { asChild?: boolean; showIndicators?: boolean }) {
   const service = useMachine(carousel.machine, {
     defaultPage,
     slideCount,
@@ -155,7 +151,20 @@ export function CarouselRoot({
         {...api.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div className="relative">
+            {children}
+            {showIndicators && (
+              <CarouselIndicatorGroup className="absolute bottom-4 left-1/2 -translate-x-1/2">
+                {api.pageSnapPoints.map((_, index) => (
+                  <CarouselIndicator key={index} index={index} />
+                ))}
+              </CarouselIndicatorGroup>
+            )}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );
@@ -311,8 +320,6 @@ import {
   CarouselControl,
   CarouselPrevTrigger,
   CarouselNextTrigger,
-  CarouselIndicatorGroup,
-  CarouselIndicator,
   CarouselItemGroup,
   CarouselItem,
 } from "@/components/ui/carousel";
@@ -323,17 +330,13 @@ import {
 <CarouselRoot
   defaultPage={0}
   slideCount={images.length}
+  showIndicators
   className="size-72"
 >
   <CarouselControl>
     <CarouselPrevTrigger />
     <CarouselNextTrigger />
   </CarouselControl>
-  <CarouselIndicatorGroup>
-    {images.map((_, index) => (
-      <CarouselIndicator key={index} index={index} />
-    ))}
-  </CarouselIndicatorGroup>
   <CarouselItemGroup>
     {images.map((_image, index) => (
       <CarouselItem
@@ -359,17 +362,13 @@ import {
                 <CarouselRoot
                   defaultPage={0}
                   slideCount={images.length}
+                  showIndicators
                   className="size-72"
                 >
                   <CarouselControl>
                     <CarouselPrevTrigger />
                     <CarouselNextTrigger />
                   </CarouselControl>
-                  <CarouselIndicatorGroup>
-                    {images.map((_, index) => (
-                      <CarouselIndicator key={index} index={index} />
-                    ))}
-                  </CarouselIndicatorGroup>
                   <CarouselItemGroup>
                     {images.map((image, index) => (
                       <CarouselItem key={index} index={index}>
@@ -386,17 +385,13 @@ import {
 <CarouselRoot
   defaultPage={0}
   slideCount={images.length}
+  showIndicators
   className="size-72"
 >
   <CarouselControl>
     <CarouselPrevTrigger />
     <CarouselNextTrigger />
   </CarouselControl>
-  <CarouselIndicatorGroup>
-    {images.map((_, index) => (
-      <CarouselIndicator key={index} index={index} />
-    ))}
-  </CarouselIndicatorGroup>
   <CarouselItemGroup>
     {images.map((image, index) => (
       <CarouselItem key={index} index={index}>

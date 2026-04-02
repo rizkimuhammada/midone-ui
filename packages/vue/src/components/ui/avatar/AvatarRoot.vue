@@ -4,22 +4,25 @@ import { provide, computed } from "vue";
 import { useMachine, normalizeProps } from "@zag-js/vue";
 import type { Props } from "@zag-js/avatar";
 import { cn } from "@midoneui/core/utils/cn";
-import {
-  avatarRootVariants,
-  type AvatarRootVariants,
-} from "@midoneui/core/styles/avatar.styles";
+import { avatarRootVariants, type AvatarRootVariants } from "@midoneui/core/styles/avatar.styles";
 import { Slot } from "@/components/ui/slot";
+import AvatarFallback from "./AvatarFallback.vue";
+import AvatarImage from "./AvatarImage.vue";
 
 const {
   class: className,
   bordered,
   asChild = false,
+  src,
+  fallbackText,
   ...props
 } = defineProps<
   AvatarRootVariants &
     Partial<Props> & {
       class?: string;
       asChild?: boolean;
+      src?: string;
+      fallbackText?: string;
     }
 >();
 
@@ -47,7 +50,11 @@ provide("avatarApi", api);
   >
     <slot v-if="asChild" />
     <div v-else>
-      <slot />
+      <slot v-if="$slots.default" />
+      <template v-else>
+        <AvatarFallback v-if="fallbackText">{{ fallbackText }}</AvatarFallback>
+        <AvatarImage v-if="src" :src="src" />
+      </template>
     </div>
   </Slot>
 </template>

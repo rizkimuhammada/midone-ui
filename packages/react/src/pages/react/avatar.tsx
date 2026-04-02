@@ -1,7 +1,5 @@
 import {
   AvatarRoot,
-  AvatarFallback,
-  AvatarImage,
 } from "@/components/ui/avatar";
 import {
   Preview,
@@ -19,19 +17,13 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <AvatarRoot>
-                  <AvatarFallback>PA</AvatarFallback>
-                  <AvatarImage src="https://i.pravatar.cc/300" alt="avatar" />
-                </AvatarRoot>
+                <AvatarRoot fallbackText="PA" src="https://i.pravatar.cc/300" />
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-<AvatarRoot>
-  <AvatarFallback>PA</AvatarFallback>
-  <AvatarImage src="https://i.pravatar.cc/300" alt="avatar" />
-</AvatarRoot>
+<AvatarRoot fallbackText="PA" src="https://i.pravatar.cc/300" />
                 `}
               </PreviewCode>
             ),
@@ -67,21 +59,38 @@ export function AvatarRoot({
   className,
   bordered,
   asChild = false,
+  src,
+  fallbackText,
   ...props
 }: React.ComponentProps<"div"> &
   AvatarRootVariants &
-  Partial<Props> & { asChild?: boolean }) {
+  Partial<Props> & {
+    asChild?: boolean;
+    src?: string;
+    fallbackText?: string;
+  }) {
   const service = useMachine(avatar.machine, { ...props, id: useId() });
   const api = avatar.connect(service, normalizeProps);
 
   return (
     <ApiContext.Provider value={api}>
       <Slot
-        className={cn(avatarRootVariants({ bordered, className }), className)}
+        className={cn(avatarRootVariants({ bordered }), className)}
         {...api.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {children || (
+              <>
+                {fallbackText && <AvatarFallback>{fallbackText}</AvatarFallback>}
+                {src && <AvatarImage src={src} />}
+              </>
+            )}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );
@@ -132,20 +141,15 @@ export function AvatarImage({
           {`
 import {
   AvatarRoot,
-  AvatarFallback,
-  AvatarImage,
 } from "@/components/ui/avatar";
               `}
         </PreviewCode>
         <PreviewCode>
           {`
-<AvatarRoot>
-  <AvatarFallback>PA</AvatarFallback>
-  <AvatarImage
-    src="https://i.pravatar.cc/300"
-    alt="avatar"
-  />
-</AvatarRoot>
+<AvatarRoot 
+  fallbackText="PA" 
+  src="https://i.pravatar.cc/300" 
+/>
               `}
         </PreviewCode>
       </div>
@@ -156,19 +160,13 @@ import {
           {() => ({
             preview: (
               <>
-                <AvatarRoot bordered={false}>
-                  <AvatarFallback>PA</AvatarFallback>
-                  <AvatarImage src="https://i.pravatar.cc/300" alt="avatar" />
-                </AvatarRoot>
+                <AvatarRoot bordered={false} fallbackText="PA" src="https://i.pravatar.cc/300" />
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-<AvatarRoot bordered={false}>
-  <AvatarFallback>PA</AvatarFallback>
-  <AvatarImage src="https://i.pravatar.cc/300" alt="avatar" />
-</AvatarRoot>
+<AvatarRoot bordered={false} fallbackText="PA" src="https://i.pravatar.cc/300" />
                 `}
               </PreviewCode>
             ),
@@ -178,19 +176,13 @@ import {
           {() => ({
             preview: (
               <>
-                <AvatarRoot className="rounded-full">
-                  <AvatarFallback>PA</AvatarFallback>
-                  <AvatarImage src="https://i.pravatar.cc/300" alt="avatar" />
-                </AvatarRoot>
+                <AvatarRoot className="rounded-full" fallbackText="PA" src="https://i.pravatar.cc/300" />
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-<AvatarRoot className="rounded-full">
-  <AvatarFallback>PA</AvatarFallback>
-  <AvatarImage src="https://i.pravatar.cc/300" alt="avatar" />
-</AvatarRoot>
+<AvatarRoot className="rounded-full" fallbackText="PA" src="https://i.pravatar.cc/300" />
                 `}
               </PreviewCode>
             ),
@@ -200,19 +192,13 @@ import {
           {() => ({
             preview: (
               <>
-                <AvatarRoot className="rounded-full" bordered={false}>
-                  <AvatarFallback>PA</AvatarFallback>
-                  <AvatarImage src="https://i.pravatar.cc/300" alt="avatar" />
-                </AvatarRoot>
+                <AvatarRoot className="rounded-full" bordered={false} fallbackText="PA" src="https://i.pravatar.cc/300" />
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-<AvatarRoot className="rounded-full" bordered={false}>
-  <AvatarFallback>PA</AvatarFallback>
-  <AvatarImage src="https://i.pravatar.cc/300" alt="avatar" />
-</AvatarRoot>
+<AvatarRoot className="rounded-full" bordered={false} fallbackText="PA" src="https://i.pravatar.cc/300" />
                 `}
               </PreviewCode>
             ),

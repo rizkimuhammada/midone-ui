@@ -4,8 +4,6 @@ import {
   CarouselControl,
   CarouselPrevTrigger,
   CarouselNextTrigger,
-  CarouselIndicatorGroup,
-  CarouselIndicator,
   CarouselItemGroup,
   CarouselItem,
 } from "@/components/ui/carousel";
@@ -25,19 +23,13 @@ const images = Array.from(
         <CarouselRoot
           :default-page="0"
           :slide-count="images.length"
+          show-indicators
           class="size-72"
         >
           <CarouselControl>
             <CarouselPrevTrigger />
             <CarouselNextTrigger />
           </CarouselControl>
-          <CarouselIndicatorGroup>
-            <CarouselIndicator
-              v-for="(_, index) in images"
-              :key="index"
-              :index="index"
-            />
-          </CarouselIndicatorGroup>
           <CarouselItemGroup>
             <CarouselItem
               v-for="(_, index) in images"
@@ -56,19 +48,13 @@ const images = Array.from(
         <CarouselRoot
           :default-page="0"
           :slide-count="images.length"
+          show-indicators
           class="size-72"
         >
           <CarouselControl>
             <CarouselPrevTrigger />
             <CarouselNextTrigger />
           </CarouselControl>
-          <CarouselIndicatorGroup>
-            <CarouselIndicator
-              v-for="(_, index) in images"
-              :key="index"
-              :index="index"
-            />
-          </CarouselIndicatorGroup>
           <CarouselItemGroup>
             <CarouselItem
               v-for="(image, index) in images"

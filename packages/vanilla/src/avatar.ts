@@ -17,6 +17,23 @@ function initAvatars() {
         root.setAttribute("data-scope", "avatar");
         root.setAttribute("data-part", "root");
 
+        const src = root.getAttribute("data-src");
+        const fallbackText = root.getAttribute("data-fallback-text");
+
+        // Auto-render fallback and image if they don't exist
+        if (!root.querySelector('[data-component="avatar-fallback"]') && fallbackText) {
+            const fallbackEl = document.createElement("div");
+            fallbackEl.setAttribute("data-component", "avatar-fallback");
+            fallbackEl.textContent = fallbackText;
+            root.appendChild(fallbackEl);
+        }
+        if (!root.querySelector('[data-component="avatar-image"]') && src) {
+            const imageEl = document.createElement("img");
+            imageEl.setAttribute("data-component", "avatar-image");
+            imageEl.setAttribute("src", src);
+            root.appendChild(imageEl);
+        }
+
         // Apply fallback class
         root.querySelectorAll<HTMLElement>('[data-component="avatar-fallback"]').forEach((fallbackEl) => {
             const el = handleAsChild(fallbackEl);

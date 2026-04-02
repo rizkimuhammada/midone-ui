@@ -6,6 +6,8 @@ import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { carouselRoot } from "@midoneui/core/styles/carousel.styles";
 import { computed, provide } from "vue";
+import CarouselIndicatorGroup from "./CarouselIndicatorGroup.vue";
+import CarouselIndicator from "./CarouselIndicator.vue";
 
 const {
   class: className,
@@ -14,8 +16,15 @@ const {
   spacing = "2rem",
   allowMouseDrag = true,
   asChild = false,
+  showIndicators = false,
   ...props
-} = defineProps<Partial<Props> & { asChild?: boolean; class?: string }>();
+} = defineProps<
+  Partial<Props> & {
+    asChild?: boolean;
+    class?: string;
+    showIndicators?: boolean;
+  }
+>();
 
 const service = useMachine(carousel.machine, {
   defaultPage,
@@ -37,8 +46,18 @@ provide("carouselApi", api);
     v-bind="{ ...props, ...$attrs, ...api.getRootProps() }"
   >
     <slot v-if="asChild" />
-    <div v-else>
+    <div v-else class="relative">
       <slot />
+      <CarouselIndicatorGroup
+        v-if="showIndicators"
+        class="absolute bottom-4 left-1/2 -translate-x-1/2"
+      >
+        <CarouselIndicator
+          v-for="(_, index) in api.pageSnapPoints"
+          :key="index"
+          :index="index"
+        />
+      </CarouselIndicatorGroup>
     </div>
   </Slot>
 </template>

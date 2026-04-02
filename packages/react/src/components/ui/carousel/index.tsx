@@ -28,8 +28,10 @@ export function CarouselRoot({
   spacing = "2rem",
   allowMouseDrag = true,
   asChild = false,
+  showIndicators = false,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> &
+  Partial<Props> & { asChild?: boolean; showIndicators?: boolean }) {
   const service = useMachine(carousel.machine, {
     defaultPage,
     slideCount,
@@ -47,7 +49,20 @@ export function CarouselRoot({
         {...api.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div className="relative">
+            {children}
+            {showIndicators && (
+              <CarouselIndicatorGroup className="absolute bottom-4 left-1/2 -translate-x-1/2">
+                {api.pageSnapPoints.map((_, index) => (
+                  <CarouselIndicator key={index} index={index} />
+                ))}
+              </CarouselIndicatorGroup>
+            )}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );

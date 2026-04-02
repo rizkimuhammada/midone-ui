@@ -18,10 +18,16 @@ export function AvatarRoot({
   className,
   bordered,
   asChild = false,
+  src,
+  fallbackText,
   ...props
 }: React.ComponentProps<"div"> &
   AvatarRootVariants &
-  Partial<Props> & { asChild?: boolean }) {
+  Partial<Props> & {
+    asChild?: boolean;
+    src?: string;
+    fallbackText?: string;
+  }) {
   const service = useMachine(avatar.machine, { ...props, id: useId() });
   const api = avatar.connect(service, normalizeProps);
 
@@ -32,7 +38,18 @@ export function AvatarRoot({
         {...api.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {children || (
+              <>
+                {fallbackText && <AvatarFallback>{fallbackText}</AvatarFallback>}
+                {src && <AvatarImage src={src} />}
+              </>
+            )}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );

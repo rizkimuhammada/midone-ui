@@ -33,6 +33,27 @@ function initCarouselRoot(rootEl: HTMLElement) {
     root.style.setProperty("--slide-spacing", slideSpacing);
     root.style.setProperty("--slide-item-size", `calc(100% / var(--slides-per-page) - var(--slide-spacing) * (var(--slides-per-page) - 1) / var(--slides-per-page))`);
 
+    const showIndicators = root.getAttribute("data-show-indicators") === "true";
+
+    if (showIndicators && !root.querySelector('[data-component="carousel-indicator-group"]')) {
+        const itemGroup = root.querySelector<HTMLElement>('[data-component="carousel-item-group"]');
+        if (itemGroup) {
+            const items = itemGroup.querySelectorAll('[data-component="carousel-item"]');
+            const newIndicatorGroup = document.createElement("div");
+            newIndicatorGroup.setAttribute("data-component", "carousel-indicator-group");
+            newIndicatorGroup.className = "absolute bottom-4 left-1/2 -translate-x-1/2";
+
+            for (let i = 0; i < items.length; i++) {
+                const ind = document.createElement("button");
+                ind.setAttribute("data-component", "carousel-indicator");
+                newIndicatorGroup.appendChild(ind);
+            }
+
+            root.appendChild(newIndicatorGroup);
+            root.classList.add("relative");
+        }
+    }
+
     const control = root.querySelector<HTMLElement>('[data-component="carousel-control"]');
     const indicatorGroup = root.querySelector<HTMLElement>('[data-component="carousel-indicator-group"]');
     const itemGroup = root.querySelector<HTMLElement>('[data-component="carousel-item-group"]');
