@@ -25,6 +25,12 @@ const SYNC_CONFIGS = [
         name: "Core to Vue",
         src: "/Users/dwicompany/Desktop/Projects/midone-ui/packages/core/src",
         dest: "/Users/dwicompany/Desktop/Projects/midone/packages/vue/src/components/ui"
+    },
+    // Vanilla to Laravel
+    {
+        name: "Vanilla to Laravel",
+        src: "/Users/dwicompany/Desktop/Projects/midone-ui/packages/vanilla/src",
+        dest: "/Users/dwicompany/Desktop/Projects/midone/packages/laravel/resources/js/vendor/@midoneui/vanilla/src"
     }
 ];
 
