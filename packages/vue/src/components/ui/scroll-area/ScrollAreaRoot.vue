@@ -5,6 +5,13 @@ import { useMachine, normalizeProps } from "@zag-js/vue";
 import { cn } from "@midoneui/core/utils/cn";
 import { computed, provide } from "vue";
 import { scrollAreaRoot } from "@midoneui/core/styles/scroll-area.styles";
+import {
+  ScrollAreaViewport,
+  ScrollAreaContent,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaCorner,
+} from ".";
 
 const { class: className, ...props } = defineProps<
   Partial<Props> & {
@@ -27,6 +34,14 @@ provide("scrollAreaApi", api);
     v-bind="{ ...api.getRootProps() }"
     :class="cn(scrollAreaRoot, className)"
   >
-    <slot />
+    <ScrollAreaViewport>
+      <ScrollAreaContent>
+        <slot />
+      </ScrollAreaContent>
+    </ScrollAreaViewport>
+    <ScrollAreaScrollbar>
+      <ScrollAreaThumb />
+    </ScrollAreaScrollbar>
+    <ScrollAreaCorner />
   </div>
 </template>

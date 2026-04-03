@@ -1,10 +1,5 @@
 import {
     ScrollAreaRoot,
-    ScrollAreaViewport,
-    ScrollAreaContent,
-    ScrollAreaScrollbar,
-    ScrollAreaThumb,
-    ScrollAreaCorner,
 } from "@/components/ui/scroll-area";
 import {
     Preview,
@@ -23,60 +18,34 @@ function Main() {
                         preview: (
                             <>
                                 <ScrollAreaRoot className="h-72 w-70">
-                                    <ScrollAreaViewport>
-                                        <ScrollAreaContent>
-                                            <div className="text-base font-medium mb-4">
-                                                Scroll Area Example
-                                            </div>
-                                            {Array.from({ length: 20 }).map((_, i) => (
-                                                <div
-                                                    key={i}
-                                                    className="mb-4 last:mb-0 opacity-80"
-                                                >
-                                                    This is line number {i + 1} of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.
-                                                </div>
-                                            ))}
-                                        </ScrollAreaContent>
-                                    </ScrollAreaViewport>
-                                    <ScrollAreaScrollbar>
-                                        <ScrollAreaThumb />
-                                    </ScrollAreaScrollbar>
-                                    <ScrollAreaCorner />
+                                    <div className="text-base font-medium mb-4">
+                                        Scroll Area Example
+                                    </div>
+                                    {Array.from({ length: 20 }).map((_, i) => (
+                                        <div
+                                            key={i}
+                                            className="mb-4 last:mb-0 opacity-80"
+                                        >
+                                            This is line number {i + 1} of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.
+                                        </div>
+                                    ))}
                                 </ScrollAreaRoot>
                             </>
                         ),
                         code: (
                             <PreviewCode>
                                 {`
-import {
-  ScrollAreaRoot,
-  ScrollAreaViewport,
-  ScrollAreaContent,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaCorner,
-} from "@/components/ui/scroll-area";
+import { ScrollAreaRoot } from "@/components/ui/scroll-area";
 
 <ScrollAreaRoot className="h-72 w-70">
-  <ScrollAreaViewport>
-    <ScrollAreaContent>
-      <div className="text-base font-medium mb-4">Scroll Area Example</div>
-      {Array.from({ length: 20 }).map((_, i) => (
-        <div
-          key={i}
-          className="mb-4 last:mb-0 opacity-80"
-        >
-          This is line number {i + 1} of the scrollable content. It helps
-          demonstrate how the custom scrollbar works within the Midone UI
-          system.
-        </div>
-      ))}
-    </ScrollAreaContent>
-  </ScrollAreaViewport>
-  <ScrollAreaScrollbar>
-    <ScrollAreaThumb />
-  </ScrollAreaScrollbar>
-  <ScrollAreaCorner />
+  <div className="text-base font-medium mb-4">Scroll Area Example</div>
+  {Array.from({ length: 20 }).map((_, i) => (
+    <div key={i} className="mb-4 last:mb-0 opacity-80">
+      This is line number {i + 1} of the scrollable content. It helps
+      demonstrate how the custom scrollbar works within the Midone UI
+      system.
+    </div>
+  ))}
 </ScrollAreaRoot>
                 `}
                             </PreviewCode>
@@ -130,7 +99,19 @@ export function ScrollAreaRoot({
                 {...api.getRootProps()}
                 {...props}
             >
-                {asChild ? children : <div>{children}</div>}
+                {asChild ? children : (
+                    <div>
+                        <ScrollAreaViewport>
+                            <ScrollAreaContent>
+                                {children}
+                            </ScrollAreaContent>
+                        </ScrollAreaViewport>
+                        <ScrollAreaScrollbar>
+                            <ScrollAreaThumb />
+                        </ScrollAreaScrollbar>
+                        <ScrollAreaCorner />
+                    </div>
+                )}
             </Slot>
         </ApiContext.Provider>
     );
@@ -234,34 +215,22 @@ export function ScrollAreaCorner({
 }
           `}
                 </PreviewCode>
+                <SectionContent>
+                    Update the import paths to match your project setup.
+                </SectionContent>
             </div>
 
             <div id="usage">
                 <SectionTitle>Usage</SectionTitle>
                 <PreviewCode>
                     {`
-import {
-  ScrollAreaRoot,
-  ScrollAreaViewport,
-  ScrollAreaContent,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaCorner,
-} from "@/components/ui/scroll-area";
+import { ScrollAreaRoot } from "@/components/ui/scroll-area";
           `}
                 </PreviewCode>
                 <PreviewCode>
                     {`
 <ScrollAreaRoot className="h-72 w-70">
-  <ScrollAreaViewport>
-    <ScrollAreaContent>
-      {/* Scrollable content here */}
-    </ScrollAreaContent>
-  </ScrollAreaViewport>
-  <ScrollAreaScrollbar>
-    <ScrollAreaThumb />
-  </ScrollAreaScrollbar>
-  <ScrollAreaCorner />
+  {/* Scrollable content here */}
 </ScrollAreaRoot>
           `}
                 </PreviewCode>

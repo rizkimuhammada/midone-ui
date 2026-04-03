@@ -35,7 +35,19 @@ export function ScrollAreaRoot({
                 {...api.getRootProps()}
                 {...props}
             >
-                {asChild ? children : <div>{children}</div>}
+                {asChild ? children : (
+                    <div>
+                        <ScrollAreaViewport>
+                            <ScrollAreaContent>
+                                {children}
+                            </ScrollAreaContent>
+                        </ScrollAreaViewport>
+                        <ScrollAreaScrollbar>
+                            <ScrollAreaThumb />
+                        </ScrollAreaScrollbar>
+                        <ScrollAreaCorner />
+                    </div>
+                )}
             </Slot>
         </ApiContext.Provider>
     );

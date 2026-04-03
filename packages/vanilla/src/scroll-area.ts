@@ -15,13 +15,47 @@ function initScrollArea() {
         root.setAttribute("data-part", "root");
         root.style.cssText += ";position:relative;overflow:hidden;";
 
-        const viewportEl = root.querySelector<HTMLElement>('[data-component="scroll-area-viewport"]');
-        const contentEl = root.querySelector<HTMLElement>('[data-component="scroll-area-content"]');
-        const scrollbarEl = root.querySelector<HTMLElement>('[data-component="scroll-area-scrollbar"]');
-        const thumbEl = root.querySelector<HTMLElement>('[data-component="scroll-area-thumb"]');
-        const cornerEl = root.querySelector<HTMLElement>('[data-component="scroll-area-corner"]');
+        let viewportEl = root.querySelector<HTMLElement>('[data-component="scroll-area-viewport"]');
+        let contentEl = root.querySelector<HTMLElement>('[data-component="scroll-area-content"]');
+        let scrollbarEl = root.querySelector<HTMLElement>('[data-component="scroll-area-scrollbar"]');
+        let thumbEl = root.querySelector<HTMLElement>('[data-component="scroll-area-thumb"]');
+        let cornerEl = root.querySelector<HTMLElement>('[data-component="scroll-area-corner"]');
 
-        if (!viewportEl) return;
+        if (!viewportEl) {
+            viewportEl = document.createElement("div");
+            viewportEl.setAttribute("data-component", "scroll-area-viewport");
+            
+            if (!contentEl) {
+                contentEl = document.createElement("div");
+                contentEl.setAttribute("data-component", "scroll-area-content");
+                const children = Array.from(root.childNodes);
+                children.forEach(child => {
+                    if (child instanceof HTMLElement && child.getAttribute("data-component")?.startsWith("scroll-area-")) {
+                        return;
+                    }
+                    contentEl!.appendChild(child);
+                });
+                viewportEl.appendChild(contentEl);
+            } else {
+                viewportEl.appendChild(contentEl);
+            }
+            root.appendChild(viewportEl);
+        }
+
+        if (!scrollbarEl) {
+            scrollbarEl = document.createElement("div");
+            scrollbarEl.setAttribute("data-component", "scroll-area-scrollbar");
+            thumbEl = document.createElement("div");
+            thumbEl.setAttribute("data-component", "scroll-area-thumb");
+            scrollbarEl.appendChild(thumbEl);
+            root.appendChild(scrollbarEl);
+        }
+
+        if (!cornerEl) {
+            cornerEl = document.createElement("div");
+            cornerEl.setAttribute("data-component", "scroll-area-corner");
+            root.appendChild(cornerEl);
+        }
 
         viewportEl.className = cn(scrollAreaViewport, viewportEl.className);
         viewportEl.setAttribute("data-scope", "scroll-area");
@@ -40,7 +74,6 @@ function initScrollArea() {
             cornerEl.setAttribute("data-part", "corner");
         }
 
-        if (!scrollbarEl) return;
 
         scrollbarEl.className = cn(scrollAreaScrollbar, scrollbarEl.className);
         scrollbarEl.setAttribute("data-scope", "scroll-area");
