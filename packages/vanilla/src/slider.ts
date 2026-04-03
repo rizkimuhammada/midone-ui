@@ -29,17 +29,62 @@ function initSlider() {
         root.setAttribute("data-scope", "slider");
         root.setAttribute("data-part", "root");
 
-        const labelEl = root.querySelector<HTMLElement>('[data-component="slider-label"]');
+        let labelEl = root.querySelector<HTMLElement>('[data-component="slider-label"]');
+        const dataLabel = root.getAttribute("data-label");
+        const type = root.getAttribute("data-type") ?? "single";
+
+        if (!labelEl && dataLabel) {
+            labelEl = document.createElement("div");
+            labelEl.setAttribute("data-component", "slider-label");
+            labelEl.textContent = dataLabel;
+            root.insertBefore(labelEl, root.firstChild);
+        }
+
         if (labelEl) labelEl.className = cn(label, sliderLabel, labelEl.className);
 
         const valueTextEl = root.querySelector<HTMLElement>('[data-component="slider-value-text"]');
         if (valueTextEl) valueTextEl.className = cn(sliderValueText, valueTextEl.className);
 
-        const controlEl = root.querySelector<HTMLElement>('[data-component="slider-control"]');
-        const trackEl = root.querySelector<HTMLElement>('[data-component="slider-track"]');
-        const rangeEl = root.querySelector<HTMLElement>('[data-component="slider-range"]');
-        const thumbEls = Array.from(root.querySelectorAll<HTMLElement>('[data-component="slider-thumb"]'));
+        let controlEl = root.querySelector<HTMLElement>('[data-component="slider-control"]');
+        let trackEl = root.querySelector<HTMLElement>('[data-component="slider-track"]');
+        let rangeEl = root.querySelector<HTMLElement>('[data-component="slider-range"]');
+        let thumbEls = Array.from(root.querySelectorAll<HTMLElement>('[data-component="slider-thumb"]'));
         const markerGroupEl = root.querySelector<HTMLElement>('[data-component="slider-marker-group"]');
+
+        if (!controlEl) {
+            controlEl = document.createElement("div");
+            controlEl.setAttribute("data-component", "slider-control");
+            
+            if (!trackEl) {
+                trackEl = document.createElement("div");
+                trackEl.setAttribute("data-component", "slider-track");
+                rangeEl = document.createElement("div");
+                rangeEl.setAttribute("data-component", "slider-range");
+                trackEl.appendChild(rangeEl);
+                controlEl.appendChild(trackEl);
+            } else {
+                controlEl.appendChild(trackEl);
+            }
+
+            if (thumbEls.length === 0) {
+                const thumbCount = type === "range" ? 2 : 1;
+                for (let i = 0; i < thumbCount; i++) {
+                    const thumb = document.createElement("div");
+                    thumb.setAttribute("data-component", "slider-thumb");
+                    controlEl.appendChild(thumb);
+                }
+                thumbEls = Array.from(controlEl.querySelectorAll<HTMLElement>('[data-component="slider-thumb"]'));
+            }
+
+            const firstSlotChild = Array.from(root.children).find(
+                (el) => !["slider-label", "slider-control"].includes(el.getAttribute("data-component") ?? "")
+            ) as HTMLElement | undefined;
+            if (firstSlotChild) {
+                root.insertBefore(controlEl, firstSlotChild);
+            } else {
+                root.appendChild(controlEl);
+            }
+        }
 
         if (!controlEl || !trackEl || !rangeEl) return;
 

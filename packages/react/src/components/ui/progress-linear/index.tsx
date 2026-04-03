@@ -19,8 +19,10 @@ export function ProgressRoot({
   children,
   className,
   asChild = false,
+  label,
+  trackClass,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean; label?: string; trackClass?: string }) {
   const service = useMachine(progress.machine, { id: useId(), ...props });
   const api = progress.connect(service, normalizeProps);
 
@@ -31,7 +33,18 @@ export function ProgressRoot({
         {...api?.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {label && <ProgressLabel>{label}</ProgressLabel>}
+            <ProgressTrack className={trackClass}>
+              <ProgressRange />
+            </ProgressTrack>
+            <ProgressValueText />
+            {children}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );

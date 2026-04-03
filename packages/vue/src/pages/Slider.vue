@@ -1,13 +1,7 @@
 <script lang="ts" setup>
 import {
   SliderRoot,
-  SliderLabel,
   SliderValueText,
-  SliderControl,
-  SliderTrack,
-  SliderRange,
-  SliderThumb,
-  SliderHiddenInput,
   SliderMarkerGroup,
   SliderMarker,
 } from "@/components/ui/slider";
@@ -20,16 +14,7 @@ import {
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
         <div class="text-sm text-muted-foreground">
-          <SliderRoot class="w-72" :defaultValue="[20]">
-            <SliderLabel>Max Items</SliderLabel>
-            <SliderControl>
-              <SliderTrack>
-                <SliderRange />
-              </SliderTrack>
-              <SliderThumb :index="0">
-                <SliderHiddenInput />
-              </SliderThumb>
-            </SliderControl>
+          <SliderRoot class="w-72" :defaultValue="[20]" label="Max Items">
             <div
               class="flex items-center text-xs gap-1 font-medium justify-center opacity-70"
             >
@@ -42,19 +27,7 @@ import {
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
         <div class="text-sm text-muted-foreground">
-          <SliderRoot class="w-72" :value="[20, 80]">
-            <SliderLabel>Price Range</SliderLabel>
-            <SliderControl>
-              <SliderTrack>
-                <SliderRange />
-              </SliderTrack>
-              <SliderThumb :index="0">
-                <SliderHiddenInput />
-              </SliderThumb>
-              <SliderThumb :index="1">
-                <SliderHiddenInput />
-              </SliderThumb>
-            </SliderControl>
+          <SliderRoot class="w-72" :value="[20, 80]" label="Price Range" type="range">
             <SliderMarkerGroup>
               <SliderMarker :value="0">$0</SliderMarker>
               <SliderMarker :value="25">$25</SliderMarker>

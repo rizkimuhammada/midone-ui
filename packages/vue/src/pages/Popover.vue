@@ -2,7 +2,6 @@
 import {
   PopoverRoot,
   PopoverTrigger,
-  PopoverPositioner,
   PopoverContent,
   PopoverTitle,
   PopoverDescription,
@@ -14,8 +13,7 @@ import { Input } from "@/components/ui/input";
 <template>
   <PopoverRoot>
     <PopoverTrigger class="w-56"> Open Popover </PopoverTrigger>
-    <PopoverPositioner>
-      <PopoverContent class="w-100">
+    <PopoverContent class="w-100">
         <PopoverTitle>Dimensions</PopoverTitle>
         <PopoverDescription>
           Set the dimensions for the layer.
@@ -38,7 +36,6 @@ import { Input } from "@/components/ui/input";
             <Input id="maxHeight" defaultValue="none" class="col-span-2" />
           </div>
         </div>
-      </PopoverContent>
-    </PopoverPositioner>
+    </PopoverContent>
   </PopoverRoot>
 </template>

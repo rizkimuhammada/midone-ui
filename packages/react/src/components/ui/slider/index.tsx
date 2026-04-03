@@ -25,8 +25,10 @@ export function SliderRoot({
   children,
   className,
   asChild = false,
+  label,
+  type = "single",
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean; label?: string; type?: "single" | "range" }) {
   const service = useMachine(slider.machine, {
     ...props,
     id: useId(),
@@ -40,7 +42,27 @@ export function SliderRoot({
         {...api?.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {label && <SliderLabel>{label}</SliderLabel>}
+            <SliderControl>
+              <SliderTrack>
+                <SliderRange />
+              </SliderTrack>
+              <SliderThumb index={0}>
+                <SliderHiddenInput />
+              </SliderThumb>
+              {type === "range" && (
+                <SliderThumb index={1}>
+                  <SliderHiddenInput />
+                </SliderThumb>
+              )}
+            </SliderControl>
+            {children}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );

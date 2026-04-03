@@ -1,11 +1,4 @@
-import {
-  ProgressRoot,
-  ProgressLabel,
-  ProgressValueText,
-  ProgressCircle,
-  ProgressCircleTrack,
-  ProgressCircleRange,
-} from "@/components/ui/progress-circular";
+import { ProgressRoot } from "@/components/ui/progress-circular";
 import {
   Preview,
   SectionTitle,
@@ -22,27 +15,21 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <ProgressRoot defaultValue={42}>
-                  <ProgressLabel>Progress Circular</ProgressLabel>
-                  <ProgressCircle className="max-w-48">
-                    <ProgressCircleTrack />
-                    <ProgressCircleRange />
-                  </ProgressCircle>
-                  <ProgressValueText />
-                </ProgressRoot>
+                <ProgressRoot
+                  defaultValue={42}
+                  label="Progress Circular"
+                  circleClass="max-w-48"
+                />
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-        <ProgressRoot defaultValue={42}>
-          <ProgressLabel>Progress Circular</ProgressLabel>
-          <ProgressCircle className="max-w-48">
-            <ProgressCircleTrack />
-            <ProgressCircleRange />
-          </ProgressCircle>
-          <ProgressValueText />
-        </ProgressRoot>
+<ProgressRoot 
+  defaultValue={42} 
+  label="Progress Circular" 
+  circleClass="max-w-48" 
+/>
                         `}
               </PreviewCode>
             ),
@@ -80,8 +67,10 @@ export function ProgressRoot({
   children,
   className,
   asChild = false,
+  label,
+  circleClass,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean; label?: string; circleClass?: string }) {
   const service = useMachine(progress.machine, { id: useId(), ...props });
   const api = progress.connect(service, normalizeProps);
 
@@ -92,7 +81,19 @@ export function ProgressRoot({
         {...api?.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {label && <ProgressLabel>{label}</ProgressLabel>}
+            <ProgressCircle className={circleClass}>
+              <ProgressCircleTrack />
+              <ProgressCircleRange />
+            </ProgressCircle>
+            <ProgressValueText />
+            {children}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );
@@ -193,26 +194,16 @@ export function ProgressCircleRange({
         <SectionTitle>Usage</SectionTitle>
         <PreviewCode>
           {`
-import {
-  ProgressRoot,
-  ProgressLabel,
-  ProgressValueText,
-  ProgressCircle,
-  ProgressCircleTrack,
-  ProgressCircleRange,
-} from "@/components/ui/progress-circular";
+import { ProgressRoot } from "@/components/ui/progress-circular";
               `}
         </PreviewCode>
         <PreviewCode>
           {`
-<ProgressRoot defaultValue={42}>
-  <ProgressLabel>Progress Circular</ProgressLabel>
-  <ProgressCircle className="max-w-48">
-    <ProgressCircleTrack />
-    <ProgressCircleRange />
-  </ProgressCircle>
-  <ProgressValueText />
-</ProgressRoot>
+<ProgressRoot 
+  defaultValue={42} 
+  label="Progress Circular" 
+  circleClass="max-w-48" 
+/>
               `}
         </PreviewCode>
       </div>

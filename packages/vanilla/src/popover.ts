@@ -29,9 +29,16 @@ function initPopover() {
     document.querySelectorAll<HTMLElement>('[data-component="popover-root"]').forEach((rootEl) => {
         const root = handleAsChild(rootEl);
         const triggerEl = root.querySelector<HTMLElement>('[data-component="popover-trigger"]');
-        const positionerEl = root.querySelector<HTMLElement>('[data-component="popover-positioner"]');
+        let positionerEl = root.querySelector<HTMLElement>('[data-component="popover-positioner"]');
         const contentEl = root.querySelector<HTMLElement>('[data-component="popover-content"]');
-        if (!triggerEl || !positionerEl || !contentEl) return;
+        if (!triggerEl || !contentEl) return;
+
+        if (!positionerEl) {
+            positionerEl = document.createElement("div");
+            positionerEl.setAttribute("data-component", "popover-positioner");
+            positionerEl.appendChild(contentEl);
+            root.appendChild(positionerEl);
+        }
 
         const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");
         const trigger = handleAsChild(triggerEl);

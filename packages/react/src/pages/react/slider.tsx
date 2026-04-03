@@ -1,12 +1,6 @@
 import {
   SliderRoot,
-  SliderLabel,
   SliderValueText,
-  SliderControl,
-  SliderTrack,
-  SliderRange,
-  SliderThumb,
-  SliderHiddenInput,
   SliderMarkerGroup,
   SliderMarker,
 } from "@/components/ui/slider";
@@ -26,16 +20,7 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <SliderRoot className="w-72" value={[20]}>
-                  <SliderLabel>Max Items</SliderLabel>
-                  <SliderControl>
-                    <SliderTrack>
-                      <SliderRange />
-                    </SliderTrack>
-                    <SliderThumb index={0}>
-                      <SliderHiddenInput />
-                    </SliderThumb>
-                  </SliderControl>
+                <SliderRoot className="w-72" defaultValue={[20]} label="Max Items">
                   <div className="flex items-center text-xs gap-1 font-medium justify-center opacity-70">
                     <SliderValueText /> Items
                   </div>
@@ -45,16 +30,7 @@ function Main() {
             code: (
               <PreviewCode>
                 {`
-<SliderRoot className="w-72" value={[20]}>
-  <SliderLabel>Max Items</SliderLabel>
-  <SliderControl>
-    <SliderTrack>
-      <SliderRange />
-    </SliderTrack>
-    <SliderThumb index={0}>
-      <SliderHiddenInput />
-    </SliderThumb>
-  </SliderControl>
+<SliderRoot className="w-72" defaultValue={[20]} label="Max Items">
   <div className="flex items-center text-xs gap-1 font-medium justify-center opacity-70">
     <SliderValueText /> Items
   </div>
@@ -101,8 +77,10 @@ export function SliderRoot({
   children,
   className,
   asChild = false,
+  label,
+  type = "single",
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean; label?: string; type?: "single" | "range" }) {
   const service = useMachine(slider.machine, {
     ...props,
     id: useId(),
@@ -116,7 +94,27 @@ export function SliderRoot({
         {...api?.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {label && <SliderLabel>{label}</SliderLabel>}
+            <SliderControl>
+              <SliderTrack>
+                <SliderRange />
+              </SliderTrack>
+              <SliderThumb index={0}>
+                <SliderHiddenInput />
+              </SliderThumb>
+              {type === "range" && (
+                <SliderThumb index={1}>
+                  <SliderHiddenInput />
+                </SliderThumb>
+              )}
+            </SliderControl>
+            {children}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );
@@ -301,37 +299,13 @@ export function SliderMarker({
         <SectionTitle>Usage</SectionTitle>
         <PreviewCode>
           {`
-import {
-  SliderRoot,
-  SliderLabel,
-  SliderValueText,
-  SliderControl,
-  SliderTrack,
-  SliderRange,
-  SliderThumb,
-  SliderHiddenInput,
-  SliderMarkerGroup,
-  SliderMarker,
-} from "@/components/ui/slider";
-                    `}
+import { SliderRoot } from "@/components/ui/slider";
+          `}
         </PreviewCode>
         <PreviewCode>
           {`
-<SliderRoot className="w-72" value={[20]}>
-  <SliderLabel>Max Items</SliderLabel>
-  <SliderControl>
-    <SliderTrack>
-      <SliderRange />
-    </SliderTrack>
-    <SliderThumb index={0}>
-      <SliderHiddenInput />
-    </SliderThumb>
-  </SliderControl>
-  <div className="flex items-center text-xs gap-1 font-medium justify-center opacity-70">
-    <SliderValueText /> Items
-  </div>
-</SliderRoot>
-                    `}
+<SliderRoot className="w-72" defaultValue={[20]} label="Slider Label" />
+          `}
         </PreviewCode>
       </div>
       <div id="variants">
@@ -341,19 +315,7 @@ import {
           {() => ({
             preview: (
               <>
-                <SliderRoot className="w-72" value={[20, 80]}>
-                  <SliderLabel>Price Range</SliderLabel>
-                  <SliderControl>
-                    <SliderTrack>
-                      <SliderRange />
-                    </SliderTrack>
-                    <SliderThumb index={0}>
-                      <SliderHiddenInput />
-                    </SliderThumb>
-                    <SliderThumb index={1}>
-                      <SliderHiddenInput />
-                    </SliderThumb>
-                  </SliderControl>
+                <SliderRoot className="w-72" value={[20, 80]} label="Price Range" type="range">
                   <SliderMarkerGroup>
                     <SliderMarker value={0}>$0</SliderMarker>
                     <SliderMarker value={25}>$25</SliderMarker>
@@ -367,19 +329,7 @@ import {
             code: (
               <PreviewCode>
                 {`
-<SliderRoot className="w-72" value={[20, 80]}>
-  <SliderLabel>Price Range</SliderLabel>
-  <SliderControl>
-    <SliderTrack>
-      <SliderRange />
-    </SliderTrack>
-    <SliderThumb index={0}>
-      <SliderHiddenInput />
-    </SliderThumb>
-    <SliderThumb index={1}>
-      <SliderHiddenInput />
-    </SliderThumb>
-  </SliderControl>
+<SliderRoot className="w-72" value={[20, 80]} label="Price Range" type="range">
   <SliderMarkerGroup>
     <SliderMarker value={0}>$0</SliderMarker>
     <SliderMarker value={25}>$25</SliderMarker>

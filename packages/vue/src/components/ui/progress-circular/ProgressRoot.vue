@@ -6,12 +6,15 @@ import { cn } from "@midoneui/core/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";
 import { progressRoot } from "@midoneui/core/styles/progress-circular.styles";
+import { ProgressLabel, ProgressCircle, ProgressCircleTrack, ProgressCircleRange, ProgressValueText } from ".";
 
 const {
   class: className,
   asChild = false,
+  label,
+  circleClass,
   ...props
-} = defineProps<Partial<Props> & { class?: string; asChild?: boolean }>();
+} = defineProps<Partial<Props> & { class?: string; asChild?: boolean; label?: string; circleClass?: string }>();
 
 const service = useMachine(progress.machine, {
   ...props,
@@ -29,6 +32,12 @@ provide("progressApi", api);
   >
     <slot v-if="asChild" />
     <div v-else>
+      <ProgressLabel v-if="label">{{ label }}</ProgressLabel>
+      <ProgressCircle :class="circleClass">
+        <ProgressCircleTrack />
+        <ProgressCircleRange />
+      </ProgressCircle>
+      <ProgressValueText />
       <slot />
     </div>
   </Slot>

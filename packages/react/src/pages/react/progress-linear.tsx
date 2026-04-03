@@ -1,10 +1,4 @@
-import {
-  ProgressRoot,
-  ProgressLabel,
-  ProgressValueText,
-  ProgressTrack,
-  ProgressRange,
-} from "@/components/ui/progress-linear";
+import { ProgressRoot } from "@/components/ui/progress-linear";
 import {
   Preview,
   SectionTitle,
@@ -21,25 +15,21 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <ProgressRoot defaultValue={42}>
-                  <ProgressLabel>Progress Linear</ProgressLabel>
-                  <ProgressTrack className="max-w-72">
-                    <ProgressRange />
-                  </ProgressTrack>
-                  <ProgressValueText />
-                </ProgressRoot>
+                <ProgressRoot
+                  defaultValue={42}
+                  label="Progress Linear"
+                  trackClass="max-w-72"
+                />
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-        <ProgressRoot defaultValue={42}>
-          <ProgressLabel>Progress Linear</ProgressLabel>
-          <ProgressTrack className="max-w-72">
-            <ProgressRange />
-          </ProgressTrack>
-          <ProgressValueText />
-        </ProgressRoot>
+<ProgressRoot 
+  defaultValue={42} 
+  label="Progress Linear" 
+  trackClass="max-w-72" 
+/>
                         `}
               </PreviewCode>
             ),
@@ -76,8 +66,10 @@ export function ProgressRoot({
   children,
   className,
   asChild = false,
+  label,
+  trackClass,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean; label?: string; trackClass?: string }) {
   const service = useMachine(progress.machine, { id: useId(), ...props });
   const api = progress.connect(service, normalizeProps);
 
@@ -88,7 +80,18 @@ export function ProgressRoot({
         {...api?.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {label && <ProgressLabel>{label}</ProgressLabel>}
+            <ProgressTrack className={trackClass}>
+              <ProgressRange />
+            </ProgressTrack>
+            <ProgressValueText />
+            {children}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );
@@ -174,24 +177,16 @@ export function ProgressRange({
         <SectionTitle>Usage</SectionTitle>
         <PreviewCode>
           {`
-import {
-  ProgressRoot,
-  ProgressLabel,
-  ProgressValueText,
-  ProgressTrack,
-  ProgressRange,
-} from "@/components/ui/progress-linear";
+import { ProgressRoot } from "@/components/ui/progress-linear";
               `}
         </PreviewCode>
         <PreviewCode>
           {`
-<ProgressRoot defaultValue={42}>
-  <ProgressLabel>Progress Linear</ProgressLabel>
-  <ProgressTrack className="max-w-72">
-    <ProgressRange />
-  </ProgressTrack>
-  <ProgressValueText />
-</ProgressRoot>
+<ProgressRoot 
+  defaultValue={42} 
+  label="Progress Linear" 
+  trackClass="max-w-72" 
+/>
               `}
         </PreviewCode>
       </div>

@@ -23,14 +23,35 @@ function initProgressLinear() {
         root.setAttribute("aria-valuemax", String(max));
         root.setAttribute("aria-valuenow", String(value));
 
-        const labelEl = root.querySelector<HTMLElement>('[data-component="progress-label"]');
+        let labelEl = root.querySelector<HTMLElement>('[data-component="progress-label"]');
+        const dataLabel = root.getAttribute("data-label");
+        if (!labelEl && dataLabel) {
+            labelEl = document.createElement("label");
+            labelEl.setAttribute("data-component", "progress-label");
+            labelEl.textContent = dataLabel;
+            root.appendChild(labelEl);
+        }
+
         if (labelEl) {
             labelEl.className = cn(label, progressLabel, labelEl.className);
             labelEl.setAttribute("data-scope", "progress");
             labelEl.setAttribute("data-part", "label");
         }
 
-        const trackEl = root.querySelector<HTMLElement>('[data-component="progress-track"]');
+        let trackEl = root.querySelector<HTMLElement>('[data-component="progress-track"]');
+        let rangeEl = root.querySelector<HTMLElement>('[data-component="progress-range"]');
+        if (!trackEl) {
+            trackEl = document.createElement("div");
+            trackEl.setAttribute("data-component", "progress-track");
+            const trackClass = root.getAttribute("data-track-class");
+            if (trackClass) trackEl.setAttribute("class", trackClass);
+
+            rangeEl = document.createElement("div");
+            rangeEl.setAttribute("data-component", "progress-range");
+            trackEl.appendChild(rangeEl);
+            root.appendChild(trackEl);
+        }
+
         if (trackEl) {
             trackEl.className = cn(progressTrack, trackEl.className);
             trackEl.setAttribute("data-scope", "progress");
@@ -38,7 +59,6 @@ function initProgressLinear() {
             trackEl.style.position = "relative";
         }
 
-        const rangeEl = root.querySelector<HTMLElement>('[data-component="progress-range"]');
         if (rangeEl) {
             rangeEl.className = cn(progressRange, rangeEl.className);
             rangeEl.setAttribute("data-scope", "progress");
@@ -46,7 +66,13 @@ function initProgressLinear() {
             rangeEl.style.width = `${percent}%`;
         }
 
-        const valueTextEl = root.querySelector<HTMLElement>('[data-component="progress-value-text"]');
+        let valueTextEl = root.querySelector<HTMLElement>('[data-component="progress-value-text"]');
+        if (!valueTextEl) {
+            valueTextEl = document.createElement("div");
+            valueTextEl.setAttribute("data-component", "progress-value-text");
+            root.appendChild(valueTextEl);
+        }
+
         if (valueTextEl) {
             valueTextEl.className = cn(progressValueText, valueTextEl.className);
             valueTextEl.setAttribute("data-scope", "progress");

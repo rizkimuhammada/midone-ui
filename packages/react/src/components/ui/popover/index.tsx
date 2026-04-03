@@ -118,22 +118,24 @@ export function PopoverContent({
   const api = useContext(ApiContext);
 
   return (
-    <Slot
-      className={cn(popoverContent, className)}
-      {...api?.getContentProps()}
-      {...props}
-    >
-      {asChild ? (
-        children
-      ) : (
-        <Box raised="single" className={cn(popoverContent, className)}>
-          <div>{children}</div>
-          <PopoverArrow>
-            <PopoverArrowTip />
-          </PopoverArrow>
-        </Box>
-      )}
-    </Slot>
+    <PopoverPositioner>
+      <Slot
+        className={cn(popoverContent, className)}
+        {...api?.getContentProps()}
+        {...props}
+      >
+        {asChild ? (
+          children
+        ) : (
+          <Box raised="single" className={cn(popoverContent, className)}>
+            <div>{children}</div>
+            <PopoverArrow>
+              <PopoverArrowTip />
+            </PopoverArrow>
+          </Box>
+        )}
+      </Slot>
+    </PopoverPositioner>
   );
 }
 

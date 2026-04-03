@@ -20,8 +20,10 @@ export function ProgressRoot({
   children,
   className,
   asChild = false,
+  label,
+  circleClass,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean; label?: string; circleClass?: string }) {
   const service = useMachine(progress.machine, { id: useId(), ...props });
   const api = progress.connect(service, normalizeProps);
 
@@ -32,7 +34,19 @@ export function ProgressRoot({
         {...api?.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {label && <ProgressLabel>{label}</ProgressLabel>}
+            <ProgressCircle className={circleClass}>
+              <ProgressCircleTrack />
+              <ProgressCircleRange />
+            </ProgressCircle>
+            <ProgressValueText />
+            {children}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );
