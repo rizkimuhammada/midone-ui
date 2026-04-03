@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import {
-  CheckboxRoot,
-  CheckboxLabel,
-  CheckboxControl,
+  CheckboxRoot
 } from "@/components/ui/checkbox";
 </script>
 
@@ -13,14 +11,6 @@ import {
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
         <CheckboxRoot label="Accept terms and conditions" />
-      </div>
-      <div
-        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
-      >
-        <CheckboxRoot>
-          <CheckboxControl />
-          <CheckboxLabel>Accept terms and conditions</CheckboxLabel>
-        </CheckboxRoot>
       </div>
     </div>
   </div>

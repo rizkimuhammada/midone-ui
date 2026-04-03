@@ -14,9 +14,11 @@ function Main() {
         <Preview>
           {() => ({
             preview: (
-              <>
-                <CheckboxRoot label="Accept terms and conditions" />
-              </>
+              <div className="grid grid-cols-2 w-full">
+                <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+                  <CheckboxRoot label="Accept terms and conditions" />
+                </div>
+              </div>
             ),
             code: (
               <PreviewCode>

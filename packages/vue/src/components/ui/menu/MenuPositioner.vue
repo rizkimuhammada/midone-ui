@@ -18,7 +18,7 @@ const api = inject<Api>("menuApi");
 </script>
 
 <template>
-  <Teleport to="body">
+  <Teleport to="body" v-if="api?.open">
     <Slot
       :class="cn(menuPositioner, className)"
       v-bind="{ ...props, ...$attrs, ...api?.getPositionerProps() }"
