@@ -115,8 +115,19 @@ function initMenuRoot(rootEl: Element) {
     root.setAttribute("data-part", "root");
 
     const triggerEl = root.querySelector<HTMLElement>('[data-component="menu-trigger"]');
-    const positionerEl = root.querySelector<HTMLElement>('[data-component="menu-positioner"]');
-    if (!triggerEl || !positionerEl) return;
+    let positionerEl = root.querySelector<HTMLElement>('[data-component="menu-positioner"]');
+    const contentEl = root.querySelector<HTMLElement>('[data-component="menu-content"]');
+
+    if (!triggerEl || (!positionerEl && !contentEl)) return;
+
+    if (!positionerEl && contentEl) {
+        positionerEl = document.createElement("div");
+        positionerEl.setAttribute("data-component", "menu-positioner");
+        contentEl.parentNode?.insertBefore(positionerEl, contentEl);
+        positionerEl.appendChild(contentEl);
+    }
+
+    if (!positionerEl) return;
 
     const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");
     const trigger = handleAsChild(triggerEl);
@@ -153,11 +164,12 @@ function initMenuRoot(rootEl: Element) {
         });
     }
 
-    const contentEl = positioner.querySelector<HTMLElement>('[data-component="menu-content"]');
     if (!contentEl) return;
     const innerContainer = processContent(contentEl);
 
-    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-item"]').forEach(processItem);
+    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-item"]').forEach(itemEl => {
+        if (!itemEl.closest('[data-component="menu-radio-group"]')) processItem(itemEl);
+    });
     innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-separator"]').forEach(sepEl => {
         const sep = handleAsChild(sepEl);
         sep.className = cn(menuSeparator, sep.className);
@@ -169,6 +181,15 @@ function initMenuRoot(rootEl: Element) {
         group.className = cn(menuRadioItemGroup, group.className);
         group.setAttribute("data-scope", "menu");
         group.setAttribute("data-part", "item-group");
+
+        const label = group.getAttribute("data-label");
+        if (label) {
+            const labelEl = document.createElement("div");
+            labelEl.setAttribute("data-component", "menu-group-label");
+            labelEl.textContent = label;
+            group.insertBefore(labelEl, group.firstChild);
+        }
+
         group.querySelectorAll<HTMLElement>('[data-component="menu-group-label"]').forEach(labelEl => {
             const label = handleAsChild(labelEl);
             label.className = cn(menuItemGroupLabel, label.className);
@@ -180,17 +201,26 @@ function initMenuRoot(rootEl: Element) {
 
     innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-trigger-item"]').forEach(triggerItem => {
         processItem(triggerItem);
-        const nestedPos = triggerItem.querySelector<HTMLElement>('[data-component="menu-positioner-nested"]');
-        if (!nestedPos) return;
+        let nestedPosEl = triggerItem.querySelector<HTMLElement>('[data-component="menu-positioner-nested"]');
+        const nestedContentEl = triggerItem.querySelector<HTMLElement>('[data-component="menu-content"]');
 
-        const nested = handleAsChild(nestedPos);
+        if (!nestedPosEl && nestedContentEl) {
+            nestedPosEl = document.createElement("div");
+            nestedPosEl.setAttribute("data-component", "menu-positioner-nested");
+            nestedContentEl.parentNode?.insertBefore(nestedPosEl, nestedContentEl);
+            nestedPosEl.appendChild(nestedContentEl);
+        }
+
+        if (!nestedPosEl) return;
+
+        const nested = handleAsChild(nestedPosEl);
         nested.className = cn(menuPositioner, nested.className);
         nested.classList.add("hidden");
         nested.style.cssText = "position:fixed;z-index:50;min-width:12rem;";
 
-        const nestedContentEl = nested.querySelector<HTMLElement>('[data-component="menu-content"]');
-        if (nestedContentEl) {
-            const nestedInner = processContent(nestedContentEl);
+        const finalNestedContentEl = nested.querySelector<HTMLElement>('[data-component="menu-content"]');
+        if (finalNestedContentEl) {
+            const nestedInner = processContent(finalNestedContentEl);
             nestedInner.querySelectorAll<HTMLElement>('[data-component="menu-item"]').forEach(processItem);
         }
 
@@ -223,8 +253,12 @@ function initMenuRoot(rootEl: Element) {
 
     innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="checkbox"]').forEach(item => {
         item.addEventListener("click", () => {
+            const isChecked = item.hasAttribute("data-checked");
+            if (isChecked) item.removeAttribute("data-checked");
+            else item.setAttribute("data-checked", "");
+
             const ind = item.querySelector<HTMLElement>("[data-part='item-indicator']");
-            if (ind) ind.hidden = !ind.hidden;
+            if (ind) ind.hidden = !item.hasAttribute("data-checked");
         });
     });
 
@@ -232,8 +266,12 @@ function initMenuRoot(rootEl: Element) {
         group.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="radio"]').forEach(item => {
             item.addEventListener("click", () => {
                 group.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="radio"]').forEach(sibling => {
+                    const isSelected = sibling === item;
+                    if (isSelected) sibling.setAttribute("data-checked", "");
+                    else sibling.removeAttribute("data-checked");
+
                     const ind = sibling.querySelector<HTMLElement>("[data-part='item-indicator']");
-                    if (ind) ind.hidden = sibling !== item;
+                    if (ind) ind.hidden = !isSelected;
                 });
             });
         });
@@ -260,7 +298,6 @@ function initMenuRoot(rootEl: Element) {
 
     trigger.addEventListener("click", (e) => {
         e.stopPropagation();
-        const isOpen = !positioner.classList.contains("hidden");
         document.querySelectorAll<HTMLElement>(".menu-positioner-teleported").forEach(p => {
             if (p !== positioner) {
                 closeMenu(p, menuIndicatorMap.get(p) ?? null);

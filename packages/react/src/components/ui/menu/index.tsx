@@ -20,6 +20,7 @@ import { Slot } from "@/components/ui/slot";
 import { createContext, useContext, useId } from "react";
 
 const ApiContext = createContext<Api | null>(null);
+const MenuGroupContext = createContext<string | null>(null);
 
 export function MenuRoot({
   children,
@@ -28,13 +29,23 @@ export function MenuRoot({
   closeOnSelect = false,
   ...props
 }: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
-  const service = useMachine(menu.machine, { ...props, closeOnSelect, id: useId() });
+  const service = useMachine(menu.machine, {
+    ...props,
+    closeOnSelect,
+    id: useId(),
+  });
   const api = menu.connect(service, normalizeProps);
 
   return (
     <ApiContext.Provider value={api}>
       <Slot className={cn(menuRoot, className)} {...props}>
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {children}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );
@@ -88,6 +99,8 @@ export function MenuPositioner({
 }: React.ComponentProps<"div"> & { asChild?: boolean }) {
   const api = useContext(ApiContext);
 
+  if (!api?.open) return null;
+
   return (
     <Portal>
       <Slot
@@ -109,7 +122,7 @@ export function MenuContent({
 }: React.ComponentProps<"div"> & { asChild?: boolean }) {
   const api = useContext(ApiContext);
 
-  return (
+  const content = (
     <Slot
       className={cn(menuContent, className)}
       {...api?.getContentProps()}
@@ -124,6 +137,8 @@ export function MenuContent({
       )}
     </Slot>
   );
+
+  return <MenuPositioner>{content}</MenuPositioner>;
 }
 
 export function MenuItem({
@@ -170,7 +185,7 @@ export function MenuTriggerItem({
   return (
     <Slot
       className={cn(menuItem, className)}
-      {...api?.getTriggerItemProps(api)}
+      {...api?.getTriggerItemProps(api!)}
       {...props}
     >
       {asChild ? (
@@ -224,12 +239,29 @@ export function MenuRadioItemGroup({
   children,
   className,
   asChild = false,
+  label,
   ...props
-}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & { asChild?: boolean; label?: string }) {
+  const api = useContext(ApiContext);
+  const id = useId();
+
   return (
-    <Slot className={cn(menuRadioItemGroup, className)} {...props}>
-      {asChild ? children : <div>{children}</div>}
-    </Slot>
+    <MenuGroupContext.Provider value={id}>
+      <Slot
+        className={cn(menuRadioItemGroup, className)}
+        {...api?.getItemGroupProps({ id })}
+        {...props}
+      >
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {label && <MenuItemGroupLabel>{label}</MenuItemGroupLabel>}
+            {children}
+          </div>
+        )}
+      </Slot>
+    </MenuGroupContext.Provider>
   );
 }
 
@@ -239,8 +271,15 @@ export function MenuItemGroupLabel({
   asChild = false,
   ...props
 }: React.ComponentProps<"label"> & { asChild?: boolean }) {
+  const api = useContext(ApiContext);
+  const id = useContext(MenuGroupContext);
+
   return (
-    <Slot className={cn(menuItemGroupLabel, className)} {...props}>
+    <Slot
+      className={cn(menuItemGroupLabel, className)}
+      {...api?.getItemGroupLabelProps({ htmlFor: id! })}
+      {...props}
+    >
       {asChild ? children : <label>{children}</label>}
     </Slot>
   );
