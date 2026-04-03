@@ -253,12 +253,8 @@ function initMenuRoot(rootEl: Element) {
 
     innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="checkbox"]').forEach(item => {
         item.addEventListener("click", () => {
-            const isChecked = item.hasAttribute("data-checked");
-            if (isChecked) item.removeAttribute("data-checked");
-            else item.setAttribute("data-checked", "");
-
             const ind = item.querySelector<HTMLElement>("[data-part='item-indicator']");
-            if (ind) ind.hidden = !item.hasAttribute("data-checked");
+            if (ind) ind.hidden = !ind.hidden;
         });
     });
 
@@ -266,12 +262,8 @@ function initMenuRoot(rootEl: Element) {
         group.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="radio"]').forEach(item => {
             item.addEventListener("click", () => {
                 group.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="radio"]').forEach(sibling => {
-                    const isSelected = sibling === item;
-                    if (isSelected) sibling.setAttribute("data-checked", "");
-                    else sibling.removeAttribute("data-checked");
-
                     const ind = sibling.querySelector<HTMLElement>("[data-part='item-indicator']");
-                    if (ind) ind.hidden = !isSelected;
+                    if (ind) ind.hidden = sibling !== item;
                 });
             });
         });
