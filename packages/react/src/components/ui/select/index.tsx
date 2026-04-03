@@ -59,10 +59,13 @@ export function SelectRoot({
 }: React.ComponentProps<"div"> &
   Partial<Props> & {
     asChild?: boolean;
+    label?: string;
+    placeholder?: string;
     items?: any[];
     itemToValue?: (item: any) => string;
     itemToString?: (item: any) => string;
   }) {
+  const { label, placeholder, ...restProps } = props;
   const [internalValue, setInternalValue] = useState<string[]>(
     (value as string[]) || []
   );
@@ -130,25 +133,21 @@ export function SelectRoot({
   return (
     <ApiContext.Provider value={api}>
       <DisplayValueContext.Provider value={displayValue}>
-      <RegisterStaticItemContext.Provider value={registerStaticItem}>
-        <UnregisterStaticItemContext.Provider value={unregisterStaticItem}>
-          <Slot
-            className={cn(selectRoot, className)}
-            data-multiple={multiple}
-            {...api.getRootProps()}
-            {...props}
-          >
-            {asChild ? (
-              children
-            ) : (
-              <div>
-                {children}
-                <SelectHiddenSelect />
-              </div>
-            )}
-          </Slot>
-        </UnregisterStaticItemContext.Provider>
-      </RegisterStaticItemContext.Provider>
+        <RegisterStaticItemContext.Provider value={registerStaticItem}>
+          <UnregisterStaticItemContext.Provider value={unregisterStaticItem}>
+            <div
+              className={cn(selectRoot, className)}
+              data-multiple={multiple}
+              {...api.getRootProps()}
+              {...restProps}
+            >
+              {label && <SelectLabel>{label}</SelectLabel>}
+              <SelectControl placeholder={placeholder} />
+              <SelectContent>{children}</SelectContent>
+              <SelectHiddenSelect />
+            </div>
+          </UnregisterStaticItemContext.Provider>
+        </RegisterStaticItemContext.Provider>
       </DisplayValueContext.Provider>
     </ApiContext.Provider>
   );
@@ -182,25 +181,32 @@ export function SelectControl({
 }: React.ComponentProps<"div"> & { asChild?: boolean; placeholder?: string }) {
   const api = useContext(ApiContext);
 
-  const content = useMemo(() => {
-    if (asChild) return children;
-    if (children)
-      return <div>{children}</div>;
+  if (asChild) {
     return (
-      <SelectTrigger>
-        <SelectValueText placeholder={placeholder} />
-      </SelectTrigger>
+      <Slot
+        className={cn(selectControl, className)}
+        {...api?.getControlProps()}
+        {...props}
+      >
+        {children}
+      </Slot>
     );
-  }, [children, asChild, placeholder]);
+  }
 
   return (
-    <Slot
+    <div
       className={cn(selectControl, className)}
       {...api?.getControlProps()}
       {...props}
     >
-      {content}
-    </Slot>
+      {children ? (
+        <div>{children}</div>
+      ) : (
+        <SelectTrigger>
+          <SelectValueText placeholder={placeholder} />
+        </SelectTrigger>
+      )}
+    </div>
   );
 }
 
@@ -316,23 +322,18 @@ export function SelectPositioner({
 export function SelectContent({
   children,
   className,
-  asChild = false,
   ...props
-}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+}: React.ComponentProps<"div">) {
   const api = useContext(ApiContext);
 
   return (
     <Portal>
       <SelectPositioner>
-        <Slot {...api?.getContentProps()} {...props}>
-          {asChild ? (
-            children
-          ) : (
-            <Box raised="single" className={cn(selectContent, className)}>
-              <div>{children}</div>
-            </Box>
-          )}
-        </Slot>
+        <div {...api?.getContentProps()} {...props}>
+          <Box raised="single" className={cn(selectContent, className)}>
+            <div>{children}</div>
+          </Box>
+        </div>
       </SelectPositioner>
     </Portal>
   );
@@ -342,8 +343,9 @@ export function SelectItemGroup({
   children,
   className,
   asChild = false,
+  label,
   ...props
-}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & { asChild?: boolean; label?: string }) {
   const api = useContext(ApiContext);
   const itemGroupId = { id: useId() };
 
@@ -354,7 +356,14 @@ export function SelectItemGroup({
         {...api?.getItemGroupProps(itemGroupId)}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {label && <SelectItemGroupLabel>{label}</SelectItemGroupLabel>}
+            {children}
+          </div>
+        )}
       </Slot>
     </ItemGroupContext.Provider>
   );

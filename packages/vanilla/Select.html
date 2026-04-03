@@ -13,126 +13,56 @@
   <div class="flex flex-col gap-20">
     <div class="grid grid-cols-2">
 
-      <!-- Example 1: Single select (Shorthand Items) -->
+      <!-- Example 1: Single -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div data-component="select-root" class="w-56">
-          <label data-component="select-label">Single</label>
-          <div data-component="select-control" data-placeholder="Select a Framework"></div>
-          <div data-component="select-content">
-            <div data-component="select-item-group">
-              <label data-component="select-item-group-label">Frameworks</label>
-              <div data-component="select-item" data-value="React"></div>
-              <div data-component="select-item" data-value="Solid"></div>
-              <div data-component="select-item" data-value="Vue"></div>
-              <div data-component="select-item" data-value="Svelte"></div>
-              <div data-component="select-item" data-value="Vanilla" data-text="Vanilla JS"></div>
-            </div>
+        <div data-component="select-root" class="w-56" data-label="Single" data-placeholder="Select a Framework">
+          <div data-component="select-item-group" data-label="Frameworks">
+            <div data-component="select-item" data-value="React"></div>
+            <div data-component="select-item" data-value="Solid"></div>
+            <div data-component="select-item" data-value="Vue"></div>
+            <div data-component="select-item" data-value="Svelte"></div>
+            <div data-component="select-item" data-value="Vanilla" data-text="Vanilla JS"></div>
           </div>
         </div>
       </div>
 
-      <!-- Example 2: Single select (Manual for Reference) -->
+      <!-- Example 2: Multiple -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div data-component="select-root" class="w-56">
-          <label data-component="select-label">Single</label>
-          <div data-component="select-control">
-            <button data-component="select-trigger">
-              <div data-component="select-value-text" data-placeholder="Select a Framework"></div>
-            </button>
-          </div>
-          <div data-component="select-content">
-            <div data-component="select-item-group">
-              <label data-component="select-item-group-label">Frameworks</label>
-              <div data-component="select-item" data-value="React">
-                <div data-component="select-item-text">React</div>
-              </div>
-              <div data-component="select-item" data-value="Solid">
-                <div data-component="select-item-text">Solid</div>
-              </div>
-              <div data-component="select-item" data-value="Vue">
-                <div data-component="select-item-text">Vue</div>
-              </div>
-              <div data-component="select-item" data-value="Svelte">
-                <div data-component="select-item-text">Svelte</div>
-              </div>
-              <div data-component="select-item" data-value="Vanilla">
-                <div data-component="select-item-text">Vanilla JS</div>
-              </div>
-            </div>
+        <div data-component="select-root" class="w-56" data-multiple="true" data-label="Multiple" data-placeholder="Select Frameworks">
+          <div data-component="select-item-group" data-label="Frameworks">
+            <div data-component="select-item" data-value="React"></div>
+            <div data-component="select-item" data-value="Solid"></div>
+            <div data-component="select-item" data-value="Vue"></div>
+            <div data-component="select-item" data-value="Svelte"></div>
+            <div data-component="select-item" data-value="Vanilla" data-text="Vanilla JS"></div>
           </div>
         </div>
       </div>
 
-      <!-- Example 3: Multiple select (Shorthand Items) -->
+      <!-- Example 3: Scrollable -->
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div data-component="select-root" class="w-56" data-multiple="true">
-          <label data-component="select-label">Multiple</label>
-          <div data-component="select-control" data-placeholder="Select a Framework"></div>
-          <div data-component="select-content">
-            <div data-component="select-item-group">
-              <label data-component="select-item-group-label">Frameworks</label>
-              <div data-component="select-item" data-value="React"></div>
-              <div data-component="select-item" data-value="Solid"></div>
-              <div data-component="select-item" data-value="Vue"></div>
-              <div data-component="select-item" data-value="Svelte"></div>
-              <div data-component="select-item" data-value="Vanilla" data-text="Vanilla JS"></div>
-            </div>
+        <div data-component="select-root" class="w-56" data-multiple="true" data-label="Scrollable" data-placeholder="Select a Timezone">
+          <div data-component="select-item-group" data-label="North America">
+            <div data-component="select-item" data-value="est" data-text="Eastern Standard Time (EST)"></div>
+            <div data-component="select-item" data-value="cst" data-text="Central Standard Time (CST)"></div>
+            <div data-component="select-item" data-value="mst" data-text="Mountain Standard Time (MST)"></div>
+            <div data-component="select-item" data-value="pst" data-text="Pacific Standard Time (PST)"></div>
+            <div data-component="select-item" data-value="akst" data-text="Alaska Standard Time (AKST)"></div>
+            <div data-component="select-item" data-value="hst" data-text="Hawaii Standard Time (HST)"></div>
           </div>
-        </div>
-      </div>
-
-      <!-- Example 4: Scrollable multiple with grouped timezones -->
-      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <div data-component="select-root" class="w-56" data-multiple="true">
-          <label data-component="select-label">Scrollable</label>
-          <div data-component="select-control">
-            <button data-component="select-trigger">
-              <div data-component="select-value-text" data-placeholder="Select a Timezone"></div>
-            </button>
+          <div data-component="select-item-group" data-label="Europe & Africa">
+            <div data-component="select-item" data-value="gmt" data-text="Greenwich Mean Time (GMT)"></div>
+            <div data-component="select-item" data-value="cet" data-text="Central European Time (CET)"></div>
+            <div data-component="select-item" data-value="eet" data-text="Eastern European Time (EET)"></div>
+            <div data-component="select-item" data-value="west" data-text="Western European Summer Time (WEST)"></div>
+            <div data-component="select-item" data-value="cat" data-text="Central Africa Time (CAT)"></div>
+            <div data-component="select-item" data-value="eat" data-text="East Africa Time (EAT)"></div>
           </div>
-          <div data-component="select-content">
-            <div data-component="select-item-group">
-              <label data-component="select-item-group-label">North America</label>
-              <div data-component="select-item" data-value="est" data-text="Eastern Standard Time (EST)"></div>
-              <div data-component="select-item" data-value="cst" data-text="Central Standard Time (CST)"></div>
-              <div data-component="select-item" data-value="mst" data-text="Mountain Standard Time (MST)"></div>
-              <div data-component="select-item" data-value="pst" data-text="Pacific Standard Time (PST)"></div>
-              <div data-component="select-item" data-value="akst" data-text="Alaska Standard Time (AKST)"></div>
-              <div data-component="select-item" data-value="hst" data-text="Hawaii Standard Time (HST)"></div>
-            </div>
-            <div data-component="select-item-group">
-              <label data-component="select-item-group-label">Europe & Africa</label>
-              <div data-component="select-item" data-value="gmt" data-text="Greenwich Mean Time (GMT)"></div>
-              <div data-component="select-item" data-value="cet" data-text="Central European Time (CET)"></div>
-              <div data-component="select-item" data-value="eet" data-text="Eastern European Time (EET)"></div>
-              <div data-component="select-item" data-value="west" data-text="Western European Summer Time (WEST)"></div>
-              <div data-component="select-item" data-value="cat" data-text="Central Africa Time (CAT)"></div>
-              <div data-component="select-item" data-value="eat" data-text="East Africa Time (EAT)"></div>
-            </div>
-            <div data-component="select-item-group">
-              <label data-component="select-item-group-label">Asia</label>
-              <div data-component="select-item" data-value="msk" data-text="Moscow Time (MSK)"></div>
-              <div data-component="select-item" data-value="ist" data-text="India Standard Time (IST)"></div>
-              <div data-component="select-item" data-value="cst_china" data-text="China Standard Time (CST)"></div>
-              <div data-component="select-item" data-value="jst" data-text="Japan Standard Time (JST)"></div>
-              <div data-component="select-item" data-value="kst" data-text="Korea Standard Time (KST)"></div>
-              <div data-component="select-item" data-value="ist_indonesia" data-text="Indonesia Central Standard Time (WITA)"></div>
-            </div>
-            <div data-component="select-item-group">
-              <label data-component="select-item-group-label">Australia & Pacific</label>
-              <div data-component="select-item" data-value="awst" data-text="Australian Western Standard Time (AWST)"></div>
-              <div data-component="select-item" data-value="acst" data-text="Australian Central Standard Time (ACST)"></div>
-              <div data-component="select-item" data-value="aest" data-text="Australian Eastern Standard Time (AEST)"></div>
-              <div data-component="select-item" data-value="nzst" data-text="New Zealand Standard Time (NZST)"></div>
-              <div data-component="select-item" data-value="fjt" data-text="Fiji Time (FJT)"></div>
-            </div>
-            <div data-component="select-item-group">
-              <label data-component="select-item-group-label">South America</label>
-              <div data-component="select-item" data-value="art" data-text="Argentina Time (ART)"></div>
-              <div data-component="select-item" data-value="bot" data-text="Bolivia Time (BOT)"></div>
-              <div data-component="select-item" data-value="brt" data-text="Brasilia Time (BRT)"></div>
-              <div data-component="select-item" data-value="clt" data-text="Chile Standard Time (CLT)"></div>
-            </div>
+          <div data-component="select-item-group" data-label="Asia">
+            <div data-component="select-item" data-value="msk" data-text="Moscow Time (MSK)"></div>
+            <div data-component="select-item" data-value="ist" data-text="India Standard Time (IST)"></div>
+            <div data-component="select-item" data-value="jst" data-text="Japan Standard Time (JST)"></div>
+            <div data-component="select-item" data-value="kst" data-text="Korea Standard Time (KST)"></div>
           </div>
         </div>
       </div>

@@ -1,31 +1,29 @@
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
 import { selectItemGroup } from "@midoneui/core/styles/select.styles";
-import { Slot } from "@/components/ui/slot";
+import { SelectItemGroupLabel } from "@/components/ui/select";
 import type { Api } from "@zag-js/select";
 import { provide, inject } from "vue";
 
-const {
-  class: className,
-  asChild = false,
-  ...props
-} = defineProps<{
+const { class: className, label } = defineProps<{
   class?: string;
-  asChild?: boolean;
+  label?: string;
 }>();
 
 const api = inject<Api>("selectApi");
 const itemGroupId = { id: crypto.randomUUID() };
 
-provide("selectItemGroup", props);
+provide("selectItemGroup", { id: itemGroupId.id });
 </script>
 
 <template>
-  <Slot
+  <div
     :class="cn(selectItemGroup, className)"
-    v-bind="{ ...api?.getItemGroupProps(itemGroupId), ...props, ...$attrs }"
+    v-bind="api?.getItemGroupProps(itemGroupId)"
   >
-    <slot v-if="asChild" />
-    <div v-else><slot /></div>
-  </Slot>
+    <SelectItemGroupLabel v-if="label">
+      {{ label }}
+    </SelectItemGroupLabel>
+    <slot />
+  </div>
 </template>

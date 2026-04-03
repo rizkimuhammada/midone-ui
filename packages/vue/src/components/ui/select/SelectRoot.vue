@@ -1,42 +1,39 @@
 <script lang="ts" setup>
 import * as select from "@zag-js/select";
 import type { Props } from "@zag-js/select";
-import { Slot } from "@/components/ui/slot";
 import { cn } from "@midoneui/core/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
-import { computed, provide, ref, type Ref } from "vue";
+import { computed, provide, ref } from "vue";
 import { selectRoot } from "@midoneui/core/styles/select.styles";
+import SelectLabel from "./SelectLabel.vue";
+import SelectControl from "./SelectControl.vue";
+import SelectContent from "./SelectContent.vue";
 import { SelectHiddenSelect } from ".";
+
+defineOptions({ inheritAttrs: false });
 
 const {
   class: className,
-  asChild = false,
-  multiple = undefined,
+  multiple,
   open = undefined,
-  closeOnSelect = undefined,
+  closeOnSelect,
   value,
-  collection,
-  items = [],
-  itemToValue,
-  itemToString,
-  onValueChange,
+  label,
+  placeholder,
   ...props
 } = defineProps<
   Partial<Props> & {
     class?: string;
-    asChild?: boolean;
-    items?: any[];
-    itemToValue?: (item: any) => string;
-    itemToString?: (item: any) => string;
+    label?: string;
+    placeholder?: string;
   }
 >();
 
 const emit = defineEmits<{
   (e: "update:value", value: string[]): void;
-  (e: "valueChange", details: select.ValueChangeDetails): void;
 }>();
 
-const internalValue = ref(value || []);
+const internalValue = ref(value ?? []);
 
 const _value = computed({
   get: () => (value !== undefined ? value : internalValue.value),
@@ -46,6 +43,7 @@ const _value = computed({
   },
 });
 
+const id = crypto.randomUUID();
 const staticItems = ref<any[]>([]);
 
 provide("registerStaticItem", (item: any) => {
@@ -62,75 +60,47 @@ provide("unregisterStaticItem", (item: any) => {
   );
 });
 
-const internalCollection = computed(() => {
-  if (collection) return collection;
-  const allItems = [
-    ...(items || []),
-    ...staticItems.value,
-  ];
-  return select.collection({
-    items: allItems,
-    itemToValue:
-      itemToValue ||
-      ((item) => (typeof item === "string" ? item : item.value || item.label)),
-    itemToString:
-      itemToString ||
-      ((item) => (typeof item === "string" ? item : item.label || item.value)),
-  });
-});
+const internalCollection = computed(() =>
+  select.collection({
+    items: staticItems.value,
+    itemToValue: (item) => (typeof item === "string" ? item : item.value || item.label),
+    itemToString: (item) => (typeof item === "string" ? item : item.label || item.value),
+  })
+);
 
 const service = useMachine(
   select.machine,
   computed(() => ({
     ...props,
-    multiple,
-    open,
-    closeOnSelect,
+    ...(multiple !== undefined ? { multiple } : {}),
+    ...(open !== undefined ? { open } : {}),
+    ...(closeOnSelect !== undefined ? { closeOnSelect } : {}),
     collection: internalCollection.value,
     value: _value.value,
     onValueChange(details) {
       _value.value = details.value;
-      emit("valueChange", details);
-      onValueChange?.(details);
     },
-    id: crypto.randomUUID(),
+    id,
   }))
 );
 
-const api = computed(() => select.connect(service, normalizeProps));
+const selectApi = computed(() => select.connect(service, normalizeProps));
 
-provide("selectApi", api);
-
-const _resolveItemToValue = (item: any) =>
-  itemToValue ? itemToValue(item) : typeof item === "string" ? item : item.value || item.label;
-const _resolveItemToString = (item: any) =>
-  itemToString ? itemToString(item) : typeof item === "string" ? item : item.label || item.value;
-
-const displayValue = computed(() => {
-  const values = _value.value;
-  if (!values.length) return "";
-  const col = internalCollection.value;
-  return values
-    .map((v) => {
-      const found = col.items.find((item: any) => _resolveItemToValue(item) === v);
-      return found ? _resolveItemToString(found) : v;
-    })
-    .join(", ");
-});
-
-provide("selectDisplayValue", displayValue);
+provide("selectApi", selectApi);
+provide("selectPlaceholder", placeholder);
 </script>
 
 <template>
-  <Slot
+  <div
     :class="cn(selectRoot, className)"
     :data-multiple="multiple"
-    v-bind="{ ...props, ...$attrs, ...api.getRootProps() }"
+    v-bind="{ ...$attrs, ...selectApi.getRootProps() }"
   >
-    <slot v-if="asChild" />
-    <div v-else>
-      <slot :items="items" />
-      <SelectHiddenSelect />
-    </div>
-  </Slot>
+    <SelectLabel v-if="label">{{ label }}</SelectLabel>
+    <SelectControl />
+    <SelectContent>
+      <slot />
+    </SelectContent>
+    <SelectHiddenSelect />
+  </div>
 </template>

@@ -1,12 +1,7 @@
 import {
   SelectRoot,
-  SelectLabel,
-  SelectControl,
-  SelectContent,
   SelectItemGroup,
-  SelectItemGroupLabel,
   SelectItem,
-  SelectItemText,
 } from "@/components/ui/select";
 import {
   Preview,
@@ -16,71 +11,6 @@ import {
   PreviewCode,
 } from "@/components/docs";
 
-const comboboxData = [
-  { label: "React", code: "react" },
-  { label: "Solid", code: "solid" },
-  { label: "Vue", code: "vue" },
-  { label: "Svelte", code: "svelte" },
-];
-
-const timezoneData = [
-  {
-    label: "North America",
-    items: [
-      { value: "est", label: "Eastern Standard Time (EST)" },
-      { value: "cst", label: "Central Standard Time (CST)" },
-      { value: "mst", label: "Mountain Standard Time (MST)" },
-      { value: "pst", label: "Pacific Standard Time (PST)" },
-      { value: "akst", label: "Alaska Standard Time (AKST)" },
-      { value: "hst", label: "Hawaii Standard Time (HST)" },
-    ],
-  },
-  {
-    label: "Europe & Africa",
-    items: [
-      { value: "gmt", label: "Greenwich Mean Time (GMT)" },
-      { value: "cet", label: "Central European Time (CET)" },
-      { value: "eet", label: "Eastern European Time (EET)" },
-      { value: "west", label: "Western European Summer Time (WEST)" },
-      { value: "cat", label: "Central Africa Time (CAT)" },
-      { value: "eat", label: "East Africa Time (EAT)" },
-    ],
-  },
-  {
-    label: "Asia",
-    items: [
-      { value: "msk", label: "Moscow Time (MSK)" },
-      { value: "ist", label: "India Standard Time (IST)" },
-      { value: "cst_china", label: "China Standard Time (CST)" },
-      { value: "jst", label: "Japan Standard Time (JST)" },
-      { value: "kst", label: "Korea Standard Time (KST)" },
-      {
-        value: "ist_indonesia",
-        label: "Indonesia Central Standard Time (WITA)",
-      },
-    ],
-  },
-  {
-    label: "Australia & Pacific",
-    items: [
-      { value: "awst", label: "Australian Western Standard Time (AWST)" },
-      { value: "acst", label: "Australian Central Standard Time (ACST)" },
-      { value: "aest", label: "Australian Eastern Standard Time (AEST)" },
-      { value: "nzst", label: "New Zealand Standard Time (NZST)" },
-      { value: "fjt", label: "Fiji Time (FJT)" },
-    ],
-  },
-  {
-    label: "South America",
-    items: [
-      { value: "art", label: "Argentina Time (ART)" },
-      { value: "bot", label: "Bolivia Time (BOT)" },
-      { value: "brt", label: "Brasilia Time (BRT)" },
-      { value: "clt", label: "Chile Standard Time (CLT)" },
-    ],
-  },
-];
-
 function Main() {
   return (
     <>
@@ -89,137 +19,47 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <SelectRoot className="w-56">
-                  <SelectLabel>Single</SelectLabel>
-                  <SelectControl placeholder="Select a Framework" />
-                  <SelectContent>
-                    <SelectItemGroup>
-                      <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
-                      <SelectItem value="React" />
-                      <SelectItem value="Solid" />
-                      <SelectItem value="Vue" />
-                      <SelectItem value="Svelte" />
-                      <SelectItem value="Vanilla" text="Vanilla JS" />
-                    </SelectItemGroup>
-                  </SelectContent>
+                <SelectRoot label="Single" placeholder="Select a Framework" className="w-56">
+                  <SelectItemGroup label="Frameworks">
+                    <SelectItem value="React" />
+                    <SelectItem value="Solid" />
+                    <SelectItem value="Vue" />
+                    <SelectItem value="Svelte" />
+                    <SelectItem value="Vanilla" text="Vanilla JS" />
+                  </SelectItemGroup>
                 </SelectRoot>
-                <SelectRoot items={comboboxData} className="w-56">
-                  <SelectLabel>Single (dynamic)</SelectLabel>
-                  <SelectControl placeholder="Select a Framework" />
-                  <SelectContent>
-                    <SelectItemGroup>
-                      <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
-                      {comboboxData.map((item) => (
-                        <SelectItem key={item.code} item={item}>
-                          <SelectItemText>{item.label}</SelectItemText>
-                        </SelectItem>
-                      ))}
-                      <SelectItem value="Vanilla" />
-                    </SelectItemGroup>
-                  </SelectContent>
+                <SelectRoot label="Multiple" placeholder="Select Frameworks" className="w-56" multiple>
+                  <SelectItemGroup label="Frameworks">
+                    <SelectItem value="React" />
+                    <SelectItem value="Solid" />
+                    <SelectItem value="Vue" />
+                    <SelectItem value="Svelte" />
+                    <SelectItem value="Vanilla" text="Vanilla JS" />
+                  </SelectItemGroup>
                 </SelectRoot>
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-const comboboxData = [
-  { label: "React", code: "react" },
-  { label: "Solid", code: "solid" },
-  { label: "Vue", code: "vue" },
-  { label: "Svelte", code: "svelte" },
-];
+<SelectRoot label="Single" placeholder="Select a Framework" className="w-56">
+  <SelectItemGroup label="Frameworks">
+    <SelectItem value="React" />
+    <SelectItem value="Solid" />
+    <SelectItem value="Vue" />
+    <SelectItem value="Svelte" />
+    <SelectItem value="Vanilla" text="Vanilla JS" />
+  </SelectItemGroup>
+</SelectRoot>
 
-const timezoneData = [
-  {
-    label: "North America",
-    items: [
-      { value: "est", label: "Eastern Standard Time (EST)" },
-      { value: "cst", label: "Central Standard Time (CST)" },
-      { value: "mst", label: "Mountain Standard Time (MST)" },
-      { value: "pst", label: "Pacific Standard Time (PST)" },
-      { value: "akst", label: "Alaska Standard Time (AKST)" },
-      { value: "hst", label: "Hawaii Standard Time (HST)" },
-    ],
-  },
-  {
-    label: "Europe & Africa",
-    items: [
-      { value: "gmt", label: "Greenwich Mean Time (GMT)" },
-      { value: "cet", label: "Central European Time (CET)" },
-      { value: "eet", label: "Eastern European Time (EET)" },
-      { value: "west", label: "Western European Summer Time (WEST)" },
-      { value: "cat", label: "Central Africa Time (CAT)" },
-      { value: "eat", label: "East Africa Time (EAT)" },
-    ],
-  },
-  {
-    label: "Asia",
-    items: [
-      { value: "msk", label: "Moscow Time (MSK)" },
-      { value: "ist", label: "India Standard Time (IST)" },
-      { value: "cst_china", label: "China Standard Time (CST)" },
-      { value: "jst", label: "Japan Standard Time (JST)" },
-      { value: "kst", label: "Korea Standard Time (KST)" },
-      {
-        value: "ist_indonesia",
-        label: "Indonesia Central Standard Time (WITA)",
-      },
-    ],
-  },
-  {
-    label: "Australia & Pacific",
-    items: [
-      { value: "awst", label: "Australian Western Standard Time (AWST)" },
-      { value: "acst", label: "Australian Central Standard Time (ACST)" },
-      { value: "aest", label: "Australian Eastern Standard Time (AEST)" },
-      { value: "nzst", label: "New Zealand Standard Time (NZST)" },
-      { value: "fjt", label: "Fiji Time (FJT)" },
-    ],
-  },
-  {
-    label: "South America",
-    items: [
-      { value: "art", label: "Argentina Time (ART)" },
-      { value: "bot", label: "Bolivia Time (BOT)" },
-      { value: "brt", label: "Brasilia Time (BRT)" },
-      { value: "clt", label: "Chile Standard Time (CLT)" },
-    ],
-  },
-];
-
-const collection = select.collection({
-  items: comboboxData,
-  itemToValue: (item) => item.label,
-});
-
-const collectionTimezone = select.collection({
-  items: timezoneData.flatMap((region) =>
-    region.items.map((item) => ({
-      region: region.label,
-      value: item.value,
-      label: item.label,
-    }))
-  ),
-});
-
-<SelectRoot className="w-56" collection={collection}>
-  <SelectLabel>Single</SelectLabel>
-  <SelectControl>
-    <SelectTrigger>
-      <SelectValueText placeholder="Select a Framework" />
-    </SelectTrigger>
-  </SelectControl>
-  <SelectContent>
-    <SelectItemGroup>
-      <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
-      {collection.items.map((item) => (
-        <SelectItem key={item.code} item={item}>
-          <SelectItemText>{item.label}</SelectItemText>
-        </SelectItem>
-      ))}
-    </SelectItemGroup>
-  </SelectContent>
+<SelectRoot label="Multiple" placeholder="Select Frameworks" className="w-56" multiple>
+  <SelectItemGroup label="Frameworks">
+    <SelectItem value="React" />
+    <SelectItem value="Solid" />
+    <SelectItem value="Vue" />
+    <SelectItem value="Svelte" />
+    <SelectItem value="Vanilla" text="Vanilla JS" />
+  </SelectItemGroup>
 </SelectRoot>
                         `}
               </PreviewCode>
@@ -227,7 +67,73 @@ const collectionTimezone = select.collection({
           })}
         </Preview>
       </div>
-      <div id="installation">
+      <div id="variants">
+        <SectionTitle>Variants</SectionTitle>
+        <SectionContent>A collection of components you can use.</SectionContent>
+        <Preview>
+          {() => ({
+            preview: (
+              <>
+                <SelectRoot label="Scrollable" placeholder="Select a Timezone" className="w-56" multiple>
+                  <SelectItemGroup label="North America">
+                    <SelectItem value="est">Eastern Standard Time (EST)</SelectItem>
+                    <SelectItem value="cst">Central Standard Time (CST)</SelectItem>
+                    <SelectItem value="mst">Mountain Standard Time (MST)</SelectItem>
+                    <SelectItem value="pst">Pacific Standard Time (PST)</SelectItem>
+                    <SelectItem value="akst">Alaska Standard Time (AKST)</SelectItem>
+                    <SelectItem value="hst">Hawaii Standard Time (HST)</SelectItem>
+                  </SelectItemGroup>
+                  <SelectItemGroup label="Europe & Africa">
+                    <SelectItem value="gmt">Greenwich Mean Time (GMT)</SelectItem>
+                    <SelectItem value="cet">Central European Time (CET)</SelectItem>
+                    <SelectItem value="eet">Eastern European Time (EET)</SelectItem>
+                    <SelectItem value="west">Western European Summer Time (WEST)</SelectItem>
+                    <SelectItem value="cat">Central Africa Time (CAT)</SelectItem>
+                    <SelectItem value="eat">East Africa Time (EAT)</SelectItem>
+                  </SelectItemGroup>
+                  <SelectItemGroup label="Asia">
+                    <SelectItem value="msk">Moscow Time (MSK)</SelectItem>
+                    <SelectItem value="ist">India Standard Time (IST)</SelectItem>
+                    <SelectItem value="jst">Japan Standard Time (JST)</SelectItem>
+                    <SelectItem value="kst">Korea Standard Time (KST)</SelectItem>
+                  </SelectItemGroup>
+                </SelectRoot>
+              </>
+            ),
+            code: (
+              <PreviewCode>
+                {`
+<SelectRoot label="Scrollable" placeholder="Select a Timezone" className="w-56" multiple>
+  <SelectItemGroup label="North America">
+    <SelectItem value="est">Eastern Standard Time (EST)</SelectItem>
+    <SelectItem value="cst">Central Standard Time (CST)</SelectItem>
+    <SelectItem value="mst">Mountain Standard Time (MST)</SelectItem>
+    <SelectItem value="pst">Pacific Standard Time (PST)</SelectItem>
+    <SelectItem value="akst">Alaska Standard Time (AKST)</SelectItem>
+    <SelectItem value="hst">Hawaii Standard Time (HST)</SelectItem>
+  </SelectItemGroup>
+  <SelectItemGroup label="Europe & Africa">
+    <SelectItem value="gmt">Greenwich Mean Time (GMT)</SelectItem>
+    <SelectItem value="cet">Central European Time (CET)</SelectItem>
+    <SelectItem value="eet">Eastern European Time (EET)</SelectItem>
+    <SelectItem value="west">Western European Summer Time (WEST)</SelectItem>
+    <SelectItem value="cat">Central Africa Time (CAT)</SelectItem>
+    <SelectItem value="eat">East Africa Time (EAT)</SelectItem>
+  </SelectItemGroup>
+  <SelectItemGroup label="Asia">
+    <SelectItem value="msk">Moscow Time (MSK)</SelectItem>
+    <SelectItem value="ist">India Standard Time (IST)</SelectItem>
+    <SelectItem value="jst">Japan Standard Time (JST)</SelectItem>
+    <SelectItem value="kst">Korea Standard Time (KST)</SelectItem>
+  </SelectItemGroup>
+</SelectRoot>
+                      `}
+              </PreviewCode>
+            ),
+          })}
+        </Preview>
+      </div>
+      <div id="installation" className="mt-10">
         <SectionTitle>Installation</SectionTitle>
         <SectionContent>Install the following dependencies:</SectionContent>
         <InstallPackage>add @zag-js/react @zag-js/select</InstallPackage>
@@ -258,7 +164,13 @@ import {
   selectItemIndicator,
   selectHiddenSelect,
 } from "@midoneui/core/styles/select.styles";
-import { createContext, useContext, useId } from "react";
+import {
+  createContext,
+  useContext,
+  useId,
+  useState,
+  useMemo,
+} from "react";
 import * as select from "@zag-js/select";
 import { useMachine, normalizeProps, Portal } from "@zag-js/react";
 import type { Api, Props, ItemGroupProps, ItemProps } from "@zag-js/select";
@@ -267,17 +179,97 @@ import { Slot } from "@/components/ui/slot";
 const ApiContext = createContext<Api | null>(null);
 const ItemGroupContext = createContext<ItemGroupProps | undefined>(undefined);
 const ItemContext = createContext<ItemProps | undefined>(undefined);
+const DisplayValueContext = createContext<string>("");
+const RegisterStaticItemContext = createContext<
+  ((item: { value: string; label: string }) => void) | null
+>(null);
+const UnregisterStaticItemContext = createContext<
+  ((item: { value: string; label: string }) => void) | null
+>(null);
 
 export function SelectRoot({
   children,
   className,
   multiple = false,
   asChild = false,
+  value,
+  collection,
+  items = [],
+  itemToValue,
+  itemToString,
+  onValueChange,
+  label,
+  placeholder,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> &
+  Partial<Props> & {
+    asChild?: boolean;
+    label?: string;
+    placeholder?: string;
+    items?: any[];
+    itemToValue?: (item: any) => string;
+    itemToString?: (item: any) => string;
+  }) {
+  const { ...restProps } = props;
+  const [internalValue, setInternalValue] = useState<string[]>(
+    (value as string[]) || []
+  );
+  const [staticItems, setStaticItems] = useState<
+    { value: string; label: string }[]
+  >([]);
+
+  const _value = value !== undefined ? (value as string[]) : internalValue;
+
+  const registerStaticItem = (item: { value: string; label: string }) => {
+    setStaticItems((prev) => {
+      if (prev.some((i) => i.value === item.value)) return prev;
+      return [...prev, item];
+    });
+  };
+
+  const unregisterStaticItem = (item: { value: string; label: string }) => {
+    setStaticItems((prev) => prev.filter((i) => i.value !== item.value));
+  };
+
+  const internalCollection = useMemo(() => {
+    if (collection) return collection;
+    const allItems = [...(items || []), ...staticItems];
+    return select.collection({
+      items: allItems,
+      itemToValue:
+        itemToValue ||
+        ((item) =>
+          typeof item === "string" ? item : item.value || item.label),
+      itemToString:
+        itemToString ||
+        ((item) =>
+          typeof item === "string" ? item : item.label || item.value),
+    });
+  }, [collection, items, staticItems, itemToValue, itemToString]);
+
+  const resolveItemToValue = itemToValue || ((item: any) => typeof item === "string" ? item : item.value || item.label);
+  const resolveItemToString = itemToString || ((item: any) => typeof item === "string" ? item : item.label || item.value);
+
+  const displayValue = useMemo(() => {
+    const values = _value;
+    if (!values.length) return "";
+    return values
+      .map((v) => {
+        const found = internalCollection.items.find((item: any) => resolveItemToValue(item) === v);
+        return found ? resolveItemToString(found) : v;
+      })
+      .join(", ");
+  }, [_value, internalCollection]);
+
   const service = useMachine(select.machine, {
     multiple,
     ...props,
+    collection: internalCollection,
+    value: _value,
+    onValueChange(details) {
+      setInternalValue(details.value);
+      onValueChange?.(details);
+    },
     id: useId(),
   });
 
@@ -285,21 +277,29 @@ export function SelectRoot({
 
   return (
     <ApiContext.Provider value={api}>
-      <Slot
-        className={cn(selectRoot, className)}
-        data-multiple={multiple}
-        {...api.getRootProps()}
-        {...props}
-      >
-        {asChild ? (
-          children
-        ) : (
-          <div>
-            {children}
-            <SelectHiddenSelect />
-          </div>
-        )}
-      </Slot>
+      <DisplayValueContext.Provider value={displayValue}>
+        <RegisterStaticItemContext.Provider value={registerStaticItem}>
+          <UnregisterStaticItemContext.Provider value={unregisterStaticItem}>
+            <Slot
+              className={cn(selectRoot, className)}
+              data-multiple={multiple}
+              {...api.getRootProps()}
+              {...restProps}
+            >
+              {asChild ? (
+                children
+              ) : (
+                <div>
+                  {label && <SelectLabel>{label}</SelectLabel>}
+                  <SelectControl placeholder={placeholder} />
+                  <SelectContent>{children}</SelectContent>
+                  <SelectHiddenSelect />
+                </div>
+              )}
+            </Slot>
+          </UnregisterStaticItemContext.Provider>
+        </RegisterStaticItemContext.Provider>
+      </DisplayValueContext.Provider>
     </ApiContext.Provider>
   );
 }
@@ -372,6 +372,7 @@ export function SelectValueText({
   ...props
 }: React.ComponentProps<"input"> & { asChild?: boolean }) {
   const api = useContext(ApiContext);
+  const displayValue = useContext(DisplayValueContext);
 
   return (
     <Slot
@@ -382,7 +383,7 @@ export function SelectValueText({
       {asChild ? (
         children
       ) : (
-        <div>{api?.valueAsString || props.placeholder}</div>
+        <div>{displayValue || props.placeholder}</div>
       )}
     </Slot>
   );
@@ -478,8 +479,9 @@ export function SelectItemGroup({
   children,
   className,
   asChild = false,
+  label,
   ...props
-}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & { asChild?: boolean; label?: string }) {
   const api = useContext(ApiContext);
   const itemGroupId = { id: useId() };
 
@@ -490,7 +492,14 @@ export function SelectItemGroup({
         {...api?.getItemGroupProps(itemGroupId)}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {label && <SelectItemGroupLabel>{label}</SelectItemGroupLabel>}
+            {children}
+          </div>
+        )}
       </Slot>
     </ItemGroupContext.Provider>
   );
@@ -604,158 +613,33 @@ export function SelectHiddenSelect({
     />
   );
 }
-                    `}
+          `}
         </PreviewCode>
-        <SectionContent>
-          Update the import paths to match your project setup.
-        </SectionContent>
       </div>
-      <div id="usage">
+      <div id="usage" className="mt-10">
         <SectionTitle>Usage</SectionTitle>
         <PreviewCode>
           {`
 import {
   SelectRoot,
-  SelectLabel,
-  SelectControl,
-  SelectTrigger,
-  SelectValueText,
-  SelectContent,
   SelectItemGroup,
-  SelectItemGroupLabel,
   SelectItem,
-  SelectItemText,
 } from "@/components/ui/select";
               `}
         </PreviewCode>
         <PreviewCode>
           {`
-<SelectRoot className="w-56" collection={collection}>
-  <SelectLabel>Single</SelectLabel>
-  <SelectControl>
-    <SelectTrigger>
-      <SelectValueText placeholder="Select a Framework" />
-    </SelectTrigger>
-  </SelectControl>
-  <SelectContent>
-    <SelectItemGroup>
-      <SelectItemGroupLabel>
-        Frameworks
-      </SelectItemGroupLabel>
-      {collection.items.map((item) => (
-        <SelectItem key={item.code} item={item}>
-          <SelectItemText>{item.label}</SelectItemText>
-        </SelectItem>
-      ))}
-    </SelectItemGroup>
-  </SelectContent>
+<SelectRoot label="Single" placeholder="Select a Framework" className="w-56">
+  <SelectItemGroup label="Frameworks">
+    <SelectItem value="React" />
+    <SelectItem value="Solid" />
+    <SelectItem value="Vue" />
+    <SelectItem value="Svelte" />
+    <SelectItem value="Vanilla" text="Vanilla JS" />
+  </SelectItemGroup>
 </SelectRoot>
                     `}
         </PreviewCode>
-      </div>
-      <div id="variants">
-        <SectionTitle>Variants</SectionTitle>
-        <SectionContent>A collection of components you can use.</SectionContent>
-        <Preview>
-          {() => ({
-            preview: (
-              <>
-                <SelectRoot items={comboboxData} className="w-56" multiple>
-                  <SelectLabel>Multiple</SelectLabel>
-                  <SelectControl placeholder="Select a Framework" />
-                  <SelectContent>
-                    <SelectItemGroup>
-                      <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
-                      {comboboxData.map((item) => (
-                        <SelectItem key={item.code} item={item}>
-                          <SelectItemText>{item.label}</SelectItemText>
-                        </SelectItem>
-                      ))}
-                    </SelectItemGroup>
-                  </SelectContent>
-                </SelectRoot>
-              </>
-            ),
-            code: (
-              <PreviewCode>
-                {`
-<SelectRoot className="w-56" collection={collection} multiple>
-  <SelectLabel>Multiple</SelectLabel>
-  <SelectControl>
-    <SelectTrigger>
-      <SelectValueText placeholder="Select a Framework" />
-    </SelectTrigger>
-  </SelectControl>
-  <SelectContent>
-    <SelectItemGroup>
-      <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
-      {collection.items.map((item) => (
-        <SelectItem key={item.code} item={item}>
-          <SelectItemText>{item.label}</SelectItemText>
-        </SelectItem>
-      ))}
-    </SelectItemGroup>
-  </SelectContent>
-</SelectRoot>
-                      `}
-              </PreviewCode>
-            ),
-          })}
-        </Preview>
-        <Preview>
-          {() => ({
-            preview: (
-              <>
-                <SelectRoot className="w-56" multiple>
-                  <SelectLabel>Scrollable</SelectLabel>
-                  <SelectControl placeholder="Select a Timezone" />
-                  <SelectContent>
-                    {timezoneData.map((group) => (
-                      <SelectItemGroup key={group.label}>
-                        <SelectItemGroupLabel>
-                          {group.label}
-                        </SelectItemGroupLabel>
-                        {group.items.map((tzItem) => (
-                          <SelectItem
-                            key={tzItem.value}
-                            value={tzItem.value}
-                            text={tzItem.label}
-                          />
-                        ))}
-                      </SelectItemGroup>
-                    ))}
-                  </SelectContent>
-                </SelectRoot>
-              </>
-            ),
-            code: (
-              <PreviewCode>
-                {`
-<SelectRoot className="w-56" collection={collectionTimezone} multiple>
-  <SelectLabel>Scrollable</SelectLabel>
-  <SelectControl>
-    <SelectTrigger>
-      <SelectValueText placeholder="Select a Timezone" />
-    </SelectTrigger>
-  </SelectControl>
-  <SelectContent>
-    {timezoneData.map((item) => (
-      <SelectItemGroup key={item.label}>
-        <SelectItemGroupLabel>{item.label}</SelectItemGroupLabel>
-        {item.items.map((item) => (
-          <SelectItem key={item.value} item={item.value}>
-            <SelectItemText>{item.label}</SelectItemText>
-          </SelectItem>
-        ))}
-      </SelectItemGroup>
-    ))}
-  </SelectContent>
-</SelectRoot>
-                      `}
-              </PreviewCode>
-            ),
-          })}
-        </Preview>
       </div>
     </>
   );

@@ -12,3 +12,4 @@ export { default as ComboboxClearTrigger } from "./ComboboxClearTrigger.vue";
 export { default as ComboboxPositioner } from "./ComboboxPositioner.vue";
 export { default as ComboboxItemText } from "./ComboboxItemText.vue";
 export { default as ComboboxItemIndicator } from "./ComboboxItemIndicator.vue";
+export { default as ComboboxItemGroupLabel } from "./ComboboxItemGroupLabel.vue";

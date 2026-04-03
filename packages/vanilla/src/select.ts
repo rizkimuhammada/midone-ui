@@ -38,12 +38,14 @@ function initSelect() {
         const isMultiple = root.getAttribute("data-multiple") === "true";
 
         // Shorthand root template (Auto-rendering)
-        if (root.children.length === 0) {
+        if (root.querySelector('[data-component="select-control"]') === null) {
             const labelText = root.getAttribute("data-label");
+            const placeholder = root.getAttribute("data-placeholder") || "Select option...";
+            const originalContent = root.innerHTML;
             root.innerHTML = `
                 ${labelText ? `<label data-component="select-label">${labelText}</label>` : ""}
-                <div data-component="select-control"></div>
-                <div data-component="select-content"></div>
+                <div data-component="select-control" data-placeholder="${placeholder}"></div>
+                <div data-component="select-content">${originalContent}</div>
             `;
         }
 
@@ -95,7 +97,7 @@ function initSelect() {
             clearBtn.setAttribute("data-scope", "select");
             clearBtn.setAttribute("data-part", "clear-trigger");
             clearBtn.className = cn(selectClearTrigger);
-            clearBtn.textContent = "Clear";
+            clearBtn.innerHTML = "Clear";
             triggerEl.appendChild(clearBtn);
 
             clearBtn.addEventListener("click", (e) => {
@@ -119,6 +121,14 @@ function initSelect() {
         contentEl.setAttribute("data-part", "content");
 
         contentEl.querySelectorAll<HTMLElement>('[data-component="select-item-group"]').forEach((group) => {
+            const groupLabel = group.getAttribute("data-label");
+            if (groupLabel && !group.querySelector('[data-component="select-item-group-label"]')) {
+                const labelEl = document.createElement("label");
+                labelEl.setAttribute("data-component", "select-item-group-label");
+                labelEl.textContent = groupLabel;
+                group.prepend(labelEl);
+            }
+
             group.className = cn(selectItemGroup, group.className);
             group.setAttribute("data-scope", "select");
             group.setAttribute("data-part", "item-group");
@@ -202,7 +212,7 @@ function initSelect() {
         let isOpen = false;
 
         function updateValueText() {
-            if (!valueTextEl) return;
+            if (!valueTextEl || !contentEl) return;
             if (selectedValues.size === 0) {
                 valueTextEl.textContent = valueTextEl.getAttribute("data-placeholder") ?? "";
                 if (clearBtn) clearBtn.style.display = "none";
@@ -218,6 +228,7 @@ function initSelect() {
         }
 
         function updateItemIndicators() {
+            if (!contentEl) return;
             contentEl.querySelectorAll<HTMLElement>('[data-component="select-item"]').forEach((item) => {
                 const val = item.getAttribute("data-value");
                 const ind = item.querySelector<HTMLElement>("[data-part='item-indicator']");
@@ -231,7 +242,8 @@ function initSelect() {
         }
 
         function updatePosition() {
-            computePosition(controlEl!, positionerEl, {
+            if (!controlEl || !positionerEl) return;
+            computePosition(controlEl, positionerEl, {
                 placement: "bottom-start",
                 middleware: [offset(8), flip(), shift({ padding: 8 })],
             }).then(({ x, y }) => {
@@ -241,10 +253,11 @@ function initSelect() {
         }
 
         function show() {
+            if (!contentEl || !controlEl || !positionerEl || !indicatorEl) return;
             openSelects.forEach(close => close());
             isOpen = true;
             openSelects.add(hide);
-            contentEl.style.setProperty("--reference-width", `${controlEl!.offsetWidth}px`);
+            contentEl.style.setProperty("--reference-width", `${controlEl.offsetWidth}px`);
             positionerEl.style.display = "block";
             indicatorEl.setAttribute("data-state", "open");
             updatePosition();
@@ -261,22 +274,26 @@ function initSelect() {
             isOpen ? hide() : show();
         }
 
-        triggerEl.addEventListener("click", (e) => {
-            e.stopPropagation(); toggle();
-        });
-
-        contentEl.querySelectorAll<HTMLElement>('[data-component="select-item"]').forEach((item) => {
-            item.addEventListener("click", () => {
-                const val = item.getAttribute("data-value");
-                if (!val) return;
-                if (isMultiple) {
-                    if (selectedValues.has(val)) selectedValues.delete(val); else selectedValues.add(val);
-                } else {
-                    selectedValues.clear(); selectedValues.add(val); hide();
-                }
-                updateValueText(); updateItemIndicators();
+        if (triggerEl) {
+            triggerEl.addEventListener("click", (e) => {
+                e.stopPropagation(); toggle();
             });
-        });
+        }
+
+        if (contentEl) {
+            contentEl.querySelectorAll<HTMLElement>('[data-component="select-item"]').forEach((item) => {
+                item.addEventListener("click", () => {
+                    const val = item.getAttribute("data-value");
+                    if (!val) return;
+                    if (isMultiple) {
+                        if (selectedValues.has(val)) selectedValues.delete(val); else selectedValues.add(val);
+                    } else {
+                        selectedValues.clear(); selectedValues.add(val); hide();
+                    }
+                    updateValueText(); updateItemIndicators();
+                });
+            });
+        }
 
         document.addEventListener("click", (e) => {
             if (isOpen && !root.contains(e.target as Node) && !positionerEl.contains(e.target as Node)) {

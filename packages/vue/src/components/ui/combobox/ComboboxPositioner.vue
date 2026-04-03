@@ -18,13 +18,15 @@ const api = inject<Api>("comboboxApi");
 </script>
 
 <template>
-  <Slot
-    :class="cn(comboboxPositioner, className)"
-    v-bind="{ ...props, ...$attrs, ...api?.getPositionerProps() }"
-  >
-    <slot v-if="asChild" />
-    <div v-else>
-      <slot />
-    </div>
-  </Slot>
+  <Teleport to="body">
+    <Slot
+      :class="cn(comboboxPositioner, className)"
+      v-bind="{ ...props, ...$attrs, ...api?.getPositionerProps() }"
+    >
+      <slot v-if="asChild" />
+      <div v-else>
+        <slot />
+      </div>
+    </Slot>
+  </Teleport>
 </template>

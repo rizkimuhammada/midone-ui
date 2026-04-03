@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
 import { comboboxItemGroup } from "@midoneui/core/styles/combobox.styles";
-import { comboboxItemGroupLabel } from "@midoneui/core/styles/combobox.styles";
+import { ComboboxItemGroupLabel } from "@/components/ui/combobox";
 import type { Api } from "@zag-js/combobox";
 import { provide, inject } from "vue";
 
@@ -21,13 +21,9 @@ provide("comboboxItemGroupId", itemGroupId);
     :class="cn(comboboxItemGroup, className)"
     v-bind="api?.getItemGroupProps(itemGroupId)"
   >
-    <label
-      v-if="label"
-      :class="comboboxItemGroupLabel"
-      v-bind="api?.getItemGroupLabelProps({ htmlFor: itemGroupId.id })"
-    >
+    <ComboboxItemGroupLabel v-if="label">
       {{ label }}
-    </label>
+    </ComboboxItemGroupLabel>
     <slot />
   </div>
 </template>

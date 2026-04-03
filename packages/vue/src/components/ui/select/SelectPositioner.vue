@@ -18,11 +18,13 @@ const api = inject<Api>("selectApi");
 </script>
 
 <template>
-  <Slot
-    :class="cn(selectPositioner, className)"
-    v-bind="{ ...api?.getPositionerProps(), ...props, ...$attrs }"
-  >
-    <slot v-if="asChild" />
-    <div v-else><slot /></div>
-  </Slot>
+  <Teleport to="body">
+    <Slot
+      :class="cn(selectPositioner, className)"
+      v-bind="{ ...api?.getPositionerProps(), ...props, ...$attrs }"
+    >
+      <slot v-if="asChild" />
+      <div v-else><slot /></div>
+    </Slot>
+  </Teleport>
 </template>

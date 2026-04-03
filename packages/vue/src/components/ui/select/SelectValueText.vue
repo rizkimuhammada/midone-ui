@@ -3,11 +3,12 @@ import { cn } from "@midoneui/core/utils/cn";
 import { selectValueText } from "@midoneui/core/styles/select.styles";
 import { Slot } from "@/components/ui/slot";
 import type { Api } from "@zag-js/select";
-import { inject, type Ref } from "vue";
+import { inject } from "vue";
 
 const {
   class: className,
   asChild = false,
+  placeholder,
   ...props
 } = defineProps<{
   class?: string;
@@ -16,7 +17,6 @@ const {
 }>();
 
 const api = inject<Api>("selectApi");
-const displayValue = inject<Ref<string>>("selectDisplayValue");
 </script>
 
 <template>
@@ -25,6 +25,6 @@ const displayValue = inject<Ref<string>>("selectDisplayValue");
     v-bind="{ ...api?.getValueTextProps(), ...props, ...$attrs }"
   >
     <slot v-if="asChild" />
-    <div v-else>{{ displayValue || props.placeholder }}</div>
+    <div v-else>{{ api?.valueAsString || placeholder }}</div>
   </Slot>
 </template>

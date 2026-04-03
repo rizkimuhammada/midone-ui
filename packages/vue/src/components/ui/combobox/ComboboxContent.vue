@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
-import { comboboxContent, comboboxPositioner } from "@midoneui/core/styles/combobox.styles";
+import { comboboxContent } from "@midoneui/core/styles/combobox.styles";
 import { Box } from "@/components/ui/box";
+import { ComboboxPositioner } from "@/components/ui/combobox";
 import type { Api } from "@zag-js/combobox";
 import { inject } from "vue";
 import ComboboxInput from "./ComboboxInput.vue";
@@ -15,19 +16,17 @@ const api = inject<Api>("comboboxApi");
 </script>
 
 <template>
-  <Teleport to="body">
-    <div :class="comboboxPositioner" v-bind="api?.getPositionerProps()">
-      <div v-bind="api?.getContentProps()">
-        <Box raised="single" :class="cn(comboboxContent, className)">
-          <div>
-            <ComboboxInput
-              v-if="searchPlaceholder"
-              :placeholder="searchPlaceholder"
-            />
-            <slot />
-          </div>
-        </Box>
-      </div>
+  <ComboboxPositioner>
+    <div v-bind="api?.getContentProps()">
+      <Box raised="single" :class="cn(comboboxContent, className)">
+        <div>
+          <ComboboxInput
+            v-if="searchPlaceholder"
+            :placeholder="searchPlaceholder"
+          />
+          <slot />
+        </div>
+      </Box>
     </div>
-  </Teleport>
+  </ComboboxPositioner>
 </template>
