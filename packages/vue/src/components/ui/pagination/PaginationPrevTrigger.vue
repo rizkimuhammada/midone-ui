@@ -22,9 +22,11 @@ const api = inject<Api>("paginationApi");
     :class="cn(paginationPrevTrigger, className)"
     v-bind="{ ...api?.getPrevTriggerProps(), ...props, ...$attrs }"
   >
-    <slot v-if="asChild" />
-    <div v-else>
+    <template v-if="asChild">
       <slot />
+    </template>
+    <div v-else>
+      <slot>Previous</slot>
     </div>
   </Slot>
 </template>

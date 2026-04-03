@@ -39,7 +39,27 @@ export function PaginationRoot({
         {...api.getRootProps()}
         {...props}
       >
-        {asChild ? children : <div>{children}</div>}
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {children || (
+              <>
+                <PaginationPrevTrigger />
+                {api.pages.map((page, index) =>
+                  page.type === "page" ? (
+                    <PaginationItem key={index} {...page}>
+                      {page.value}
+                    </PaginationItem>
+                  ) : (
+                    <PaginationEllipsis key={index} index={index} />
+                  )
+                )}
+                <PaginationNextTrigger />
+              </>
+            )}
+          </div>
+        )}
       </Slot>
     </ApiContext.Provider>
   );
@@ -85,7 +105,7 @@ export function PaginationPrevTrigger({
       {...api?.getPrevTriggerProps()}
       {...props}
     >
-      {asChild ? children : <div>{children}</div>}
+      {asChild ? children : <div>{children || "Previous"}</div>}
     </Slot>
   );
 }
@@ -104,7 +124,7 @@ export function PaginationNextTrigger({
       {...api?.getNextTriggerProps()}
       {...props}
     >
-      {asChild ? children : <div>{children}</div>}
+      {asChild ? children : <div>{children || "Next"}</div>}
     </Slot>
   );
 }
@@ -123,7 +143,11 @@ export function PaginationEllipsis({
       {...api?.getEllipsisProps(props)}
       {...props}
     >
-      {!children ? <div>…</div> : asChild ? children : <div>{children}</div>}
+      {asChild ? (
+        children
+      ) : (
+        <div>{children || "…"}</div>
+      )}
     </Slot>
   );
 }

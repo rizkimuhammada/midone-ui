@@ -7,6 +7,11 @@ import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";
 import { paginationRoot } from "@midoneui/core/styles/pagination.styles";
 
+import PaginationEllipsis from "./PaginationEllipsis.vue";
+import PaginationItem from "./PaginationItem.vue";
+import PaginationNextTrigger from "./PaginationNextTrigger.vue";
+import PaginationPrevTrigger from "./PaginationPrevTrigger.vue";
+
 const {
   class: className,
   asChild = false,
@@ -35,7 +40,17 @@ provide("paginationApi", api);
   >
     <slot v-if="asChild" />
     <div v-else>
-      <slot />
+      <slot v-if="$slots.default" />
+      <template v-else>
+        <PaginationPrevTrigger />
+        <template v-for="(page, index) in api?.pages" :key="index">
+          <PaginationItem v-if="page.type === 'page'" v-bind="{ ...page }">
+            {{ page.value }}
+          </PaginationItem>
+          <PaginationEllipsis v-else :index="index" />
+        </template>
+        <PaginationNextTrigger />
+      </template>
     </div>
   </Slot>
 </template>

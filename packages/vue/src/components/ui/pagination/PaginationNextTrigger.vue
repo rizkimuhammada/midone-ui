@@ -22,9 +22,11 @@ const api = inject<Api>("paginationApi");
     :class="cn(paginationNextTrigger, className)"
     v-bind="{ ...api?.getNextTriggerProps(), ...props, ...$attrs }"
   >
-    <slot v-if="asChild" />
-    <div v-else>
+    <template v-if="asChild">
       <slot />
+    </template>
+    <div v-else>
+      <slot>Next</slot>
     </div>
   </Slot>
 </template>
