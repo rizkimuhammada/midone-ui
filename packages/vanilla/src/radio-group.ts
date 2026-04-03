@@ -72,11 +72,17 @@ function initRadioGroup() {
                 
                 if (!textEl) {
                    const children = Array.from(item.childNodes);
-                   textEl = document.createElement("span");
-                   textEl.setAttribute("data-component", "radio-group-item-text");
-                   children.forEach(child => textEl!.appendChild(child));
-                   item.appendChild(controlEl);
-                   item.appendChild(textEl);
+                   const hasText = children.some(child => child.nodeType === Node.TEXT_NODE && child.textContent?.trim());
+                   
+                   if (hasText) {
+                       textEl = document.createElement("span");
+                       textEl.setAttribute("data-component", "radio-group-item-text");
+                       children.forEach(child => textEl!.appendChild(child));
+                       item.appendChild(controlEl);
+                       item.appendChild(textEl);
+                   } else {
+                       item.appendChild(controlEl);
+                   }
                 } else {
                    item.insertBefore(controlEl, textEl);
                 }

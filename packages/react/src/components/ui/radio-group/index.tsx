@@ -114,7 +114,7 @@ export function RadioGroupItem({
         ) : (
           <label>
             <RadioGroupItemControl />
-            <RadioGroupItemText>{children}</RadioGroupItemText>
+            {children && <RadioGroupItemText>{children}</RadioGroupItemText>}
             <RadioGroupItemHiddenInput />
           </label>
         )}

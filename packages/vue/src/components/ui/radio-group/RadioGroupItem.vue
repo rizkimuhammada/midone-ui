@@ -4,7 +4,9 @@ import { radioGroupItem } from "@midoneui/core/styles/radio-group.styles";
 import { Slot } from "@/components/ui/slot";
 import { RadioGroupItemHiddenInput, RadioGroupItemControl, RadioGroupItemText } from ".";
 import type { Api, ItemProps } from "@zag-js/radio-group";
-import { provide, inject } from "vue";
+import { provide, inject, useSlots } from "vue";
+
+const slots = useSlots();
 
 const {
   class: className,
@@ -30,7 +32,7 @@ provide("radioGroupItem", props);
     <slot v-if="asChild" />
     <label v-else>
       <RadioGroupItemControl />
-      <RadioGroupItemText><slot /></RadioGroupItemText>
+      <RadioGroupItemText v-if="slots.default"><slot /></RadioGroupItemText>
       <RadioGroupItemHiddenInput />
     </label>
   </Slot>

@@ -19,34 +19,14 @@ import {
 import { Input } from "@/components/ui/input";
 import {
   SelectRoot,
-  SelectControl,
-  SelectTrigger,
-  SelectValueText,
-  SelectContent,
   SelectItemGroup,
-  SelectItemGroupLabel,
   SelectItem,
-  SelectItemText,
 } from "@/components/ui/select";
-import * as select from "@zag-js/select";
 import { Textarea } from "@/components/ui/textarea";
 import {
   RadioGroupRoot,
   RadioGroupItem,
-  RadioGroupItemControl,
 } from "@/components/ui/radio-group";
-
-const comboboxData = [
-  { label: "React", code: "react" },
-  { label: "Solid", code: "solid" },
-  { label: "Vue", code: "vue" },
-  { label: "Svelte", code: "svelte" },
-];
-
-const collection = select.collection({
-  items: comboboxData,
-  itemToValue: (item) => item.label,
-});
 </script>
 
 <template>
@@ -92,52 +72,36 @@ const collection = select.collection({
                       <FieldLabel htmlFor="checkout-exp-month-ts6">
                         Month
                       </FieldLabel>
-                      <SelectRoot :collection="collection">
-                        <SelectControl>
-                          <SelectTrigger>
-                            <SelectValueText placeholder="Select a Framework" />
-                          </SelectTrigger>
-                        </SelectControl>
-                        <SelectContent>
-                          <SelectItemGroup>
-                            <SelectItemGroupLabel>
-                              Frameworks
-                            </SelectItemGroupLabel>
-                            <SelectItem
-                              v-for="item in collection.items"
-                              :key="item.code"
-                              :item="item"
-                            >
-                              <SelectItemText>{{ item.label }}</SelectItemText>
-                            </SelectItem>
-                          </SelectItemGroup>
-                        </SelectContent>
+                      <SelectRoot placeholder="Month">
+                        <SelectItemGroup label="Month">
+                          <SelectItem value="01">January</SelectItem>
+                          <SelectItem value="02">February</SelectItem>
+                          <SelectItem value="03">March</SelectItem>
+                          <SelectItem value="04">April</SelectItem>
+                          <SelectItem value="05">May</SelectItem>
+                          <SelectItem value="06">June</SelectItem>
+                          <SelectItem value="07">July</SelectItem>
+                          <SelectItem value="08">August</SelectItem>
+                          <SelectItem value="09">September</SelectItem>
+                          <SelectItem value="10">October</SelectItem>
+                          <SelectItem value="11">November</SelectItem>
+                          <SelectItem value="12">December</SelectItem>
+                        </SelectItemGroup>
                       </SelectRoot>
                     </Field>
                     <Field>
                       <FieldLabel htmlFor="checkout-7j9-exp-year-f59">
                         Year
                       </FieldLabel>
-                      <SelectRoot class="w-56" :collection="collection">
-                        <SelectControl>
-                          <SelectTrigger>
-                            <SelectValueText placeholder="Select a Framework" />
-                          </SelectTrigger>
-                        </SelectControl>
-                        <SelectContent>
-                          <SelectItemGroup>
-                            <SelectItemGroupLabel>
-                              Frameworks
-                            </SelectItemGroupLabel>
-                            <SelectItem
-                              v-for="item in collection.items"
-                              :key="item.code"
-                              :item="item"
-                            >
-                              <SelectItemText>{{ item.label }}</SelectItemText>
-                            </SelectItem>
-                          </SelectItemGroup>
-                        </SelectContent>
+                      <SelectRoot placeholder="Year">
+                        <SelectItemGroup label="Year">
+                          <SelectItem value="2025">2025</SelectItem>
+                          <SelectItem value="2026">2026</SelectItem>
+                          <SelectItem value="2027">2027</SelectItem>
+                          <SelectItem value="2028">2028</SelectItem>
+                          <SelectItem value="2029">2029</SelectItem>
+                          <SelectItem value="2030">2030</SelectItem>
+                        </SelectItemGroup>
                       </SelectRoot>
                     </Field>
                     <Field>
@@ -155,9 +119,9 @@ const collection = select.collection({
                 </FieldDescription>
                 <CheckboxRoot>
                   <CheckboxControl />
-                  <CheckboxLabel class="font-normal"
-                    >Same as shipping address</CheckboxLabel
-                  >
+                  <CheckboxLabel class="font-normal">
+                    Same as shipping address
+                  </CheckboxLabel>
                 </CheckboxRoot>
               </FieldSet>
               <FieldSet>
@@ -191,7 +155,7 @@ const collection = select.collection({
             <FieldDescription>
               Select the compute environment for your cluster.
             </FieldDescription>
-            <RadioGroupRoot defaultValue="React">
+            <RadioGroupRoot defaultValue="kubernetes">
               <FieldLabel>
                 <Field orientation="horizontal">
                   <FieldContent>
@@ -200,9 +164,7 @@ const collection = select.collection({
                       Run GPU workloads on a K8s cluster.
                     </FieldDescription>
                   </FieldContent>
-                  <RadioGroupItem value="React">
-                    <RadioGroupItemControl />
-                  </RadioGroupItem>
+                  <RadioGroupItem value="kubernetes" />
                 </Field>
               </FieldLabel>
               <FieldLabel>
@@ -213,9 +175,7 @@ const collection = select.collection({
                       Access a cluster to run GPU workloads.
                     </FieldDescription>
                   </FieldContent>
-                  <RadioGroupItem value="Solid">
-                    <RadioGroupItemControl />
-                  </RadioGroupItem>
+                  <RadioGroupItem value="vm" />
                 </Field>
               </FieldLabel>
             </RadioGroupRoot>

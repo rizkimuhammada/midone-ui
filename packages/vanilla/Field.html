@@ -32,48 +32,33 @@
                   <div class="grid grid-cols-3 gap-4">
                     <div data-component="field">
                       <label data-component="field-label" for="checkout-exp-month">Month</label>
-                      <div data-component="select-root">
-                        <div data-component="select-control">
-                          <button data-component="select-trigger">
-                            <div data-component="select-value-text" data-placeholder="Month"></div>
-                          </button>
-                        </div>
-                        <div data-component="select-content">
-                          <div data-component="select-item-group">
-                            <label data-component="select-item-group-label">Month</label>
-                            <div data-component="select-item" data-value="01"><div data-component="select-item-text">01</div></div>
-                            <div data-component="select-item" data-value="02"><div data-component="select-item-text">02</div></div>
-                            <div data-component="select-item" data-value="03"><div data-component="select-item-text">03</div></div>
-                            <div data-component="select-item" data-value="04"><div data-component="select-item-text">04</div></div>
-                            <div data-component="select-item" data-value="05"><div data-component="select-item-text">05</div></div>
-                            <div data-component="select-item" data-value="06"><div data-component="select-item-text">06</div></div>
-                            <div data-component="select-item" data-value="07"><div data-component="select-item-text">07</div></div>
-                            <div data-component="select-item" data-value="08"><div data-component="select-item-text">08</div></div>
-                            <div data-component="select-item" data-value="09"><div data-component="select-item-text">09</div></div>
-                            <div data-component="select-item" data-value="10"><div data-component="select-item-text">10</div></div>
-                            <div data-component="select-item" data-value="11"><div data-component="select-item-text">11</div></div>
-                            <div data-component="select-item" data-value="12"><div data-component="select-item-text">12</div></div>
-                          </div>
+                      <div data-component="select-root" data-placeholder="Month">
+                        <div data-component="select-item-group" data-label="Month">
+                          <div data-component="select-item" data-value="01" data-text="January"></div>
+                          <div data-component="select-item" data-value="02" data-text="February"></div>
+                          <div data-component="select-item" data-value="03" data-text="March"></div>
+                          <div data-component="select-item" data-value="04" data-text="April"></div>
+                          <div data-component="select-item" data-value="05" data-text="May"></div>
+                          <div data-component="select-item" data-value="06" data-text="June"></div>
+                          <div data-component="select-item" data-value="07" data-text="July"></div>
+                          <div data-component="select-item" data-value="08" data-text="August"></div>
+                          <div data-component="select-item" data-value="09" data-text="September"></div>
+                          <div data-component="select-item" data-value="10" data-text="October"></div>
+                          <div data-component="select-item" data-value="11" data-text="November"></div>
+                          <div data-component="select-item" data-value="12" data-text="December"></div>
                         </div>
                       </div>
                     </div>
                     <div data-component="field">
                       <label data-component="field-label" for="checkout-exp-year">Year</label>
-                      <div data-component="select-root">
-                        <div data-component="select-control">
-                          <button data-component="select-trigger">
-                            <div data-component="select-value-text" data-placeholder="Year"></div>
-                          </button>
-                        </div>
-                        <div data-component="select-content">
-                          <div data-component="select-item-group">
-                            <label data-component="select-item-group-label">Year</label>
-                            <div data-component="select-item" data-value="2025"><div data-component="select-item-text">2025</div></div>
-                            <div data-component="select-item" data-value="2026"><div data-component="select-item-text">2026</div></div>
-                            <div data-component="select-item" data-value="2027"><div data-component="select-item-text">2027</div></div>
-                            <div data-component="select-item" data-value="2028"><div data-component="select-item-text">2028</div></div>
-                            <div data-component="select-item" data-value="2029"><div data-component="select-item-text">2029</div></div>
-                          </div>
+                      <div data-component="select-root" data-placeholder="Year">
+                        <div data-component="select-item-group" data-label="Year">
+                          <div data-component="select-item" data-value="2025"></div>
+                          <div data-component="select-item" data-value="2026"></div>
+                          <div data-component="select-item" data-value="2027"></div>
+                          <div data-component="select-item" data-value="2028"></div>
+                          <div data-component="select-item" data-value="2029"></div>
+                          <div data-component="select-item" data-value="2030"></div>
                         </div>
                       </div>
                     </div>
@@ -116,16 +101,14 @@
           <fieldset data-component="field-set">
             <legend data-component="field-legend" data-variant="label">Compute Environment</legend>
             <p data-component="field-description">Select the compute environment for your cluster.</p>
-            <div data-component="radio-group-root" data-default-value="React">
+            <div data-component="radio-group-root" data-default-value="kubernetes">
               <label data-component="field-label">
                 <div data-component="field" data-orientation="horizontal">
                   <div data-component="field-content">
                     <div data-component="field-title">Kubernetes</div>
                     <p data-component="field-description">Run GPU workloads on a K8s cluster.</p>
                   </div>
-                  <div data-component="radio-group-item" data-value="React">
-                    <div data-component="radio-group-item-control"></div>
-                  </div>
+                  <div data-component="radio-group-item" data-value="kubernetes"></div>
                 </div>
               </label>
               <label data-component="field-label">
@@ -134,9 +117,7 @@
                     <div data-component="field-title">Virtual Machine</div>
                     <p data-component="field-description">Access a cluster to run GPU workloads.</p>
                   </div>
-                  <div data-component="radio-group-item" data-value="Solid">
-                    <div data-component="radio-group-item-control"></div>
-                  </div>
+                  <div data-component="radio-group-item" data-value="vm"></div>
                 </div>
               </label>
             </div>
