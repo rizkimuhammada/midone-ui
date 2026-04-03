@@ -93,22 +93,24 @@ export function TooltipContent({
   const api = useContext(ApiContext);
 
   return (
-    <Slot
-      className={cn(tooltipContent, className)}
-      {...api?.getContentProps()}
-      {...props}
-    >
-      {asChild ? (
-        children
-      ) : (
-        <div>
-          {children}
-          <TooltipArrow>
-            <TooltipArrowTip />
-          </TooltipArrow>
-        </div>
-      )}
-    </Slot>
+    <TooltipPositioner>
+      <Slot
+        className={cn(tooltipContent, className)}
+        {...api?.getContentProps()}
+        {...props}
+      >
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {children}
+            <TooltipArrow>
+              <TooltipArrowTip />
+            </TooltipArrow>
+          </div>
+        )}
+      </Slot>
+    </TooltipPositioner>
   );
 }
 

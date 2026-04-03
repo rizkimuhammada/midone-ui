@@ -47,9 +47,16 @@ function createGlobalTooltipNode() {
 function initTooltip() {
     document.querySelectorAll<HTMLElement>('[data-component="tooltip-root"]').forEach((rootEl) => {
         const triggerEl = rootEl.querySelector<HTMLElement>('[data-component="tooltip-trigger"]');
-        const positionerEl = rootEl.querySelector<HTMLElement>('[data-component="tooltip-positioner"]');
+        let positionerEl = rootEl.querySelector<HTMLElement>('[data-component="tooltip-positioner"]');
         const contentEl = rootEl.querySelector<HTMLElement>('[data-component="tooltip-content"]');
-        if (!triggerEl || !positionerEl || !contentEl) return;
+        if (!triggerEl || !contentEl) return;
+
+        if (!positionerEl) {
+            positionerEl = document.createElement("div");
+            positionerEl.setAttribute("data-component", "tooltip-positioner");
+            positionerEl.appendChild(contentEl);
+            rootEl.appendChild(positionerEl);
+        }
 
         // Replicate Vue's fragment behavior by forcing as-child on the tooltip root
         if (!rootEl.hasAttribute("data-as-child")) {

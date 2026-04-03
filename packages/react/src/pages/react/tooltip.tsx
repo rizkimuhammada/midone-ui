@@ -1,7 +1,6 @@
 import {
   TooltipRoot,
   TooltipTrigger,
-  TooltipPositioner,
   TooltipContent,
 } from "@/components/ui/tooltip";
 import {
@@ -22,9 +21,7 @@ function Main() {
               <>
                 <TooltipRoot>
                   <TooltipTrigger>Hover Me</TooltipTrigger>
-                  <TooltipPositioner>
-                    <TooltipContent>I am a tooltip!</TooltipContent>
-                  </TooltipPositioner>
+                  <TooltipContent>I am a tooltip!</TooltipContent>
                 </TooltipRoot>
               </>
             ),
@@ -33,9 +30,7 @@ function Main() {
                 {`
 <TooltipRoot>
   <TooltipTrigger>Hover Me</TooltipTrigger>
-  <TooltipPositioner>
-    <TooltipContent>I am a tooltip!</TooltipContent>
-  </TooltipPositioner>
+  <TooltipContent>I am a tooltip!</TooltipContent>
 </TooltipRoot>
                         `}
               </PreviewCode>
@@ -147,22 +142,24 @@ export function TooltipContent({
   const api = useContext(ApiContext);
 
   return (
-    <Slot
-      className={cn(tooltipContent, className)}
-      {...api?.getContentProps()}
-      {...props}
-    >
-      {asChild ? (
-        children
-      ) : (
-        <div>
-          {children}
-          <TooltipArrow>
-            <TooltipArrowTip />
-          </TooltipArrow>
-        </div>
-      )}
-    </Slot>
+    <TooltipPositioner>
+      <Slot
+        className={cn(tooltipContent, className)}
+        {...api?.getContentProps()}
+        {...props}
+      >
+        {asChild ? (
+          children
+        ) : (
+          <div>
+            {children}
+            <TooltipArrow>
+              <TooltipArrowTip />
+            </TooltipArrow>
+          </div>
+        )}
+      </Slot>
+    </TooltipPositioner>
   );
 }
 
@@ -216,7 +213,6 @@ export function TooltipArrowTip({
 import {
   TooltipRoot,
   TooltipTrigger,
-  TooltipPositioner,
   TooltipContent,
 } from "@/components/ui/tooltip";
               `}
@@ -225,9 +221,7 @@ import {
           {`
 <TooltipRoot>
   <TooltipTrigger>Hover Me</TooltipTrigger>
-  <TooltipPositioner>
-    <TooltipContent>I am a tooltip!</TooltipContent>
-  </TooltipPositioner>
+  <TooltipContent>I am a tooltip!</TooltipContent>
 </TooltipRoot>
               `}
         </PreviewCode>
