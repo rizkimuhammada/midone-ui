@@ -22,7 +22,15 @@ function initRadioGroup() {
         root.setAttribute("data-part", "root");
         root.setAttribute("role", "radiogroup");
 
-        const labelEl = root.querySelector<HTMLElement>('[data-component="radio-group-label"]');
+        let labelEl = root.querySelector<HTMLElement>('[data-component="radio-group-label"]');
+        const dataLabel = root.getAttribute("data-label");
+        if (!labelEl && dataLabel) {
+            labelEl = document.createElement("div");
+            labelEl.setAttribute("data-component", "radio-group-label");
+            labelEl.textContent = dataLabel;
+            root.insertBefore(labelEl, root.firstChild);
+        }
+
         if (labelEl) {
             labelEl.className = cn(label, radioGroupLabel, labelEl.className);
             labelEl.setAttribute("data-scope", "radio-group");
@@ -55,14 +63,31 @@ function initRadioGroup() {
             item.style.cursor = "pointer";
             const val = item.getAttribute("data-value") ?? "";
 
-            const controlEl = item.querySelector<HTMLElement>('[data-component="radio-group-item-control"]');
+            let controlEl = item.querySelector<HTMLElement>('[data-component="radio-group-item-control"]');
+            let textEl = item.querySelector<HTMLElement>('[data-component="radio-group-item-text"]');
+
+            if (!controlEl) {
+                controlEl = document.createElement("div");
+                controlEl.setAttribute("data-component", "radio-group-item-control");
+                
+                if (!textEl) {
+                   const children = Array.from(item.childNodes);
+                   textEl = document.createElement("span");
+                   textEl.setAttribute("data-component", "radio-group-item-text");
+                   children.forEach(child => textEl!.appendChild(child));
+                   item.appendChild(controlEl);
+                   item.appendChild(textEl);
+                } else {
+                   item.insertBefore(controlEl, textEl);
+                }
+            }
+
             if (controlEl) {
                 controlEl.className = cn(radioGroupItemControl, controlEl.className);
                 controlEl.setAttribute("data-scope", "radio-group");
                 controlEl.setAttribute("data-part", "item-control");
             }
 
-            const textEl = item.querySelector<HTMLElement>('[data-component="radio-group-item-text"]');
             if (textEl) {
                 textEl.className = cn(radioGroupItemText, textEl.className);
                 textEl.setAttribute("data-scope", "radio-group");

@@ -2,7 +2,7 @@
 import { cn } from "@midoneui/core/utils/cn";
 import { radioGroupItem } from "@midoneui/core/styles/radio-group.styles";
 import { Slot } from "@/components/ui/slot";
-import { RadioGroupItemHiddenInput } from ".";
+import { RadioGroupItemHiddenInput, RadioGroupItemControl, RadioGroupItemText } from ".";
 import type { Api, ItemProps } from "@zag-js/radio-group";
 import { provide, inject } from "vue";
 
@@ -29,7 +29,8 @@ provide("radioGroupItem", props);
   >
     <slot v-if="asChild" />
     <label v-else>
-      <slot />
+      <RadioGroupItemControl />
+      <RadioGroupItemText><slot /></RadioGroupItemText>
       <RadioGroupItemHiddenInput />
     </label>
   </Slot>

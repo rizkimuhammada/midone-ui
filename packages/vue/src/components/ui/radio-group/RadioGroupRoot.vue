@@ -7,13 +7,14 @@ import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";
 import { radioGroupRoot } from "@midoneui/core/styles/radio-group.styles";
 import { Dot } from "lucide-vue-next";
-import { RadioGroupIndicator } from ".";
+import { RadioGroupIndicator, RadioGroupLabel } from ".";
 
 const {
   class: className,
   asChild = false,
+  label,
   ...props
-} = defineProps<Partial<Props> & { class?: string; asChild?: boolean }>();
+} = defineProps<Partial<Props> & { class?: string; asChild?: boolean; label?: string }>();
 
 const service = useMachine(radioGroup.machine, {
   ...props,
@@ -31,6 +32,7 @@ provide("radioGroupApi", api);
   >
     <slot v-if="asChild" />
     <div v-else>
+      <RadioGroupLabel v-if="label">{{ label }}</RadioGroupLabel>
       <slot />
       <RadioGroupIndicator>
         <Dot />

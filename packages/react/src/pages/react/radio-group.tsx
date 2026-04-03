@@ -1,9 +1,6 @@
 import {
   RadioGroupRoot,
-  RadioGroupLabel,
   RadioGroupItem,
-  RadioGroupItemText,
-  RadioGroupItemControl,
 } from "@/components/ui/radio-group";
 import {
   Preview,
@@ -23,12 +20,10 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <RadioGroupRoot defaultValue="React">
-                  <RadioGroupLabel>Framework</RadioGroupLabel>
+                <RadioGroupRoot defaultValue="React" label="Framework">
                   {frameworks.map((framework) => (
                     <RadioGroupItem key={framework} value={framework}>
-                      <RadioGroupItemControl />
-                      <RadioGroupItemText>{framework}</RadioGroupItemText>
+                      {framework}
                     </RadioGroupItem>
                   ))}
                 </RadioGroupRoot>
@@ -39,12 +34,10 @@ function Main() {
                 {`
 const frameworks = ["React", "Solid", "Vue", "Svelte"];
                     
-<RadioGroupRoot defaultValue="React">
-  <RadioGroupLabel>Framework</RadioGroupLabel>
+<RadioGroupRoot defaultValue="React" label="Framework">
   {frameworks.map((framework) => (
     <RadioGroupItem key={framework} value={framework}>
-      <RadioGroupItemControl />
-      <RadioGroupItemText>{framework}</RadioGroupItemText>
+      {framework}
     </RadioGroupItem>
   ))}
 </RadioGroupRoot>
@@ -88,8 +81,9 @@ export function RadioGroupRoot({
   children,
   className,
   asChild = false,
+  label,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean; label?: string }) {
   const service = useMachine(radio.machine, {
     ...props,
     id: useId(),
@@ -108,6 +102,7 @@ export function RadioGroupRoot({
           children
         ) : (
           <div>
+            {label && <RadioGroupLabel>{label}</RadioGroupLabel>}
             {children}
             <RadioGroupIndicator>
               <Dot />
@@ -176,7 +171,8 @@ export function RadioGroupItem({
           children
         ) : (
           <label>
-            {children}
+            <RadioGroupItemControl />
+            <RadioGroupItemText>{children}</RadioGroupItemText>
             <RadioGroupItemHiddenInput />
           </label>
         )}
@@ -253,21 +249,16 @@ export function RadioGroupItemHiddenInput({
           {`
 import {
   RadioGroupRoot,
-  RadioGroupLabel,
   RadioGroupItem,
-  RadioGroupItemText,
-  RadioGroupItemControl,
 } from "@/components/ui/radio-group";
               `}
         </PreviewCode>
         <PreviewCode>
           {`
-<RadioGroupRoot defaultValue="React">
-  <RadioGroupLabel>Framework</RadioGroupLabel>
+<RadioGroupRoot defaultValue="React" label="Framework">
   {frameworks.map((framework) => (
     <RadioGroupItem key={framework} value={framework}>
-      <RadioGroupItemControl />
-      <RadioGroupItemText>{framework}</RadioGroupItemText>
+      {framework}
     </RadioGroupItem>
   ))}
 </RadioGroupRoot>

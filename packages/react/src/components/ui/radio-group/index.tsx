@@ -23,8 +23,9 @@ export function RadioGroupRoot({
   children,
   className,
   asChild = false,
+  label,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean; label?: string }) {
   const service = useMachine(radio.machine, {
     ...props,
     id: useId(),
@@ -43,6 +44,7 @@ export function RadioGroupRoot({
           children
         ) : (
           <div>
+            {label && <RadioGroupLabel>{label}</RadioGroupLabel>}
             {children}
             <RadioGroupIndicator>
               <Dot />
@@ -111,7 +113,8 @@ export function RadioGroupItem({
           children
         ) : (
           <label>
-            {children}
+            <RadioGroupItemControl />
+            <RadioGroupItemText>{children}</RadioGroupItemText>
             <RadioGroupItemHiddenInput />
           </label>
         )}

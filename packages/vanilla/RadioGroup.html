@@ -8,24 +8,11 @@
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body class="p-10">
-  <div data-component="radio-group-root" data-default-value="React">
-    <span data-component="radio-group-label">Framework</span>
-    <div data-component="radio-group-item" data-value="React">
-      <div data-component="radio-group-item-control"></div>
-      <span data-component="radio-group-item-text">React</span>
-    </div>
-    <div data-component="radio-group-item" data-value="Solid">
-      <div data-component="radio-group-item-control"></div>
-      <span data-component="radio-group-item-text">Solid</span>
-    </div>
-    <div data-component="radio-group-item" data-value="Vue">
-      <div data-component="radio-group-item-control"></div>
-      <span data-component="radio-group-item-text">Vue</span>
-    </div>
-    <div data-component="radio-group-item" data-value="Svelte">
-      <div data-component="radio-group-item-control"></div>
-      <span data-component="radio-group-item-text">Svelte</span>
-    </div>
+  <div data-component="radio-group-root" data-default-value="React" data-label="Framework">
+    <div data-component="radio-group-item" data-value="React">React</div>
+    <div data-component="radio-group-item" data-value="Solid">Solid</div>
+    <div data-component="radio-group-item" data-value="Vue">Vue</div>
+    <div data-component="radio-group-item" data-value="Svelte">Svelte</div>
   </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
