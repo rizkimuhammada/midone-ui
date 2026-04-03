@@ -1,4 +1,4 @@
-import { SwitchRoot, SwitchControl, SwitchLabel } from "@/components/ui/switch";
+import { SwitchRoot } from "@/components/ui/switch";
 import {
   Preview,
   SectionTitle,
@@ -15,19 +15,13 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <SwitchRoot>
-                  <SwitchControl />
-                  <SwitchLabel>Airplane Mode</SwitchLabel>
-                </SwitchRoot>
+                <SwitchRoot label="Airplane Mode" />
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-<SwitchRoot>
-  <SwitchControl />
-  <SwitchLabel>Airplane Mode</SwitchLabel>
-</SwitchRoot>
+<SwitchRoot label="Airplane Mode" />
                         `}
               </PreviewCode>
             ),
@@ -64,8 +58,9 @@ export function SwitchRoot({
   children,
   className,
   asChild = false,
+  label,
   ...props
-}: React.ComponentProps<"label"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"label"> & Partial<Props> & { asChild?: boolean; label?: string }) {
   const service = useMachine(zagSwitch.machine, { ...props, id: useId() });
   const api = zagSwitch.connect(service, normalizeProps);
 
@@ -80,7 +75,14 @@ export function SwitchRoot({
           children
         ) : (
           <label>
-            {children}
+            {label ? (
+              <>
+                <SwitchControl />
+                <SwitchLabel>{label}</SwitchLabel>
+              </>
+            ) : (
+              children
+            )}
             <SwitchHiddenInput />
           </label>
         )}
@@ -176,15 +178,12 @@ export function SwitchHiddenInput({
         <SectionTitle>Usage</SectionTitle>
         <PreviewCode>
           {`
-import { SwitchRoot, SwitchControl, SwitchLabel } from "@/components/ui/switch";
+import { SwitchRoot } from "@/components/ui/switch";
               `}
         </PreviewCode>
         <PreviewCode>
           {`
-<SwitchRoot>
-  <SwitchControl />
-  <SwitchLabel>Airplane Mode</SwitchLabel>
-</SwitchRoot>
+<SwitchRoot label="Airplane Mode" />
               `}
         </PreviewCode>
       </div>

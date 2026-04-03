@@ -19,8 +19,9 @@ export function SwitchRoot({
   children,
   className,
   asChild = false,
+  label,
   ...props
-}: React.ComponentProps<"label"> & Partial<Props> & { asChild?: boolean }) {
+}: React.ComponentProps<"label"> & Partial<Props> & { asChild?: boolean; label?: string }) {
   const service = useMachine(zagSwitch.machine, { ...props, id: useId() });
   const api = zagSwitch.connect(service, normalizeProps);
 
@@ -35,7 +36,14 @@ export function SwitchRoot({
           children
         ) : (
           <label>
-            {children}
+            {label ? (
+              <>
+                <SwitchControl />
+                <SwitchLabel>{label}</SwitchLabel>
+              </>
+            ) : (
+              children
+            )}
             <SwitchHiddenInput />
           </label>
         )}

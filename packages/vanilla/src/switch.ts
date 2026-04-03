@@ -10,12 +10,26 @@ import { label } from "@midoneui/core/src/styles/label.styles";
 
 function initSwitch() {
     document.querySelectorAll<HTMLElement>('[data-component="switch-root"]').forEach((root) => {
-        const control = root.querySelector<HTMLElement>('[data-component="switch-control"]');
-        const labelEl = root.querySelector<HTMLElement>('[data-component="switch-label"]');
+        let control = root.querySelector<HTMLElement>('[data-component="switch-control"]');
+        let labelEl = root.querySelector<HTMLElement>('[data-component="switch-label"]');
+        const dataLabel = root.getAttribute("data-label");
+
+        if (!control) {
+            control = document.createElement("div");
+            control.setAttribute("data-component", "switch-control");
+            root.appendChild(control);
+        }
+
+        if (!labelEl && dataLabel) {
+            labelEl = document.createElement("div");
+            labelEl.setAttribute("data-component", "switch-label");
+            labelEl.textContent = dataLabel;
+            root.appendChild(labelEl);
+        }
 
         // Inject thumb into control
         const thumb = document.createElement("span");
-        control?.appendChild(thumb);
+        control.appendChild(thumb);
 
         // Inject hidden checkbox input into root
         const input = document.createElement("input");
