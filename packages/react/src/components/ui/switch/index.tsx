@@ -32,18 +32,12 @@ export function SwitchRoot({
         {...api?.getRootProps()}
         {...props}
       >
-        {asChild ? (
+        {children ? (
           children
         ) : (
           <label>
-            {label ? (
-              <>
-                <SwitchControl />
-                <SwitchLabel>{label}</SwitchLabel>
-              </>
-            ) : (
-              children
-            )}
+            <SwitchControl />
+            {label && <SwitchLabel>{label}</SwitchLabel>}
             <SwitchHiddenInput />
           </label>
         )}

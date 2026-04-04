@@ -10,22 +10,17 @@ import { label } from "@midoneui/core/src/styles/label.styles";
 
 function initSwitch() {
     document.querySelectorAll<HTMLElement>('[data-component="switch-root"]').forEach((root) => {
+        // Shorthand support (Auto-rendering)
+        if (root.children.length === 0) {
+            const labelText = root.getAttribute("data-label");
+            root.innerHTML = `
+                <div data-component="switch-control"></div>
+                ${labelText ? `<div data-component="switch-label">${labelText}</div>` : ""}
+            `;
+        }
+
         let control = root.querySelector<HTMLElement>('[data-component="switch-control"]');
         let labelEl = root.querySelector<HTMLElement>('[data-component="switch-label"]');
-        const dataLabel = root.getAttribute("data-label");
-
-        if (!control) {
-            control = document.createElement("div");
-            control.setAttribute("data-component", "switch-control");
-            root.appendChild(control);
-        }
-
-        if (!labelEl && dataLabel) {
-            labelEl = document.createElement("div");
-            labelEl.setAttribute("data-component", "switch-label");
-            labelEl.textContent = dataLabel;
-            root.appendChild(labelEl);
-        }
 
         // Inject thumb into control
         const thumb = document.createElement("span");
