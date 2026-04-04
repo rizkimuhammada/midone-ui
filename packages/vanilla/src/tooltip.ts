@@ -58,12 +58,10 @@ function initTooltip() {
             rootEl.appendChild(positionerEl);
         }
 
-        // Replicate Vue's fragment behavior by forcing as-child on the tooltip root
-        if (!rootEl.hasAttribute("data-as-child")) {
-            rootEl.setAttribute("data-as-child", "true");
-        }
-        handleAsChild(rootEl);
-
+        // Handle trigger as-child FIRST, before touching rootEl.
+        // If rootEl.handleAsChild were called first, it recursively unwraps the trigger's
+        // child too — leaving triggerEl detached and empty, so event listeners would be
+        // attached to a dead element.
         const isAsChildTrigger = triggerEl.hasAttribute("data-as-child");
         const trigger = handleAsChild(triggerEl);
         if (!isAsChildTrigger) {
@@ -106,6 +104,10 @@ function initTooltip() {
         positioner.style.cssText = "position:fixed;z-index:50;display:none;";
         positioner.remove();
         document.body.appendChild(positioner);
+
+        // Replicate Vue's Fragment behavior: replace rootEl wrapper with trigger directly.
+        // Done AFTER positioner is moved to body so it's not lost when rootEl is removed.
+        rootEl.replaceWith(trigger);
 
         function show() {
             positioner.style.display = "block";
