@@ -69,22 +69,21 @@ function initRadioGroup() {
             if (!controlEl) {
                 controlEl = document.createElement("div");
                 controlEl.setAttribute("data-component", "radio-group-item-control");
-                
+
                 if (!textEl) {
-                   const children = Array.from(item.childNodes);
-                   const hasText = children.some(child => child.nodeType === Node.TEXT_NODE && child.textContent?.trim());
-                   
-                   if (hasText) {
-                       textEl = document.createElement("span");
-                       textEl.setAttribute("data-component", "radio-group-item-text");
-                       children.forEach(child => textEl!.appendChild(child));
-                       item.appendChild(controlEl);
-                       item.appendChild(textEl);
-                   } else {
-                       item.appendChild(controlEl);
-                   }
+                    const children = Array.from(item.childNodes);
+                    if (children.length > 0) {
+                        textEl = document.createElement("span");
+                        textEl.setAttribute("data-component", "radio-group-item-text");
+                        item.innerHTML = "";
+                        item.appendChild(controlEl);
+                        item.appendChild(textEl);
+                        children.forEach((child) => textEl!.appendChild(child));
+                    } else {
+                        item.appendChild(controlEl);
+                    }
                 } else {
-                   item.insertBefore(controlEl, textEl);
+                    item.insertBefore(controlEl, textEl);
                 }
             }
 

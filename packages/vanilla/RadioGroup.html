@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -7,13 +8,37 @@
   <title>RadioGroup - Midone UI Vanilla</title>
   <link rel="stylesheet" href="/src/style.css" />
 </head>
+
 <body class="p-10">
-  <div data-component="radio-group-root" data-default-value="React" data-label="Framework">
-    <div data-component="radio-group-item" data-value="React">React</div>
-    <div data-component="radio-group-item" data-value="Solid">Solid</div>
-    <div data-component="radio-group-item" data-value="Vue">Vue</div>
-    <div data-component="radio-group-item" data-value="Svelte">Svelte</div>
+  <div class="flex flex-col gap-20">
+    <div class="grid grid-cols-2">
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div data-component="radio-group-root" data-default-value="React" data-label="Framework">
+          <div data-component="radio-group-item" data-value="React">React</div>
+          <div data-component="radio-group-item" data-value="Solid">Solid</div>
+          <div data-component="radio-group-item" data-value="Vue">Vue</div>
+          <div data-component="radio-group-item" data-value="Svelte">Svelte</div>
+        </div>
+      </div>
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <div data-component="radio-group-root" data-default-value="required">
+          <div data-component="radio-group-item" data-value="required">
+            <div class="font-medium">Required</div>
+            <div class="mt-1 text-xs leading-relaxed opacity-70">
+              You require the buyer to activate shipping insurance
+            </div>
+          </div>
+          <div data-component="radio-group-item" data-value="optional">
+            <div class="font-medium">Optional</div>
+            <div class="mt-1 text-xs leading-relaxed opacity-70">
+              You give the buyer the option to activate shipping insurance
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
+
 </html>
