@@ -31,6 +31,23 @@ const SYNC_CONFIGS = [
         name: "Vanilla to Laravel",
         src: "/Users/dwicompany/Desktop/Projects/midone-ui/packages/vanilla/src",
         dest: "/Users/dwicompany/Desktop/Projects/midone/packages/laravel/resources/js/vendor/@midoneui/vanilla/src"
+    },
+    // Core (Styles & Utils) to Laravel
+    {
+        name: "Core to Laravel",
+        src: "/Users/dwicompany/Desktop/Projects/midone-ui/packages/core/src",
+        dest: "/Users/dwicompany/Desktop/Projects/midone/packages/laravel/resources/js/vendor/@midoneui/core/src"
+    },
+    // Rental (New Project)
+    {
+        name: "Rental (React Components)",
+        src: "/Users/dwicompany/Desktop/Projects/midone-ui/packages/react/src/components/ui",
+        dest: "/Users/dwicompany/Desktop/Projects/rental/apps/frontend/src/components/ui"
+    },
+    {
+        name: "Rental (Core to React)",
+        src: "/Users/dwicompany/Desktop/Projects/midone-ui/packages/core/src",
+        dest: "/Users/dwicompany/Desktop/Projects/rental/apps/frontend/src/core"
     }
 ];
 

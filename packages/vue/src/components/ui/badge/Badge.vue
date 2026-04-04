@@ -3,7 +3,6 @@ import { cn } from "@midoneui/core/utils/cn";
 import {
   TooltipRoot,
   TooltipTrigger,
-  TooltipPositioner,
   TooltipContent,
 } from "@/components/ui/tooltip";
 import {
@@ -35,8 +34,6 @@ const {
         <slot />
       </span>
     </TooltipTrigger>
-    <TooltipPositioner>
-      <TooltipContent>{{ content }}</TooltipContent>
-    </TooltipPositioner>
+    <TooltipContent>{{ content }}</TooltipContent>
   </TooltipRoot>
 </template>

@@ -2,7 +2,6 @@ import { cn } from "@midoneui/core/utils/cn";
 import {
   TooltipRoot,
   TooltipTrigger,
-  TooltipPositioner,
   TooltipContent,
 } from "@/components/ui/tooltip";
 import {
@@ -31,9 +30,7 @@ function Badge({
           {children}
         </span>
       </TooltipTrigger>
-      <TooltipPositioner>
-        <TooltipContent>{content}</TooltipContent>
-      </TooltipPositioner>
+      <TooltipContent>{content}</TooltipContent>
     </TooltipRoot>
   );
 }
