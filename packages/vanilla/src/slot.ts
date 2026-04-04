@@ -1,6 +1,6 @@
 import { cn } from "@midoneui/core/src/utils/cn";
 
-export function handleAsChild(element: HTMLElement) {
+export function handleAsChild(element: HTMLElement): HTMLElement {
     const asChild =
         element.hasAttribute("as-child") ||
         element.hasAttribute("data-as-child");
@@ -26,7 +26,8 @@ export function handleAsChild(element: HTMLElement) {
             const childClasses = firstChild.getAttribute("class") || "";
             firstChild.setAttribute("class", cn(parentClasses, childClasses));
             element.replaceWith(firstChild);
-            return firstChild;
+            // Recurse: if firstChild also has data-as-child, keep unwrapping
+            return handleAsChild(firstChild);
         }
     }
     return element;
