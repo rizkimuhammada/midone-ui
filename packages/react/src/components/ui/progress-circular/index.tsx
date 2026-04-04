@@ -16,14 +16,21 @@ import { createContext, useContext, useId } from "react";
 
 const ApiContext = createContext<Api | null>(null);
 
-export function ProgressRoot({
+export function ProgressCircularRoot({
   children,
   className,
   asChild = false,
   label,
   circleClass,
+  showValueText = false,
   ...props
-}: React.ComponentProps<"div"> & Partial<Props> & { asChild?: boolean; label?: string; circleClass?: string }) {
+}: React.ComponentProps<"div"> &
+  Partial<Props> & {
+    asChild?: boolean;
+    label?: string;
+    circleClass?: string;
+    showValueText?: boolean;
+  }) {
   const service = useMachine(progress.machine, { id: useId(), ...props });
   const api = progress.connect(service, normalizeProps);
 
@@ -38,12 +45,12 @@ export function ProgressRoot({
           children
         ) : (
           <div>
-            {label && <ProgressLabel>{label}</ProgressLabel>}
-            <ProgressCircle className={circleClass}>
-              <ProgressCircleTrack />
-              <ProgressCircleRange />
-            </ProgressCircle>
-            <ProgressValueText />
+            {label && <ProgressCircularLabel>{label}</ProgressCircularLabel>}
+            <ProgressCircularCircle className={circleClass}>
+              <ProgressCircularCircleTrack />
+              <ProgressCircularCircleRange />
+            </ProgressCircularCircle>
+            {showValueText && <ProgressCircularValueText />}
             {children}
           </div>
         )}
@@ -52,7 +59,7 @@ export function ProgressRoot({
   );
 }
 
-export function ProgressLabel({
+export function ProgressCircularLabel({
   children,
   className,
   asChild = false,
@@ -73,7 +80,7 @@ export function ProgressLabel({
   );
 }
 
-export function ProgressValueText({
+export function ProgressCircularValueText({
   className,
   ...props
 }: React.ComponentProps<"div">) {
@@ -90,7 +97,7 @@ export function ProgressValueText({
   );
 }
 
-export function ProgressCircle({
+export function ProgressCircularCircle({
   children,
   className,
   ...props
@@ -108,7 +115,7 @@ export function ProgressCircle({
   );
 }
 
-export function ProgressCircleTrack({
+export function ProgressCircularCircleTrack({
   className,
   ...props
 }: React.ComponentProps<"circle">) {
@@ -123,7 +130,7 @@ export function ProgressCircleTrack({
   );
 }
 
-export function ProgressCircleRange({
+export function ProgressCircularCircleRange({
   className,
   ...props
 }: React.ComponentProps<"circle">) {

@@ -6,7 +6,7 @@ import { cn } from "@midoneui/core/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";
 import { progressRoot } from "@midoneui/core/styles/progress-linear.styles";
-import { ProgressLabel, ProgressTrack, ProgressRange, ProgressValueText } from ".";
+import { ProgressLinearLabel, ProgressLinearTrack, ProgressLinearRange, ProgressLinearValueText } from ".";
 
 const {
   class: className,
@@ -14,7 +14,7 @@ const {
   label,
   trackClass,
   ...props
-} = defineProps<Partial<Props> & { class?: string; asChild?: boolean; label?: string; trackClass?: string }>();
+} = defineProps<Partial<Props> & { class?: string; asChild?: boolean; label?: string; trackClass?: string; showValueText?: boolean }>();
 
 const service = useMachine(progress.machine, {
   ...props,
@@ -32,11 +32,11 @@ provide("progressApi", api);
   >
     <slot v-if="asChild" />
     <div v-else>
-      <ProgressLabel v-if="label">{{ label }}</ProgressLabel>
-      <ProgressTrack :class="trackClass">
-        <ProgressRange />
-      </ProgressTrack>
-      <ProgressValueText />
+      <ProgressLinearLabel v-if="label">{{ label }}</ProgressLinearLabel>
+      <ProgressLinearTrack :class="trackClass">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
+      <ProgressLinearValueText v-if="showValueText" />
       <slot />
     </div>
   </Slot>

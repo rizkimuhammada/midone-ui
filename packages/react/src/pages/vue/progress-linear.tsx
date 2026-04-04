@@ -1,9 +1,9 @@
 import {
-  ProgressRoot,
-  ProgressLabel,
-  ProgressValueText,
-  ProgressTrack,
-  ProgressRange,
+  ProgressLinearRoot,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
 } from "@/components/ui/progress-linear";
 import {
   Preview,
@@ -21,25 +21,25 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <ProgressRoot defaultValue={42}>
-                  <ProgressLabel>Progress Linear</ProgressLabel>
-                  <ProgressTrack className="max-w-72">
-                    <ProgressRange />
-                  </ProgressTrack>
-                  <ProgressValueText />
-                </ProgressRoot>
+                <ProgressLinearRoot defaultValue={42}>
+                  <ProgressLinearLabel>Progress Linear</ProgressLinearLabel>
+                  <ProgressLinearTrack className="max-w-72">
+                    <ProgressLinearRange />
+                  </ProgressLinearTrack>
+                  <ProgressLinearValueText />
+                </ProgressLinearRoot>
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-<ProgressRoot :defaultValue="42">
-  <ProgressLabel>Progress Linear</ProgressLabel>
-  <ProgressTrack className="max-w-72">
-    <ProgressRange />
-  </ProgressTrack>
-  <ProgressValueText />
-</ProgressRoot>
+<ProgressLinearRoot :defaultValue="42">
+  <ProgressLinearLabel>Progress Linear</ProgressLinearLabel>
+  <ProgressLinearTrack class="max-w-72">
+    <ProgressLinearRange />
+  </ProgressLinearTrack>
+  <ProgressLinearValueText />
+</ProgressLinearRoot>
                         `}
               </PreviewCode>
             ),
@@ -53,7 +53,7 @@ function Main() {
         <SectionContent>
           Copy and paste the following code into your project.
         </SectionContent>
-        <PreviewCode title="components/ui/progress-linear/ProgressLabel.vue">
+        <PreviewCode title="components/ui/progress-linear/ProgressLinearLabel.vue">
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
@@ -85,7 +85,7 @@ const api = inject<Api>("progressApi");
 </template>
           `}
         </PreviewCode>
-        <PreviewCode title="components/ui/progress-linear/ProgressRange.vue">
+        <PreviewCode title="components/ui/progress-linear/ProgressLinearRange.vue">
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
@@ -108,7 +108,7 @@ const api = inject<Api>("progressApi");
 </template>
           `}
         </PreviewCode>
-        <PreviewCode title="components/ui/progress-linear/ProgressRoot.vue">
+        <PreviewCode title="components/ui/progress-linear/ProgressLinearRoot.vue">
           {`
 <script lang="ts" setup>
 import * as progress from "@zag-js/progress";
@@ -147,7 +147,7 @@ provide("progressApi", api);
 </template>
           `}
         </PreviewCode>
-        <PreviewCode title="components/ui/progress-linear/ProgressTrack.vue">
+        <PreviewCode title="components/ui/progress-linear/ProgressLinearTrack.vue">
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
@@ -172,7 +172,7 @@ const api = inject<Api>("progressApi");
 </template>
           `}
         </PreviewCode>
-        <PreviewCode title="components/ui/progress-linear/ProgressValueText.vue">
+        <PreviewCode title="components/ui/progress-linear/ProgressLinearValueText.vue">
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
@@ -204,11 +204,11 @@ const api = inject<Api>("progressApi");
         </PreviewCode>
         <PreviewCode title="components/ui/progress-linear/index.ts">
           {`
-export { default as ProgressLabel } from "./ProgressLabel.vue";
-export { default as ProgressRange } from "./ProgressRange.vue";
-export { default as ProgressRoot } from "./ProgressRoot.vue";
-export { default as ProgressTrack } from "./ProgressTrack.vue";
-export { default as ProgressValueText } from "./ProgressValueText.vue";
+export { default as ProgressLinearLabel } from "./ProgressLinearLabel.vue";
+export { default as ProgressLinearRange } from "./ProgressLinearRange.vue";
+export { default as ProgressLinearRoot } from "./ProgressLinearRoot.vue";
+export { default as ProgressLinearTrack } from "./ProgressLinearTrack.vue";
+export { default as ProgressLinearValueText } from "./ProgressLinearValueText.vue";
               `}
         </PreviewCode>
         <SectionContent>
@@ -220,23 +220,23 @@ export { default as ProgressValueText } from "./ProgressValueText.vue";
         <PreviewCode>
           {`
 import {
-  ProgressRoot,
-  ProgressLabel,
-  ProgressValueText,
-  ProgressTrack,
-  ProgressRange,
+  ProgressLinearRoot,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
 } from "@/components/ui/progress-linear";
               `}
         </PreviewCode>
         <PreviewCode>
           {`
-<ProgressRoot :defaultValue="42">
-  <ProgressLabel>Progress Linear</ProgressLabel>
-  <ProgressTrack class="max-w-72">
-    <ProgressRange />
-  </ProgressTrack>
-  <ProgressValueText />
-</ProgressRoot>
+<ProgressLinearRoot :defaultValue="42">
+  <ProgressLinearLabel>Progress Linear</ProgressLinearLabel>
+  <ProgressLinearTrack class="max-w-72">
+    <ProgressLinearRange />
+  </ProgressLinearTrack>
+  <ProgressLinearValueText />
+</ProgressLinearRoot>
               `}
         </PreviewCode>
       </div>

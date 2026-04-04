@@ -1,6 +1,6 @@
-export { default as ProgressCircle } from "./ProgressCircle.vue";
-export { default as ProgressCircleRange } from "./ProgressCircleRange.vue";
-export { default as ProgressCircleTrack } from "./ProgressCircleTrack.vue";
-export { default as ProgressLabel } from "./ProgressLabel.vue";
-export { default as ProgressRoot } from "./ProgressRoot.vue";
-export { default as ProgressValueText } from "./ProgressValueText.vue";
+export { default as ProgressCircularCircle } from "./ProgressCircularCircle.vue";
+export { default as ProgressCircularCircleRange } from "./ProgressCircularCircleRange.vue";
+export { default as ProgressCircularCircleTrack } from "./ProgressCircularCircleTrack.vue";
+export { default as ProgressCircularLabel } from "./ProgressCircularLabel.vue";
+export { default as ProgressCircularRoot } from "./ProgressCircularRoot.vue";
+export { default as ProgressCircularValueText } from "./ProgressCircularValueText.vue";

@@ -18,6 +18,7 @@ import Datatable from "../pages/data-table";
 import Datepicker from "../pages/datepicker";
 import Dialog from "../pages/dialog";
 import Field from "../pages/field";
+import FileIconPage from "../pages/file-icon";
 import Input from "../pages/input";
 import MapPage from "../pages/map";
 import Menu from "../pages/menu";
@@ -73,6 +74,7 @@ function Router() {
             { path: "datepicker", element: <Datepicker /> },
             { path: "dialog", element: <Dialog /> },
             { path: "field", element: <Field /> },
+            { path: "file-icon", element: <FileIconPage /> },
             { path: "input", element: <Input /> },
             { path: "map", element: <MapPage /> },
             { path: "menu", element: <Menu /> },

@@ -1,10 +1,10 @@
 import {
-  ProgressRoot,
-  ProgressLabel,
-  ProgressValueText,
-  ProgressCircle,
-  ProgressCircleTrack,
-  ProgressCircleRange,
+  ProgressCircularRoot,
+  ProgressCircularLabel,
+  ProgressCircularValueText,
+  ProgressCircularCircle,
+  ProgressCircularCircleTrack,
+  ProgressCircularCircleRange,
 } from "@/components/ui/progress-circular";
 import {
   Preview,
@@ -22,27 +22,27 @@ function Main() {
           {() => ({
             preview: (
               <>
-                <ProgressRoot defaultValue={42}>
-                  <ProgressLabel>Progress Circular</ProgressLabel>
-                  <ProgressCircle className="max-w-48">
-                    <ProgressCircleTrack />
-                    <ProgressCircleRange />
-                  </ProgressCircle>
-                  <ProgressValueText />
-                </ProgressRoot>
+                <ProgressCircularRoot defaultValue={42}>
+                  <ProgressCircularLabel>Progress Circular</ProgressCircularLabel>
+                  <ProgressCircularCircle className="max-w-48">
+                    <ProgressCircularCircleTrack />
+                    <ProgressCircularCircleRange />
+                  </ProgressCircularCircle>
+                  <ProgressCircularValueText />
+                </ProgressCircularRoot>
               </>
             ),
             code: (
               <PreviewCode>
                 {`
-<ProgressRoot :defaultValue="42">
-  <ProgressLabel>Progress Circular</ProgressLabel>
-  <ProgressCircle class="max-w-48">
-    <ProgressCircleTrack />
-    <ProgressCircleRange />
-  </ProgressCircle>
-  <ProgressValueText />
-</ProgressRoot>
+<ProgressCircularRoot :defaultValue="42">
+  <ProgressCircularLabel>Progress Circular</ProgressCircularLabel>
+  <ProgressCircularCircle class="max-w-48">
+    <ProgressCircularCircleTrack />
+    <ProgressCircularCircleRange />
+  </ProgressCircularCircle>
+  <ProgressCircularValueText />
+</ProgressCircularRoot>
                         `}
               </PreviewCode>
             ),
@@ -56,7 +56,7 @@ function Main() {
         <SectionContent>
           Copy and paste the following code into your project.
         </SectionContent>
-        <PreviewCode title="components/ui/progress-circular/ProgressCircle.vue">
+        <PreviewCode title="components/ui/progress-circular/ProgressCircularCircle.vue">
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
@@ -81,7 +81,7 @@ const api = inject<Api>("progressApi");
 </template>
             `}
         </PreviewCode>
-        <PreviewCode title="components/ui/progress-circular/ProgressCircleRange.vue">
+        <PreviewCode title="components/ui/progress-circular/ProgressCircularCircleRange.vue">
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
@@ -104,7 +104,7 @@ const api = inject<Api>("progressApi");
 </template>
             `}
         </PreviewCode>
-        <PreviewCode title="components/ui/progress-circular/ProgressCircleTrack.vue">
+        <PreviewCode title="components/ui/progress-circular/ProgressCircularCircleTrack.vue">
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
@@ -127,7 +127,7 @@ const api = inject<Api>("progressApi");
 </template>
             `}
         </PreviewCode>
-        <PreviewCode title="components/ui/progress-circular/ProgressLabel.vue">
+        <PreviewCode title="components/ui/progress-circular/ProgressCircularLabel.vue">
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
@@ -159,7 +159,7 @@ const api = inject<Api>("progressApi");
 </template>
             `}
         </PreviewCode>
-        <PreviewCode title="components/ui/progress-circular/ProgressRoot.vue">
+        <PreviewCode title="components/ui/progress-circular/ProgressCircularRoot.vue">
           {`
 <script lang="ts" setup>
 import * as progress from "@zag-js/progress";
@@ -198,7 +198,7 @@ provide("progressApi", api);
 </template>
             `}
         </PreviewCode>
-        <PreviewCode title="components/ui/progress-circular/ProgressValueText.vue">
+        <PreviewCode title="components/ui/progress-circular/ProgressCircularValueText.vue">
           {`
 <script lang="ts" setup>
 import { cn } from "@midoneui/core/utils/cn";
@@ -230,12 +230,12 @@ const api = inject<Api>("progressApi");
         </PreviewCode>
         <PreviewCode title="components/ui/progress-circular/index.ts">
           {`
-export { default as ProgressCircle } from "./ProgressCircle.vue";
-export { default as ProgressCircleRange } from "./ProgressCircleRange.vue";
-export { default as ProgressCircleTrack } from "./ProgressCircleTrack.vue";
-export { default as ProgressLabel } from "./ProgressLabel.vue";
-export { default as ProgressRoot } from "./ProgressRoot.vue";
-export { default as ProgressValueText } from "./ProgressValueText.vue";
+export { default as ProgressCircularCircle } from "./ProgressCircularCircle.vue";
+export { default as ProgressCircularCircleRange } from "./ProgressCircularCircleRange.vue";
+export { default as ProgressCircularCircleTrack } from "./ProgressCircularCircleTrack.vue";
+export { default as ProgressCircularLabel } from "./ProgressCircularLabel.vue";
+export { default as ProgressCircularRoot } from "./ProgressCircularRoot.vue";
+export { default as ProgressCircularValueText } from "./ProgressCircularValueText.vue";
               `}
         </PreviewCode>
         <SectionContent>
@@ -247,25 +247,25 @@ export { default as ProgressValueText } from "./ProgressValueText.vue";
         <PreviewCode>
           {`
 import {
-  ProgressRoot,
-  ProgressLabel,
-  ProgressValueText,
-  ProgressCircle,
-  ProgressCircleTrack,
-  ProgressCircleRange,
+  ProgressCircularRoot,
+  ProgressCircularLabel,
+  ProgressCircularValueText,
+  ProgressCircularCircle,
+  ProgressCircularCircleTrack,
+  ProgressCircularCircleRange,
 } from "@/components/ui/progress-circular";
               `}
         </PreviewCode>
         <PreviewCode>
           {`
-<ProgressRoot :defaultValue="42">
-  <ProgressLabel>Progress Circular</ProgressLabel>
-  <ProgressCircle class="max-w-48">
-    <ProgressCircleTrack />
-    <ProgressCircleRange />
-  </ProgressCircle>
-  <ProgressValueText />
-</ProgressRoot>
+<ProgressCircularRoot :defaultValue="42">
+  <ProgressCircularLabel>Progress Circular</ProgressCircularLabel>
+  <ProgressCircularCircle class="max-w-48">
+    <ProgressCircularCircleTrack />
+    <ProgressCircularCircleRange />
+  </ProgressCircularCircle>
+  <ProgressCircularValueText />
+</ProgressCircularRoot>
               `}
         </PreviewCode>
       </div>

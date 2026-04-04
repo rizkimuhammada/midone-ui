@@ -68,6 +68,10 @@ const router = createRouter({
       component: () => import("../pages/Field.vue"),
     },
     {
+      path: "/file-icon",
+      component: () => import("../pages/FileIcon.vue"),
+    },
+    {
       path: "/input",
       component: () => import("../pages/Input.vue"),
     },

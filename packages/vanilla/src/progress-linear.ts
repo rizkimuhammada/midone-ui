@@ -23,11 +23,11 @@ function initProgressLinear() {
         root.setAttribute("aria-valuemax", String(max));
         root.setAttribute("aria-valuenow", String(value));
 
-        let labelEl = root.querySelector<HTMLElement>('[data-component="progress-label"]');
+        let labelEl = root.querySelector<HTMLElement>('[data-component="progress-linear-label"]');
         const dataLabel = root.getAttribute("data-label");
         if (!labelEl && dataLabel) {
             labelEl = document.createElement("label");
-            labelEl.setAttribute("data-component", "progress-label");
+            labelEl.setAttribute("data-component", "progress-linear-label");
             labelEl.textContent = dataLabel;
             root.appendChild(labelEl);
         }
@@ -38,16 +38,16 @@ function initProgressLinear() {
             labelEl.setAttribute("data-part", "label");
         }
 
-        let trackEl = root.querySelector<HTMLElement>('[data-component="progress-track"]');
-        let rangeEl = root.querySelector<HTMLElement>('[data-component="progress-range"]');
+        let trackEl = root.querySelector<HTMLElement>('[data-component="progress-linear-track"]');
+        let rangeEl = root.querySelector<HTMLElement>('[data-component="progress-linear-range"]');
         if (!trackEl) {
             trackEl = document.createElement("div");
-            trackEl.setAttribute("data-component", "progress-track");
+            trackEl.setAttribute("data-component", "progress-linear-track");
             const trackClass = root.getAttribute("data-track-class");
             if (trackClass) trackEl.setAttribute("class", trackClass);
 
             rangeEl = document.createElement("div");
-            rangeEl.setAttribute("data-component", "progress-range");
+            rangeEl.setAttribute("data-component", "progress-linear-range");
             trackEl.appendChild(rangeEl);
             root.appendChild(trackEl);
         }
@@ -66,10 +66,18 @@ function initProgressLinear() {
             rangeEl.style.width = `${percent}%`;
         }
 
-        let valueTextEl = root.querySelector<HTMLElement>('[data-component="progress-value-text"]');
-        if (!valueTextEl) {
+        let valueTextEl = root.querySelector<HTMLElement>(
+            '[data-component="progress-linear-value-text"]'
+        );
+        const dataShowValueText =
+            root.getAttribute("data-show-value-text") === "true";
+
+        if (!valueTextEl && dataShowValueText) {
             valueTextEl = document.createElement("div");
-            valueTextEl.setAttribute("data-component", "progress-value-text");
+            valueTextEl.setAttribute(
+                "data-component",
+                "progress-linear-value-text"
+            );
             root.appendChild(valueTextEl);
         }
 
