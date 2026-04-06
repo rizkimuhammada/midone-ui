@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { sideMenuTopBar } from "@/components/ui/styles/side-menu.styles";
+import { sideMenuTopBar } from "@midoneui/core/styles/side-menu.styles";
 
 const { scrolled } = inject<any>("sideMenu");
 </script>

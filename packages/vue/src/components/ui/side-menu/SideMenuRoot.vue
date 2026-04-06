@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, provide, onMounted, onUnmounted } from "vue";
-import { sideMenuRoot } from "@/components/ui/styles/side-menu.styles";
+import { sideMenuRoot } from "@midoneui/core/styles/side-menu.styles";
 
 const { width = "275px", collapsedWidth = "110px" } = defineProps<{
   width?: string;

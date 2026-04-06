@@ -2,7 +2,7 @@
 import { inject } from "vue";
 import {
   sideMenuPanel,
-} from "@/components/ui/styles/side-menu.styles";
+} from "@midoneui/core/styles/side-menu.styles";
 
 const {
   compactMenu,

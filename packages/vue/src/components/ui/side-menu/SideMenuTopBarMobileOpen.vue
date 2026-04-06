@@ -4,7 +4,7 @@ import { Lucide } from "@/components/ui/lucide";
 import {
   sideMenuTopBarMobileOpen,
   sideMenuTopBarMobileOpenIcon,
-} from "@/components/ui/styles/side-menu.styles";
+} from "@midoneui/core/styles/side-menu.styles";
 
 const { openMobileMenu } = inject<any>("sideMenu");
 </script>

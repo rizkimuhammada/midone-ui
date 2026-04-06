@@ -4,7 +4,7 @@ import { Lucide } from "@/components/ui/lucide";
 import {
   sideMenuHeader,
   sideMenuHeaderToggle,
-} from "@/components/ui/styles/side-menu.styles";
+} from "@midoneui/core/styles/side-menu.styles";
 
 const { toggleCompactMenu } = inject<any>("sideMenu");
 </script>

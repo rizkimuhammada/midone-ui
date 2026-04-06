@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { sideMenuFixedTopBar } from "@/components/ui/styles/side-menu.styles";
+import { sideMenuFixedTopBar } from "@midoneui/core/styles/side-menu.styles";
 
 const { compactMenu, compactMenuOnHover } = inject<any>("sideMenu");
 </script>

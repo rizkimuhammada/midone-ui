@@ -5,7 +5,7 @@ import {
   sideMenuAreaInner,
   sideMenuAreaWrapper,
   sideMenuAreaScroll,
-} from "@/components/ui/styles/side-menu.styles";
+} from "@midoneui/core/styles/side-menu.styles";
 
 const { compactMenu, compactMenuOnHover, mobileMenuOpen, onScrollArea } =
   inject<any>("sideMenu");

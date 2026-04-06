@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { sideMenuTopBarInner } from "@/components/ui/styles/side-menu.styles";
+import { sideMenuTopBarInner } from "@midoneui/core/styles/side-menu.styles";
 import SideMenuTopBarMobileOpen from "./SideMenuTopBarMobileOpen.vue";
 </script>
 

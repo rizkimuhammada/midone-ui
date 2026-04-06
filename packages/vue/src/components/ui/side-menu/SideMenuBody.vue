@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ScrollAreaRoot } from "@/components/ui/scroll-area";
-import { sideMenuBody } from "@/components/ui/styles/side-menu.styles";
+import { sideMenuBody } from "@midoneui/core/styles/side-menu.styles";
 </script>
 
 <template>

@@ -5,7 +5,7 @@ import {
   sideMenuMobileClose,
   sideMenuMobileCloseIconWrapper,
   sideMenuMobileCloseIcon,
-} from "@/components/ui/styles/side-menu.styles";
+} from "@midoneui/core/styles/side-menu.styles";
 
 const { mobileMenuOpen, closeMobileMenu } = inject<any>("sideMenu");
 </script>

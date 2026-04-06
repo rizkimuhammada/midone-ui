@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { sideMenuInner } from "@/components/ui/styles/side-menu.styles";
+import { sideMenuInner } from "@midoneui/core/styles/side-menu.styles";
 
 const { reverse = false } = defineProps<{ reverse?: boolean }>();
 </script>
