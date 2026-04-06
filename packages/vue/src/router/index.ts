@@ -116,6 +116,10 @@ const router = createRouter({
       component: () => import("../pages/Sheet.vue"),
     },
     {
+      path: "/side-menu",
+      component: () => import("../pages/SideMenu.vue"),
+    },
+    {
       path: "/slider",
       component: () => import("../pages/Slider.vue"),
     },
