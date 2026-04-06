@@ -5,6 +5,18 @@ import { Input } from "@/components/ui/input";
 import { Box } from "@/components/ui/box";
 import { Button } from "@/components/ui/button";
 import {
+  AvatarRoot,
+  AvatarImage,
+  AvatarFallback,
+} from "@/components/ui/avatar";
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+} from "@/components/ui/menu";
+import {
   SideMenuRoot,
   SideMenuPanel,
   SideMenuInner,
@@ -96,7 +108,6 @@ import {
         <SideMenuTopBarInner class="px-6 bg-background/60 backdrop-blur-md border-b border-foreground/5 shadow-sm shadow-foreground/5">
           <div class="mr-auto">
             <Breadcrumb
-              class="text-xs font-medium [&_ol]:text-foreground/40 [&_li]:last:text-foreground/80"
               :items="['Apps', 'Dashboard']"
             />
           </div>
@@ -106,15 +117,40 @@ import {
               <span class="absolute top-2.5 right-2.5 size-2 bg-red-500 rounded-full border-2 border-background"></span>
             </button>
             <div class="h-6 w-px bg-foreground/10 mx-1"></div>
-            <div class="flex items-center gap-3 pl-1 cursor-pointer group">
-              <div class="text-right hidden sm:block">
-                <div class="text-[13px] font-bold text-foreground/80 leading-none">James Doe</div>
-                <div class="text-[10px] text-foreground/40 mt-1 leading-none">Administrator</div>
-              </div>
-              <div class="size-9 bg-foreground/10 rounded-xl flex items-center justify-center text-xs font-bold ring-2 ring-transparent group-hover:ring-primary/20 transition-all overflow-hidden border border-foreground/5">
-                <img src="https://ui-avatars.com/api/?name=James+Doe&background=random" class="size-full object-cover" />
-              </div>
-            </div>
+            <MenuRoot>
+              <MenuTrigger
+                class="flex items-center gap-3 pl-1 cursor-pointer group outline-none"
+              >
+                <div class="text-right hidden sm:block">
+                  <div class="text-[13px] font-bold text-foreground/80 leading-none">
+                    James Doe
+                  </div>
+                  <div class="text-[10px] text-foreground/40 mt-1 leading-none">
+                    Administrator
+                  </div>
+                </div>
+                <AvatarRoot
+                  class="size-9 ring-2 ring-transparent group-hover:ring-primary/20 transition-all border border-foreground/5 rounded-xl"
+                >
+                  <AvatarImage
+                    src="https://ui-avatars.com/api/?name=James+Doe&background=random"
+                  />
+                  <AvatarFallback>JD</AvatarFallback>
+                </AvatarRoot>
+              </MenuTrigger>
+              <MenuContent class="w-48">
+                <MenuItem value="profile">
+                  <Lucide icon="User" class="size-4" /> Profile
+                </MenuItem>
+                <MenuItem value="settings">
+                  <Lucide icon="Settings" class="size-4" /> Settings
+                </MenuItem>
+                <MenuSeparator />
+                <MenuItem value="logout">
+                  <Lucide icon="LogOut" class="size-4" /> Logout
+                </MenuItem>
+              </MenuContent>
+            </MenuRoot>
           </div>
         </SideMenuTopBarInner>
       </SideMenuTopBar>
