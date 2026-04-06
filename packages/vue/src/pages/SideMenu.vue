@@ -2,6 +2,7 @@
 import { Lucide } from "@/components/ui/lucide";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Input } from "@/components/ui/input";
+import { Box } from "@/components/ui/box";
 import {
   SideMenuRoot,
   SideMenuPanel,
@@ -135,7 +136,7 @@ import {
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="p-7 bg-background border border-foreground/10 rounded-2xl shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+          <Box class="p-7 rounded-2xl relative overflow-hidden group">
             <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
               <Lucide icon="Users" class="size-20" />
             </div>
@@ -149,9 +150,9 @@ import {
               +12.5%
               <span class="text-foreground/30 font-normal">than last month</span>
             </div>
-          </div>
+          </Box>
 
-          <div class="p-7 bg-background border border-foreground/10 rounded-2xl shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+          <Box class="p-7 rounded-2xl relative overflow-hidden group">
             <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
               <Lucide icon="ShoppingBag" class="size-20" />
             </div>
@@ -165,9 +166,9 @@ import {
               -2.4%
               <span class="text-foreground/30 font-normal">than last week</span>
             </div>
-          </div>
+          </Box>
 
-          <div class="p-7 bg-background border border-foreground/10 rounded-2xl shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+          <Box class="p-7 rounded-2xl relative overflow-hidden group">
             <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
               <Lucide icon="Globe" class="size-20" />
             </div>
@@ -181,7 +182,7 @@ import {
               +8.2%
               <span class="text-foreground/30 font-normal">than average</span>
             </div>
-          </div>
+          </Box>
         </div>
 
         <div class="mt-10 p-10 bg-background border border-foreground/10 rounded-2xl flex flex-col items-center text-center">
