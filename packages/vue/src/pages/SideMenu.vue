@@ -3,6 +3,7 @@ import { Lucide } from "@/components/ui/lucide";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Input } from "@/components/ui/input";
 import { Box } from "@/components/ui/box";
+import { Button } from "@/components/ui/button";
 import {
   SideMenuRoot,
   SideMenuPanel,
@@ -120,18 +121,24 @@ import {
       <div class="p-8 md:p-12">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
           <div>
-            <h1 class="text-3xl font-black tracking-tight text-foreground/90 italic uppercase">Overview</h1>
-            <p class="text-foreground/50 mt-1 text-sm">Real-time performance and system status metrics.</p>
+            <h1 class="text-2xl font-medium">Overview</h1>
+            <p class="opacity-70">Real-time performance and system status metrics.</p>
           </div>
           <div class="flex items-center gap-2">
-            <button class="px-4 py-2 bg-background border border-foreground/10 rounded-xl text-sm font-bold shadow-sm hover:bg-foreground/[0.01] transition-all flex items-center gap-2 text-foreground/70">
+            <Button
+              look="outline"
+              class="flex items-center gap-2 font-bold text-foreground/70"
+            >
               <Lucide icon="Share2" class="size-4" />
               Share
-            </button>
-            <button class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2">
+            </Button>
+            <Button
+              variant="primary"
+              class="flex items-center gap-2 font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+            >
               <Lucide icon="Plus" class="size-4" />
               Add Widget
-            </button>
+            </Button>
           </div>
         </div>
 
