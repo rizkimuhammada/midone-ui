@@ -6,15 +6,12 @@ import {
   sideMenuHeaderToggle,
 } from "@/components/ui/styles/side-menu.styles";
 
-defineProps<{
-  toggleClass?: string | string[] | Record<string, boolean>;
-}>();
-
 const { toggleCompactMenu } = inject<any>("sideMenu");
 </script>
 
 <template>
   <div
+    v-bind="$attrs"
     data-scope="side-menu"
     data-part="header"
     :class="sideMenuHeader"
@@ -24,10 +21,14 @@ const { toggleCompactMenu } = inject<any>("sideMenu");
       @click="toggleCompactMenu"
       data-scope="side-menu"
       data-part="toggle"
-      :class="[sideMenuHeaderToggle, toggleClass]"
+      :class="sideMenuHeaderToggle"
       href=""
     >
-      <Lucide icon="ChevronLeft" />
+      <Lucide
+        data-scope="side-menu"
+        data-part="toggle-icon"
+        icon="ChevronLeft"
+      />
     </a>
   </div>
 </template>

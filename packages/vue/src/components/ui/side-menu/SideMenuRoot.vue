@@ -69,8 +69,10 @@ provide("sideMenu", {
 
 <template>
   <div
+    v-bind="$attrs"
     data-scope="side-menu"
     data-part="root"
+    :class="sideMenuRoot"
     :style="{
       '--sm-width': width,
       '--sm-collapsed-width': collapsedWidth,

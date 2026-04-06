@@ -7,7 +7,6 @@ const { compactMenu, compactMenuOnHover } = inject<any>("sideMenu");
 
 <template>
   <div
-    v-bind="$attrs"
     data-scope="side-menu"
     data-part="fixed-top-bar"
     :data-compact-menu="compactMenu && !compactMenuOnHover"

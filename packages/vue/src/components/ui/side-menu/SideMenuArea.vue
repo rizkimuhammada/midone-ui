@@ -2,34 +2,42 @@
 import { inject } from "vue";
 import {
   sideMenuArea,
+  sideMenuAreaInner,
   sideMenuAreaWrapper,
   sideMenuAreaScroll,
 } from "@/components/ui/styles/side-menu.styles";
 
 const { compactMenu, compactMenuOnHover, mobileMenuOpen, onScrollArea } =
   inject<any>("sideMenu");
-
-defineProps<{
-  scrollClass?: string | string[] | Record<string, boolean>;
-}>();
 </script>
 
 <template>
   <div
+    v-bind="$attrs"
     data-scope="side-menu"
     data-part="area"
     :data-compact-menu="compactMenu && !compactMenuOnHover"
     :class="sideMenuArea"
   >
-    <div :class="sideMenuAreaWrapper">
+    <div
+      data-scope="side-menu"
+      data-part="inner"
+      :class="sideMenuAreaInner"
+    >
       <div
-        @scroll="onScrollArea"
         data-scope="side-menu"
-        data-part="scroll"
-        :data-compact-menu="compactMenu && compactMenuOnHover && !mobileMenuOpen"
-        :class="[sideMenuAreaScroll, scrollClass]"
+        data-part="wrapper"
+        :class="sideMenuAreaWrapper"
       >
-        <slot />
+        <div
+          @scroll="onScrollArea"
+          data-scope="side-menu"
+          data-part="scroll"
+          :data-compact-menu="compactMenu && compactMenuOnHover && !mobileMenuOpen"
+          :class="sideMenuAreaScroll"
+        >
+          <slot />
+        </div>
       </div>
     </div>
   </div>
