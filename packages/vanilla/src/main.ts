@@ -1,3 +1,4 @@
+import './fouc'
 import './lucide'
 import './accordion'
 import './box'
@@ -36,3 +37,4 @@ import './chart'
 import './slot'
 import './datatable'
 import './file-icon'
+

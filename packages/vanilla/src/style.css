@@ -123,4 +123,10 @@ select {
 
 body {
   @apply p-5 sm:p-20 text-sm;
+  opacity: 0;
+}
+
+body.ready {
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
