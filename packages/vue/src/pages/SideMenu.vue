@@ -32,7 +32,7 @@ import {
     <SideMenuPanel class="after:bg-background xl:after:hidden">
       <SideMenuInner class="border-e border-foreground/10 bg-slate-50/50 dark:bg-dark-1/50">
         <SideMenuHeader
-          class="p-6 flex items-center justify-between [&_[data-part=toggle]]:border-foreground/50 group-[[data-compact-menu=true]]:justify-center group-[[data-compact-menu=true]]:px-0"
+          class="p-6 flex items-center justify-between [&_[data-part=toggle]]:border-foreground/50 group-[[data-compact-menu=true]]:justify-center group-[[data-compact-menu=true]]:px-0 group-[[data-compact-menu=true]]:[&_[data-part=toggle]]:hidden"
         >
           <div
             class="flex items-center gap-3.5 group-[[data-compact-menu=true]]:gap-0 group-[[data-compact-menu=true]]:w-full group-[[data-compact-menu=true]]:justify-center"
