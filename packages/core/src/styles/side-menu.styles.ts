@@ -1,9 +1,3 @@
-/**
- * SideMenu Styles
- * Centralized Tailwind classes for the SideMenu component system
- * Using data attribute approach for states
- */
-
 // SideMenuRoot (Variables handled via :style)
 export const sideMenuRoot = "";
 
