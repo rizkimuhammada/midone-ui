@@ -23,7 +23,7 @@ export const sideMenuHeader =
   "relative z-10 hidden flex-none items-center overflow-hidden duration-300 xl:flex w-[var(--sm-width)] group-[[data-compact-menu=true]]:xl:w-[var(--sm-collapsed-width)] group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:xl:w-[var(--sm-width)]";
 
 export const sideMenuHeaderToggle =
-  "toggle-compact-menu ml-auto hidden items-center justify-center rounded-md border py-0.5 pl-0.5 pr-1 opacity-70 transition-[opacity,transform] hover:opacity-100 group-[[data-compact-menu=true]]:xl:rotate-180 group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:xl:opacity-100 group-[[data-compact-menu=true]]:xl:opacity-0 2xl:flex";
+  "toggle-compact-menu ml-auto hidden items-center justify-center rounded-md border py-0.5 pl-0.5 pr-1 opacity-70 transition-[opacity,transform] hover:opacity-100 group-[[data-compact-menu=true]]:xl:rotate-180 group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:xl:opacity-100 group-[[data-compact-menu=true]]:xl:opacity-0 xl:flex";
 
 // SideMenuBody
 export const sideMenuBody = "flex-1 min-h-0 [&_[data-part=content]]:!min-w-auto";
