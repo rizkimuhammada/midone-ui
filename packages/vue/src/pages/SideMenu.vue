@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Lucide } from "@/components/ui/lucide";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { Input } from "@/components/ui/input";
 import {
   SideMenuRoot,
   SideMenuPanel,
@@ -29,18 +30,15 @@ import {
             <span class="text-[17px] font-bold tracking-tight text-foreground/90">Midone UI</span>
           </div>
         </SideMenuHeader>
-
         <div class="px-6 mb-4">
           <div class="relative group/search">
-            <Lucide icon="Search" class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-foreground/30 transition-colors group-focus-within/search:text-primary" />
-            <input
-              type="text"
+            <Lucide icon="Search" class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-foreground/30 transition-colors group-focus-within/search:text-primary z-10" />
+            <Input
               placeholder="Search components..."
               class="w-full bg-foreground/[0.03] border border-foreground/5 rounded-xl py-2.5 pl-10 pr-4 text-sm outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary/20 transition-all placeholder:text-foreground/30"
             />
           </div>
         </div>
-
         <SideMenuBody class="px-3">
           <nav class="flex flex-col gap-0.5">
             <div class="px-3 mb-2 text-[11px] font-bold uppercase tracking-widest text-foreground/40 mt-4">
@@ -76,7 +74,6 @@ import {
               Security
             </a>
           </nav>
-
           <div class="mt-auto px-3 pb-6">
             <div class="p-4 bg-primary/5 rounded-2xl border border-primary/10 relative overflow-hidden group">
               <Lucide icon="Zap" class="absolute -right-4 -bottom-4 size-16 text-primary/5 -rotate-12 transition-transform group-hover:scale-110" />
@@ -92,7 +89,6 @@ import {
         </SideMenuBody>
       </SideMenuInner>
     </SideMenuPanel>
-
     <SideMenuArea class="bg-slate-50/30 dark:bg-dark-1/30">
       <SideMenuTopBar>
         <SideMenuTopBarInner class="px-6 bg-background/60 backdrop-blur-md border-b border-foreground/5 shadow-sm shadow-foreground/5">
@@ -120,7 +116,6 @@ import {
           </div>
         </SideMenuTopBarInner>
       </SideMenuTopBar>
-
       <div class="p-8 md:p-12">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
           <div>
