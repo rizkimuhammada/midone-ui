@@ -127,14 +127,12 @@ import {
           <div class="flex items-center gap-2">
             <Button
               look="outline"
-              class="flex items-center gap-2 font-bold text-foreground/70"
             >
               <Lucide icon="Share2" class="size-4" />
               Share
             </Button>
             <Button
               variant="primary"
-              class="flex items-center gap-2 font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
               <Lucide icon="Plus" class="size-4" />
               Add Widget
@@ -143,7 +141,7 @@ import {
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Box class="p-7 rounded-2xl relative overflow-hidden group">
+          <Box>
             <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
               <Lucide icon="Users" class="size-20" />
             </div>
@@ -159,7 +157,7 @@ import {
             </div>
           </Box>
 
-          <Box class="p-7 rounded-2xl relative overflow-hidden group">
+          <Box>
             <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
               <Lucide icon="ShoppingBag" class="size-20" />
             </div>
@@ -175,7 +173,7 @@ import {
             </div>
           </Box>
 
-          <Box class="p-7 rounded-2xl relative overflow-hidden group">
+          <Box>
             <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
               <Lucide icon="Globe" class="size-20" />
             </div>
@@ -192,7 +190,7 @@ import {
           </Box>
         </div>
 
-        <div class="mt-10 p-10 bg-background border border-foreground/10 rounded-2xl flex flex-col items-center text-center">
+        <Box class="mt-10 p-10 rounded-2xl flex flex-col items-center text-center">
           <div class="size-20 bg-primary/5 text-primary rounded-full flex items-center justify-center mb-6">
             <Lucide icon="Layout" class="size-10" />
           </div>
@@ -207,7 +205,7 @@ import {
             <code class="px-4 py-2 bg-foreground/[0.03] rounded-lg text-xs font-mono border border-foreground/5">&lt;SideMenuPanel&gt;</code>
             <code class="px-4 py-2 bg-foreground/[0.03] rounded-lg text-xs font-mono border border-foreground/5">&lt;SideMenuArea&gt;</code>
           </div>
-        </div>
+        </Box>
         <br />
         <br /><br /><br /><br /><br /><br /><br /><br />
         <br /><br /><br /><br /><br /><br /><br /><br />
