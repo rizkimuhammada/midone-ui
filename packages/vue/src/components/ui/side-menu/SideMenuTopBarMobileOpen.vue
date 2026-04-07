@@ -5,8 +5,9 @@ import {
   sideMenuTopBarMobileOpen,
   sideMenuTopBarMobileOpenIcon,
 } from "@midoneui/core/styles/side-menu.styles";
+import type { SideMenuContext } from "./types";
 
-const { openMobileMenu } = inject<any>("sideMenu");
+const { openMobileMenu } = inject<SideMenuContext>("sideMenu")!;
 </script>
 
 <template>

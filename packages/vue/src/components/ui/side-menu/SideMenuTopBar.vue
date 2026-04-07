@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import { sideMenuTopBar } from "@midoneui/core/styles/side-menu.styles";
+import type { SideMenuContext } from "./types";
 
-const { scrolled } = inject<any>("sideMenu");
+const { scrolled } = inject<SideMenuContext>("sideMenu")!;
 </script>
 
 <template>

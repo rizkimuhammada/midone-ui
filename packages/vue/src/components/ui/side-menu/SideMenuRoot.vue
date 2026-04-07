@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, provide, onMounted, onUnmounted } from "vue";
+import type { SideMenuContext } from "./types";
 import { sideMenuRoot } from "@midoneui/core/styles/side-menu.styles";
 
 const { width = "275px", collapsedWidth = "110px" } = defineProps<{
@@ -51,7 +52,7 @@ onUnmounted(() => {
   window.removeEventListener("resize", onResize);
 });
 
-provide("sideMenu", {
+provide<SideMenuContext>("sideMenu", {
   compactMenu,
   compactMenuOnHover,
   mobileMenuOpen,

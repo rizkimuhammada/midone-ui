@@ -3,6 +3,7 @@ import { inject } from "vue";
 import {
   sideMenuPanel,
 } from "@midoneui/core/styles/side-menu.styles";
+import type { SideMenuContext } from "./types";
 
 const {
   compactMenu,
@@ -10,7 +11,7 @@ const {
   mobileMenuOpen,
   onMouseEnterPanel,
   onMouseLeavePanel,
-} = inject<any>("sideMenu");
+} = inject<SideMenuContext>("sideMenu")!;
 </script>
 
 <template>

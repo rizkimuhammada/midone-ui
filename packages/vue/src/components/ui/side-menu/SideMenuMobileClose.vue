@@ -6,8 +6,9 @@ import {
   sideMenuMobileCloseIconWrapper,
   sideMenuMobileCloseIcon,
 } from "@midoneui/core/styles/side-menu.styles";
+import type { SideMenuContext } from "./types";
 
-const { mobileMenuOpen, closeMobileMenu } = inject<any>("sideMenu");
+const { mobileMenuOpen, closeMobileMenu } = inject<SideMenuContext>("sideMenu")!;
 </script>
 
 <template>

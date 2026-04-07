@@ -6,9 +6,10 @@ import {
   sideMenuAreaWrapper,
   sideMenuAreaScroll,
 } from "@midoneui/core/styles/side-menu.styles";
+import type { SideMenuContext } from "./types";
 
 const { compactMenu, compactMenuOnHover, mobileMenuOpen, onScrollArea } =
-  inject<any>("sideMenu");
+  inject<SideMenuContext>("sideMenu")!;
 </script>
 
 <template>

@@ -5,8 +5,9 @@ import {
   sideMenuHeader,
   sideMenuHeaderToggle,
 } from "@midoneui/core/styles/side-menu.styles";
+import type { SideMenuContext } from "./types";
 
-const { toggleCompactMenu } = inject<any>("sideMenu");
+const { toggleCompactMenu } = inject<SideMenuContext>("sideMenu")!;
 </script>
 
 <template>
