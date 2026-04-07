@@ -26,7 +26,7 @@ import {
 <template>
   <SideMenuRoot
     width="280px"
-    collapsed-width="100px"
+    collapsed-width="80px"
     class="bg-background"
   >
     <SideMenuPanel class="after:bg-background xl:after:hidden">
@@ -39,7 +39,7 @@ import {
               <Lucide icon="Activity" class="size-5" />
             </div>
             <span
-              class="font-medium group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"
+              class="text-nowrap font-medium group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"
               >Midone UI</span
             >
           </div>
@@ -47,53 +47,53 @@ import {
         <div class="px-6 mb-4">
           <div class="relative group/search">
             <Lucide icon="Search" class="absolute left-3 top-1/2 -translate-y-1/2 size-4 opacity-50 z-50" />
-            <Input placeholder="Search components..." class="bg-foreground/[.02] shadow-none ps-9 placeholder:opacity-50" />
+            <Input placeholder="Search components..." class="group-[[data-compact-menu=true]]:invisible group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:visible bg-foreground/[.02] shadow-none ps-9 placeholder:opacity-50" />
           </div>
         </div>
         <SideMenuBody class="px-3">
           <nav class="flex flex-col gap-0.5">
             <div
-              class="px-3 mb-2 text-xs opacity-50 mt-4 group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"
+              class="px-3 mb-2 text-xs opacity-50 mt-6 truncate"
             >
               Overview
             </div>
             <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
               <Lucide icon="LayoutDashboard" />
               <span
-                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"
+                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap"
                 >Analytics</span
               >
             </a>
             <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
               <Lucide icon="Users" />
               <span
-                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"
+                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap"
                 >Customers</span
               >
             </a>
             <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
               <Lucide icon="ShoppingBag" />
               <span
-                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"
+                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap"
                 >E-commerce</span
               >
             </a>
             <div
-              class="px-3 mb-2 text-xs opacity-50 mt-6 group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"
+              class="px-3 mb-2 text-xs opacity-50 mt-6 truncate"
             >
               Documentation
             </div>
             <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
               <Lucide icon="Files" />
               <span
-                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"
+                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap"
                 >Introduction</span
               >
             </a>
             <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
               <Lucide icon="Box" />
               <span
-                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"
+                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap"
                 >Components</span
               >
               <Lucide
@@ -104,7 +104,7 @@ import {
             <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
               <Lucide icon="Shield" />
               <span
-                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"
+                class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap"
                 >Security</span
               >
             </a>
