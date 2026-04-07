@@ -12,9 +12,61 @@
 <body class="p-10">
   <div class="flex flex-col gap-20">
     <div class="grid grid-cols-2">
-      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
-        <i data-component="lucide" data-icon="ChartNoAxesColumn"></i>
+
+      <!-- Col 1: data-component="lucide" format (PascalCase) -->
+      <div class="justify-center items-center flex gap-4 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <i data-component="lucide" data-icon="Activity"></i>
+        <i data-component="lucide" data-icon="LayoutDashboard"></i>
+        <i data-component="lucide" data-icon="Users"></i>
+        <i data-component="lucide" data-icon="ShoppingBag"></i>
+        <i data-component="lucide" data-icon="Files"></i>
+        <i data-component="lucide" data-icon="Box"></i>
+        <i data-component="lucide" data-icon="Shield"></i>
+        <i data-component="lucide" data-icon="Bell"></i>
+        <i data-component="lucide" data-icon="ChevronRight"></i>
+        <i data-component="lucide" data-icon="Search"></i>
+        <i data-component="lucide" data-icon="Plus"></i>
+        <i data-component="lucide" data-icon="Share2"></i>
       </div>
+
+      <!-- Col 2: data-lucide format (kebab-case, standard Lucide CDN format) -->
+      <div class="justify-center items-center flex gap-4 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <i data-lucide="activity"></i>
+        <i data-lucide="layout-dashboard"></i>
+        <i data-lucide="users"></i>
+        <i data-lucide="shopping-bag"></i>
+        <i data-lucide="files"></i>
+        <i data-lucide="box"></i>
+        <i data-lucide="shield"></i>
+        <i data-lucide="bell"></i>
+        <i data-lucide="chevron-right"></i>
+        <i data-lucide="search"></i>
+        <i data-lucide="plus"></i>
+        <i data-lucide="share-2"></i>
+      </div>
+
+      <!-- Col 3: custom size override -->
+      <div class="justify-center items-center flex gap-4 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <i data-component="lucide" data-icon="Activity" class="size-3"></i>
+        <i data-component="lucide" data-icon="Activity" class="size-4"></i>
+        <i data-component="lucide" data-icon="Activity" class="size-5"></i>
+        <i data-component="lucide" data-icon="Activity" class="size-6"></i>
+        <i data-component="lucide" data-icon="Activity" class="size-8"></i>
+        <i data-component="lucide" data-icon="Activity" class="size-10"></i>
+      </div>
+
+      <!-- Col 4: color variants -->
+      <div class="justify-center items-center flex gap-4 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <i data-component="lucide" data-icon="Zap" class="size-6 text-primary"></i>
+        <i data-component="lucide" data-icon="Zap" class="size-6 text-danger"></i>
+        <i data-component="lucide" data-icon="Zap" class="size-6 text-success"></i>
+        <i data-component="lucide" data-icon="Zap" class="size-6 text-warning"></i>
+        <i data-component="lucide" data-icon="Zap" class="size-6 text-pending"></i>
+        <i data-component="lucide" data-icon="Zap" class="size-6 text-blue-500"></i>
+        <i data-component="lucide" data-icon="Zap" class="size-6 text-emerald-500"></i>
+        <i data-component="lucide" data-icon="Zap" class="size-6 text-amber-500"></i>
+      </div>
+
     </div>
   </div>
   <script type="module" src="/src/main.ts"></script>

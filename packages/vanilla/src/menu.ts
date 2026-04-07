@@ -14,6 +14,7 @@ import { boxVariants } from "@midoneui/core/src/styles/box.styles";
 import { buttonVariants } from "@midoneui/core/src/styles/button.styles";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 import { handleAsChild } from "./slot";
+import { initLucideIcons } from "./lucide";
 
 const CHEVRON_DOWN = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>`;
 const CHEVRON_RIGHT = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
@@ -153,6 +154,7 @@ function initMenuRoot(rootEl: Element) {
     positioner.style.cssText = "position:fixed;z-index:50;";
     positioner.remove();
     document.body.appendChild(positioner);
+    initLucideIcons(positioner);
 
     function updatePosition() {
         computePosition(trigger, positioner, {
@@ -226,6 +228,7 @@ function initMenuRoot(rootEl: Element) {
 
         nested.remove();
         document.body.appendChild(nested);
+        initLucideIcons(nested);
 
         function updateNestedPosition() {
             computePosition(triggerItem, nested, {

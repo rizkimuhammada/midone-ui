@@ -37,4 +37,4 @@ import './chart'
 import './slot'
 import './datatable'
 import './file-icon'
-
+import './side-menu'

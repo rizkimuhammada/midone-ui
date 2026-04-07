@@ -41,10 +41,10 @@ export const sideMenuAreaScroll =
 
 // SideMenuTopBar
 export const sideMenuTopBar =
-  "top-bar group z-50 relative transition-[padding] duration-300 ease-in-out [&[data-scrolled=true]]:sticky [&[data-scrolled=true]]:px-5 [&[data-scrolled=true]]:top-4 [&[data-scrolled=true]]:z-[999] [&[data-scrolled=true]]:mt-0";
+  "top-bar group z-50 relative";
 
 export const sideMenuTopBarInner =
-  "flex h-16 items-center gap-5 border-b border-foreground/15 transition-all duration-300 ease-in-out group-[[data-scrolled=true]]:px-5 group-[[data-scrolled=true]]:rounded-2xl group-[[data-scrolled=true]]:bg-background group-[[data-scrolled=true]]:border group-[[data-scrolled=true]]:shadow-lg group-[[data-scrolled=true]]:shadow-foreground/5 group-[[data-scrolled=true]]:dark:bg-dark-2";
+  "flex h-16 items-center gap-5 border-b";
 
 export const sideMenuTopBarMobileOpen =
   "open-mobile-menu mr-auto flex size-9 cursor-pointer items-center justify-center rounded-xl border border-foreground/15 xl:hidden shadow-sm shadow-foreground/10 bg-background";

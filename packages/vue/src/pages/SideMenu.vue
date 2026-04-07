@@ -113,8 +113,8 @@ import {
       </SideMenuInner>
     </SideMenuPanel>
     <SideMenuArea class="bg-foreground/5">
-      <SideMenuTopBar>
-        <SideMenuTopBarInner class="px-6 bg-background/60 border-b border-foreground/5 shadow-sm shadow-foreground/5">
+      <SideMenuTopBar class="transition-[padding] duration-300 ease-in-out [&[data-scrolled=true]]:sticky [&[data-scrolled=true]]:px-5 [&[data-scrolled=true]]:top-4 [&[data-scrolled=true]]:z-[999]">
+        <SideMenuTopBarInner class="px-6 bg-background/60 border-foreground/5 shadow-sm shadow-foreground/5 transition-all duration-300 ease-in-out group-[[data-scrolled=true]]:rounded-2xl group-[[data-scrolled=true]]:bg-background group-[[data-scrolled=true]]:border group-[[data-scrolled=true]]:shadow-lg group-[[data-scrolled=true]]:shadow-foreground/5">
           <div class="mr-auto">
             <Breadcrumb
               :items="['Apps', 'Dashboard']"

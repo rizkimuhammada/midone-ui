@@ -1,64 +1,88 @@
 import { icons } from "lucide";
 import { cn } from "@midoneui/core/src/utils/cn";
 
-export function initLucideIcons(root: ParentNode = document) {
-  root.querySelectorAll<HTMLElement>('[data-component="lucide"]').forEach((el) => {
-    let iconName = el.getAttribute("data-icon");
-    if (!iconName) return;
-
-    const formattedIconName = iconName
+function toIconKey(name: string): keyof typeof icons {
+  // Convert either "kebab-case" or "PascalCase" → PascalCase key
+  if (name.includes("-")) {
+    return name
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join("") as keyof typeof icons;
+  }
+  return (name.charAt(0).toUpperCase() + name.slice(1)) as keyof typeof icons;
+}
 
-    const icon = icons[formattedIconName] || icons[iconName as keyof typeof icons];
+function createSvg(iconName: string, extraClasses: string): SVGElement | null {
+  const key = toIconKey(iconName);
+  const icon = icons[key];
+  if (!icon) return null;
 
-    if (icon) {
-      const children = Array.isArray(icon) ? icon : (icon as any).default;
+  const children = Array.isArray(icon) ? icon : (icon as any).default;
+  if (!Array.isArray(children)) return null;
 
-      if (!Array.isArray(children)) return;
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  svg.setAttribute("width", "24");
+  svg.setAttribute("height", "24");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+  svg.setAttribute("stroke-width", "2");
+  svg.setAttribute("stroke-linecap", "round");
+  svg.setAttribute("stroke-linejoin", "round");
 
-      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-      svg.setAttribute("width", "24");
-      svg.setAttribute("height", "24");
-      svg.setAttribute("viewBox", "0 0 24 24");
-      svg.setAttribute("fill", "none");
-      svg.setAttribute("stroke", "currentColor");
-      svg.setAttribute("stroke-width", "2");
-      svg.setAttribute("stroke-linecap", "round");
-      svg.setAttribute("stroke-linejoin", "round");
+  const iconSlug = iconName.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase().replace(/\s+/g, "-");
+  svg.className.baseVal = cn(
+    "lucide size-4 stroke-[1.5] [--color:currentColor] stroke-(--color) fill-(--color)/25",
+    `lucide-${iconSlug}`,
+    `lucide-${iconSlug}-icon`,
+    extraClasses
+  );
 
-      // Match Vue icon naming: lucide-chevron-left-icon + lucide-chevron-left
-      const iconSlug = iconName.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
-      const iconBaseClass = `lucide-${iconSlug}`;
-      const iconSuffixClass = `lucide-${iconSlug}-icon`;
-      
-      // Also apply size-4 stroke-[1.5] TWICE like in the user's snippet if possible?
-      // No, let's keep it clean but including both.
-      svg.className.baseVal = cn(
-        "lucide size-4 stroke-[1.5] [--color:currentColor] stroke-(--color) fill-(--color)/25",
-        iconSuffixClass,
-        iconBaseClass,
-        el.className
-      );
+  children.forEach(([childTag, childAttrs]: any) => {
+    const child = document.createElementNS("http://www.w3.org/2000/svg", childTag);
+    Object.entries(childAttrs).forEach(([key, value]: any) => {
+      child.setAttribute(key, value);
+    });
+    svg.appendChild(child);
+  });
 
-      Array.from(el.attributes).forEach((attr) => {
-        if (attr.name.startsWith("data-") && attr.name !== "data-icon") {
-          svg.setAttribute(attr.name, attr.value);
-        }
-      });
+  return svg;
+}
 
-      children.forEach(([childTag, childAttrs]: any) => {
-        const child = document.createElementNS("http://www.w3.org/2000/svg", childTag);
-        Object.entries(childAttrs).forEach(([key, value]: any) => {
-          child.setAttribute(key, value);
-        });
-        svg.appendChild(child);
-      });
+export function initLucideIcons(root: ParentNode = document) {
+  // data-component="lucide" data-icon="PascalCase"
+  root.querySelectorAll<HTMLElement>('[data-component="lucide"]').forEach((el) => {
+    const iconName = el.getAttribute("data-icon");
+    if (!iconName) return;
 
-      el.replaceWith(svg);
-    }
+    const svg = createSvg(iconName, el.className);
+    if (!svg) return;
+
+    Array.from(el.attributes).forEach((attr) => {
+      if (attr.name.startsWith("data-") && attr.name !== "data-icon" && attr.name !== "data-component") {
+        svg.setAttribute(attr.name, attr.value);
+      }
+    });
+
+    el.replaceWith(svg);
+  });
+
+  // data-lucide="kebab-case" (standard Lucide CDN format)
+  root.querySelectorAll<HTMLElement>("[data-lucide]").forEach((el) => {
+    const iconName = el.getAttribute("data-lucide");
+    if (!iconName) return;
+
+    const svg = createSvg(iconName, el.className);
+    if (!svg) return;
+
+    Array.from(el.attributes).forEach((attr) => {
+      if (attr.name !== "data-lucide" && attr.name !== "class") {
+        svg.setAttribute(attr.name, attr.value);
+      }
+    });
+
+    el.replaceWith(svg);
   });
 }
 

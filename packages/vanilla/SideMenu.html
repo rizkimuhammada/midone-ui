@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SideMenu - Midone UI Vanilla</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+
+<body class="bg-background text-foreground p-0! sm:p-0!">
+  <div data-component="side-menu-root" data-width="280px" data-collapsed-width="80px" class="bg-background">
+    <div data-component="side-menu-panel" data-part="panel" class="after:bg-background xl:after:hidden">
+      <div data-component="side-menu-inner" data-part="inner"
+        class="border-e border-foreground/10 bg-slate-50/50 dark:bg-dark-1/50 backdrop-blur-md">
+        <header data-component="side-menu-header" data-part="header"
+          class="p-6 flex items-center justify-between [&_[data-part=toggle]]:border-foreground/50">
+          <div class="flex items-center gap-3.5">
+            <div class="size-9 bg-primary rounded-xl flex items-center justify-center text-white">
+              <i data-lucide="activity" class="size-5"></i>
+            </div>
+            <span
+              class="text-nowrap font-medium group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block">Midone
+              UI</span>
+          </div>
+        </header>
+        <div class="px-6 mb-4">
+          <div class="relative group/search">
+            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 size-4 opacity-50 z-50"></i>
+            <input data-component="input" placeholder="Search components..."
+              class="group-[[data-compact-menu=true]]:invisible group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:visible bg-foreground/[.02] shadow-none ps-9 placeholder:opacity-50" />
+          </div>
+        </div>
+        <div data-component="side-menu-body" data-part="body" class="px-3">
+          <div data-part="content">
+            <nav class="flex flex-col gap-0.5">
+              <div class="px-3 mb-2 text-xs opacity-50 mt-6 truncate">
+                Overview
+              </div>
+              <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
+                <i data-lucide="layout-dashboard"></i>
+                <span
+                  class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap">Analytics</span>
+              </a>
+              <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
+                <i data-lucide="users"></i>
+                <span
+                  class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap">Customers</span>
+              </a>
+              <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
+                <i data-lucide="shopping-bag"></i>
+                <span
+                  class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap">E-commerce</span>
+              </a>
+              <div class="px-3 mb-2 text-xs opacity-50 mt-6 truncate">
+                Documentation
+              </div>
+              <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
+                <i data-lucide="files"></i>
+                <span
+                  class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap">Introduction</span>
+              </a>
+              <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
+                <i data-lucide="box"></i>
+                <span
+                  class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap">Components</span>
+                <i data-lucide="chevron-right"
+                  class="ml-auto size-3.5 opacity-30 group-hover:translate-x-0.5 transition-transform group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block"></i>
+              </a>
+              <a href="#" class="px-4 py-2.5 rounded-xl flex items-center gap-2">
+                <i data-lucide="shield"></i>
+                <span
+                  class="group-[[data-compact-menu=true]]:hidden group-[[data-compact-menu=true][data-compact-menu-on-hover=true]]:block text-nowrap">Security</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-component="side-menu-area" data-part="area" class="bg-foreground/5">
+      <div data-part="inner">
+        <div data-part="wrapper">
+          <div data-part="scroll">
+            <header data-component="side-menu-top-bar" data-part="top-bar"
+              class="transition-[padding] duration-300 ease-in-out [&[data-scrolled=true]]:sticky [&[data-scrolled=true]]:px-5 [&[data-scrolled=true]]:top-4 [&[data-scrolled=true]]:z-[999]">
+              <div data-component="side-menu-top-bar-inner" data-part="top-bar-inner"
+                class="px-6 bg-background/60 border-foreground/5 shadow-sm shadow-foreground/5 transition-all duration-300 ease-in-out group-[[data-scrolled=true]]:rounded-2xl group-[[data-scrolled=true]]:bg-background group-[[data-scrolled=true]]:border group-[[data-scrolled=true]]:shadow-lg group-[[data-scrolled=true]]:shadow-foreground/5">
+                <div class="mr-auto">
+                  <div data-component="breadcrumb" data-items="['Apps', 'Dashboard']"></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div data-component="menu-root">
+                    <div data-component="menu-trigger" data-as-child
+                      class="flex items-center gap-3 pl-1 cursor-pointer group outline-none">
+                      <div class="text-right hidden sm:block">
+                        <div class="font-medium">James Doe</div>
+                        <div class="text-xs opacity-70">Administrator</div>
+                      </div>
+                    </div>
+                    <div data-component="menu-content" class="w-48">
+                      <div data-component="menu-item" data-value="profile">
+                        <i data-lucide="user" class="size-4"></i> Profile
+                      </div>
+                      <div data-component="menu-item" data-value="settings">
+                        <i data-lucide="settings" class="size-4"></i> Settings
+                      </div>
+                      <hr data-component="menu-separator" />
+                      <div data-component="menu-item" data-value="logout">
+                        <i data-lucide="log-out" class="size-4"></i> Logout
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </header>
+            <div class="p-8 md:p-12">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+                <div>
+                  <h1 class="text-2xl font-medium">Overview</h1>
+                  <p class="opacity-70">
+                    Real-time performance and system status metrics.
+                  </p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button data-component="button" data-look="filled" data-variant="secondary">
+                    <i data-lucide="share-2" class="size-4"></i>
+                    Share
+                  </button>
+                  <button data-component="button" data-look="filled" data-variant="primary">
+                    <i data-lucide="plus" class="size-4"></i>
+                    Add Widget
+                  </button>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div data-component="box">
+                  <i data-lucide="circle-gauge" class="size-7 stroke-1 fill-foreground/10"></i>
+                  <div class="mt-6 text-2xl font-medium leading-8">
+                    $724,091.47
+                  </div>
+                  <div class="mt-1.5 text-xs uppercase opacity-70">
+                    Item Sales
+                  </div>
+                </div>
+                <div data-component="box">
+                  <i data-lucide="circle-gauge" class="size-7 stroke-1 fill-foreground/10"></i>
+                  <div class="mt-6 text-2xl font-medium leading-8">
+                    $724,091.47
+                  </div>
+                  <div class="mt-1.5 text-xs uppercase opacity-70">
+                    Item Sales
+                  </div>
+                </div>
+                <div data-component="box">
+                  <i data-lucide="circle-gauge" class="size-7 stroke-1 fill-foreground/10"></i>
+                  <div class="mt-6 text-2xl font-medium leading-8">
+                    $724,091.47
+                  </div>
+                  <div class="mt-1.5 text-xs uppercase opacity-70">
+                    Item Sales
+                  </div>
+                </div>
+              </div>
+              <br />
+              <br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br /><br /><br /><br /><br /><br /><br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
