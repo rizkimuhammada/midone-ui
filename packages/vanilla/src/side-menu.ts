@@ -66,22 +66,61 @@ const syncState = () => {
   });
 };
 
+const slideDown = (el: HTMLElement) => {
+  el.classList.remove("hidden");
+  const scrollHeight = el.scrollHeight;
+  el.style.height = "0px";
+  el.style.overflow = "hidden";
+  el.style.transition = "height 300ms ease-in-out";
+
+  // Force reflow
+  el.offsetHeight;
+
+  el.style.height = scrollHeight + "px";
+
+  setTimeout(() => {
+    el.style.height = "";
+    el.style.overflow = "";
+    el.style.transition = "";
+  }, 300);
+};
+
+const slideUp = (el: HTMLElement) => {
+  const scrollHeight = el.scrollHeight;
+  el.style.height = scrollHeight + "px";
+  el.style.overflow = "hidden";
+  el.style.transition = "height 300ms ease-in-out";
+
+  // Force reflow
+  el.offsetHeight;
+
+  el.style.height = "0px";
+
+  setTimeout(() => {
+    el.classList.add("hidden");
+    el.style.height = "";
+    el.style.overflow = "";
+    el.style.transition = "";
+  }, 300);
+};
+
 /**
  * Optimized Component Initializers
  */
 
 const initSideMenu = () => {
   // 1. Find all components in ONE scan to prevent layout thrashing
-  const components = document.querySelectorAll<HTMLElement>("[data-component]");
+  const components = document.querySelectorAll<HTMLElement>("[data-component], .side-menu__link");
 
   components.forEach((el) => {
     const componentName = el.getAttribute("data-component") || "";
     // Only process side-menu components
-    if (!componentName.startsWith("side-menu-") && componentName !== "breadcrumb" && componentName !== "avatar-root") {
+    const isSideMenuLink = el.classList.contains("side-menu__link");
+    if (!isSideMenuLink && !componentName.startsWith("side-menu-") && componentName !== "breadcrumb" && componentName !== "avatar-root") {
       return;
     }
 
-    const role = el.getAttribute("data-part") || componentName.replace("side-menu-", "");
+    const role = el.getAttribute("data-part") || (el.classList.contains("side-menu__link") ? "link" : componentName.replace("side-menu-", ""));
     el.setAttribute("data-scope", "side-menu");
     if (!el.getAttribute("data-part")) el.setAttribute("data-part", role);
 
@@ -233,6 +272,52 @@ const initSideMenu = () => {
           el.className = cn(sideMenuFixedTopBar, el.className);
           el.setAttribute("data-style-initialized", "true");
         }
+        break;
+
+      case "link":
+        el.addEventListener("click", (e) => {
+          const subMenu = el.nextElementSibling as HTMLElement;
+          if (subMenu && subMenu.tagName === "UL") {
+            const isVisible = !subMenu.classList.contains("hidden");
+
+            // Close other sub-menus in the same level
+            const parentLi = el.parentElement;
+            if (parentLi && parentLi.parentElement) {
+              Array.from(parentLi.parentElement.children).forEach((li) => {
+                if (li !== parentLi) {
+                  const otherLink = li.querySelector(
+                    ".side-menu__link"
+                  ) as HTMLElement;
+                  const otherSubMenu = otherLink?.nextElementSibling as HTMLElement;
+                  if (
+                    otherSubMenu &&
+                    otherSubMenu.tagName === "UL" &&
+                    !otherSubMenu.classList.contains("hidden")
+                  ) {
+                    slideUp(otherSubMenu);
+                    otherLink
+                      ?.querySelector(".side-menu__link__chevron")
+                      ?.classList.remove("rotate-180");
+                  }
+                }
+              });
+            }
+
+            // Toggle visibility
+            if (isVisible) {
+              slideUp(subMenu);
+              el.querySelector(".side-menu__link__chevron")?.classList.remove(
+                "rotate-180"
+              );
+            } else {
+              e.preventDefault();
+              slideDown(subMenu);
+              el.querySelector(".side-menu__link__chevron")?.classList.add(
+                "rotate-180"
+              );
+            }
+          }
+        });
         break;
     }
   });
