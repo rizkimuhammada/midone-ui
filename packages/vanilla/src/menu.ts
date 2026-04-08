@@ -38,10 +38,17 @@ function parseSvg(html: string): Element {
 
 function processItem(itemEl: HTMLElement) {
     const isAsChild = itemEl.hasAttribute("data-as-child");
+    const isTriggerItem = itemEl.matches('[data-component="menu-trigger-item"]');
+    const isCheckboxItem = itemEl.matches('[data-component="menu-checkbox-item"]');
+    const isRadioItem = itemEl.matches('[data-component="menu-radio-item"]');
+
     const item = handleAsChild(itemEl);
-    const type = item.dataset.type as "checkbox" | "radio" | undefined;
+    let type = item.dataset.type as "checkbox" | "radio" | undefined;
+    if (!type) {
+        if (isCheckboxItem) type = "checkbox";
+        if (isRadioItem) type = "radio";
+    }
     const shortcut = item.getAttribute("data-shortcut");
-    const isTriggerItem = item.matches('[data-component="menu-trigger-item"]');
 
     item.className = cn(menuItem, item.className);
     item.setAttribute("data-scope", "menu");
@@ -169,7 +176,7 @@ function initMenuRoot(rootEl: Element) {
     if (!contentEl) return;
     const innerContainer = processContent(contentEl);
 
-    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-item"]').forEach(itemEl => {
+    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-item"], [data-component="menu-checkbox-item"], [data-component="menu-radio-item"]').forEach(itemEl => {
         if (!itemEl.closest('[data-component="menu-radio-group"]')) processItem(itemEl);
     });
     innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-separator"]').forEach(sepEl => {
@@ -198,7 +205,7 @@ function initMenuRoot(rootEl: Element) {
             label.setAttribute("data-scope", "menu");
             label.setAttribute("data-part", "item-group-label");
         });
-        group.querySelectorAll<HTMLElement>('[data-component="menu-item"]').forEach(processItem);
+        group.querySelectorAll<HTMLElement>('[data-component="menu-item"], [data-component="menu-radio-item"]').forEach(processItem);
     });
 
     innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-trigger-item"]').forEach(triggerItem => {
@@ -223,7 +230,7 @@ function initMenuRoot(rootEl: Element) {
         const finalNestedContentEl = nested.querySelector<HTMLElement>('[data-component="menu-content"]');
         if (finalNestedContentEl) {
             const nestedInner = processContent(finalNestedContentEl);
-            nestedInner.querySelectorAll<HTMLElement>('[data-component="menu-item"]').forEach(processItem);
+            nestedInner.querySelectorAll<HTMLElement>('[data-component="menu-item"], [data-component="menu-checkbox-item"], [data-component="menu-radio-item"]').forEach(processItem);
         }
 
         nested.remove();
@@ -254,7 +261,7 @@ function initMenuRoot(rootEl: Element) {
         nested.classList.add("menu-positioner-nested-teleported");
     });
 
-    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="checkbox"]').forEach(item => {
+    innerContainer.querySelectorAll<HTMLElement>('[data-component="menu-checkbox-item"], [data-component="menu-item"][data-type="checkbox"]').forEach(item => {
         item.addEventListener("click", () => {
             const ind = item.querySelector<HTMLElement>("[data-part='item-indicator']");
             if (ind) ind.hidden = !ind.hidden;
@@ -262,9 +269,9 @@ function initMenuRoot(rootEl: Element) {
     });
 
     innerContainer.querySelectorAll('[data-component="menu-radio-group"]').forEach(group => {
-        group.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="radio"]').forEach(item => {
+        group.querySelectorAll<HTMLElement>('[data-component="menu-radio-item"], [data-component="menu-item"][data-type="radio"]').forEach(item => {
             item.addEventListener("click", () => {
-                group.querySelectorAll<HTMLElement>('[data-component="menu-item"][data-type="radio"]').forEach(sibling => {
+                group.querySelectorAll<HTMLElement>('[data-component="menu-radio-item"], [data-component="menu-item"][data-type="radio"]').forEach(sibling => {
                     const ind = sibling.querySelector<HTMLElement>("[data-part='item-indicator']");
                     if (ind) ind.hidden = sibling !== item;
                 });

@@ -173,85 +173,85 @@ function injectDefaultTemplate(root: HTMLElement) {
         : [];
 
     let html = `
-        ${label ? `<label data-component="datepicker-label">${label}</label>` : ""}
-        <div data-component="datepicker-control">
+        ${label ? `<label data-component="date-picker-label">${label}</label>` : ""}
+        <div data-component="date-picker-control">
             ${selectionMode === "range"
-            ? `<input type="text" data-component="datepicker-input" data-index="0">
-               <input type="text" data-component="datepicker-input" data-index="1">`
-            : `<input type="text" data-component="datepicker-input">`
+            ? `<input type="text" data-component="date-picker-input" data-index="0">
+               <input type="text" data-component="date-picker-input" data-index="1">`
+            : `<input type="text" data-component="date-picker-input">`
         }
-            ${!isInline && withTrigger ? `<button data-component="datepicker-trigger"></button>` : ""}
-            <button data-component="datepicker-clear-trigger"></button>
+            ${!isInline && withTrigger ? `<button data-component="date-picker-trigger"></button>` : ""}
+            <button data-component="date-picker-clear-trigger"></button>
         </div>
         ${presets.length > 0 ? `
             <div class="${datePickerPresets}">
-                ${presets.map(p => `<div data-component="datepicker-preset-trigger" data-value="${m(p.value)}">${m(p.label)}</div>`).join("")}
+                ${presets.map(p => `<div data-component="date-picker-preset-trigger" data-value="${m(p.value)}">${m(p.label)}</div>`).join("")}
             </div>
         ` : ""}
     `;
 
     const contentHtml = `
-        <div data-component="datepicker-content">
+        <div data-component="date-picker-content">
             ${numOfMonths > 1 ? `
-                <select data-component="datepicker-year-select"></select>
-                <select data-component="datepicker-month-select"></select>
-                <div data-component="datepicker-view-control">
-                    <button data-component="datepicker-prev-trigger"></button>
-                    <button data-component="datepicker-view-trigger">
-                        <div data-component="datepicker-range-text"></div>
+                <select data-component="date-picker-year-select"></select>
+                <select data-component="date-picker-month-select"></select>
+                <div data-component="date-picker-view-control">
+                    <button data-component="date-picker-prev-trigger"></button>
+                    <button data-component="date-picker-view-trigger">
+                        <div data-component="date-picker-range-text"></div>
                     </button>
-                    <button data-component="datepicker-next-trigger"></button>
+                    <button data-component="date-picker-next-trigger"></button>
                 </div>
-                <div data-component="datepicker-view" data-view="day" class="flex-row">
+                <div data-component="date-picker-view" data-view="day" class="flex-row">
                     ${Array.from({ length: numOfMonths }).map((_, i) => `
-                        <table data-component="datepicker-table" data-month-offset="${i}">
-                            <thead data-component="datepicker-table-head">
-                                <tr data-component="datepicker-table-row"></tr>
+                        <table data-component="date-picker-table" data-month-offset="${i}">
+                            <thead data-component="date-picker-table-head">
+                                <tr data-component="date-picker-table-row"></tr>
                             </thead>
-                            <tbody data-component="datepicker-table-body"></tbody>
+                            <tbody data-component="date-picker-table-body"></tbody>
                         </table>
                     `).join("")}
                 </div>
             ` : `
-                <select data-component="datepicker-year-select"></select>
-                <select data-component="datepicker-month-select"></select>
-                <div data-component="datepicker-view" data-view="day">
-                    <div data-component="datepicker-view-control">
-                        <button data-component="datepicker-prev-trigger"></button>
-                        <button data-component="datepicker-view-trigger">
-                            <div data-component="datepicker-range-text"></div>
+                <select data-component="date-picker-year-select"></select>
+                <select data-component="date-picker-month-select"></select>
+                <div data-component="date-picker-view" data-view="day">
+                    <div data-component="date-picker-view-control">
+                        <button data-component="date-picker-prev-trigger"></button>
+                        <button data-component="date-picker-view-trigger">
+                            <div data-component="date-picker-range-text"></div>
                         </button>
-                        <button data-component="datepicker-next-trigger"></button>
+                        <button data-component="date-picker-next-trigger"></button>
                     </div>
-                    <table data-component="datepicker-table">
-                        <thead data-component="datepicker-table-head">
-                            <tr data-component="datepicker-table-row"></tr>
+                    <table data-component="date-picker-table">
+                        <thead data-component="date-picker-table-head">
+                            <tr data-component="date-picker-table-row"></tr>
                         </thead>
-                        <tbody data-component="datepicker-table-body"></tbody>
+                        <tbody data-component="date-picker-table-body"></tbody>
                     </table>
                 </div>
-                <div data-component="datepicker-view" data-view="month" hidden>
-                    <div data-component="datepicker-view-control">
-                        <button data-component="datepicker-prev-trigger"></button>
-                        <button data-component="datepicker-view-trigger">
-                            <div data-component="datepicker-range-text"></div>
+                <div data-component="date-picker-view" data-view="month" hidden>
+                    <div data-component="date-picker-view-control">
+                        <button data-component="date-picker-prev-trigger"></button>
+                        <button data-component="date-picker-view-trigger">
+                            <div data-component="date-picker-range-text"></div>
                         </button>
-                        <button data-component="datepicker-next-trigger"></button>
+                        <button data-component="date-picker-next-trigger"></button>
                     </div>
-                    <table data-component="datepicker-table">
-                        <tbody data-component="datepicker-table-body"></tbody>
+                    <table data-component="date-picker-table">
+                        <tbody data-component="date-picker-table-body"></tbody>
                     </table>
                 </div>
-                <div data-component="datepicker-view" data-view="year" hidden>
-                    <div data-component="datepicker-view-control">
-                        <button data-component="datepicker-prev-trigger"></button>
-                        <button data-component="datepicker-view-trigger">
-                            <div data-component="datepicker-range-text"></div>
+                <div data-component="date-picker-view" data-view="year" hidden>
+                    <div data-component="date-picker-view-control">
+                        <button data-component="date-picker-prev-trigger"></button>
+                        <button data-component="date-picker-view-trigger">
+                            <div data-component="date-picker-range-text"></div>
                         </button>
-                        <button data-component="datepicker-next-trigger"></button>
+                        <button data-component="date-picker-next-trigger"></button>
                     </div>
-                    <table data-component="datepicker-table">
-                        <tbody data-component="datepicker-table-body"></tbody>
+                    <table data-component="date-picker-table">
+                        <tbody data-component="date-picker-table-body"></tbody>
                     </table>
                 </div>
             `}
@@ -262,7 +262,7 @@ function injectDefaultTemplate(root: HTMLElement) {
         html += contentHtml;
     } else {
         html += `
-            <div data-component="datepicker-positioner">
+            <div data-component="date-picker-positioner">
                 ${contentHtml}
             </div>
         `;
@@ -321,7 +321,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Label
-    const labelEl = root.querySelector<HTMLElement>('[data-component="datepicker-label"]');
+    const labelEl = root.querySelector<HTMLElement>('[data-component="date-picker-label"]');
     if (labelEl) {
         labelEl.className = cn(labelStyles, datePickerLabel, labelEl.className);
         labelEl.setAttribute("data-scope", "date-picker");
@@ -329,7 +329,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Control
-    const controlEl = root.querySelector<HTMLElement>('[data-component="datepicker-control"]');
+    const controlEl = root.querySelector<HTMLElement>('[data-component="date-picker-control"]');
     if (controlEl) {
         controlEl.className = cn(datePickerControl, controlEl.className);
         controlEl.setAttribute("data-scope", "date-picker");
@@ -337,7 +337,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Inputs
-    const inputs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-component="datepicker-input"]'));
+    const inputs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-component="date-picker-input"]'));
     inputs.forEach(inp => {
         inp.className = cn(inputStyles, datePickerInput, inp.className);
         inp.setAttribute("data-scope", "date-picker");
@@ -346,7 +346,7 @@ function initDatePickerRoot(root: HTMLElement) {
     });
 
     // Trigger button
-    const triggerBtn = root.querySelector<HTMLButtonElement>('[data-component="datepicker-trigger"]');
+    const triggerBtn = root.querySelector<HTMLButtonElement>('[data-component="date-picker-trigger"]');
     const withTrigger = root.getAttribute("data-with-trigger") === "true";
 
     if (triggerBtn) {
@@ -361,7 +361,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Clear trigger
-    const clearBtn = root.querySelector<HTMLButtonElement>('[data-component="datepicker-clear-trigger"]');
+    const clearBtn = root.querySelector<HTMLButtonElement>('[data-component="date-picker-clear-trigger"]');
     if (clearBtn) {
         clearBtn.className = cn(buttonVariants({ variant: "ghost" }), datePickerClearTrigger, clearBtn.className);
         clearBtn.setAttribute("data-scope", "date-picker");
@@ -371,7 +371,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Preset triggers (range example)
-    root.querySelectorAll<HTMLElement>('[data-component="datepicker-preset-trigger"]').forEach(el => {
+    root.querySelectorAll<HTMLElement>('[data-component="date-picker-preset-trigger"]').forEach(el => {
         const presetEl = handleAsChild(el);
         const variant = (presetEl.getAttribute("data-variant") ?? "secondary") as any;
         const look = (presetEl.getAttribute("data-look") ?? "outline") as any;
@@ -379,13 +379,13 @@ function initDatePickerRoot(root: HTMLElement) {
     });
 
     // Positioner (dropdown mode) — will teleport to body after all queries
-    const positioner = root.querySelector<HTMLElement>('[data-component="datepicker-positioner"]');
+    const positioner = root.querySelector<HTMLElement>('[data-component="date-picker-positioner"]');
     if (positioner && !isInline) {
         positioner.style.cssText = "position:fixed;z-index:50;min-width:max-content;display:none;";
     }
 
-    // Content box (datepicker-content)
-    const contentEl = root.querySelector<HTMLElement>('[data-component="datepicker-content"]');
+    // Content box (date-picker-content)
+    const contentEl = root.querySelector<HTMLElement>('[data-component="date-picker-content"]');
     if (contentEl) {
         const boxClasses = boxVariants({ raised: "single" });
         contentEl.className = cn(boxClasses, datePickerContent, contentEl.className);
@@ -402,14 +402,14 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Year select
-    const yearSelect = root.querySelector<HTMLSelectElement>('[data-component="datepicker-year-select"]');
+    const yearSelect = root.querySelector<HTMLSelectElement>('[data-component="date-picker-year-select"]');
     if (yearSelect) {
         yearSelect.className = cn(inputStyles, nativeSelect, datePickerYearSelect, yearSelect.className);
         populateYearSelect(yearSelect, state.viewYear);
     }
 
     // Month select
-    const monthSelect = root.querySelector<HTMLSelectElement>('[data-component="datepicker-month-select"]');
+    const monthSelect = root.querySelector<HTMLSelectElement>('[data-component="date-picker-month-select"]');
     if (monthSelect) {
         monthSelect.className = cn(inputStyles, nativeSelect, datePickerMonthSelect, monthSelect.className);
         populateMonthSelect(monthSelect);
@@ -417,7 +417,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Views
-    const viewEls = Array.from(root.querySelectorAll<HTMLElement>('[data-component="datepicker-view"]'));
+    const viewEls = Array.from(root.querySelectorAll<HTMLElement>('[data-component="date-picker-view"]'));
     viewEls.forEach(v => {
         v.className = cn(datePickerView, v.className);
         v.setAttribute("data-scope", "date-picker");
@@ -425,37 +425,37 @@ function initDatePickerRoot(root: HTMLElement) {
     });
 
     // View controls (standalone, e.g. multiple months)
-    const standaloneViewControls = Array.from(root.querySelectorAll<HTMLElement>('[data-component="datepicker-view-control"]')).filter(el => !el.closest('[data-component="datepicker-view"]'));
+    const standaloneViewControls = Array.from(root.querySelectorAll<HTMLElement>('[data-component="date-picker-view-control"]')).filter(el => !el.closest('[data-component="date-picker-view"]'));
     standaloneViewControls.forEach(vc => {
         vc.className = cn(datePickerViewControl, vc.className);
     });
 
     // View controls inside views
     viewEls.forEach(v => {
-        const vc = v.querySelector<HTMLElement>('[data-component="datepicker-view-control"]');
+        const vc = v.querySelector<HTMLElement>('[data-component="date-picker-view-control"]');
         if (vc) vc.className = cn(datePickerViewControl, vc.className);
     });
 
     // Apply table/thead/tbody/tr/th classes to all tables
-    root.querySelectorAll<HTMLElement>('[data-component="datepicker-table"]').forEach(t => {
+    root.querySelectorAll<HTMLElement>('[data-component="date-picker-table"]').forEach(t => {
         t.className = cn(datePickerTable, t.className);
     });
-    root.querySelectorAll<HTMLElement>('[data-component="datepicker-table-head"]').forEach(el => {
+    root.querySelectorAll<HTMLElement>('[data-component="date-picker-table-head"]').forEach(el => {
         el.className = cn(datePickerTableHead, el.className);
     });
-    root.querySelectorAll<HTMLElement>('[data-component="datepicker-table-body"]').forEach(el => {
+    root.querySelectorAll<HTMLElement>('[data-component="date-picker-table-body"]').forEach(el => {
         el.className = cn(datePickerTableBody, el.className);
     });
-    root.querySelectorAll<HTMLElement>('[data-component="datepicker-table-row"]').forEach(el => {
+    root.querySelectorAll<HTMLElement>('[data-component="date-picker-table-row"]').forEach(el => {
         el.className = cn(datePickerTableRow, el.className);
     });
 
     // Setup view buttons (prev/view-trigger/next) inside all view-controls
     function setupViewControl(vc: HTMLElement, viewEl: HTMLElement | null) {
-        const prev = vc.querySelector<HTMLButtonElement>('[data-component="datepicker-prev-trigger"]');
-        const viewBtn = vc.querySelector<HTMLButtonElement>('[data-component="datepicker-view-trigger"]');
-        const next = vc.querySelector<HTMLButtonElement>('[data-component="datepicker-next-trigger"]');
-        const rangeText = vc.querySelector<HTMLElement>('[data-component="datepicker-range-text"]');
+        const prev = vc.querySelector<HTMLButtonElement>('[data-component="date-picker-prev-trigger"]');
+        const viewBtn = vc.querySelector<HTMLButtonElement>('[data-component="date-picker-view-trigger"]');
+        const next = vc.querySelector<HTMLButtonElement>('[data-component="date-picker-next-trigger"]');
+        const rangeText = vc.querySelector<HTMLElement>('[data-component="date-picker-range-text"]');
 
         if (prev) {
             prev.className = cn(datePickerPrevTrigger, prev.className);
@@ -489,15 +489,15 @@ function initDatePickerRoot(root: HTMLElement) {
 
     // Setup view controls in views
     viewEls.forEach(v => {
-        const vc = v.querySelector<HTMLElement>('[data-component="datepicker-view-control"]');
+        const vc = v.querySelector<HTMLElement>('[data-component="date-picker-view-control"]');
         if (vc) setupViewControl(vc, v);
     });
     // Setup standalone view controls (multiple months)
     standaloneViewControls.forEach(vc => {
-        const dayView = root.querySelector<HTMLElement>('[data-component="datepicker-view"][data-view="day"]');
-        const prev = vc.querySelector<HTMLButtonElement>('[data-component="datepicker-prev-trigger"]');
-        const next = vc.querySelector<HTMLButtonElement>('[data-component="datepicker-next-trigger"]');
-        const rangeText = vc.querySelector<HTMLElement>('[data-component="datepicker-range-text"]');
+        const dayView = root.querySelector<HTMLElement>('[data-component="date-picker-view"][data-view="day"]');
+        const prev = vc.querySelector<HTMLButtonElement>('[data-component="date-picker-prev-trigger"]');
+        const next = vc.querySelector<HTMLButtonElement>('[data-component="date-picker-next-trigger"]');
+        const rangeText = vc.querySelector<HTMLElement>('[data-component="date-picker-range-text"]');
 
         if (prev) {
             prev.className = cn(datePickerPrevTrigger, prev.className);
@@ -628,7 +628,7 @@ function initDatePickerRoot(root: HTMLElement) {
     }
 
     // Preset triggers
-    root.querySelectorAll<HTMLElement>('[data-component="datepicker-preset-trigger"]').forEach(btn => {
+    root.querySelectorAll<HTMLElement>('[data-component="date-picker-preset-trigger"]').forEach(btn => {
         btn.addEventListener("click", () => {
             const preset = btn.getAttribute("data-value") ?? "";
             const [start, end] = getPresetRange(preset);
@@ -778,9 +778,9 @@ function initDatePickerRoot(root: HTMLElement) {
 
     function updateRangeTexts() {
         const containers = positioner && !isInline ? [root, positioner] : [root];
-        const rangeTextEls = containers.flatMap(c => Array.from(c.querySelectorAll<HTMLElement>('[data-component="datepicker-range-text"]')));
+        const rangeTextEls = containers.flatMap(c => Array.from(c.querySelectorAll<HTMLElement>('[data-component="date-picker-range-text"]')));
         rangeTextEls.forEach(el => {
-            const viewEl = el.closest<HTMLElement>('[data-component="datepicker-view"]');
+            const viewEl = el.closest<HTMLElement>('[data-component="date-picker-view"]');
             const view = viewEl ? viewEl.getAttribute("data-view") : state.currentView;
             if (view === "day") {
                 el.textContent = `${MONTHS_LONG[state.viewMonth]} ${state.viewYear}`;
@@ -814,23 +814,23 @@ function initDatePickerRoot(root: HTMLElement) {
             if (view === "day") {
                 if (numOfMonths > 1) {
                     // Multiple month tables
-                    v.querySelectorAll<HTMLElement>('[data-component="datepicker-table"]').forEach(table => {
+                    v.querySelectorAll<HTMLElement>('[data-component="date-picker-table"]').forEach(table => {
                         const offsetAttr = parseInt(table.getAttribute("data-month-offset") ?? "0");
                         const d = new Date(state.viewYear, state.viewMonth + offsetAttr, 1);
-                        const tbody = table.querySelector<HTMLElement>('[data-component="datepicker-table-body"]');
-                        const theadRow = table.querySelector<HTMLElement>('[data-component="datepicker-table-row"]');
+                        const tbody = table.querySelector<HTMLElement>('[data-component="date-picker-table-body"]');
+                        const theadRow = table.querySelector<HTMLElement>('[data-component="date-picker-table-row"]');
                         if (tbody) renderDayTable(tbody, theadRow, d.getFullYear(), d.getMonth());
                     });
                 } else {
-                    const tbody = v.querySelector<HTMLElement>('[data-component="datepicker-table-body"]');
-                    const theadRow = v.querySelector<HTMLElement>('[data-component="datepicker-table-row"]');
+                    const tbody = v.querySelector<HTMLElement>('[data-component="date-picker-table-body"]');
+                    const theadRow = v.querySelector<HTMLElement>('[data-component="date-picker-table-row"]');
                     if (tbody) renderDayTable(tbody, theadRow, state.viewYear, state.viewMonth);
                 }
             } else if (view === "month") {
-                const tbody = v.querySelector<HTMLElement>('[data-component="datepicker-table-body"]');
+                const tbody = v.querySelector<HTMLElement>('[data-component="date-picker-table-body"]');
                 if (tbody) renderMonthTable(tbody);
             } else if (view === "year") {
-                const tbody = v.querySelector<HTMLElement>('[data-component="datepicker-table-body"]');
+                const tbody = v.querySelector<HTMLElement>('[data-component="date-picker-table-body"]');
                 if (tbody) renderYearTable(tbody);
             }
         });
@@ -878,7 +878,7 @@ function populateMonthSelect(sel: HTMLSelectElement) {
 }
 
 function initDatepickers() {
-    document.querySelectorAll<HTMLElement>('[data-component="datepicker-root"]').forEach(root => initDatePickerRoot(root));
+    document.querySelectorAll<HTMLElement>('[data-component="date-picker-root"]').forEach(root => initDatePickerRoot(root));
 }
 
 if (document.readyState === "loading") {
