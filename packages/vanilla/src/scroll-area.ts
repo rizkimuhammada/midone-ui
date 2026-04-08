@@ -8,7 +8,7 @@ import {
     scrollAreaCorner,
 } from "@midoneui/core/src/styles/scroll-area.styles";
 
-function initScrollArea() {
+export function initScrollArea() {
     document.querySelectorAll<HTMLElement>('[data-component="scroll-area-root"]').forEach((root) => {
         root.className = cn(scrollAreaRoot, root.className);
         root.setAttribute("data-scope", "scroll-area");
@@ -24,7 +24,7 @@ function initScrollArea() {
         if (!viewportEl) {
             viewportEl = document.createElement("div");
             viewportEl.setAttribute("data-component", "scroll-area-viewport");
-            
+
             if (!contentEl) {
                 contentEl = document.createElement("div");
                 contentEl.setAttribute("data-component", "scroll-area-content");
