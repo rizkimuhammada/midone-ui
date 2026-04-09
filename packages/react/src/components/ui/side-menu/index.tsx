@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import { cn } from "@midoneui/core/utils/cn";
+import { ScrollAreaRoot } from "@/components/ui/scroll-area";
 import { ChevronLeft, Menu, X } from "lucide-react";
 import {
   sideMenuRoot,
@@ -241,17 +242,19 @@ export function SideMenuHeader({
 export function SideMenuBody({
   children,
   className,
+  dir,
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div
+    <ScrollAreaRoot
       data-scope="side-menu"
       data-part="body"
       className={cn(sideMenuBody, className)}
+      dir={dir as "ltr" | "rtl" | undefined}
       {...props}
     >
-      <div data-part="content">{children}</div>
-    </div>
+      {children}
+    </ScrollAreaRoot>
   );
 }
 
@@ -267,18 +270,17 @@ export function SideMenuArea({
     <div
       data-scope="side-menu"
       data-part="area"
-      data-compact-menu={compactMenu}
-      data-compact-menu-on-hover={compactMenuOnHover}
-      data-mobile-menu-open={mobileMenuOpen}
+      data-compact-menu={compactMenu && !compactMenuOnHover}
       className={cn(sideMenuArea, className)}
       {...props}
     >
-      <div data-part="inner" className={sideMenuAreaInner}>
-        <div data-part="wrapper" className={sideMenuAreaWrapper}>
+      <div data-scope="side-menu" data-part="inner" className={sideMenuAreaInner}>
+        <div data-scope="side-menu" data-part="wrapper" className={sideMenuAreaWrapper}>
           <div
+            data-scope="side-menu"
             data-part="scroll"
             onScroll={onScrollArea}
-            data-compact-menu={compactMenu}
+            data-compact-menu={compactMenu && compactMenuOnHover && !mobileMenuOpen}
             className={sideMenuAreaScroll}
           >
             {children}
@@ -314,16 +316,14 @@ export function SideMenuTopBarInner({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const { scrolled } = useSideMenuContext();
-
   return (
     <div
       data-scope="side-menu"
       data-part="top-bar-inner"
-      data-scrolled={scrolled}
       className={cn(sideMenuTopBarInner, className)}
       {...props}
     >
+      <SideMenuTopBarMobileOpen />
       {children}
     </div>
   );
