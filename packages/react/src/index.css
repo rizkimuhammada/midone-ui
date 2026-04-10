@@ -85,16 +85,6 @@
 
 body {
   @apply font-display bg-background overflow-x-hidden bg-fixed antialiased text-foreground text-foreground text-sm;
-  background-image: repeating-linear-gradient(0deg,
-      --alpha(var(--color-foreground) / 6%) 0,
-      --alpha(var(--color-foreground) / 6%) 1px,
-      transparent 1px,
-      transparent 10rem),
-    repeating-linear-gradient(90deg,
-      --alpha(var(--color-foreground) / 6%) 0,
-      --alpha(var(--color-foreground) / 6%) 1px,
-      transparent 1px,
-      transparent 10rem);
 }
 
 select {

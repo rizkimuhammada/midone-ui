@@ -7,7 +7,11 @@ import "./index.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <Router />
+      <div className="p-5 sm:p-20">
+        <div className="text-sm">
+          <Router />
+        </div>
+      </div>
     </BrowserRouter>
   </StrictMode>
 );

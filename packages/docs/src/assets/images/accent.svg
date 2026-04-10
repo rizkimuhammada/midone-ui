@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1361.312" height="1194.806" viewBox="0 0 1361.312 1194.806">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="0.493" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="0.527" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#6d28d9" stop-opacity="0"/>
+      <stop offset="0.502" stop-color="#4f46e5"/>
+      <stop offset="1" stop-color="#6d28d9" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_67" data-name="Group 67" transform="translate(0 0)" opacity="0.696">
+    <ellipse id="Ellipse_8" data-name="Ellipse 8" cx="104.84" cy="572.07" rx="104.84" ry="572.07" transform="translate(439.912 208.825) rotate(-42)" opacity="0.578" fill="url(#linear-gradient)"/>
+    <ellipse id="Ellipse_7" data-name="Ellipse 7" cx="114.898" cy="564.247" rx="114.898" ry="564.247" transform="translate(0 220.365) rotate(-42)" opacity="0.578" fill="url(#linear-gradient-2)"/>
+    <ellipse id="Ellipse_1" data-name="Ellipse 1" cx="155.687" cy="663.708" rx="155.687" ry="663.708" transform="translate(149.577 208.35) rotate(-42)" opacity="0.585" fill="url(#linear-gradient-3)"/>
+  </g>
+</svg>
