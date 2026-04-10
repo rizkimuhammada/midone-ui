@@ -1,5 +1,27 @@
+import { SwitchRoot, SwitchControl, SwitchLabel } from "@/components/ui/switch";
+
 function Main() {
-  return <div>Hello World</div>;
+  return (
+    <div className="flex flex-col gap-20">
+      <div className="grid grid-cols-2">
+        <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+          <SwitchRoot label="Airplane Mode" />
+        </div>
+        <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+          <SwitchRoot>
+            <SwitchControl />
+            <SwitchLabel className="font-normal">
+              Activate PreOrder if you need a longer shipping process.{" "}
+              <a className="text-primary" href="">
+                Learn more
+              </a>
+              .
+            </SwitchLabel>
+          </SwitchRoot>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Main;
