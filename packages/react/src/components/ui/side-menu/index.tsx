@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import { cn } from "@midoneui/core/utils/cn";
 import { ScrollAreaRoot } from "@/components/ui/scroll-area";
-import { ChevronLeft, Menu, X } from "lucide-react";
 import {
   sideMenuRoot,
   sideMenuPanel,
@@ -28,6 +27,7 @@ import {
   sideMenuMobileCloseIcon,
   sideMenuFixedTopBar,
 } from "@midoneui/core/styles/side-menu.styles";
+import { Lucide } from "@/components/ui/lucide";
 
 export interface SideMenuContextType {
   compactMenu: boolean;
@@ -215,11 +215,11 @@ export function SideMenuHeader({
   children,
   className,
   ...props
-}: React.ComponentProps<"header">) {
+}: React.ComponentProps<"div">) {
   const { toggleCompactMenu } = useSideMenuContext();
 
   return (
-    <header
+    <div
       data-scope="side-menu"
       data-part="header"
       className={cn(sideMenuHeader, className)}
@@ -233,9 +233,13 @@ export function SideMenuHeader({
         onClick={toggleCompactMenu}
         className={sideMenuHeaderToggle}
       >
-        <ChevronLeft className="size-3.5 stroke-[3px] transition-transform group-hover:scale-110" />
+        <Lucide
+          data-scope="side-menu"
+          data-part="toggle-icon"
+          icon="ChevronLeft"
+        />
       </a>
-    </header>
+    </div>
   );
 }
 
@@ -344,8 +348,11 @@ export function SideMenuTopBarMobileOpen({
       className={cn(sideMenuTopBarMobileOpen, className)}
       {...props}
     >
-      <Menu
-        className={cn(sideMenuTopBarMobileOpenIcon, "size-5 text-foreground/60")}
+      <Lucide
+        data-scope="side-menu"
+        data-part="mobile-open-icon"
+        className={cn(sideMenuTopBarMobileOpenIcon)}
+        icon="Menu"
       />
     </a>
   );
@@ -371,7 +378,12 @@ export function SideMenuMobileClose({
         data-part="mobile-close-icon"
         className={sideMenuMobileCloseIconWrapper}
       >
-        <X className={sideMenuMobileCloseIcon} />
+        <Lucide
+          data-scope="side-menu"
+          data-part="mobile-close-icon"
+          className={sideMenuMobileCloseIcon}
+          icon="X"
+        />
       </div>
     </a>
   );
