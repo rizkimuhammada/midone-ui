@@ -200,6 +200,7 @@ function Main({ className }: React.ComponentProps<"div">) {
     items: [
       { label: "React", code: "react" },
       { label: "Vue", code: "vue" },
+      { label: "Vanilla", code: "vanilla" },
     ],
     itemToValue: (item) => item.label,
   });

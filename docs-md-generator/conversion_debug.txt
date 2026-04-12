@@ -1,0 +1,1015 @@
+Array
+(
+    [vueToBlade] => Array
+        (
+            [AccountDropdown] => x-account-dropdown
+            [AccountTrigger] => x-account-trigger
+            [Bar1] => x-chart-presets.bar-1
+            [ChartPresetsBar1] => x-chart-presets.bar-1
+            [Bar2] => x-chart-presets.bar-2
+            [ChartPresetsBar2] => x-chart-presets.bar-2
+            [Donut1] => x-chart-presets.donut-1
+            [ChartPresetsDonut1] => x-chart-presets.donut-1
+            [Donut2] => x-chart-presets.donut-2
+            [ChartPresetsDonut2] => x-chart-presets.donut-2
+            [Line1] => x-chart-presets.line-1
+            [ChartPresetsLine1] => x-chart-presets.line-1
+            [Line2] => x-chart-presets.line-2
+            [ChartPresetsLine2] => x-chart-presets.line-2
+            [Line3] => x-chart-presets.line-3
+            [ChartPresetsLine3] => x-chart-presets.line-3
+            [Pie1] => x-chart-presets.pie-1
+            [ChartPresetsPie1] => x-chart-presets.pie-1
+            [DailyNotes] => x-daily-notes
+            [NotificationDropdown] => x-notification-dropdown
+            [OfficialStores] => x-official-stores
+            [QuickSearchDialog] => x-quick-search-dialog
+            [RecentActivities] => x-recent-activities
+            [Schedules] => x-schedules
+            [SideMenu] => x-side-menu
+            [ThemeSwitcher] => x-theme-switcher
+            [TopMenu] => x-top-menu
+            [Transactions] => x-transactions
+            [WeeklyBestSellers] => x-weekly-best-sellers
+            [WeeklyTopProducts] => x-weekly-top-products
+        )
+
+    [vueToVanilla] => Array
+        (
+            [Box] => Array
+                (
+                    [tag] => div
+                    [comp] => box
+                )
+
+            [AccordionRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => accordion-root
+                )
+
+            [AccordionItem] => Array
+                (
+                    [tag] => div
+                    [comp] => accordion-item
+                )
+
+            [AccordionTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => accordion-trigger
+                )
+
+            [AccordionContent] => Array
+                (
+                    [tag] => div
+                    [comp] => accordion-content
+                )
+
+            [AlertRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => alert-root
+                )
+
+            [AlertIcon] => Array
+                (
+                    [tag] => div
+                    [comp] => alert-icon
+                )
+
+            [AlertTitle] => Array
+                (
+                    [tag] => div
+                    [comp] => alert-title
+                )
+
+            [AlertDescription] => Array
+                (
+                    [tag] => div
+                    [comp] => alert-description
+                )
+
+            [AlertCloseTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => alert-close-trigger
+                )
+
+            [AvatarRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => avatar-root
+                )
+
+            [Badge] => Array
+                (
+                    [tag] => span
+                    [comp] => badge
+                )
+
+            [Breadcrumb] => Array
+                (
+                    [tag] => div
+                    [comp] => breadcrumb
+                )
+
+            [Button] => Array
+                (
+                    [tag] => button
+                    [comp] => button
+                )
+
+            [CarouselRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => carousel-root
+                )
+
+            [CarouselControl] => Array
+                (
+                    [tag] => div
+                    [comp] => carousel-control
+                )
+
+            [CarouselPrevTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => carousel-prev-trigger
+                )
+
+            [CarouselNextTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => carousel-next-trigger
+                )
+
+            [CarouselItemGroup] => Array
+                (
+                    [tag] => div
+                    [comp] => carousel-item-group
+                )
+
+            [CarouselItem] => Array
+                (
+                    [tag] => div
+                    [comp] => carousel-item
+                )
+
+            [Chart] => Array
+                (
+                    [tag] => canvas
+                    [comp] => chart
+                )
+
+            [CheckboxRoot] => Array
+                (
+                    [tag] => label
+                    [comp] => checkbox-root
+                )
+
+            [ComboboxRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => combobox-root
+                )
+
+            [ComboboxItemGroup] => Array
+                (
+                    [tag] => div
+                    [comp] => combobox-item-group
+                )
+
+            [ComboboxItem] => Array
+                (
+                    [tag] => div
+                    [comp] => combobox-item
+                )
+
+            [Datatable] => Array
+                (
+                    [tag] => div
+                    [comp] => datatable
+                )
+
+            [DatePickerRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => date-picker-root
+                )
+
+            [DialogRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => dialog-root
+                )
+
+            [DialogTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => dialog-trigger
+                )
+
+            [DialogContent] => Array
+                (
+                    [tag] => div
+                    [comp] => dialog-content
+                )
+
+            [DialogTitle] => Array
+                (
+                    [tag] => div
+                    [comp] => dialog-title
+                )
+
+            [DialogDescription] => Array
+                (
+                    [tag] => div
+                    [comp] => dialog-description
+                )
+
+            [Label] => Array
+                (
+                    [tag] => label
+                    [comp] => label
+                )
+
+            [Input] => Array
+                (
+                    [tag] => input
+                    [comp] => input
+                )
+
+            [DialogCloseTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => dialog-close-trigger
+                )
+
+            [FieldGroup] => Array
+                (
+                    [tag] => div
+                    [comp] => field-group
+                )
+
+            [FieldSet] => Array
+                (
+                    [tag] => fieldset
+                    [comp] => field-set
+                )
+
+            [FieldLegend] => Array
+                (
+                    [tag] => legend
+                    [comp] => field-legend
+                )
+
+            [FieldDescription] => Array
+                (
+                    [tag] => p
+                    [comp] => field-description
+                )
+
+            [Field] => Array
+                (
+                    [tag] => div
+                    [comp] => field
+                )
+
+            [FieldLabel] => Array
+                (
+                    [tag] => label
+                    [comp] => field-label
+                )
+
+            [SelectRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => select-root
+                )
+
+            [SelectItemGroup] => Array
+                (
+                    [tag] => div
+                    [comp] => select-item-group
+                )
+
+            [SelectItem] => Array
+                (
+                    [tag] => div
+                    [comp] => select-item
+                )
+
+            [FieldSeparator] => Array
+                (
+                    [tag] => div
+                    [comp] => field-separator
+                )
+
+            [CheckboxControl] => Array
+                (
+                    [tag] => span
+                    [comp] => checkbox-control
+                )
+
+            [CheckboxLabel] => Array
+                (
+                    [tag] => span
+                    [comp] => checkbox-label
+                )
+
+            [Textarea] => Array
+                (
+                    [tag] => textarea
+                    [comp] => textarea
+                )
+
+            [RadioGroupRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => radio-group-root
+                )
+
+            [FieldContent] => Array
+                (
+                    [tag] => div
+                    [comp] => field-content
+                )
+
+            [FieldTitle] => Array
+                (
+                    [tag] => div
+                    [comp] => field-title
+                )
+
+            [RadioGroupItem] => Array
+                (
+                    [tag] => div
+                    [comp] => radio-group-item
+                )
+
+            [FileIcon] => Array
+                (
+                    [tag] => div
+                    [comp] => file-icon
+                )
+
+            [Lucide] => Array
+                (
+                    [tag] => i
+                    [comp] => lucide
+                )
+
+            [MapRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => map-root
+                )
+
+            [MenuRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => menu-root
+                )
+
+            [MenuTrigger] => Array
+                (
+                    [tag] => div
+                    [comp] => menu-trigger
+                )
+
+            [MenuContent] => Array
+                (
+                    [tag] => div
+                    [comp] => menu-content
+                )
+
+            [MenuItem] => Array
+                (
+                    [tag] => div
+                    [comp] => menu-item
+                )
+
+            [MenuSeparator] => Array
+                (
+                    [tag] => hr
+                    [comp] => menu-separator
+                )
+
+            [MenuTriggerItem] => Array
+                (
+                    [tag] => div
+                    [comp] => menu-trigger-item
+                )
+
+            [MenuCheckboxItem] => Array
+                (
+                    [tag] => div
+                    [comp] => menu-checkbox-item
+                )
+
+            [MenuRadioGroup] => Array
+                (
+                    [tag] => div
+                    [comp] => menu-radio-group
+                )
+
+            [MenuRadioItem] => Array
+                (
+                    [tag] => div
+                    [comp] => menu-radio-item
+                )
+
+            [NativeSelect] => Array
+                (
+                    [tag] => select
+                    [comp] => native-select
+                )
+
+            [NativeSelectOption] => Array
+                (
+                    [tag] => option
+                    [comp] => native-select-option
+                )
+
+            [NativeSelectOptionGroup] => Array
+                (
+                    [tag] => optgroup
+                    [comp] => native-select-option-group
+                )
+
+            [PaginationRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => pagination-root
+                )
+
+            [PopoverRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => popover-root
+                )
+
+            [PopoverTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => popover-trigger
+                )
+
+            [PopoverContent] => Array
+                (
+                    [tag] => div
+                    [comp] => popover-content
+                )
+
+            [PopoverTitle] => Array
+                (
+                    [tag] => div
+                    [comp] => popover-title
+                )
+
+            [PopoverDescription] => Array
+                (
+                    [tag] => div
+                    [comp] => popover-description
+                )
+
+            [ProgressCircularRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => progress-circular-root
+                )
+
+            [ProgressLinearRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => progress-linear-root
+                )
+
+            [ScrollAreaRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => scroll-area-root
+                )
+
+            [SheetRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => sheet-root
+                )
+
+            [SheetTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => sheet-trigger
+                )
+
+            [SheetContent] => Array
+                (
+                    [tag] => div
+                    [comp] => sheet-content
+                )
+
+            [SheetTitle] => Array
+                (
+                    [tag] => div
+                    [comp] => sheet-title
+                )
+
+            [SheetDescription] => Array
+                (
+                    [tag] => div
+                    [comp] => sheet-description
+                )
+
+            [SheetCloseTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => sheet-close-trigger
+                )
+
+            [SideMenuRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => side-menu-root
+                )
+
+            [SideMenuPanel] => Array
+                (
+                    [tag] => div
+                    [comp] => side-menu-panel
+                )
+
+            [SideMenuInner] => Array
+                (
+                    [tag] => div
+                    [comp] => side-menu-inner
+                )
+
+            [SideMenuHeader] => Array
+                (
+                    [tag] => header
+                    [comp] => side-menu-header
+                )
+
+            [SideMenuBody] => Array
+                (
+                    [tag] => div
+                    [comp] => side-menu-body
+                )
+
+            [SideMenuArea] => Array
+                (
+                    [tag] => div
+                    [comp] => side-menu-area
+                )
+
+            [SideMenuTopBar] => Array
+                (
+                    [tag] => header
+                    [comp] => side-menu-top-bar
+                )
+
+            [SideMenuTopBarInner] => Array
+                (
+                    [tag] => div
+                    [comp] => side-menu-top-bar-inner
+                )
+
+            [SliderRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => slider-root
+                )
+
+            [SliderValueText] => Array
+                (
+                    [tag] => output
+                    [comp] => slider-value-text
+                )
+
+            [SliderMarkerGroup] => Array
+                (
+                    [tag] => div
+                    [comp] => slider-marker-group
+                )
+
+            [SliderMarker] => Array
+                (
+                    [tag] => div
+                    [comp] => slider-marker
+                )
+
+            [SwitchRoot] => Array
+                (
+                    [tag] => label
+                    [comp] => switch-root
+                )
+
+            [SwitchControl] => Array
+                (
+                    [tag] => span
+                    [comp] => switch-control
+                )
+
+            [SwitchLabel] => Array
+                (
+                    [tag] => span
+                    [comp] => switch-label
+                )
+
+            [TableContainer] => Array
+                (
+                    [tag] => div
+                    [comp] => table-container
+                )
+
+            [Table] => Array
+                (
+                    [tag] => table
+                    [comp] => table
+                )
+
+            [TableCaption] => Array
+                (
+                    [tag] => caption
+                    [comp] => table-caption
+                )
+
+            [TableHeader] => Array
+                (
+                    [tag] => thead
+                    [comp] => table-header
+                )
+
+            [TableRow] => Array
+                (
+                    [tag] => tr
+                    [comp] => table-row
+                )
+
+            [TableHead] => Array
+                (
+                    [tag] => th
+                    [comp] => table-head
+                )
+
+            [TableBody] => Array
+                (
+                    [tag] => tbody
+                    [comp] => table-body
+                )
+
+            [TableCell] => Array
+                (
+                    [tag] => td
+                    [comp] => table-cell
+                )
+
+            [TableFooter] => Array
+                (
+                    [tag] => tfoot
+                    [comp] => table-footer
+                )
+
+            [TabsRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => tabs-root
+                )
+
+            [TabsList] => Array
+                (
+                    [tag] => div
+                    [comp] => tabs-list
+                )
+
+            [TabsTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => tabs-trigger
+                )
+
+            [TabsContent] => Array
+                (
+                    [tag] => div
+                    [comp] => tabs-content
+                )
+
+            [ToastTrigger] => Array
+                (
+                    [tag] => div
+                    [comp] => toast-trigger
+                )
+
+            [TooltipRoot] => Array
+                (
+                    [tag] => div
+                    [comp] => tooltip-root
+                )
+
+            [TooltipTrigger] => Array
+                (
+                    [tag] => button
+                    [comp] => tooltip-trigger
+                )
+
+            [TooltipContent] => Array
+                (
+                    [tag] => div
+                    [comp] => tooltip-content
+                )
+
+        )
+
+    [componentProps] => Array
+        (
+            [box] => Array
+                (
+                    [0] => raised
+                )
+
+            [accordion-root] => Array
+                (
+                    [0] => default-value
+                    [1] => variant
+                )
+
+            [accordion-item] => Array
+                (
+                    [0] => value
+                    [1] => raised
+                )
+
+            [alert-root] => Array
+                (
+                    [0] => variant
+                    [1] => look
+                )
+
+            [avatar-root] => Array
+                (
+                    [0] => fallback-text
+                    [1] => src
+                    [2] => bordered
+                )
+
+            [badge] => Array
+                (
+                    [0] => variant
+                    [1] => look
+                    [2] => content
+                )
+
+            [breadcrumb] => Array
+                (
+                    [0] => items
+                )
+
+            [button] => Array
+                (
+                    [0] => variant
+                    [1] => size
+                    [2] => look
+                    [3] => dialog-target
+                )
+
+            [carousel-root] => Array
+                (
+                    [0] => show-indicators
+                )
+
+            [chart] => Array
+                (
+                    [0] => type
+                    [1] => dataset-label
+                    [2] => dataset-data
+                    [3] => max-bar-thickness
+                )
+
+            [checkbox-root] => Array
+                (
+                    [0] => label
+                )
+
+            [combobox-root] => Array
+                (
+                    [0] => label
+                    [1] => combobox-input-placeholder
+                    [2] => multiple
+                )
+
+            [combobox-item-group] => Array
+                (
+                    [0] => label
+                )
+
+            [combobox-item] => Array
+                (
+                    [0] => value
+                )
+
+            [date-picker-root] => Array
+                (
+                    [0] => label
+                    [1] => selection-mode
+                    [2] => with-presets
+                    [3] => num-of-months
+                    [4] => with-trigger
+                )
+
+            [select-root] => Array
+                (
+                    [0] => placeholder
+                    [1] => label
+                    [2] => multiple
+                )
+
+            [select-item-group] => Array
+                (
+                    [0] => label
+                )
+
+            [select-item] => Array
+                (
+                    [0] => value
+                    [1] => text
+                )
+
+            [field] => Array
+                (
+                    [0] => orientation
+                )
+
+            [field-legend] => Array
+                (
+                    [0] => variant
+                )
+
+            [radio-group-root] => Array
+                (
+                    [0] => default-value
+                    [1] => label
+                )
+
+            [radio-group-item] => Array
+                (
+                    [0] => value
+                )
+
+            [file-icon] => Array
+                (
+                    [0] => variant
+                    [1] => type
+                )
+
+            [lucide] => Array
+                (
+                    [0] => icon
+                )
+
+            [map-root] => Array
+                (
+                    [0] => scope
+                    [1] => part
+                    [2] => center
+                    [3] => zoom
+                )
+
+            [menu-item] => Array
+                (
+                    [0] => value
+                    [1] => shortcut
+                )
+
+            [menu-trigger-item] => Array
+                (
+                    [0] => value
+                )
+
+            [menu-checkbox-item] => Array
+                (
+                    [0] => value
+                )
+
+            [menu-radio-group] => Array
+                (
+                    [0] => label
+                )
+
+            [menu-radio-item] => Array
+                (
+                    [0] => value
+                )
+
+            [pagination-root] => Array
+                (
+                    [0] => count
+                    [1] => page-size
+                    [2] => sibling-count
+                )
+
+            [progress-circular-root] => Array
+                (
+                    [0] => default-value
+                    [1] => label
+                    [2] => circle-class
+                    [3] => show-value-text
+                )
+
+            [progress-linear-root] => Array
+                (
+                    [0] => default-value
+                    [1] => label
+                    [2] => track-class
+                    [3] => show-value-text
+                )
+
+            [side-menu-root] => Array
+                (
+                    [0] => width
+                    [1] => collapsed-width
+                )
+
+            [side-menu-panel] => Array
+                (
+                    [0] => part
+                )
+
+            [side-menu-inner] => Array
+                (
+                    [0] => part
+                )
+
+            [side-menu-header] => Array
+                (
+                    [0] => part
+                )
+
+            [side-menu-body] => Array
+                (
+                    [0] => part
+                )
+
+            [side-menu-area] => Array
+                (
+                    [0] => part
+                )
+
+            [side-menu-top-bar] => Array
+                (
+                    [0] => part
+                )
+
+            [side-menu-top-bar-inner] => Array
+                (
+                    [0] => part
+                )
+
+            [slider-root] => Array
+                (
+                    [0] => default-value
+                    [1] => label
+                    [2] => type
+                )
+
+            [slider-marker] => Array
+                (
+                    [0] => value
+                )
+
+            [switch-root] => Array
+                (
+                    [0] => label
+                )
+
+            [table] => Array
+                (
+                    [0] => variant
+                    [1] => raised
+                )
+
+            [tabs-root] => Array
+                (
+                    [0] => default-value
+                )
+
+            [tabs-trigger] => Array
+                (
+                    [0] => value
+                )
+
+            [tabs-content] => Array
+                (
+                    [0] => value
+                )
+
+            [toast-trigger] => Array
+                (
+                    [0] => toast-title
+                    [1] => toast-description
+                )
+
+        )
+
+)

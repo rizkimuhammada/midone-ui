@@ -1,0 +1,213 @@
+# Radio Group
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+[View on GitHub](#) | [Documentation](#)
+
+## Preview
+
+```html
+<div data-component="radio-group-root" data-default-value="React" data-label="Framework">
+  <div data-component="radio-group-item" data-value="React">React</div>
+  <div data-component="radio-group-item" data-value="Solid">Solid</div>
+  <div data-component="radio-group-item" data-value="Vue">Vue</div>
+  <div data-component="radio-group-item" data-value="Svelte">Svelte</div>
+</div>
+```
+
+## Dependency
+
+No external dependencies.
+
+## Component
+
+### radio-group.ts
+
+```ts
+import { cn } from "@midoneui/core/src/utils/cn";
+import {
+    radioGroupRoot,
+    radioGroupLabel,
+    radioGroupItem,
+    radioGroupItemControl,
+    radioGroupItemText,
+    radioGroupIndicator,
+    radioGroupItemHiddenInput,
+} from "@midoneui/core/src/styles/radio-group.styles";
+import { label } from "@midoneui/core/src/styles/label.styles";
+
+const DOT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/></svg>`;
+
+function initRadioGroup() {
+    document.querySelectorAll<HTMLElement>('[data-component="radio-group-root"]').forEach((root) => {
+        const defaultValue = root.getAttribute("data-default-value") ?? "";
+
+        root.className = cn(radioGroupRoot, root.className);
+        root.style.position = "relative";
+        root.setAttribute("data-scope", "radio-group");
+        root.setAttribute("data-part", "root");
+        root.setAttribute("role", "radiogroup");
+
+        let labelEl = root.querySelector<HTMLElement>('[data-component="radio-group-label"]');
+        const dataLabel = root.getAttribute("data-label");
+        if (!labelEl && dataLabel) {
+            labelEl = document.createElement("div");
+            labelEl.setAttribute("data-component", "radio-group-label");
+            labelEl.textContent = dataLabel;
+            root.insertBefore(labelEl, root.firstChild);
+        }
+
+        if (labelEl) {
+            labelEl.className = cn(label, radioGroupLabel, labelEl.className);
+            labelEl.setAttribute("data-scope", "radio-group");
+            labelEl.setAttribute("data-part", "label");
+        }
+
+        // Inject sliding indicator
+        const indicatorEl = document.createElement("div");
+        indicatorEl.className = cn(radioGroupIndicator);
+        indicatorEl.style.cssText = "position:absolute;pointer-events:none;transition:left 150ms,top 150ms,height 150ms;";
+        indicatorEl.innerHTML = DOT_SVG;
+        root.appendChild(indicatorEl);
+
+        function updateIndicator() {
+            const selectedControl = root.querySelector<HTMLElement>(
+                '[data-component="radio-group-item"][data-state="checked"] [data-component="radio-group-item-control"]'
+            );
+            if (!selectedControl) return;
+            const rootRect = root.getBoundingClientRect();
+            const controlRect = selectedControl.getBoundingClientRect();
+            indicatorEl.style.setProperty("--left", `${controlRect.left - rootRect.left}px`);
+            indicatorEl.style.setProperty("--top", `${controlRect.top - rootRect.top}px`);
+            indicatorEl.style.setProperty("--height", `${controlRect.height}px`);
+        }
+
+        root.querySelectorAll<HTMLElement>('[data-component="radio-group-item"]').forEach((item) => {
+            item.className = cn(radioGroupItem, item.className);
+            item.setAttribute("data-scope", "radio-group");
+            item.setAttribute("data-part", "item");
+            item.style.cursor = "pointer";
+            const val = item.getAttribute("data-value") ?? "";
+
+            let controlEl = item.querySelector<HTMLElement>('[data-component="radio-group-item-control"]');
+            let textEl = item.querySelector<HTMLElement>('[data-component="radio-group-item-text"]');
+
+            if (!controlEl) {
+                controlEl = document.createElement("div");
+                controlEl.setAttribute("data-component", "radio-group-item-control");
+
+                if (!textEl) {
+                    const children = Array.from(item.childNodes);
+                    if (children.length > 0) {
+                        textEl = document.createElement("span");
+                        textEl.setAttribute("data-component", "radio-group-item-text");
+                        item.innerHTML = "";
+                        item.appendChild(controlEl);
+                        item.appendChild(textEl);
+                        children.forEach((child) => textEl!.appendChild(child));
+                    } else {
+                        item.appendChild(controlEl);
+                    }
+                } else {
+                    item.insertBefore(controlEl, textEl);
+                }
+            }
+
+            if (controlEl) {
+                controlEl.className = cn(radioGroupItemControl, controlEl.className);
+                controlEl.setAttribute("data-scope", "radio-group");
+                controlEl.setAttribute("data-part", "item-control");
+            }
+
+            if (textEl) {
+                textEl.className = cn(radioGroupItemText, textEl.className);
+                textEl.setAttribute("data-scope", "radio-group");
+                textEl.setAttribute("data-part", "item-text");
+            }
+
+            // Inject hidden input
+            const hiddenInput = document.createElement("input");
+            hiddenInput.type = "radio";
+            hiddenInput.className = cn(radioGroupItemHiddenInput);
+            hiddenInput.style.display = "none";
+            hiddenInput.value = val;
+            item.appendChild(hiddenInput);
+
+            function select() {
+                root.querySelectorAll<HTMLElement>('[data-component="radio-group-item"]').forEach((i) => {
+                    i.removeAttribute("data-state");
+                    i.querySelector<HTMLElement>('[data-component="radio-group-item-control"]')?.removeAttribute("data-state");
+                });
+                item.setAttribute("data-state", "checked");
+                controlEl?.setAttribute("data-state", "checked");
+                hiddenInput.checked = true;
+                updateIndicator();
+            }
+
+            item.addEventListener("click", select);
+
+            if (val === defaultValue) {
+                item.setAttribute("data-state", "checked");
+                controlEl?.setAttribute("data-state", "checked");
+                hiddenInput.checked = true;
+            }
+        });
+
+        requestAnimationFrame(updateIndicator);
+    });
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initRadioGroup);
+} else {
+    initRadioGroup();
+}
+```
+
+## Usage
+
+```html
+<script type="module" src="/src/main.ts"></script>
+```
+
+```html
+<div data-component="radio-group-root" data-default-value="React" data-label="Framework">
+  <div data-component="radio-group-item" data-value="React">React</div>
+  <div data-component="radio-group-item" data-value="Solid">Solid</div>
+  <div data-component="radio-group-item" data-value="Vue">Vue</div>
+  <div data-component="radio-group-item" data-value="Svelte">Svelte</div>
+</div>
+```
+
+## Examples
+
+### Example 1
+
+```html
+<div data-component="radio-group-root" data-default-value="React" data-label="Framework">
+  <div data-component="radio-group-item" data-value="React">React</div>
+  <div data-component="radio-group-item" data-value="Solid">Solid</div>
+  <div data-component="radio-group-item" data-value="Vue">Vue</div>
+  <div data-component="radio-group-item" data-value="Svelte">Svelte</div>
+</div>
+```
+
+### Example 2
+
+```html
+<div data-component="radio-group-root" data-default-value="required">
+  <div data-component="radio-group-item" data-value="required">
+    <div class="font-medium">Required</div>
+    <div class="mt-1 text-xs leading-relaxed opacity-70">
+      You require the buyer to activate shipping insurance
+    </div>
+  </div>
+  <div data-component="radio-group-item" data-value="optional">
+    <div class="font-medium">Optional</div>
+    <div class="mt-1 text-xs leading-relaxed opacity-70">
+      You give the buyer the option to activate shipping insurance
+    </div>
+  </div>
+</div>
+```
+

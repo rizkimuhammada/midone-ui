@@ -1,55 +1,10 @@
-import { useContext } from "react";
-import { FrameworkContext } from "../App";
-import { MoveUpRight } from "lucide-react";
-import { Wrapper, Title, Subtitle, Menu, ApiButton } from "@/components/docs";
-import React from "./react/toast";
-import Vue from "./vue/toast";
+import DocPage from "@/components/docs/DocPage";
+import reactMd from "../md/react/toast.md?raw";
+import vueMd from "../md/vue/toast.md?raw";
+import vanillaMd from "../md/vanilla/toast.md?raw";
 
 function Main() {
-  const { framework } = useContext(FrameworkContext);
-
-  return (
-    <>
-      <Wrapper>
-        <div className="flex flex-col gap-20">
-          <div>
-            <Title>Toast</Title>
-            <Subtitle>
-              A small notification that pops up briefly to share quick updates
-              or alerts without interrupting the user.
-            </Subtitle>
-            <div className="flex gap-3 mt-5">
-              <ApiButton
-                target="_blank"
-                href="https://zagjs.com/components/react/toast"
-              >
-                Docs <MoveUpRight className="stroke-1 size-3" />
-              </ApiButton>
-              <ApiButton
-                target="_blank"
-                href="https://zagjs.com/components/react/toast#methods-and-properties"
-              >
-                Api Reference <MoveUpRight className="stroke-1 size-3" />
-              </ApiButton>
-            </div>
-          </div>
-          {framework[0] == "React" && <React />}
-          {framework[0] == "Vue" && <Vue />}
-        </div>
-      </Wrapper>
-      <Menu>
-        <a className="hover:text-foreground py-1.5" href="#installation">
-          Installation
-        </a>
-        <a className="hover:text-foreground py-1.5" href="#usage">
-          Usage
-        </a>
-        <a className="hover:text-foreground py-1.5" href="#variants">
-          Variants
-        </a>
-      </Menu>
-    </>
-  );
+  return <DocPage reactMd={reactMd} vueMd={vueMd} vanillaMd={vanillaMd} />;
 }
 
 export default Main;

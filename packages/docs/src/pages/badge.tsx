@@ -1,40 +1,10 @@
-import { useContext } from "react";
-import { FrameworkContext } from "../App";
-import { Wrapper, Title, Subtitle, Menu } from "@/components/docs";
-import React from "./react/badge";
-import Vue from "./vue/badge";
+import DocPage from "@/components/docs/DocPage";
+import reactMd from "../md/react/badge.md?raw";
+import vueMd from "../md/vue/badge.md?raw";
+import vanillaMd from "../md/vanilla/badge.md?raw";
 
 function Main() {
-  const { framework } = useContext(FrameworkContext);
-
-  return (
-    <>
-      <Wrapper>
-        <div className="flex flex-col gap-20">
-          <div>
-            <Title>Badge</Title>
-            <Subtitle>
-              A tiny label used to highlight quick info, statuses, or counts in
-              your UI.
-            </Subtitle>
-          </div>
-          {framework[0] == "React" && <React />}
-          {framework[0] == "Vue" && <Vue />}
-        </div>
-      </Wrapper>
-      <Menu>
-        <a className="hover:text-foreground py-1.5" href="#installation">
-          Installation
-        </a>
-        <a className="hover:text-foreground py-1.5" href="#usage">
-          Usage
-        </a>
-        <a className="hover:text-foreground py-1.5" href="#variants">
-          Variants
-        </a>
-      </Menu>
-    </>
-  );
+  return <DocPage reactMd={reactMd} vueMd={vueMd} vanillaMd={vanillaMd} />;
 }
 
 export default Main;

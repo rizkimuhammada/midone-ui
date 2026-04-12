@@ -2,12 +2,18 @@ import { ProgressLinearRoot } from "@/components/ui/progress-linear";
 
 function Main() {
   return (
-    <ProgressLinearRoot
-      defaultValue={42}
-      label="Progress Linear"
-      trackClass="max-w-72"
-      showValueText
-    />
+    <div className="flex flex-col gap-20">
+      <div className="grid grid-cols-2">
+        <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+          <ProgressLinearRoot
+            defaultValue={42}
+            label="Progress Linear"
+            trackClass="max-w-72"
+            showValueText
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 

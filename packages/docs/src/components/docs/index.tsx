@@ -254,9 +254,9 @@ function PreviewCode({
             className={twMerge([
               "ms-auto mr-2 cursor-pointer px-3.5 py-1 relative after:w-px after:h-5 after:inset-y-0 after:my-auto after:bg-foreground/20 after:right-0 after:absolute",
               codeRef.current &&
-                codeRef.current.offsetHeight < 300 &&
-                !(codeRef.current?.offsetParent === null) &&
-                "opacity-0",
+              codeRef.current.offsetHeight < 300 &&
+              !(codeRef.current?.offsetParent === null) &&
+              "opacity-0",
             ])}
           >
             {expand ? "Collapse" : "Expand"}
@@ -281,10 +281,10 @@ function PreviewCode({
       </div>
       <div
         className={twMerge([
-          "text-xs px-5 border-t border-foreground/20 overflow-x-auto overflow-y-hidden before:h-3/4 before:absolute before:bg-gradient-to-b before:from-transparent before:to-background/80 before:inset-x-0 before:bottom-0",
+          "text-xs py-5 px-5 border-t border-foreground/20 overflow-x-auto overflow-y-hidden before:h-3/4 before:absolute before:bg-gradient-to-b before:from-transparent before:to-background/80 before:inset-x-0 before:bottom-0",
           expand && "max-h-auto before:hidden",
           !expand && "max-h-100",
-          !title && "-mt-13 border-0",
+          !title && "-mt-12 border-0",
         ])}
         ref={codeRef}
       >

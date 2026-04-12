@@ -2,12 +2,18 @@ import { ProgressCircularRoot } from "@/components/ui/progress-circular";
 
 function Main() {
   return (
-    <ProgressCircularRoot
-      defaultValue={42}
-      label="Progress Circular"
-      circleClass="max-w-48"
-      showValueText
-    />
+    <div className="flex flex-col gap-20">
+      <div className="grid grid-cols-2">
+        <div className="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+          <ProgressCircularRoot
+            defaultValue={42}
+            label="Progress Circular"
+            circleClass="max-w-48"
+            showValueText
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 

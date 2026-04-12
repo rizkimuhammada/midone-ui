@@ -1,40 +1,10 @@
-import { useContext } from "react";
-import { FrameworkContext } from "../App";
-import { Wrapper, Title, Subtitle, Menu } from "@/components/docs";
-import React from "./react/table";
-import Vue from "./vue/table";
+import DocPage from "@/components/docs/DocPage";
+import reactMd from "../md/react/table.md?raw";
+import vueMd from "../md/vue/table.md?raw";
+import vanillaMd from "../md/vanilla/table.md?raw";
 
 function Main() {
-  const { framework } = useContext(FrameworkContext);
-
-  return (
-    <>
-      <Wrapper>
-        <div className="flex flex-col gap-20">
-          <div>
-            <Title>Table</Title>
-            <Subtitle>
-              A clean layout for displaying rows of information so users can
-              read and compare data easily.
-            </Subtitle>
-          </div>
-          {framework[0] == "React" && <React />}
-          {framework[0] == "Vue" && <Vue />}
-        </div>
-      </Wrapper>
-      <Menu>
-        <a className="hover:text-foreground py-1.5" href="#installation">
-          Installation
-        </a>
-        <a className="hover:text-foreground py-1.5" href="#usage">
-          Usage
-        </a>
-        <a className="hover:text-foreground py-1.5" href="#variants">
-          Variants
-        </a>
-      </Menu>
-    </>
-  );
+  return <DocPage reactMd={reactMd} vueMd={vueMd} vanillaMd={vanillaMd} />;
 }
 
 export default Main;
