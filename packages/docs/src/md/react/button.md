@@ -61,10 +61,6 @@ export { Button };
 ## Usage
 
 ```tsx
-import { Button } from "@/components/ui/button";
-```
-
-```tsx
 <Button variant="primary" size="sm">
   {" "}
   Button Small{" "}

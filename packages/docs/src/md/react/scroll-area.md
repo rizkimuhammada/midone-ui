@@ -20,9 +20,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install @zag-js/scroll-area @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -181,12 +179,6 @@ export function ScrollAreaCorner({
 ```
 
 ## Usage
-
-```tsx
-import {
-    ScrollAreaRoot,
-} from "@/components/ui/scroll-area";
-```
 
 ```tsx
 <ScrollAreaRoot className="h-72 w-70">

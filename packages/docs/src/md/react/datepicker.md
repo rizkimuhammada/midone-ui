@@ -12,9 +12,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install @zag-js/date-picker @zag-js/react lucide-react
-```
+No external dependencies.
 
 ## Component
 
@@ -965,10 +963,6 @@ export function DatePickerTableCellTrigger({
 ```
 
 ## Usage
-
-```tsx
-import { DatePickerRoot, DatePickerInput } from "@/components/ui/datepicker";
-```
 
 ```tsx
 <DatePickerRoot label="Basic" className="w-84" />

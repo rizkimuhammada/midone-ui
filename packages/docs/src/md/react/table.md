@@ -199,20 +199,6 @@ export function TableCaption({
 ## Usage
 
 ```tsx
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableFooter,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableCaption,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-```
-
-```tsx
 <Table>
   <TableCaption>A list of your recent invoices.</TableCaption>
   <TableHeader>

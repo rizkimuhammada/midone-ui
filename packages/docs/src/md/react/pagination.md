@@ -12,9 +12,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install @zag-js/pagination @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -175,12 +173,6 @@ export function PaginationEllipsis({
 ```
 
 ## Usage
-
-```tsx
-import {
-  PaginationRoot,
-} from "@/components/ui/pagination";
-```
 
 ```tsx
 <PaginationRoot count={5000} pageSize={10} siblingCount={2} />

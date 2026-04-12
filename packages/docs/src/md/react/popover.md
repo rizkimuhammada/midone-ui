@@ -36,9 +36,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/popover @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -294,18 +292,6 @@ export function PopoverCloseTrigger({
 ```
 
 ## Usage
-
-```tsx
-import {
-  PopoverRoot,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverTitle,
-  PopoverDescription,
-} from "@/components/ui/popover";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-```
 
 ```tsx
 <PopoverRoot>

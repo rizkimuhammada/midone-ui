@@ -95,11 +95,6 @@ export { Slot as Root };
 ## Usage
 
 ```tsx
-import { Button } from "@/components/ui/button";
-import { Box } from "@/components/ui/box";
-```
-
-```tsx
 <div className="justify-center items-center flex gap-2">
   <Box asChild>
     <Button variant="ghost" className="me-2 px-2">

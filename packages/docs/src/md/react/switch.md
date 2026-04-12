@@ -12,9 +12,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install @zag-js/switch @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -147,10 +145,6 @@ export function SwitchHiddenInput({
 ```
 
 ## Usage
-
-```tsx
-import { SwitchRoot, SwitchControl, SwitchLabel } from "@/components/ui/switch";
-```
 
 ```tsx
 <SwitchRoot label="Airplane Mode" />

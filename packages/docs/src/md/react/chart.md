@@ -61,9 +61,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install chart.js/auto chart.js
-```
+No external dependencies.
 
 ## Component
 
@@ -116,10 +114,6 @@ export { Chart, getColor };
 ```
 
 ## Usage
-
-```tsx
-import { Chart, getColor } from "@/components/ui/chart";
-```
 
 ```tsx
 <Chart

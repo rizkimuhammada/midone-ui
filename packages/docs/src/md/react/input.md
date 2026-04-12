@@ -35,10 +35,6 @@ export { Input };
 ## Usage
 
 ```tsx
-import { Input } from "@/components/ui/input";
-```
-
-```tsx
 <Input type="email" placeholder="Email" />
 ```
 

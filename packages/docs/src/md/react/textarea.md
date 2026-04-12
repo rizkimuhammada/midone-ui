@@ -34,10 +34,6 @@ export { Textarea };
 ## Usage
 
 ```tsx
-import { Textarea } from "@/components/ui/textarea";
-```
-
-```tsx
 <Textarea placeholder="Type your message here." />
 ```
 

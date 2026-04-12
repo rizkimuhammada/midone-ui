@@ -18,9 +18,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install @zag-js/slider @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -267,15 +265,6 @@ export function SliderMarker({
 ```
 
 ## Usage
-
-```tsx
-import {
-  SliderRoot,
-  SliderValueText,
-  SliderMarkerGroup,
-  SliderMarker,
-} from "@/components/ui/slider";
-```
 
 ```tsx
 <div className="text-sm text-muted-foreground">

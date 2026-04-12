@@ -37,9 +37,7 @@ render(<Preview />)
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/select @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -556,14 +554,6 @@ export function SelectHiddenSelect({
 ```
 
 ## Usage
-
-```tsx
-import {
-  SelectRoot,
-  SelectItemGroup,
-  SelectItem,
-} from "@/components/ui/select";
-```
 
 ```tsx
 <SelectRoot

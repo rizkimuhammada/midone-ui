@@ -71,9 +71,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install maplibre-gl lucide-react geojson
-```
+No external dependencies.
 
 ## Component
 
@@ -357,10 +355,6 @@ export { Map };
 ```
 
 ## Usage
-
-```tsx
-import { Map } from "@/components/ui/map";
-```
 
 ```tsx
 <Map

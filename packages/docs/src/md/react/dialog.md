@@ -54,9 +54,7 @@ render(<Preview />)
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/dialog @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -265,20 +263,6 @@ export function DialogCloseTrigger({
 ```
 
 ## Usage
-
-```tsx
-import {
-  DialogRoot,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-  DialogCloseTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-```
 
 ```tsx
 <DialogRoot>

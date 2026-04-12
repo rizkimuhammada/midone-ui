@@ -95,10 +95,6 @@ export function FileIcon({
 ## Usage
 
 ```tsx
-import { FileIcon } from "@/components/ui/file-icon";
-```
-
-```tsx
 <FileIcon variant="empty-directory" className="w-16" />
 ```
 

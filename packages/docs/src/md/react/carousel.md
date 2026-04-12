@@ -33,9 +33,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/carousel @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -248,17 +246,6 @@ export function CarouselItem({
 ```
 
 ## Usage
-
-```tsx
-import {
-  CarouselRoot,
-  CarouselControl,
-  CarouselPrevTrigger,
-  CarouselNextTrigger,
-  CarouselItemGroup,
-  CarouselItem,
-} from "@/components/ui/carousel";
-```
 
 ```tsx
 <CarouselRoot

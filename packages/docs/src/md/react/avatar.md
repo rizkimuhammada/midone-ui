@@ -12,9 +12,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install @zag-js/avatar @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -112,12 +110,6 @@ export function AvatarImage({
 ```
 
 ## Usage
-
-```tsx
-import {
-  AvatarRoot,
-} from "@/components/ui/avatar";
-```
 
 ```tsx
 <AvatarRoot fallbackText="PA" src="https://i.pravatar.cc/300" />

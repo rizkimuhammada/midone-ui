@@ -65,10 +65,6 @@ export { Badge };
 ## Usage
 
 ```tsx
-import { Badge } from "@/components/ui/badge";
-```
-
-```tsx
 <Badge variant="primary">12%</Badge>
 <Badge variant="secondary">12%</Badge>
 <Badge variant="success">12%</Badge>

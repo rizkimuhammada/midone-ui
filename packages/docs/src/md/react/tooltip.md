@@ -15,9 +15,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install @zag-js/tooltip @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -178,14 +176,6 @@ export function TooltipArrowTip({
 ```
 
 ## Usage
-
-```tsx
-import {
-  TooltipRoot,
-  TooltipTrigger,
-  TooltipContent,
-} from "@/components/ui/tooltip";
-```
 
 ```tsx
 <TooltipRoot>

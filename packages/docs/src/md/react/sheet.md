@@ -47,9 +47,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/dialog @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -263,20 +261,6 @@ export function SheetCloseTrigger({
 ```
 
 ## Usage
-
-```tsx
-import {
-  SheetRoot,
-  SheetTrigger,
-  SheetContent,
-  SheetTitle,
-  SheetDescription,
-  SheetCloseTrigger,
-} from "@/components/ui/sheet";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-```
 
 ```tsx
 <div className="text-sm text-muted-foreground">

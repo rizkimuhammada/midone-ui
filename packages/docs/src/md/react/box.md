@@ -51,10 +51,6 @@ export { Box };
 ## Usage
 
 ```tsx
-import { Box } from "@/components/ui/box";
-```
-
-```tsx
 <Box className="w-70">
   <CircleGauge className="size-7 stroke-1 fill-foreground/10" />
   <div className="mt-6 text-2xl font-medium leading-8">$724,091.47</div>

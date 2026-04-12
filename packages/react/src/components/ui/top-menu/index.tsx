@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, forwardRef } from "react";
-import { cn } from "@/utils/cn";
+import { cn } from "@midoneui/core/utils/cn";
 
 interface TopMenuContextValue {
   mobileMenuOpen: boolean;

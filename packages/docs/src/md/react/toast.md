@@ -33,9 +33,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/toast @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -238,18 +236,6 @@ export function ToasterContainer({
 ```
 
 ## Usage
-
-```tsx
-import { Button } from "@/components/ui/button";
-import {
-  toaster,
-  ToasterContainer,
-  ToastRoot,
-  ToastTitle,
-  ToastDescription,
-  ToastCloseTrigger,
-} from "@/components/ui/toast";
-```
 
 ```tsx
 <Button

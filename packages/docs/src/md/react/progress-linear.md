@@ -17,9 +17,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install @zag-js/progress @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -156,10 +154,6 @@ export function ProgressLinearRange({
 ```
 
 ## Usage
-
-```tsx
-import { ProgressLinearRoot } from "@/components/ui/progress-linear";
-```
 
 ```tsx
 <ProgressLinearRoot

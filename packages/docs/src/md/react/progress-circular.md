@@ -17,9 +17,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install @zag-js/progress @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -173,10 +171,6 @@ export function ProgressCircularCircleRange({
 ```
 
 ## Usage
-
-```tsx
-import { ProgressCircularRoot } from "@/components/ui/progress-circular";
-```
 
 ```tsx
 <ProgressCircularRoot

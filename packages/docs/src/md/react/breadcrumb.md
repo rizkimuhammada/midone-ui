@@ -14,9 +14,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install lucide-react
-```
+No external dependencies.
 
 ## Component
 
@@ -142,10 +140,6 @@ export { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink };
 ```
 
 ## Usage
-
-```tsx
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-```
 
 ```tsx
 <Breadcrumb

@@ -56,9 +56,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install @zag-js/tabs @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -183,19 +181,6 @@ export function TabsContent({
 ```
 
 ## Usage
-
-```tsx
-import { Box } from "@/components/ui/box";
-import {
-  TabsRoot,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-} from "@/components/ui/tabs";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-```
 
 ```tsx
 <TabsRoot defaultValue="update-profile">

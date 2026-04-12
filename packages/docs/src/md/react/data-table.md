@@ -151,9 +151,7 @@ render(<Preview />)
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/checkbox @zag-js/react @zag-js/menu
-```
+No external dependencies.
 
 ## Component
 
@@ -162,29 +160,6 @@ npm install lucide-react @zag-js/checkbox @zag-js/react @zag-js/menu
 ```
 
 ## Usage
-
-```tsx
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { CheckboxRoot, CheckboxControl } from "@/components/ui/checkbox";
-import {
-  MenuRoot,
-  MenuTrigger,
-  MenuPositioner,
-  MenuContent,
-  MenuItem,
-  MenuCheckboxItem,
-} from "@/components/ui/menu";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-```
 
 ```tsx
 <div className="w-full">

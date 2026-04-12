@@ -63,9 +63,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/accordion @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -207,16 +205,6 @@ export function AccordionContent({
 ```
 
 ## Usage
-
-```tsx
-import {
-  AccordionRoot,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@/components/ui/accordion";
-import { Box } from "@/components/ui/box";
-```
 
 ```tsx
 <Box raised="single" className="w-full">

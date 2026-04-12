@@ -37,9 +37,7 @@ render(<Preview />)
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/combobox @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -75,7 +73,7 @@ import {
 } from "@midoneui/core/styles/combobox.styles";
 import * as combobox from "@zag-js/combobox";
 import { useMachine, normalizeProps, Portal } from "@zag-js/react";
-import type { Api, Props, ItemGroupProps, ItemProps } from "@zag-js/combobox";
+import type { Api, ItemGroupProps, ItemProps } from "@zag-js/combobox";
 import { Slot } from "@/components/ui/slot";
 
 const ApiContext = createContext<Api | null>(null);
@@ -102,13 +100,13 @@ export function ComboboxRoot({
   label,
   ...props
 }: React.ComponentProps<"div"> & {
-    multiple?: boolean;
-    selectionBehavior?: "clear" | "replace" | "preserve";
-    value?: string[];
-    onValueChange?: (details: { value: string[] }) => void;
-    comboboxInputPlaceholder?: string;
-    label?: string;
-  }) {
+  multiple?: boolean;
+  selectionBehavior?: "clear" | "replace" | "preserve";
+  value?: string[];
+  onValueChange?: (details: { value: string[] }) => void;
+  comboboxInputPlaceholder?: string;
+  label?: string;
+}) {
   const [internalValue, setInternalValue] = useState<string[]>(value || []);
   const [internalInputValue, setInternalInputValue] = useState("");
   const [staticItems, setStaticItems] = useState<{ value: string; label: string }[]>([]);
@@ -499,14 +497,6 @@ export function ComboboxItemIndicator({
 ```
 
 ## Usage
-
-```tsx
-import {
-  ComboboxRoot,
-  ComboboxItemGroup,
-  ComboboxItem,
-} from "@/components/ui/combobox";
-```
 
 ```tsx
 <ComboboxRoot

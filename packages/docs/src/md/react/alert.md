@@ -71,9 +71,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install lucide-react
-```
+No external dependencies.
 
 ## Component
 
@@ -195,17 +193,6 @@ export function AlertIcon({
 ```
 
 ## Usage
-
-```tsx
-import {
-  AlertRoot,
-  AlertTitle,
-  AlertDescription,
-  AlertCloseTrigger,
-  AlertIcon,
-} from "@/components/ui/alert";
-import { Box } from "@/components/ui/box";
-```
 
 ```tsx
 <AlertRoot variant="primary">

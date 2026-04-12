@@ -41,9 +41,7 @@ render(<Preview />)
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/menu @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -390,20 +388,6 @@ export function MenuSeparator({
 ```
 
 ## Usage
-
-```tsx
-import {
-  MenuRoot,
-  MenuTrigger,
-  MenuContent,
-  MenuItem,
-  MenuCheckboxItem,
-  MenuSeparator,
-  MenuTriggerItem,
-  MenuRadioItemGroup,
-  MenuRadioItem,
-} from "@/components/ui/menu";
-```
 
 ```tsx
 <MenuRoot className="w-56">

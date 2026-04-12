@@ -12,9 +12,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/checkbox @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -149,10 +147,6 @@ export function CheckboxHiddenInput({
 ```
 
 ## Usage
-
-```tsx
-import { CheckboxRoot } from "@/components/ui/checkbox";
-```
 
 ```tsx
 <CheckboxRoot label="Accept terms and conditions" />

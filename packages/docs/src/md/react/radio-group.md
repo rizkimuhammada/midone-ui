@@ -17,9 +17,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/radio-group @zag-js/react
-```
+No external dependencies.
 
 ## Component
 
@@ -208,13 +206,6 @@ export function RadioGroupItemHiddenInput({
 ```
 
 ## Usage
-
-```tsx
-import {
-  RadioGroupRoot,
-  RadioGroupItem,
-} from "@/components/ui/radio-group";
-```
 
 ```tsx
 <RadioGroupRoot defaultValue="React" label="Framework">

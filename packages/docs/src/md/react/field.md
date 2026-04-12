@@ -121,9 +121,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Dependency
 
-```bash
-npm install lucide-react @zag-js/checkbox @zag-js/react @zag-js/select @zag-js/radio-group
-```
+No external dependencies.
 
 ## Component
 
@@ -342,37 +340,6 @@ export function FieldTitle({
 ```
 
 ## Usage
-
-```tsx
-import { Button } from "@/components/ui/button";
-import {
-    CheckboxRoot,
-    CheckboxLabel,
-    CheckboxControl,
-} from "@/components/ui/checkbox";
-import {
-    Field,
-    FieldDescription,
-    FieldGroup,
-    FieldLabel,
-    FieldLegend,
-    FieldSeparator,
-    FieldSet,
-    FieldTitle,
-    FieldContent,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import {
-    SelectRoot,
-    SelectItemGroup,
-    SelectItem,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import {
-    RadioGroupRoot,
-    RadioGroupItem,
-} from "@/components/ui/radio-group";
-```
 
 ```tsx
 <div className="w-full max-w-md">

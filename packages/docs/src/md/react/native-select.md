@@ -75,14 +75,6 @@ export { NativeSelect, NativeSelectOption, NativeSelectOptionGroup };
 ## Usage
 
 ```tsx
-import {
-    NativeSelect,
-    NativeSelectOption,
-    NativeSelectOptionGroup,
-} from "@/components/ui/native-select";
-```
-
-```tsx
 <NativeSelect className="w-56">
   <NativeSelectOption value="">Select status</NativeSelectOption>
   <NativeSelectOption value="todo">Todo</NativeSelectOption>
