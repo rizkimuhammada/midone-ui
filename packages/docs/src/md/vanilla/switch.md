@@ -108,12 +108,6 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<label data-component="switch-root" data-label="Airplane Mode"></label>
-```
-
-### Example 2
-
-```html
 <label data-component="switch-root">
   <span data-component="switch-control"></span>
   <span data-component="switch-label" class="font-normal">

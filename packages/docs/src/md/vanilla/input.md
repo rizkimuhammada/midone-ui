@@ -47,11 +47,3 @@ if (document.readyState === "loading") {
 <input data-component="input" type="email" placeholder="Email" />
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<input data-component="input" type="email" placeholder="Email" />
-```
-

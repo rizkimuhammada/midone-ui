@@ -48,11 +48,3 @@ import { Input } from "@/components/ui/input";
 <Input type="email" placeholder="Email" />
 ```
 
-## Examples
-
-### Example 1
-
-```vue
-<Input type="email" placeholder="Email" />
-```
-

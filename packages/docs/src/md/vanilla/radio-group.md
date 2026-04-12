@@ -184,17 +184,6 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<div data-component="radio-group-root" data-default-value="React" data-label="Framework">
-  <div data-component="radio-group-item" data-value="React">React</div>
-  <div data-component="radio-group-item" data-value="Solid">Solid</div>
-  <div data-component="radio-group-item" data-value="Vue">Vue</div>
-  <div data-component="radio-group-item" data-value="Svelte">Svelte</div>
-</div>
-```
-
-### Example 2
-
-```html
 <div data-component="radio-group-root" data-default-value="required">
   <div data-component="radio-group-item" data-value="required">
     <div class="font-medium">Required</div>

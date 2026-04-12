@@ -433,11 +433,3 @@ if (document.readyState === "loading") {
 <div data-component="datatable" class=" w-full"></div>
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<div data-component="datatable" class=" w-full"></div>
-```
-

@@ -381,20 +381,6 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<div data-component="select-root" class="w-56" data-label="Single" data-placeholder="Select a Framework">
-  <div data-component="select-item-group" data-label="Frameworks">
-    <div data-component="select-item" data-value="React"></div>
-    <div data-component="select-item" data-value="Solid"></div>
-    <div data-component="select-item" data-value="Vue"></div>
-    <div data-component="select-item" data-value="Svelte"></div>
-    <div data-component="select-item" data-value="Vanilla" data-text="Vanilla JS"></div>
-  </div>
-</div>
-```
-
-### Example 2
-
-```html
 <div data-component="select-root" class="w-56" data-multiple="true" data-label="Multiple" data-placeholder="Select Frameworks">
   <div data-component="select-item-group" data-label="Frameworks">
     <div data-component="select-item" data-value="React"></div>
@@ -406,7 +392,7 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-### Example 3
+### Example 2
 
 ```html
 <div data-component="select-root" class="w-56" data-multiple="true" data-label="Scrollable" data-placeholder="Select a Timezone">

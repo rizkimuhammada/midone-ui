@@ -440,47 +440,6 @@ import { Button } from "@/components/ui/button";
 ```vue
 <div class="text-sm text-muted-foreground">
   <SheetRoot>
-    <SheetTrigger>Open Sheet</SheetTrigger>
-    <SheetContent>
-      <SheetTitle>Sheet Title</SheetTitle>
-      <SheetDescription>
-        Make changes to your profile here. Click save when you're done.
-      </SheetDescription>
-      <div class="grid gap-4 mt-2">
-        <div class="grid gap-2.5">
-          <Label htmlFor="name-1">Name</Label>
-          <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-        </div>
-        <div class="grid gap-2.5">
-          <Label htmlFor="username-1">Username</Label>
-          <Input
-            id="username-1"
-            name="username"
-            defaultValue="@peduarte"
-          />
-        </div>
-      </div>
-      <div class="flex gap-2 justify-end mt-7">
-        <SheetCloseTrigger>
-          <SquareX />
-          Close
-        </SheetCloseTrigger>
-        <Button variant="primary">
-          <Save />
-          Submit
-        </Button>
-      </div>
-      <SheetCloseTrigger />
-    </SheetContent>
-  </SheetRoot>
-</div>
-```
-
-### Example 2
-
-```vue
-<div class="text-sm text-muted-foreground">
-  <SheetRoot>
     <SheetTrigger>Custom Close</SheetTrigger>
     <SheetContent>
       <SheetTitle>Share Link</SheetTitle>

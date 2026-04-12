@@ -7,7 +7,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## Preview
 
 ```vue
-
+<ProgressCircularRoot
+  :defaultValue="42"
+  label="Progress Circular"
+  circleClass="max-w-48"
+  showValueText
+/>
 ```
 
 ## Dependency
@@ -212,8 +217,11 @@ import { ProgressCircularRoot } from "@/components/ui/progress-circular";
 ```
 
 ```vue
-
+<ProgressCircularRoot
+  :defaultValue="42"
+  label="Progress Circular"
+  circleClass="max-w-48"
+  showValueText
+/>
 ```
-
-## Examples
 

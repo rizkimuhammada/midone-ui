@@ -159,22 +159,16 @@ import {
 ### Example 1
 
 ```vue
-<AvatarRoot fallback-text="PA" src="https://i.pravatar.cc/300" />
+<AvatarRoot :bordered="false" fallback-text="PA" src="https://i.pravatar.cc/300" />
 ```
 
 ### Example 2
 
 ```vue
-<AvatarRoot :bordered="false" fallback-text="PA" src="https://i.pravatar.cc/300" />
-```
-
-### Example 3
-
-```vue
 <AvatarRoot class="rounded-full" fallback-text="PA" src="https://i.pravatar.cc/300" />
 ```
 
-### Example 4
+### Example 3
 
 ```vue
 <AvatarRoot class="rounded-full" :bordered="false" fallback-text="PA" src="https://i.pravatar.cc/300" />

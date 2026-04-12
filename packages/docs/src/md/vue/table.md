@@ -308,7 +308,7 @@ import { Badge } from "@/components/ui/badge";
 ### Example 1
 
 ```vue
-<Table>
+<Table variant="boxed">
   <TableCaption>A list of your recent invoices.</TableCaption>
   <TableHeader>
     <TableRow>
@@ -346,44 +346,6 @@ import { Badge } from "@/components/ui/badge";
 ### Example 2
 
 ```vue
-<Table variant="boxed">
-  <TableCaption>A list of your recent invoices.</TableCaption>
-  <TableHeader>
-    <TableRow>
-      <TableHead class="w-[100px]">Invoice</TableHead>
-      <TableHead>Status</TableHead>
-      <TableHead>Method</TableHead>
-      <TableHead class="text-right">Amount</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow v-for="invoice in invoices" :key="invoice.invoice">
-      <TableCell class="font-medium">
-        {{ invoice.invoice }}
-      </TableCell>
-      <TableCell>
-        <Badge look="outline" :variant="invoice.badge">
-          {{ invoice.paymentStatus }}
-        </Badge>
-      </TableCell>
-      <TableCell>{{ invoice.paymentMethod }}</TableCell>
-      <TableCell class="text-right">
-        {{ invoice.totalAmount }}
-      </TableCell>
-    </TableRow>
-  </TableBody>
-  <TableFooter>
-    <TableRow>
-      <TableCell :colspan="3">Total</TableCell>
-      <TableCell class="text-right">$2,500.00</TableCell>
-    </TableRow>
-  </TableFooter>
-</Table>
-```
-
-### Example 3
-
-```vue
 <Table variant="boxed" raised="single">
   <TableCaption>A list of your recent invoices.</TableCaption>
   <TableHeader>
@@ -419,7 +381,7 @@ import { Badge } from "@/components/ui/badge";
 </Table>
 ```
 
-### Example 4
+### Example 3
 
 ```vue
 <Table variant="boxed" raised="double">

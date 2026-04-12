@@ -401,32 +401,6 @@ import {
   </CarouselControl>
   <CarouselItemGroup>
     <CarouselItem
-      v-for="(_, index) in images"
-      :key="index"
-      :index="index"
-      class="text-5xl bold flex items-center justify-center"
-    >
-      {{ index + 1 }}
-    </CarouselItem>
-  </CarouselItemGroup>
-</CarouselRoot>
-```
-
-### Example 2
-
-```vue
-<CarouselRoot
-  :default-page="0"
-  :slide-count="images.length"
-  show-indicators
-  class="size-72"
->
-  <CarouselControl>
-    <CarouselPrevTrigger />
-    <CarouselNextTrigger />
-  </CarouselControl>
-  <CarouselItemGroup>
-    <CarouselItem
       v-for="(image, index) in images"
       :key="index"
       :index="index"

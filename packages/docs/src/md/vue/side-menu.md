@@ -445,5 +445,3 @@ import {
 
 ```
 
-## Examples
-

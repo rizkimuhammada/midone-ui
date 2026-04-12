@@ -400,20 +400,6 @@ if (document.readyState === "loading") {
 <div data-component="menu-root" class="w-56">
   <button data-component="menu-trigger">Open menu</button>
   <div data-component="menu-content">
-    <div data-component="menu-item" data-value="react"><i data-lucide="activity" class="size-4"></i> React</div>
-    <div data-component="menu-item" data-value="solid"><i data-lucide="layout" class="size-4"></i> Solid</div>
-    <div data-component="menu-item" data-value="vue"><i data-lucide="zap" class="size-4"></i> Vue</div>
-    <div data-component="menu-item" data-value="svelte"><i data-lucide="map-pin" class="size-4"></i> Svelte</div>
-  </div>
-</div>
-```
-
-### Example 2
-
-```html
-<div data-component="menu-root" class="w-56">
-  <button data-component="menu-trigger">Open menu</button>
-  <div data-component="menu-content">
     <div data-component="menu-item" data-value="react">React</div>
     <div data-component="menu-item" data-value="solid">Solid</div>
     <div data-component="menu-item" data-value="vue">Vue</div>
@@ -427,7 +413,7 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-### Example 3
+### Example 2
 
 ```html
 <div data-component="menu-root" class="w-56">
@@ -446,7 +432,7 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-### Example 4
+### Example 3
 
 ```html
 <div data-component="menu-root" class="w-56">
@@ -474,7 +460,7 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-### Example 5
+### Example 4
 
 ```html
 <div data-component="menu-root" class="w-56">
@@ -488,7 +474,7 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-### Example 6
+### Example 5
 
 ```html
 <div data-component="menu-root" class="w-56">

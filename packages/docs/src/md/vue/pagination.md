@@ -7,7 +7,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## Preview
 
 ```vue
-
+<PaginationRoot :count="5000" :pageSize="10" :siblingCount="2" />
 ```
 
 ## Dependency
@@ -252,8 +252,6 @@ import { PaginationRoot } from "@/components/ui/pagination";
 ```
 
 ```vue
-
+<PaginationRoot :count="5000" :pageSize="10" :siblingCount="2" />
 ```
-
-## Examples
 

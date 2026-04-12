@@ -257,60 +257,6 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<div data-raised="single" data-component="box" class="w-full">
-  <div data-component="accordion-root" class="w-full" data-default-value="['product-information']">
-    <div data-component="accordion-item" data-value="product-information">
-      <button data-component="accordion-trigger">Product Information</button>
-      <div data-component="accordion-content">
-        <p class="mb-2">
-          Our flagship product combines cutting-edge technology with
-          sleek design. Built with premium materials, it offers
-          unparalleled performance and reliability.
-        </p>
-        <p>
-          Key features include advanced processing capabilities, and an
-          intuitive user interface designed for both beginners and
-          experts.
-        </p>
-      </div>
-    </div>
-    <div data-component="accordion-item" data-value="shipping-details">
-      <button data-component="accordion-trigger">Shipping Details</button>
-      <div data-component="accordion-content">
-        <p class="mb-2">
-          We offer worldwide shipping through trusted courier partners.
-          Standard delivery takes 3-5 business days, while express
-          shipping ensures delivery within 1-2 business days.
-        </p>
-        <p>
-          All orders are carefully packaged and fully insured. Track
-          your shipment in real-time through our dedicated tracking
-          portal.
-        </p>
-      </div>
-    </div>
-    <div data-component="accordion-item" data-value="return-policy">
-      <button data-component="accordion-trigger">Return Policy</button>
-      <div data-component="accordion-content">
-        <p class="mb-2">
-          We stand behind our products with a comprehensive 30-day
-          return policy. If you're not completely satisfied, simply
-          return the item in its original condition.
-        </p>
-        <p>
-          Our hassle-free return process includes free return shipping
-          and full refunds processed within 48 hours of receiving the
-          returned item.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-### Example 2
-
-```html
 <div data-component="accordion-root" class="w-full" data-variant="boxed" data-default-value="['product-information']">
   <div data-component="accordion-item" data-raised="single" data-value="product-information">
     <button data-component="accordion-trigger">Product Information</button>

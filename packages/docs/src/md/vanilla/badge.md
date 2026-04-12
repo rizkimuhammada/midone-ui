@@ -67,17 +67,6 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<span data-component="badge" data-variant="primary">12%</span>
-<span data-component="badge" data-variant="secondary">12%</span>
-<span data-component="badge" data-variant="success">12%</span>
-<span data-component="badge" data-variant="danger">12%</span>
-<span data-component="badge" data-variant="pending">12%</span>
-<span data-component="badge" data-variant="warning">12%</span>
-```
-
-### Example 2
-
-```html
 <span data-component="badge" data-variant="primary">
   12%
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
@@ -104,7 +93,7 @@ if (document.readyState === "loading") {
 </span>
 ```
 
-### Example 3
+### Example 2
 
 ```html
 <span data-component="badge" data-look="outline" data-variant="primary">12%</span>
@@ -115,7 +104,7 @@ if (document.readyState === "loading") {
 <span data-component="badge" data-look="outline" data-variant="warning">12%</span>
 ```
 
-### Example 4
+### Example 3
 
 ```html
 <span data-component="badge" data-look="outline" data-variant="primary">
@@ -144,7 +133,7 @@ if (document.readyState === "loading") {
 </span>
 ```
 
-### Example 5
+### Example 4
 
 ```html
 <span data-component="badge" data-look="filled" data-variant="primary">12%</span>
@@ -155,7 +144,7 @@ if (document.readyState === "loading") {
 <span data-component="badge" data-look="filled" data-variant="warning">12%</span>
 ```
 
-### Example 6
+### Example 5
 
 ```html
 <span data-component="badge" data-look="filled" data-variant="primary">
@@ -184,7 +173,7 @@ if (document.readyState === "loading") {
 </span>
 ```
 
-### Example 7
+### Example 6
 
 ```html
 <span data-component="badge" data-look="outline" data-variant="primary" data-content="12% Higher than last month">

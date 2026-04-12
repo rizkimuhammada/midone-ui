@@ -238,33 +238,3 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<div data-component="scroll-area-root" class="h-72 w-70">
-  <div class="text-base font-medium mb-4">Scroll Area Example</div>
-  <div class="mb-4 opacity-80">This is line number 1 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 2 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 3 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 4 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 5 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 6 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 7 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 8 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 9 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 10 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 11 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 12 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 13 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 14 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 15 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 16 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 17 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 18 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="mb-4 opacity-80">This is line number 19 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-  <div class="opacity-80">This is line number 20 of the scrollable content. It helps demonstrate how the custom scrollbar works within the Midone UI system.</div>
-</div>
-```
-

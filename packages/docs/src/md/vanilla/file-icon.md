@@ -97,22 +97,16 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<div data-component="file-icon" data-variant="empty-directory" class="w-16"></div>
+<div data-component="file-icon" data-variant="directory" class="w-16"></div>
 ```
 
 ### Example 2
 
 ```html
-<div data-component="file-icon" data-variant="directory" class="w-16"></div>
-```
-
-### Example 3
-
-```html
 <div data-component="file-icon" data-variant="file" data-type="PDF" class="w-16"></div>
 ```
 
-### Example 4
+### Example 3
 
 ```html
 <div data-component="file-icon" data-variant="file" data-type="TXT" class="w-16"></div>

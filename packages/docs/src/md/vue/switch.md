@@ -219,12 +219,6 @@ import { SwitchRoot, SwitchControl, SwitchLabel } from "@/components/ui/switch";
 ### Example 1
 
 ```vue
-<SwitchRoot label="Airplane Mode" />
-```
-
-### Example 2
-
-```vue
 <SwitchRoot>
   <SwitchControl />
   <SwitchLabel class="font-normal">

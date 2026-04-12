@@ -85,17 +85,6 @@ import { Badge } from "@/components/ui/badge";
 ### Example 1
 
 ```vue
-<Badge variant="primary">12%</Badge>
-<Badge variant="secondary">12%</Badge>
-<Badge variant="success">12%</Badge>
-<Badge variant="danger">12%</Badge>
-<Badge variant="pending">12%</Badge>
-<Badge variant="warning">12%</Badge>
-```
-
-### Example 2
-
-```vue
 <Badge variant="primary"> 12% <ChevronDown /> </Badge>
 <Badge variant="secondary"> 12% <ChevronDown /> </Badge>
 <Badge variant="success"> 12% <ChevronDown /> </Badge>
@@ -104,7 +93,7 @@ import { Badge } from "@/components/ui/badge";
 <Badge variant="warning"> 12% <ChevronDown /> </Badge>
 ```
 
-### Example 3
+### Example 2
 
 ```vue
 <Badge look="outline" variant="primary"> 12% </Badge>
@@ -115,7 +104,7 @@ import { Badge } from "@/components/ui/badge";
 <Badge look="outline" variant="warning"> 12% </Badge>
 ```
 
-### Example 4
+### Example 3
 
 ```vue
 <Badge look="outline" variant="primary"> 12% <ChevronDown /> </Badge>
@@ -126,7 +115,7 @@ import { Badge } from "@/components/ui/badge";
 <Badge look="outline" variant="warning"> 12% <ChevronDown /> </Badge>
 ```
 
-### Example 5
+### Example 4
 
 ```vue
 <Badge look="filled" variant="primary"> 12% </Badge>
@@ -137,7 +126,7 @@ import { Badge } from "@/components/ui/badge";
 <Badge look="filled" variant="warning"> 12% </Badge>
 ```
 
-### Example 6
+### Example 5
 
 ```vue
 <Badge look="filled" variant="primary"> 12% <ChevronDown /> </Badge>
@@ -148,7 +137,7 @@ import { Badge } from "@/components/ui/badge";
 <Badge look="filled" variant="warning"> 12% <ChevronDown /> </Badge>
 ```
 
-### Example 7
+### Example 6
 
 ```vue
 <Badge

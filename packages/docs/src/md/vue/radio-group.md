@@ -314,25 +314,6 @@ import { RadioGroupRoot, RadioGroupItem } from "@/components/ui/radio-group";
 ### Example 1
 
 ```vue
-<RadioGroupRoot defaultValue="React" label="Framework">
-  <RadioGroupItem value="React">
-    React
-  </RadioGroupItem>
-  <RadioGroupItem value="Solid">
-    Solid
-  </RadioGroupItem>
-  <RadioGroupItem value="Vue">
-    Vue
-  </RadioGroupItem>
-  <RadioGroupItem value="Svelte">
-    Svelte
-  </RadioGroupItem>
-</RadioGroupRoot>
-```
-
-### Example 2
-
-```vue
 <RadioGroupRoot defaultValue="required">
   <RadioGroupItem value="required">
     <div class="font-medium">Required</div>

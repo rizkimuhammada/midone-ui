@@ -114,11 +114,3 @@ if (document.readyState === "loading") {
 <div data-component="checkbox-root" data-label="Accept terms and conditions"></div>
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<div data-component="checkbox-root" data-label="Accept terms and conditions"></div>
-```
-

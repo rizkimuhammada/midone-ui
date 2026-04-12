@@ -411,20 +411,6 @@ import {
 
 ```vue
 <div class="text-sm text-muted-foreground">
-  <SliderRoot class="w-72" :defaultValue="[20]" label="Max Items">
-    <div
-      class="flex items-center text-xs gap-1 font-medium justify-center opacity-70"
-    >
-      <SliderValueText /> Items
-    </div>
-  </SliderRoot>
-</div>
-```
-
-### Example 2
-
-```vue
-<div class="text-sm text-muted-foreground">
   <SliderRoot class="w-72" :value="[20, 80]" label="Price Range" type="range">
     <SliderMarkerGroup>
       <SliderMarker :value="0">$0</SliderMarker>

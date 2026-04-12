@@ -307,7 +307,7 @@ import { Box } from "@/components/ui/box";
 ### Example 1
 
 ```vue
-<AlertRoot variant="primary">
+<AlertRoot look="filled" variant="primary">
   <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
@@ -315,7 +315,7 @@ import { Box } from "@/components/ui/box";
   </AlertDescription>
   <AlertCloseTrigger />
 </AlertRoot>
-<AlertRoot variant="secondary">
+<AlertRoot look="filled" variant="secondary">
   <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
@@ -323,7 +323,7 @@ import { Box } from "@/components/ui/box";
   </AlertDescription>
   <AlertCloseTrigger />
 </AlertRoot>
-<AlertRoot variant="success">
+<AlertRoot look="filled" variant="success">
   <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
@@ -331,7 +331,7 @@ import { Box } from "@/components/ui/box";
   </AlertDescription>
   <AlertCloseTrigger />
 </AlertRoot>
-<AlertRoot variant="danger">
+<AlertRoot look="filled" variant="danger">
   <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
@@ -339,7 +339,7 @@ import { Box } from "@/components/ui/box";
   </AlertDescription>
   <AlertCloseTrigger />
 </AlertRoot>
-<AlertRoot variant="pending">
+<AlertRoot look="filled" variant="pending">
   <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
@@ -347,7 +347,7 @@ import { Box } from "@/components/ui/box";
   </AlertDescription>
   <AlertCloseTrigger />
 </AlertRoot>
-<AlertRoot variant="warning">
+<AlertRoot look="filled" variant="warning">
   <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
   <AlertDescription>
@@ -360,59 +360,6 @@ import { Box } from "@/components/ui/box";
 ### Example 2
 
 ```vue
-<AlertRoot look="filled" variant="primary">
-  <AlertIcon><Compass /></AlertIcon>
-  <AlertTitle>Success! Your changes have been saved</AlertTitle>
-  <AlertDescription>
-    This is an alert with icon, title and description.
-  </AlertDescription>
-  <AlertCloseTrigger />
-</AlertRoot>
-<AlertRoot look="filled" variant="secondary">
-  <AlertIcon><Compass /></AlertIcon>
-  <AlertTitle>Success! Your changes have been saved</AlertTitle>
-  <AlertDescription>
-    This is an alert with icon, title and description.
-  </AlertDescription>
-  <AlertCloseTrigger />
-</AlertRoot>
-<AlertRoot look="filled" variant="success">
-  <AlertIcon><Compass /></AlertIcon>
-  <AlertTitle>Success! Your changes have been saved</AlertTitle>
-  <AlertDescription>
-    This is an alert with icon, title and description.
-  </AlertDescription>
-  <AlertCloseTrigger />
-</AlertRoot>
-<AlertRoot look="filled" variant="danger">
-  <AlertIcon><Compass /></AlertIcon>
-  <AlertTitle>Success! Your changes have been saved</AlertTitle>
-  <AlertDescription>
-    This is an alert with icon, title and description.
-  </AlertDescription>
-  <AlertCloseTrigger />
-</AlertRoot>
-<AlertRoot look="filled" variant="pending">
-  <AlertIcon><Compass /></AlertIcon>
-  <AlertTitle>Success! Your changes have been saved</AlertTitle>
-  <AlertDescription>
-    This is an alert with icon, title and description.
-  </AlertDescription>
-  <AlertCloseTrigger />
-</AlertRoot>
-<AlertRoot look="filled" variant="warning">
-  <AlertIcon><Compass /></AlertIcon>
-  <AlertTitle>Success! Your changes have been saved</AlertTitle>
-  <AlertDescription>
-    This is an alert with icon, title and description.
-  </AlertDescription>
-  <AlertCloseTrigger />
-</AlertRoot>
-```
-
-### Example 3
-
-```vue
 <AlertRoot variant="primary">
   <AlertIcon><Compass /></AlertIcon>
   <AlertTitle>Success! Your changes have been saved</AlertTitle>
@@ -445,7 +392,7 @@ import { Box } from "@/components/ui/box";
 </AlertRoot>
 ```
 
-### Example 4
+### Example 3
 
 ```vue
 <AlertRoot look="filled" variant="primary">
@@ -474,7 +421,7 @@ import { Box } from "@/components/ui/box";
 </AlertRoot>
 ```
 
-### Example 5
+### Example 4
 
 ```vue
 <Box class="p-0">

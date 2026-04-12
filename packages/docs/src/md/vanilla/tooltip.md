@@ -8,9 +8,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ```html
 <div data-component="tooltip-root">
-    <button data-component="tooltip-trigger">Hover Me</button>
-    <div data-component="tooltip-content">I am a tooltip!</div>
-  </div>
+  <button data-component="tooltip-trigger">Hover Me</button>
+  <div data-component="tooltip-content">I am a tooltip!</div>
+</div>
 ```
 
 ## Dependency
@@ -193,19 +193,8 @@ if (document.readyState === "loading") {
 
 ```html
 <div data-component="tooltip-root">
-    <button data-component="tooltip-trigger">Hover Me</button>
-    <div data-component="tooltip-content">I am a tooltip!</div>
-  </div>
-```
-
-## Examples
-
-### Example 1
-
-```html
-<div data-component="tooltip-root">
-    <button data-component="tooltip-trigger">Hover Me</button>
-    <div data-component="tooltip-content">I am a tooltip!</div>
-  </div>
+  <button data-component="tooltip-trigger">Hover Me</button>
+  <div data-component="tooltip-content">I am a tooltip!</div>
+</div>
 ```
 

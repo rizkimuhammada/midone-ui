@@ -119,22 +119,16 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<div data-component="avatar-root" data-fallback-text="PA" data-src="https://i.pravatar.cc/300"></div>
+<div data-component="avatar-root" data-bordered="false" data-fallback-text="PA" data-src="https://i.pravatar.cc/300"></div>
 ```
 
 ### Example 2
 
 ```html
-<div data-component="avatar-root" data-bordered="false" data-fallback-text="PA" data-src="https://i.pravatar.cc/300"></div>
-```
-
-### Example 3
-
-```html
 <div data-component="avatar-root" class="rounded-full" data-fallback-text="PA" data-src="https://i.pravatar.cc/300"></div>
 ```
 
-### Example 4
+### Example 3
 
 ```html
 <div data-component="avatar-root" class="rounded-full" data-bordered="false" data-fallback-text="PA" data-src="https://i.pravatar.cc/300"></div>

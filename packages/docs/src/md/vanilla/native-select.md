@@ -66,18 +66,6 @@ if (document.readyState === "loading") {
 
 ```html
 <select data-component="native-select" class="w-56">
-  <option data-component="native-select-option" value="">Select status</option>
-  <option data-component="native-select-option" value="todo">Todo</option>
-  <option data-component="native-select-option" value="in-progress">In Progress</option>
-  <option data-component="native-select-option" value="done">Done</option>
-  <option data-component="native-select-option" value="cancelled">Cancelled</option>
-</select>
-```
-
-### Example 2
-
-```html
-<select data-component="native-select" class="w-56">
   <option data-component="native-select-option" value="">Select department</option>
   <optgroup data-component="native-select-option-group" label="Engineering">
     <option data-component="native-select-option" value="frontend">Frontend</option>
@@ -97,7 +85,7 @@ if (document.readyState === "loading") {
 </select>
 ```
 
-### Example 3
+### Example 2
 
 ```html
 <select data-component="native-select" class="w-56" disabled>

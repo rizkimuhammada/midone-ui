@@ -693,25 +693,6 @@ import {
 
 ```vue
 <ComboboxRoot
-  label="Single"
-  v-model:value="stateSingle"
-  combobox-input-placeholder="Search frameworks..."
-  class="w-56"
->
-  <ComboboxItemGroup label="Frameworks">
-    <ComboboxItem value="React">React</ComboboxItem>
-    <ComboboxItem value="Solid">Solid</ComboboxItem>
-    <ComboboxItem value="Vue">Vue</ComboboxItem>
-    <ComboboxItem value="Svelte">Svelte</ComboboxItem>
-    <ComboboxItem value="Vanilla">Vanilla JS</ComboboxItem>
-  </ComboboxItemGroup>
-</ComboboxRoot>
-```
-
-### Example 2
-
-```vue
-<ComboboxRoot
   label="Multiple"
   v-model:value="stateMultiple"
   combobox-input-placeholder="Search frameworks..."
@@ -728,7 +709,7 @@ import {
 </ComboboxRoot>
 ```
 
-### Example 3
+### Example 2
 
 ```vue
 <ComboboxRoot

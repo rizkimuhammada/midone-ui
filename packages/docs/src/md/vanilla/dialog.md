@@ -273,39 +273,6 @@ if (document.readyState === "loading") {
 
 ```html
 <div data-component="dialog-root">
-  <button data-component="dialog-trigger">Open Dialog</button>
-  <div data-component="dialog-content">
-    <div data-component="dialog-title">Dialog Title</div>
-    <div data-component="dialog-description">Make changes to your profile here. Click save when you're done.</div>
-    <div class="grid gap-4 mt-2">
-      <div class="grid gap-2.5">
-        <label data-component="label" for="name-1">Name</label>
-        <input data-component="input" id="name-1" name="name" value="Pedro Duarte" />
-      </div>
-      <div class="grid gap-2.5">
-        <label data-component="label" for="username-1">Username</label>
-        <input data-component="input" id="username-1" name="username" value="@peduarte" />
-      </div>
-    </div>
-    <div class="flex gap-2 justify-end mt-7">
-      <button data-component="dialog-close-trigger">
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
-        Close
-      </button>
-      <button data-component="button" data-variant="primary">
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
-        Submit
-      </button>
-    </div>
-    <button data-component="dialog-close-trigger"></button>
-  </div>
-</div>
-```
-
-### Example 2
-
-```html
-<div data-component="dialog-root">
   <button data-component="dialog-trigger">Custom Close</button>
   <div data-component="dialog-content">
     <div data-component="dialog-title">Share Link</div>
@@ -323,7 +290,7 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-### Example 3
+### Example 2
 
 ```html
 <button data-component="button" data-variant="secondary" data-look="outline" data-dialog-target="dialog-programmatic">Programmatic Trigger</button>

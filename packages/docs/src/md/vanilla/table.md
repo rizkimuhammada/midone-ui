@@ -251,7 +251,7 @@ if (document.readyState === "loading") {
 
 ```html
 <div data-component="table-container">
-  <table data-component="table" data-variant="default">
+  <table data-component="table" data-variant="boxed">
     <caption data-component="table-caption">A list of your recent invoices.</caption>
     <thead data-component="table-header">
       <tr data-component="table-row">
@@ -319,74 +319,6 @@ if (document.readyState === "loading") {
 
 ```html
 <div data-component="table-container">
-  <table data-component="table" data-variant="boxed">
-    <caption data-component="table-caption">A list of your recent invoices.</caption>
-    <thead data-component="table-header">
-      <tr data-component="table-row">
-        <th data-component="table-head" class="w-[100px]">Invoice</th>
-        <th data-component="table-head">Status</th>
-        <th data-component="table-head">Method</th>
-        <th data-component="table-head" class="text-right">Amount</th>
-      </tr>
-    </thead>
-    <tbody data-component="table-body">
-      <tr data-component="table-row">
-        <td data-component="table-cell" class="font-medium">INV001</td>
-        <td data-component="table-cell"><span data-component="badge" data-look="outline" data-variant="success">Paid</span></td>
-        <td data-component="table-cell">Credit Card</td>
-        <td data-component="table-cell" class="text-right">$250.00</td>
-      </tr>
-      <tr data-component="table-row">
-        <td data-component="table-cell" class="font-medium">INV002</td>
-        <td data-component="table-cell"><span data-component="badge" data-look="outline" data-variant="pending">Pending</span></td>
-        <td data-component="table-cell">PayPal</td>
-        <td data-component="table-cell" class="text-right">$150.00</td>
-      </tr>
-      <tr data-component="table-row">
-        <td data-component="table-cell" class="font-medium">INV003</td>
-        <td data-component="table-cell"><span data-component="badge" data-look="outline" data-variant="danger">Unpaid</span></td>
-        <td data-component="table-cell">Bank Transfer</td>
-        <td data-component="table-cell" class="text-right">$350.00</td>
-      </tr>
-      <tr data-component="table-row">
-        <td data-component="table-cell" class="font-medium">INV004</td>
-        <td data-component="table-cell"><span data-component="badge" data-look="outline" data-variant="success">Paid</span></td>
-        <td data-component="table-cell">Credit Card</td>
-        <td data-component="table-cell" class="text-right">$450.00</td>
-      </tr>
-      <tr data-component="table-row">
-        <td data-component="table-cell" class="font-medium">INV005</td>
-        <td data-component="table-cell"><span data-component="badge" data-look="outline" data-variant="success">Paid</span></td>
-        <td data-component="table-cell">PayPal</td>
-        <td data-component="table-cell" class="text-right">$550.00</td>
-      </tr>
-      <tr data-component="table-row">
-        <td data-component="table-cell" class="font-medium">INV006</td>
-        <td data-component="table-cell"><span data-component="badge" data-look="outline" data-variant="pending">Pending</span></td>
-        <td data-component="table-cell">Bank Transfer</td>
-        <td data-component="table-cell" class="text-right">$200.00</td>
-      </tr>
-      <tr data-component="table-row">
-        <td data-component="table-cell" class="font-medium">INV007</td>
-        <td data-component="table-cell"><span data-component="badge" data-look="outline" data-variant="danger">Unpaid</span></td>
-        <td data-component="table-cell">Credit Card</td>
-        <td data-component="table-cell" class="text-right">$300.00</td>
-      </tr>
-    </tbody>
-    <tfoot data-component="table-footer">
-      <tr data-component="table-row">
-        <td data-component="table-cell" colspan="3">Total</td>
-        <td data-component="table-cell" class="text-right">$2,500.00</td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
-```
-
-### Example 3
-
-```html
-<div data-component="table-container">
   <table data-component="table" data-variant="boxed" data-raised="single">
     <caption data-component="table-caption">A list of your recent invoices.</caption>
     <thead data-component="table-header">
@@ -451,7 +383,7 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-### Example 4
+### Example 3
 
 ```html
 <div data-component="table-container">

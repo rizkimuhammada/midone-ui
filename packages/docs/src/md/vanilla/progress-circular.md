@@ -183,11 +183,3 @@ if (document.readyState === "loading") {
 <div data-component="progress-circular-root" data-default-value="42" data-label="Progress Circular" data-circle-class="max-w-48" data-show-value-text="true"></div>
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<div data-component="progress-circular-root" data-default-value="42" data-label="Progress Circular" data-circle-class="max-w-48" data-show-value-text="true"></div>
-```
-

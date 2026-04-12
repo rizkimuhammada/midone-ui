@@ -87,22 +87,3 @@ export function handleAsChild(element: HTMLElement): HTMLElement {
 </div>
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<div class="justify-center items-center flex gap-2">
-  <div data-component="box" data-as-child>
-    <button data-component="button" class="me-2 px-2" data-variant="ghost">
-      <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-    </button>
-  </div>
-  <div data-component="box" data-as-child>
-    <button data-component="button" class="px-2" data-variant="ghost">
-      <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-    </button>
-  </div>
-</div>
-```
-

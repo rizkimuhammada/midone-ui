@@ -118,17 +118,3 @@ if (document.readyState === "loading") {
 ></canvas>
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<canvas data-component="chart" class=" max-w-100"
-  data-type="bar"
-  data-labels='["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]'
-  data-dataset-label="Html Template"
-  data-dataset-data="[60,150,30,200,180,50,180,120,230,180,250,270]"
-  data-max-bar-thickness="12"
-></canvas>
-```
-

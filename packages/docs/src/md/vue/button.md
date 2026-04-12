@@ -76,22 +76,13 @@ import { Button } from "@/components/ui/button";
 ### Example 1
 
 ```vue
-<Button variant="primary" size="sm"> Button Small </Button>
-<Button variant="primary">Button Medium</Button>
-<Button variant="primary" size="lg"> Button Large </Button>
-<Button variant="primary" size="xl"> Button Extra Large </Button>
-```
-
-### Example 2
-
-```vue
 <Button variant="secondary" size="sm"> Button Small </Button>
 <Button variant="secondary">Button Medium</Button>
 <Button variant="secondary" size="lg"> Button Large </Button>
 <Button variant="secondary" size="xl"> Button Extra Large </Button>
 ```
 
-### Example 3
+### Example 2
 
 ```vue
 <Button variant="success" size="sm"> Button Small </Button>
@@ -100,7 +91,7 @@ import { Button } from "@/components/ui/button";
 <Button variant="success" size="xl"> Button Extra Large </Button>
 ```
 
-### Example 4
+### Example 3
 
 ```vue
 <Button variant="danger" size="sm"> Button Small </Button>
@@ -109,7 +100,7 @@ import { Button } from "@/components/ui/button";
 <Button variant="danger" size="xl"> Button Extra Large </Button>
 ```
 
-### Example 5
+### Example 4
 
 ```vue
 <Button variant="pending" size="sm"> Button Small </Button>
@@ -118,7 +109,7 @@ import { Button } from "@/components/ui/button";
 <Button variant="pending" size="xl"> Button Extra Large </Button>
 ```
 
-### Example 6
+### Example 5
 
 ```vue
 <Button variant="warning" size="sm"> Button Small </Button>
@@ -127,7 +118,7 @@ import { Button } from "@/components/ui/button";
 <Button variant="warning" size="xl"> Button Extra Large </Button>
 ```
 
-### Example 7
+### Example 6
 
 ```vue
 <Button look="outline" variant="primary" size="sm">
@@ -142,7 +133,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 8
+### Example 7
 
 ```vue
 <Button look="outline" variant="secondary" size="sm">
@@ -157,7 +148,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 9
+### Example 8
 
 ```vue
 <Button look="outline" variant="success" size="sm">
@@ -172,7 +163,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 10
+### Example 9
 
 ```vue
 <Button look="outline" variant="danger" size="sm">
@@ -187,7 +178,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 11
+### Example 10
 
 ```vue
 <Button look="outline" variant="pending" size="sm">
@@ -202,7 +193,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 12
+### Example 11
 
 ```vue
 <Button look="outline" variant="warning" size="sm">
@@ -217,7 +208,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 13
+### Example 12
 
 ```vue
 <Button look="filled" variant="primary" size="sm">
@@ -232,7 +223,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 14
+### Example 13
 
 ```vue
 <Button look="filled" variant="secondary" size="sm">
@@ -247,7 +238,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 15
+### Example 14
 
 ```vue
 <Button look="filled" variant="success" size="sm">
@@ -262,7 +253,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 16
+### Example 15
 
 ```vue
 <Button look="filled" variant="danger" size="sm"> Button Small </Button>
@@ -273,7 +264,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 17
+### Example 16
 
 ```vue
 <Button look="filled" variant="pending" size="sm">
@@ -288,7 +279,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 18
+### Example 17
 
 ```vue
 <Button look="filled" variant="warning" size="sm">
@@ -303,7 +294,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 19
+### Example 18
 
 ```vue
 <Button disabled variant="primary" size="sm"> Button Small </Button>
@@ -314,7 +305,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 20
+### Example 19
 
 ```vue
 <Button disabled variant="secondary" size="sm"> Button Small </Button>
@@ -325,7 +316,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 21
+### Example 20
 
 ```vue
 <Button disabled variant="success" size="sm"> Button Small </Button>
@@ -336,7 +327,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 22
+### Example 21
 
 ```vue
 <Button disabled variant="danger" size="sm"> Button Small </Button>
@@ -347,7 +338,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 23
+### Example 22
 
 ```vue
 <Button disabled variant="pending" size="sm"> Button Small </Button>
@@ -358,7 +349,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 24
+### Example 23
 
 ```vue
 <Button disabled variant="warning" size="sm"> Button Small </Button>
@@ -369,7 +360,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 25
+### Example 24
 
 ```vue
 <Button disabled look="outline" variant="primary" size="sm">
@@ -384,7 +375,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 26
+### Example 25
 
 ```vue
 <Button disabled look="outline" variant="secondary" size="sm">
@@ -401,7 +392,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 27
+### Example 26
 
 ```vue
 <Button disabled look="outline" variant="success" size="sm">
@@ -416,7 +407,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 28
+### Example 27
 
 ```vue
 <Button disabled look="outline" variant="danger" size="sm">
@@ -431,7 +422,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 29
+### Example 28
 
 ```vue
 <Button disabled look="outline" variant="pending" size="sm">
@@ -446,7 +437,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 30
+### Example 29
 
 ```vue
 <Button disabled look="outline" variant="warning" size="sm">
@@ -461,7 +452,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 31
+### Example 30
 
 ```vue
 <Button disabled look="filled" variant="primary" size="sm">
@@ -478,7 +469,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 32
+### Example 31
 
 ```vue
 <Button disabled look="filled" variant="secondary" size="sm">
@@ -495,7 +486,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 33
+### Example 32
 
 ```vue
 <Button disabled look="filled" variant="success" size="sm">
@@ -512,7 +503,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 34
+### Example 33
 
 ```vue
 <Button disabled look="filled" variant="danger" size="sm">
@@ -527,7 +518,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 35
+### Example 34
 
 ```vue
 <Button disabled look="filled" variant="pending" size="sm">
@@ -544,7 +535,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 36
+### Example 35
 
 ```vue
 <Button disabled look="filled" variant="warning" size="sm">
@@ -561,7 +552,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 37
+### Example 36
 
 ```vue
 <Button size="sm">
@@ -578,7 +569,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 38
+### Example 37
 
 ```vue
 <Button variant="primary" size="sm">
@@ -595,7 +586,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 39
+### Example 38
 
 ```vue
 <Button variant="secondary" size="sm">
@@ -612,7 +603,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 40
+### Example 39
 
 ```vue
 <Button variant="success" size="sm">
@@ -629,7 +620,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 41
+### Example 40
 
 ```vue
 <Button variant="danger" size="sm">
@@ -646,7 +637,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 42
+### Example 41
 
 ```vue
 <Button variant="pending" size="sm">
@@ -663,7 +654,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 43
+### Example 42
 
 ```vue
 <Button variant="warning" size="sm">
@@ -680,7 +671,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 44
+### Example 43
 
 ```vue
 <Button look="outline" size="sm">
@@ -697,7 +688,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 45
+### Example 44
 
 ```vue
 <Button look="outline" variant="primary" size="sm">
@@ -714,7 +705,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 46
+### Example 45
 
 ```vue
 <Button look="outline" variant="secondary" size="sm">
@@ -731,7 +722,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 47
+### Example 46
 
 ```vue
 <Button look="outline" variant="success" size="sm">
@@ -748,7 +739,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 48
+### Example 47
 
 ```vue
 <Button look="outline" variant="danger" size="sm">
@@ -765,7 +756,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 49
+### Example 48
 
 ```vue
 <Button look="outline" variant="pending" size="sm">
@@ -782,7 +773,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 50
+### Example 49
 
 ```vue
 <Button look="outline" variant="warning" size="sm">
@@ -799,7 +790,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 51
+### Example 50
 
 ```vue
 <Button look="filled" size="sm">
@@ -816,7 +807,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 52
+### Example 51
 
 ```vue
 <Button look="filled" variant="primary" size="sm">
@@ -833,7 +824,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 53
+### Example 52
 
 ```vue
 <Button look="filled" variant="secondary" size="sm">
@@ -850,7 +841,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 54
+### Example 53
 
 ```vue
 <Button look="filled" variant="success" size="sm">
@@ -867,7 +858,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 55
+### Example 54
 
 ```vue
 <Button look="filled" variant="danger" size="sm">
@@ -884,7 +875,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 56
+### Example 55
 
 ```vue
 <Button look="filled" variant="pending" size="sm">
@@ -901,7 +892,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 57
+### Example 56
 
 ```vue
 <Button look="filled" variant="warning" size="sm">
@@ -918,7 +909,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 58
+### Example 57
 
 ```vue
 <Button size="sm">
@@ -935,7 +926,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 59
+### Example 58
 
 ```vue
 <Button variant="primary" size="sm">
@@ -952,7 +943,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 60
+### Example 59
 
 ```vue
 <Button variant="secondary" size="sm">
@@ -969,7 +960,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 61
+### Example 60
 
 ```vue
 <Button variant="success" size="sm">
@@ -986,7 +977,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 62
+### Example 61
 
 ```vue
 <Button variant="danger" size="sm">
@@ -1003,7 +994,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 63
+### Example 62
 
 ```vue
 <Button variant="pending" size="sm">
@@ -1020,7 +1011,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 64
+### Example 63
 
 ```vue
 <Button variant="warning" size="sm">
@@ -1037,7 +1028,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 65
+### Example 64
 
 ```vue
 <Button look="filled" size="sm">
@@ -1054,7 +1045,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 66
+### Example 65
 
 ```vue
 <Button look="filled" variant="primary" size="sm">
@@ -1071,7 +1062,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 67
+### Example 66
 
 ```vue
 <Button look="filled" variant="secondary" size="sm">
@@ -1088,7 +1079,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 68
+### Example 67
 
 ```vue
 <Button look="filled" variant="success" size="sm">
@@ -1105,7 +1096,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 69
+### Example 68
 
 ```vue
 <Button look="filled" variant="danger" size="sm">
@@ -1122,7 +1113,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 70
+### Example 69
 
 ```vue
 <Button look="filled" variant="pending" size="sm">
@@ -1139,7 +1130,7 @@ import { Button } from "@/components/ui/button";
 </Button>
 ```
 
-### Example 71
+### Example 70
 
 ```vue
 <Button look="filled" variant="warning" size="sm">

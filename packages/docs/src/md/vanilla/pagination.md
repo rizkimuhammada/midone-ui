@@ -177,11 +177,3 @@ if (document.readyState === "loading") {
 <div data-component="pagination-root" data-count="5000" data-page-size="10" data-sibling-count="2"></div>
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<div data-component="pagination-root" data-count="5000" data-page-size="10" data-sibling-count="2"></div>
-```
-

@@ -119,20 +119,6 @@ import {
 
 ```vue
 <NativeSelect class="w-56">
-  <NativeSelectOption value="">Select status</NativeSelectOption>
-  <NativeSelectOption value="todo">Todo</NativeSelectOption>
-  <NativeSelectOption value="in-progress"
-    >In Progress</NativeSelectOption
-  >
-  <NativeSelectOption value="done">Done</NativeSelectOption>
-  <NativeSelectOption value="cancelled">Cancelled</NativeSelectOption>
-</NativeSelect>
-```
-
-### Example 2
-
-```vue
-<NativeSelect class="w-56">
   <NativeSelectOption value="">Select department</NativeSelectOption>
   <NativeSelectOptionGroup label="Engineering">
     <NativeSelectOption value="frontend">Frontend</NativeSelectOption>
@@ -162,7 +148,7 @@ import {
 </NativeSelect>
 ```
 
-### Example 3
+### Example 2
 
 ```vue
 <NativeSelect class="w-56" disabled>

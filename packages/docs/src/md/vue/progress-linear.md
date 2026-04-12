@@ -7,7 +7,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## Preview
 
 ```vue
-
+<ProgressLinearRoot
+  :defaultValue="42"
+  label="Progress Linear"
+  trackClass="max-w-72"
+  showValueText
+/>
 ```
 
 ## Dependency
@@ -187,8 +192,11 @@ import { ProgressLinearRoot } from "@/components/ui/progress-linear";
 ```
 
 ```vue
-
+<ProgressLinearRoot
+  :defaultValue="42"
+  label="Progress Linear"
+  trackClass="max-w-72"
+  showValueText
+/>
 ```
-
-## Examples
 

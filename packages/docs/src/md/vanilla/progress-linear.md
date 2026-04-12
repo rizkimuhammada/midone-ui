@@ -8,7 +8,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ```html
 <div data-component="progress-linear-root" data-default-value="42" data-label="Progress Linear"
-    data-track-class="max-w-72" data-show-value-text="true"></div>
+  data-track-class="max-w-72" data-show-value-text="true"></div>
 ```
 
 ## Dependency
@@ -127,15 +127,6 @@ if (document.readyState === "loading") {
 
 ```html
 <div data-component="progress-linear-root" data-default-value="42" data-label="Progress Linear"
-    data-track-class="max-w-72" data-show-value-text="true"></div>
-```
-
-## Examples
-
-### Example 1
-
-```html
-<div data-component="progress-linear-root" data-default-value="42" data-label="Progress Linear"
-    data-track-class="max-w-72" data-show-value-text="true"></div>
+  data-track-class="max-w-72" data-show-value-text="true"></div>
 ```
 

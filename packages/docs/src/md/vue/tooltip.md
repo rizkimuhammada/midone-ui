@@ -7,7 +7,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## Preview
 
 ```vue
-
+<TooltipRoot>
+  <TooltipTrigger>Hover Me</TooltipTrigger>
+  <TooltipContent>I am a tooltip!</TooltipContent>
+</TooltipRoot>
 ```
 
 ## Dependency
@@ -250,8 +253,9 @@ import { TooltipRoot, TooltipTrigger, TooltipContent } from "@/components/ui/too
 ```
 
 ```vue
-
+<TooltipRoot>
+  <TooltipTrigger>Hover Me</TooltipTrigger>
+  <TooltipContent>I am a tooltip!</TooltipContent>
+</TooltipRoot>
 ```
-
-## Examples
 

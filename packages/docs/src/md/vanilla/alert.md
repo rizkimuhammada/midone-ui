@@ -238,7 +238,7 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<div data-component="alert-root" data-variant="primary">
+<div data-component="alert-root" data-look="filled" data-variant="primary">
   <div data-component="alert-icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
   </div>
@@ -246,7 +246,7 @@ if (document.readyState === "loading") {
   <div data-component="alert-description">This is an alert with icon, title and description.</div>
   <button data-component="alert-close-trigger"></button>
 </div>
-<div data-component="alert-root" data-variant="secondary">
+<div data-component="alert-root" data-look="filled" data-variant="secondary">
   <div data-component="alert-icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
   </div>
@@ -254,7 +254,7 @@ if (document.readyState === "loading") {
   <div data-component="alert-description">This is an alert with icon, title and description.</div>
   <button data-component="alert-close-trigger"></button>
 </div>
-<div data-component="alert-root" data-variant="success">
+<div data-component="alert-root" data-look="filled" data-variant="success">
   <div data-component="alert-icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
   </div>
@@ -262,7 +262,7 @@ if (document.readyState === "loading") {
   <div data-component="alert-description">This is an alert with icon, title and description.</div>
   <button data-component="alert-close-trigger"></button>
 </div>
-<div data-component="alert-root" data-variant="danger">
+<div data-component="alert-root" data-look="filled" data-variant="danger">
   <div data-component="alert-icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
   </div>
@@ -270,7 +270,7 @@ if (document.readyState === "loading") {
   <div data-component="alert-description">This is an alert with icon, title and description.</div>
   <button data-component="alert-close-trigger"></button>
 </div>
-<div data-component="alert-root" data-variant="pending">
+<div data-component="alert-root" data-look="filled" data-variant="pending">
   <div data-component="alert-icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
   </div>
@@ -278,7 +278,7 @@ if (document.readyState === "loading") {
   <div data-component="alert-description">This is an alert with icon, title and description.</div>
   <button data-component="alert-close-trigger"></button>
 </div>
-<div data-component="alert-root" data-variant="warning">
+<div data-component="alert-root" data-look="filled" data-variant="warning">
   <div data-component="alert-icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
   </div>
@@ -291,59 +291,6 @@ if (document.readyState === "loading") {
 ### Example 2
 
 ```html
-<div data-component="alert-root" data-look="filled" data-variant="primary">
-  <div data-component="alert-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-  </div>
-  <div data-component="alert-title">Success! Your changes have been saved</div>
-  <div data-component="alert-description">This is an alert with icon, title and description.</div>
-  <button data-component="alert-close-trigger"></button>
-</div>
-<div data-component="alert-root" data-look="filled" data-variant="secondary">
-  <div data-component="alert-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-  </div>
-  <div data-component="alert-title">Success! Your changes have been saved</div>
-  <div data-component="alert-description">This is an alert with icon, title and description.</div>
-  <button data-component="alert-close-trigger"></button>
-</div>
-<div data-component="alert-root" data-look="filled" data-variant="success">
-  <div data-component="alert-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-  </div>
-  <div data-component="alert-title">Success! Your changes have been saved</div>
-  <div data-component="alert-description">This is an alert with icon, title and description.</div>
-  <button data-component="alert-close-trigger"></button>
-</div>
-<div data-component="alert-root" data-look="filled" data-variant="danger">
-  <div data-component="alert-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-  </div>
-  <div data-component="alert-title">Success! Your changes have been saved</div>
-  <div data-component="alert-description">This is an alert with icon, title and description.</div>
-  <button data-component="alert-close-trigger"></button>
-</div>
-<div data-component="alert-root" data-look="filled" data-variant="pending">
-  <div data-component="alert-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-  </div>
-  <div data-component="alert-title">Success! Your changes have been saved</div>
-  <div data-component="alert-description">This is an alert with icon, title and description.</div>
-  <button data-component="alert-close-trigger"></button>
-</div>
-<div data-component="alert-root" data-look="filled" data-variant="warning">
-  <div data-component="alert-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-  </div>
-  <div data-component="alert-title">Success! Your changes have been saved</div>
-  <div data-component="alert-description">This is an alert with icon, title and description.</div>
-  <button data-component="alert-close-trigger"></button>
-</div>
-```
-
-### Example 3
-
-```html
 <div data-component="alert-root" data-variant="primary">
   <div data-component="alert-icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
@@ -388,7 +335,7 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-### Example 4
+### Example 3
 
 ```html
 <div data-component="alert-root" data-look="filled" data-variant="primary">
@@ -429,7 +376,7 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-### Example 5
+### Example 4
 
 ```html
 <div data-component="box" class=" p-0">

@@ -76,16 +76,6 @@ import { Box } from "@/components/ui/box";
 ### Example 1
 
 ```vue
-<Box class="w-70">
-  <CircleGauge class="size-7 stroke-1 fill-foreground/10" />
-  <div class="mt-6 text-2xl font-medium leading-8">$724,091.47</div>
-  <div class="mt-1.5 text-xs uppercase opacity-70">Item Sales</div>
-</Box>
-```
-
-### Example 2
-
-```vue
 <Box raised="single" class="w-70">
   <CircleGauge class="size-7 stroke-1 fill-foreground/10" />
   <div class="mt-6 text-2xl font-medium leading-8">$724,091.47</div>
@@ -93,7 +83,7 @@ import { Box } from "@/components/ui/box";
 </Box>
 ```
 
-### Example 3
+### Example 2
 
 ```vue
 <Box raised="double" class="w-70">

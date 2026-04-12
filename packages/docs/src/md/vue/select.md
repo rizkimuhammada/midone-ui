@@ -687,25 +687,6 @@ import {
 
 ```vue
 <SelectRoot
-  label="Single"
-  v-model:value="stateSingle"
-  placeholder="Select a Framework"
-  class="w-56"
->
-  <SelectItemGroup label="Frameworks">
-    <SelectItem value="React" />
-    <SelectItem value="Solid" />
-    <SelectItem value="Vue" />
-    <SelectItem value="Svelte" />
-    <SelectItem value="Vanilla">Vanilla JS</SelectItem>
-  </SelectItemGroup>
-</SelectRoot>
-```
-
-### Example 2
-
-```vue
-<SelectRoot
   label="Multiple"
   v-model:value="stateMultiple"
   placeholder="Select Frameworks"
@@ -722,7 +703,7 @@ import {
 </SelectRoot>
 ```
 
-### Example 3
+### Example 2
 
 ```vue
 <SelectRoot

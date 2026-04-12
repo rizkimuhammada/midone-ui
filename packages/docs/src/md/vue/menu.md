@@ -562,28 +562,6 @@ import {
 <MenuRoot class="w-56">
   <MenuTrigger>Open menu</MenuTrigger>
   <MenuContent>
-    <MenuItem value="react"
-      ><Activity class="size-4 stroke-1.5" /> React</MenuItem
-    >
-    <MenuItem value="solid"
-      ><Layout class="size-4 stroke-1.5" /> Solid</MenuItem
-    >
-    <MenuItem value="vue"
-      ><Zap class="size-4 stroke-1.5" /> Vue</MenuItem
-    >
-    <MenuItem value="svelte"
-      ><MapPin class="size-4 stroke-1.5" /> Svelte</MenuItem
-    >
-  </MenuContent>
-</MenuRoot>
-```
-
-### Example 2
-
-```vue
-<MenuRoot class="w-56">
-  <MenuTrigger>Open menu</MenuTrigger>
-  <MenuContent>
     <MenuItem value="react">React</MenuItem>
     <MenuItem value="solid">Solid</MenuItem>
     <MenuItem value="vue">Vue</MenuItem>
@@ -597,7 +575,7 @@ import {
 </MenuRoot>
 ```
 
-### Example 3
+### Example 2
 
 ```vue
 <MenuRoot class="w-56">
@@ -616,7 +594,7 @@ import {
 </MenuRoot>
 ```
 
-### Example 4
+### Example 3
 
 ```vue
 <MenuRoot class="w-56">
@@ -649,7 +627,7 @@ import {
 </MenuRoot>
 ```
 
-### Example 5
+### Example 4
 
 ```vue
 <MenuRoot class="w-56">
@@ -687,7 +665,7 @@ import {
 </MenuRoot>
 ```
 
-### Example 6
+### Example 5
 
 ```vue
 <MenuRoot class="w-56">

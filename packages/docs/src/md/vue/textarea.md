@@ -43,11 +43,3 @@ import { Textarea } from "@/components/ui/textarea";
 <Textarea placeholder="Type your message here." />
 ```
 
-## Examples
-
-### Example 1
-
-```vue
-<Textarea placeholder="Type your message here." />
-```
-

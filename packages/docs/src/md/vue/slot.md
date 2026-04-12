@@ -51,22 +51,3 @@ import { Box } from "@/components/ui/box";
 </div>
 ```
 
-## Examples
-
-### Example 1
-
-```vue
-<div class="justify-center items-center flex gap-2">
-  <Box as-child>
-    <Button variant="ghost" class="me-2 px-2">
-      <ChevronLeft class="size-5" />
-    </Button>
-  </Box>
-  <Box as-child>
-    <Button variant="ghost" class="px-2">
-      <ChevronRight class="size-5" />
-    </Button>
-  </Box>
-</div>
-```
-

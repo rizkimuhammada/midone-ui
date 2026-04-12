@@ -295,24 +295,6 @@ if (document.readyState === "loading") {
     <button data-component="carousel-next-trigger" class=""></button>
   </div>
   <div data-component="carousel-item-group" class="">
-    <div data-component="carousel-item" class=" text-5xl font-bold flex items-center justify-center">1</div>
-    <div data-component="carousel-item" class=" text-5xl font-bold flex items-center justify-center">2</div>
-    <div data-component="carousel-item" class=" text-5xl font-bold flex items-center justify-center">3</div>
-    <div data-component="carousel-item" class=" text-5xl font-bold flex items-center justify-center">4</div>
-    <div data-component="carousel-item" class=" text-5xl font-bold flex items-center justify-center">5</div>
-  </div>
-</div>
-```
-
-### Example 2
-
-```html
-<div data-component="carousel-root" data-show-indicators="true" class=" size-72">
-  <div data-component="carousel-control" class="">
-    <button data-component="carousel-prev-trigger" class=""></button>
-    <button data-component="carousel-next-trigger" class=""></button>
-  </div>
-  <div data-component="carousel-item-group" class="">
     <div data-component="carousel-item" class=""><img src="https://picsum.photos/seed/1/500/300" alt="Slide 0" /></div>
     <div data-component="carousel-item" class=""><img src="https://picsum.photos/seed/2/500/300" alt="Slide 1" /></div>
     <div data-component="carousel-item" class=""><img src="https://picsum.photos/seed/3/500/300" alt="Slide 2" /></div>

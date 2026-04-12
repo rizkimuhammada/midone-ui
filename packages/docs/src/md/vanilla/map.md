@@ -266,37 +266,3 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<div
-  data-component="map-root" class="w-full h-96"
-  data-scope="map"
-  data-part="root"
-  data-center="13.388,52.517"
-  data-zoom="9.5"
-  data-markers='[
-    {"name":"Cafe Berlin","type":"cafe","lng":13.388,"lat":52.517},
-    {"name":"Restaurant Alex","type":"restaurant","lng":13.39,"lat":52.518},
-    {"name":"Coffee House","type":"cafe","lng":13.385,"lat":52.515},
-    {"name":"Pizza Place","type":"restaurant","lng":13.392,"lat":52.519},
-    {"name":"Burger Joint","type":"restaurant","lng":13.387,"lat":52.516},
-    {"name":"Starbucks","type":"cafe","lng":13.391,"lat":52.52},
-    {"name":"Sushi Bar","type":"restaurant","lng":13.395,"lat":52.522},
-    {"name":"Bakery","type":"cafe","lng":13.383,"lat":52.514},
-    {"name":"Italian Restaurant","type":"restaurant","lng":13.398,"lat":52.525},
-    {"name":"Tea House","type":"cafe","lng":13.38,"lat":52.512}
-  ]'
->
-  <div data-scope="map" data-part="controls">
-    <button data-scope="map" data-part="zoom-in"></button>
-    <button data-scope="map" data-part="zoom-out"></button>
-    <button data-scope="map" data-part="reset-north"></button>
-    <button data-scope="map" data-part="locate"></button>
-    <button data-scope="map" data-part="toggle-fullscreen"></button>
-  </div>
-</div>
-```
-

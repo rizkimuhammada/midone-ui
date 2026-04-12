@@ -405,20 +405,6 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<div data-component="combobox-root" class="w-56" data-label="Single" data-combobox-input-placeholder="Search frameworks...">
-  <div data-component="combobox-item-group" data-label="Frameworks">
-    <div data-component="combobox-item" data-value="React">React</div>
-    <div data-component="combobox-item" data-value="Solid">Solid</div>
-    <div data-component="combobox-item" data-value="Vue">Vue</div>
-    <div data-component="combobox-item" data-value="Svelte">Svelte</div>
-    <div data-component="combobox-item" data-value="Vanilla">Vanilla JS</div>
-  </div>
-</div>
-```
-
-### Example 2
-
-```html
 <div data-component="combobox-root" class="w-56" data-multiple="true" data-label="Multiple" data-combobox-input-placeholder="Search frameworks...">
   <div data-component="combobox-item-group" data-label="Frameworks">
     <div data-component="combobox-item" data-value="React">React</div>
@@ -430,7 +416,7 @@ if (document.readyState === "loading") {
 </div>
 ```
 
-### Example 3
+### Example 2
 
 ```html
 <div data-component="combobox-root" class="w-56" data-multiple="true" data-label="Scrollable" data-combobox-input-placeholder="Search region...">

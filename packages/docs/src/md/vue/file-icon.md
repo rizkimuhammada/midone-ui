@@ -105,22 +105,16 @@ import { FileIcon } from "@/components/ui/file-icon";
 ### Example 1
 
 ```vue
-<FileIcon variant="empty-directory" class="w-16" />
+<FileIcon variant="directory" class="w-16" />
 ```
 
 ### Example 2
 
 ```vue
-<FileIcon variant="directory" class="w-16" />
-```
-
-### Example 3
-
-```vue
 <FileIcon variant="file" type="PDF" class="w-16" />
 ```
 
-### Example 4
+### Example 3
 
 ```vue
 <FileIcon variant="file" type="TXT" class="w-16" />

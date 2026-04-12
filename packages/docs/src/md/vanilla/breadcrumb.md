@@ -154,11 +154,3 @@ if (document.readyState === "loading") {
 <div data-component="breadcrumb" data-items="['Dashboard', 'Users', 'Admins', 'Settings', 'Edit Profile']"></div>
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<div data-component="breadcrumb" data-items="['Dashboard', 'Users', 'Admins', 'Settings', 'Edit Profile']"></div>
-```
-

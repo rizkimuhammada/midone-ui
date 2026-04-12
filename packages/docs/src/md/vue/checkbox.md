@@ -221,11 +221,3 @@ import {
 <CheckboxRoot label="Accept terms and conditions" />
 ```
 
-## Examples
-
-### Example 1
-
-```vue
-<CheckboxRoot label="Accept terms and conditions" />
-```
-

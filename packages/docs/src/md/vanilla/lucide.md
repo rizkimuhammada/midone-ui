@@ -153,23 +153,6 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<i data-component="lucide" data-icon="Activity"></i>
-<i data-component="lucide" data-icon="LayoutDashboard"></i>
-<i data-component="lucide" data-icon="Users"></i>
-<i data-component="lucide" data-icon="ShoppingBag"></i>
-<i data-component="lucide" data-icon="Files"></i>
-<i data-component="lucide" data-icon="Box"></i>
-<i data-component="lucide" data-icon="Shield"></i>
-<i data-component="lucide" data-icon="Bell"></i>
-<i data-component="lucide" data-icon="ChevronRight"></i>
-<i data-component="lucide" data-icon="Search"></i>
-<i data-component="lucide" data-icon="Plus"></i>
-<i data-component="lucide" data-icon="Share2"></i>
-```
-
-### Example 2
-
-```html
 <i data-lucide="activity"></i>
 <i data-lucide="layout-dashboard"></i>
 <i data-lucide="users"></i>
@@ -184,7 +167,7 @@ if (document.readyState === "loading") {
 <i data-lucide="share-2"></i>
 ```
 
-### Example 3
+### Example 2
 
 ```html
 <i data-component="lucide" data-icon="Activity" class="size-3"></i>
@@ -195,7 +178,7 @@ if (document.readyState === "loading") {
 <i data-component="lucide" data-icon="Activity" class="size-10"></i>
 ```
 
-### Example 4
+### Example 3
 
 ```html
 <i data-component="lucide" data-icon="Zap" class="size-6 text-primary"></i>

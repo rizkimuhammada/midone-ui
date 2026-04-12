@@ -1174,12 +1174,6 @@ import { DatePickerRoot } from "@/components/ui/datepicker";
 ### Example 1
 
 ```vue
-<DatePickerRoot label="Basic" class="w-84" />
-```
-
-### Example 2
-
-```vue
 <DatePickerRoot
   label="Range Selection"
   selection-mode="range"
@@ -1188,19 +1182,19 @@ import { DatePickerRoot } from "@/components/ui/datepicker";
 />
 ```
 
-### Example 3
+### Example 2
 
 ```vue
 <DatePickerRoot label="Multiple Months" :num-of-months="2" class="w-84" />
 ```
 
-### Example 4
+### Example 3
 
 ```vue
 <DatePickerRoot with-trigger label="With Trigger" class="w-84" />
 ```
 
-### Example 5
+### Example 4
 
 ```vue
 <DatePickerRoot open label="Inline" class="w-84" />

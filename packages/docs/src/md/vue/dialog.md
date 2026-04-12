@@ -432,45 +432,6 @@ import { Button } from "@/components/ui/button";
 
 ```vue
 <DialogRoot>
-  <DialogTrigger>Open Dialog</DialogTrigger>
-  <DialogContent>
-    <DialogTitle>Dialog Title</DialogTitle>
-    <DialogDescription>
-      Make changes to your profile here. Click save when you're done.
-    </DialogDescription>
-    <div class="grid gap-4 mt-2">
-      <div class="grid gap-2.5">
-        <Label htmlFor="name-1">Name</Label>
-        <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-      </div>
-      <div class="grid gap-2.5">
-        <Label htmlFor="username-1">Username</Label>
-        <Input
-          id="username-1"
-          name="username"
-          defaultValue="@peduarte"
-        />
-      </div>
-    </div>
-    <div class="flex gap-2 justify-end mt-7">
-      <DialogCloseTrigger>
-        <SquareX />
-        Close
-      </DialogCloseTrigger>
-      <Button variant="primary">
-        <Save />
-        Submit
-      </Button>
-    </div>
-    <DialogCloseTrigger />
-  </DialogContent>
-</DialogRoot>
-```
-
-### Example 2
-
-```vue
-<DialogRoot>
   <DialogTrigger>Custom Close</DialogTrigger>
   <DialogContent>
     <DialogTitle>Share Link</DialogTitle>
@@ -494,7 +455,7 @@ import { Button } from "@/components/ui/button";
 </DialogRoot>
 ```
 
-### Example 3
+### Example 2
 
 ```vue
 <Button

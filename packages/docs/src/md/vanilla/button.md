@@ -68,22 +68,13 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<button data-component="button" class="" data-variant="primary" data-size="sm"> Button Small </button>
-<button data-component="button" class="" data-variant="primary">Button Medium</button>
-<button data-component="button" class="" data-variant="primary" data-size="lg"> Button Large </button>
-<button data-component="button" class="" data-variant="primary" data-size="xl"> Button Extra Large </button>
-```
-
-### Example 2
-
-```html
 <button data-component="button" class="" data-variant="secondary" data-size="sm"> Button Small </button>
 <button data-component="button" class="" data-variant="secondary">Button Medium</button>
 <button data-component="button" class="" data-variant="secondary" data-size="lg"> Button Large </button>
 <button data-component="button" class="" data-variant="secondary" data-size="xl"> Button Extra Large </button>
 ```
 
-### Example 3
+### Example 2
 
 ```html
 <button data-component="button" class="" data-variant="success" data-size="sm"> Button Small </button>
@@ -92,7 +83,7 @@ if (document.readyState === "loading") {
 <button data-component="button" class="" data-variant="success" data-size="xl"> Button Extra Large </button>
 ```
 
-### Example 4
+### Example 3
 
 ```html
 <button data-component="button" class="" data-variant="danger" data-size="sm"> Button Small </button>
@@ -101,7 +92,7 @@ if (document.readyState === "loading") {
 <button data-component="button" class="" data-variant="danger" data-size="xl"> Button Extra Large </button>
 ```
 
-### Example 5
+### Example 4
 
 ```html
 <button data-component="button" class="" data-variant="pending" data-size="sm"> Button Small </button>
@@ -110,7 +101,7 @@ if (document.readyState === "loading") {
 <button data-component="button" class="" data-variant="pending" data-size="xl"> Button Extra Large </button>
 ```
 
-### Example 6
+### Example 5
 
 ```html
 <button data-component="button" class="" data-variant="warning" data-size="sm"> Button Small </button>
@@ -119,7 +110,7 @@ if (document.readyState === "loading") {
 <button data-component="button" class="" data-variant="warning" data-size="xl"> Button Extra Large </button>
 ```
 
-### Example 7
+### Example 6
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="primary" data-size="sm">
@@ -134,7 +125,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 8
+### Example 7
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="secondary" data-size="sm">
@@ -149,7 +140,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 9
+### Example 8
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="success" data-size="sm">
@@ -164,7 +155,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 10
+### Example 9
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="danger" data-size="sm">
@@ -179,7 +170,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 11
+### Example 10
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="pending" data-size="sm">
@@ -194,7 +185,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 12
+### Example 11
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="warning" data-size="sm">
@@ -209,7 +200,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 13
+### Example 12
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="primary" data-size="sm">
@@ -224,7 +215,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 14
+### Example 13
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="secondary" data-size="sm">
@@ -239,7 +230,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 15
+### Example 14
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="success" data-size="sm">
@@ -254,7 +245,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 16
+### Example 15
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="danger" data-size="sm"> Button Small </button>
@@ -265,7 +256,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 17
+### Example 16
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="pending" data-size="sm">
@@ -280,7 +271,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 18
+### Example 17
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="warning" data-size="sm">
@@ -295,7 +286,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 19
+### Example 18
 
 ```html
 <button data-component="button" class="" disabled data-variant="primary" data-size="sm"> Button Small </button>
@@ -306,7 +297,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 20
+### Example 19
 
 ```html
 <button data-component="button" class="" disabled data-variant="secondary" data-size="sm"> Button Small </button>
@@ -317,7 +308,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 21
+### Example 20
 
 ```html
 <button data-component="button" class="" disabled data-variant="success" data-size="sm"> Button Small </button>
@@ -328,7 +319,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 22
+### Example 21
 
 ```html
 <button data-component="button" class="" disabled data-variant="danger" data-size="sm"> Button Small </button>
@@ -339,7 +330,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 23
+### Example 22
 
 ```html
 <button data-component="button" class="" disabled data-variant="pending" data-size="sm"> Button Small </button>
@@ -350,7 +341,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 24
+### Example 23
 
 ```html
 <button data-component="button" class="" disabled data-variant="warning" data-size="sm"> Button Small </button>
@@ -361,7 +352,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 25
+### Example 24
 
 ```html
 <button data-component="button" class="" disabled data-look="outline" data-variant="primary" data-size="sm">
@@ -376,7 +367,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 26
+### Example 25
 
 ```html
 <button data-component="button" class="" disabled data-look="outline" data-variant="secondary" data-size="sm">
@@ -393,7 +384,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 27
+### Example 26
 
 ```html
 <button data-component="button" class="" disabled data-look="outline" data-variant="success" data-size="sm">
@@ -408,7 +399,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 28
+### Example 27
 
 ```html
 <button data-component="button" class="" disabled data-look="outline" data-variant="danger" data-size="sm">
@@ -423,7 +414,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 29
+### Example 28
 
 ```html
 <button data-component="button" class="" disabled data-look="outline" data-variant="pending" data-size="sm">
@@ -438,7 +429,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 30
+### Example 29
 
 ```html
 <button data-component="button" class="" disabled data-look="outline" data-variant="warning" data-size="sm">
@@ -453,7 +444,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 31
+### Example 30
 
 ```html
 <button data-component="button" class="" disabled data-look="filled" data-variant="primary" data-size="sm">
@@ -470,7 +461,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 32
+### Example 31
 
 ```html
 <button data-component="button" class="" disabled data-look="filled" data-variant="secondary" data-size="sm">
@@ -487,7 +478,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 33
+### Example 32
 
 ```html
 <button data-component="button" class="" disabled data-look="filled" data-variant="success" data-size="sm">
@@ -504,7 +495,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 34
+### Example 33
 
 ```html
 <button data-component="button" class="" disabled data-look="filled" data-variant="danger" data-size="sm">
@@ -519,7 +510,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 35
+### Example 34
 
 ```html
 <button data-component="button" class="" disabled data-look="filled" data-variant="pending" data-size="sm">
@@ -536,7 +527,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 36
+### Example 35
 
 ```html
 <button data-component="button" class="" disabled data-look="filled" data-variant="warning" data-size="sm">
@@ -553,7 +544,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 37
+### Example 36
 
 ```html
 <button data-component="button" class="" data-size="sm">
@@ -570,7 +561,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 38
+### Example 37
 
 ```html
 <button data-component="button" class="" data-variant="primary" data-size="sm">
@@ -587,7 +578,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 39
+### Example 38
 
 ```html
 <button data-component="button" class="" data-variant="secondary" data-size="sm">
@@ -604,7 +595,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 40
+### Example 39
 
 ```html
 <button data-component="button" class="" data-variant="success" data-size="sm">
@@ -621,7 +612,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 41
+### Example 40
 
 ```html
 <button data-component="button" class="" data-variant="danger" data-size="sm">
@@ -638,7 +629,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 42
+### Example 41
 
 ```html
 <button data-component="button" class="" data-variant="pending" data-size="sm">
@@ -655,7 +646,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 43
+### Example 42
 
 ```html
 <button data-component="button" class="" data-variant="warning" data-size="sm">
@@ -672,7 +663,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 44
+### Example 43
 
 ```html
 <button data-component="button" class="" data-look="outline" data-size="sm">
@@ -689,7 +680,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 45
+### Example 44
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="primary" data-size="sm">
@@ -706,7 +697,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 46
+### Example 45
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="secondary" data-size="sm">
@@ -723,7 +714,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 47
+### Example 46
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="success" data-size="sm">
@@ -740,7 +731,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 48
+### Example 47
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="danger" data-size="sm">
@@ -757,7 +748,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 49
+### Example 48
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="pending" data-size="sm">
@@ -774,7 +765,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 50
+### Example 49
 
 ```html
 <button data-component="button" class="" data-look="outline" data-variant="warning" data-size="sm">
@@ -791,7 +782,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 51
+### Example 50
 
 ```html
 <button data-component="button" class="" data-look="filled" data-size="sm">
@@ -808,7 +799,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 52
+### Example 51
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="primary" data-size="sm">
@@ -825,7 +816,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 53
+### Example 52
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="secondary" data-size="sm">
@@ -842,7 +833,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 54
+### Example 53
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="success" data-size="sm">
@@ -859,7 +850,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 55
+### Example 54
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="danger" data-size="sm">
@@ -876,7 +867,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 56
+### Example 55
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="pending" data-size="sm">
@@ -893,7 +884,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 57
+### Example 56
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="warning" data-size="sm">
@@ -910,7 +901,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 58
+### Example 57
 
 ```html
 <button data-component="button" class="" data-size="sm">
@@ -927,7 +918,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 59
+### Example 58
 
 ```html
 <button data-component="button" class="" data-variant="primary" data-size="sm">
@@ -944,7 +935,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 60
+### Example 59
 
 ```html
 <button data-component="button" class="" data-variant="secondary" data-size="sm">
@@ -961,7 +952,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 61
+### Example 60
 
 ```html
 <button data-component="button" class="" data-variant="success" data-size="sm">
@@ -978,7 +969,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 62
+### Example 61
 
 ```html
 <button data-component="button" class="" data-variant="danger" data-size="sm">
@@ -995,7 +986,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 63
+### Example 62
 
 ```html
 <button data-component="button" class="" data-variant="pending" data-size="sm">
@@ -1012,7 +1003,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 64
+### Example 63
 
 ```html
 <button data-component="button" class="" data-variant="warning" data-size="sm">
@@ -1029,7 +1020,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 65
+### Example 64
 
 ```html
 <button data-component="button" class="" data-look="filled" data-size="sm">
@@ -1046,7 +1037,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 66
+### Example 65
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="primary" data-size="sm">
@@ -1063,7 +1054,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 67
+### Example 66
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="secondary" data-size="sm">
@@ -1080,7 +1071,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 68
+### Example 67
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="success" data-size="sm">
@@ -1097,7 +1088,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 69
+### Example 68
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="danger" data-size="sm">
@@ -1114,7 +1105,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 70
+### Example 69
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="pending" data-size="sm">
@@ -1131,7 +1122,7 @@ if (document.readyState === "loading") {
 </button>
 ```
 
-### Example 71
+### Example 70
 
 ```html
 <button data-component="button" class="" data-look="filled" data-variant="warning" data-size="sm">

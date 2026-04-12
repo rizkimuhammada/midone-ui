@@ -164,13 +164,3 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 />
 ```
 
-## Examples
-
-### Example 1
-
-```vue
-<Breadcrumb
-  :items="['Dashboard', 'Users', 'Admins', 'Settings', 'Edit Profile']"
-/>
-```
-

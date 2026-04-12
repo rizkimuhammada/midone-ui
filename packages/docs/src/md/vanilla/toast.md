@@ -8,8 +8,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ```html
 <div data-component="toast-trigger" data-as-child data-toast-title="Event has been created" data-toast-description="Sunday, December 03, 2023 at 9:00 AM">
-    <button data-component="button" data-variant="secondary" data-look="outline">Show Toast</button>
-  </div>
+  <button data-component="button" data-variant="secondary" data-look="outline">Show Toast</button>
+</div>
 ```
 
 ## Dependency
@@ -234,17 +234,7 @@ if (document.readyState === "loading") {
 
 ```html
 <div data-component="toast-trigger" data-as-child data-toast-title="Event has been created" data-toast-description="Sunday, December 03, 2023 at 9:00 AM">
-    <button data-component="button" data-variant="secondary" data-look="outline">Show Toast</button>
-  </div>
-```
-
-## Examples
-
-### Example 1
-
-```html
-<div data-component="toast-trigger" data-as-child data-toast-title="Event has been created" data-toast-description="Sunday, December 03, 2023 at 9:00 AM">
-    <button data-component="button" data-variant="secondary" data-look="outline">Show Toast</button>
-  </div>
+  <button data-component="button" data-variant="secondary" data-look="outline">Show Toast</button>
+</div>
 ```
 

@@ -17,3 +17,17 @@ use App\Http\Controllers\PageConverterController;
 Route::get('/generate-react', [PageConverterController::class, 'generateReact']);
 Route::get('/generate-vue', [PageConverterController::class, 'generateVue']);
 Route::get('/generate-vanilla', [PageConverterController::class, 'generateVanilla']);
+
+Route::get('/generate-all', function () {
+    $controller = new PageConverterController();
+
+    $react   = $controller->generateReact()->getData(true);
+    $vue     = $controller->generateVue()->getData(true);
+    $vanilla = $controller->generateVanilla()->getData(true);
+
+    return response()->json([
+        'react'   => $react,
+        'vue'     => $vue,
+        'vanilla' => $vanilla,
+    ]);
+});

@@ -47,11 +47,3 @@ if (document.readyState === "loading") {
 <textarea data-component="textarea" placeholder="Type your message here."></textarea>
 ```
 
-## Examples
-
-### Example 1
-
-```html
-<textarea data-component="textarea" placeholder="Type your message here."></textarea>
-```
-

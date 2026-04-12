@@ -8,30 +8,30 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ```html
 <div data-component="popover-root">
-    <button data-component="popover-trigger" class="w-56">Open Popover</button>
-      <div data-component="popover-content" class="w-100">
-        <div data-component="popover-title">Dimensions</div>
-        <div data-component="popover-description">Set the dimensions for the layer.</div>
-        <div class="grid gap-3 mt-4 mb-2">
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="width">Width</label>
-            <input data-component="input" class="col-span-2" id="width" value="100%" />
-          </div>
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="maxWidth">Max. width</label>
-            <input data-component="input" class="col-span-2" id="maxWidth" value="300px" />
-          </div>
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="height">Height</label>
-            <input data-component="input" class="col-span-2" id="height" value="25px" />
-          </div>
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="maxHeight">Max. height</label>
-            <input data-component="input" class="col-span-2" id="maxHeight" value="none" />
-          </div>
+  <button data-component="popover-trigger" class="w-56">Open Popover</button>
+    <div data-component="popover-content" class="w-100">
+      <div data-component="popover-title">Dimensions</div>
+      <div data-component="popover-description">Set the dimensions for the layer.</div>
+      <div class="grid gap-3 mt-4 mb-2">
+        <div class="grid grid-cols-3 items-center gap-4">
+          <label data-component="label" for="width">Width</label>
+          <input data-component="input" class="col-span-2" id="width" value="100%" />
+        </div>
+        <div class="grid grid-cols-3 items-center gap-4">
+          <label data-component="label" for="maxWidth">Max. width</label>
+          <input data-component="input" class="col-span-2" id="maxWidth" value="300px" />
+        </div>
+        <div class="grid grid-cols-3 items-center gap-4">
+          <label data-component="label" for="height">Height</label>
+          <input data-component="input" class="col-span-2" id="height" value="25px" />
+        </div>
+        <div class="grid grid-cols-3 items-center gap-4">
+          <label data-component="label" for="maxHeight">Max. height</label>
+          <input data-component="input" class="col-span-2" id="maxHeight" value="none" />
         </div>
       </div>
-  </div>
+    </div>
+</div>
 ```
 
 ## Dependency
@@ -266,61 +266,29 @@ if (document.readyState === "loading") {
 
 ```html
 <div data-component="popover-root">
-    <button data-component="popover-trigger" class="w-56">Open Popover</button>
-      <div data-component="popover-content" class="w-100">
-        <div data-component="popover-title">Dimensions</div>
-        <div data-component="popover-description">Set the dimensions for the layer.</div>
-        <div class="grid gap-3 mt-4 mb-2">
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="width">Width</label>
-            <input data-component="input" class="col-span-2" id="width" value="100%" />
-          </div>
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="maxWidth">Max. width</label>
-            <input data-component="input" class="col-span-2" id="maxWidth" value="300px" />
-          </div>
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="height">Height</label>
-            <input data-component="input" class="col-span-2" id="height" value="25px" />
-          </div>
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="maxHeight">Max. height</label>
-            <input data-component="input" class="col-span-2" id="maxHeight" value="none" />
-          </div>
+  <button data-component="popover-trigger" class="w-56">Open Popover</button>
+    <div data-component="popover-content" class="w-100">
+      <div data-component="popover-title">Dimensions</div>
+      <div data-component="popover-description">Set the dimensions for the layer.</div>
+      <div class="grid gap-3 mt-4 mb-2">
+        <div class="grid grid-cols-3 items-center gap-4">
+          <label data-component="label" for="width">Width</label>
+          <input data-component="input" class="col-span-2" id="width" value="100%" />
+        </div>
+        <div class="grid grid-cols-3 items-center gap-4">
+          <label data-component="label" for="maxWidth">Max. width</label>
+          <input data-component="input" class="col-span-2" id="maxWidth" value="300px" />
+        </div>
+        <div class="grid grid-cols-3 items-center gap-4">
+          <label data-component="label" for="height">Height</label>
+          <input data-component="input" class="col-span-2" id="height" value="25px" />
+        </div>
+        <div class="grid grid-cols-3 items-center gap-4">
+          <label data-component="label" for="maxHeight">Max. height</label>
+          <input data-component="input" class="col-span-2" id="maxHeight" value="none" />
         </div>
       </div>
-  </div>
-```
-
-## Examples
-
-### Example 1
-
-```html
-<div data-component="popover-root">
-    <button data-component="popover-trigger" class="w-56">Open Popover</button>
-      <div data-component="popover-content" class="w-100">
-        <div data-component="popover-title">Dimensions</div>
-        <div data-component="popover-description">Set the dimensions for the layer.</div>
-        <div class="grid gap-3 mt-4 mb-2">
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="width">Width</label>
-            <input data-component="input" class="col-span-2" id="width" value="100%" />
-          </div>
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="maxWidth">Max. width</label>
-            <input data-component="input" class="col-span-2" id="maxWidth" value="300px" />
-          </div>
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="height">Height</label>
-            <input data-component="input" class="col-span-2" id="height" value="25px" />
-          </div>
-          <div class="grid grid-cols-3 items-center gap-4">
-            <label data-component="label" for="maxHeight">Max. height</label>
-            <input data-component="input" class="col-span-2" id="maxHeight" value="none" />
-          </div>
-        </div>
-      </div>
-  </div>
+    </div>
+</div>
 ```
 

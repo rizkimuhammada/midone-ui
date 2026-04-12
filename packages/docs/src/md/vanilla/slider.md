@@ -278,18 +278,6 @@ if (document.readyState === "loading") {
 
 ```html
 <div class="text-sm text-muted-foreground">
-  <div data-component="slider-root" class="w-72" data-default-value="[20]" data-label="Max Items">
-    <div class="flex items-center text-xs gap-1 font-medium justify-center opacity-70">
-      <output data-component="slider-value-text"></output> Items
-    </div>
-  </div>
-</div>
-```
-
-### Example 2
-
-```html
-<div class="text-sm text-muted-foreground">
   <div data-component="slider-root" class="w-72" data-default-value="[20, 80]" data-label="Price Range" data-type="range">
     <div data-component="slider-marker-group">
       <div data-component="slider-marker" data-value="0">$0</div>

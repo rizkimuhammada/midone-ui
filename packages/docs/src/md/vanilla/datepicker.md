@@ -926,28 +926,22 @@ if (document.readyState === "loading") {
 ### Example 1
 
 ```html
-<div data-component="date-picker-root" class="w-84" data-label="Basic"></div>
+<div data-component="date-picker-root" class="w-140" data-selection-mode="range" data-with-presets="thisWeek|lastWeek|thisMonth" data-label="Range Selection"></div>
 ```
 
 ### Example 2
 
 ```html
-<div data-component="date-picker-root" class="w-140" data-selection-mode="range" data-with-presets="thisWeek|lastWeek|thisMonth" data-label="Range Selection"></div>
+<div data-component="date-picker-root" class="w-84" data-label="Multiple Months" data-num-of-months="2"></div>
 ```
 
 ### Example 3
 
 ```html
-<div data-component="date-picker-root" class="w-84" data-label="Multiple Months" data-num-of-months="2"></div>
-```
-
-### Example 4
-
-```html
 <div data-component="date-picker-root" class="w-84" data-label="With Trigger" data-with-trigger="true"></div>
 ```
 
-### Example 5
+### Example 4
 
 ```html
 <div data-component="date-picker-root" class="w-84" data-open data-label="Inline"></div>
