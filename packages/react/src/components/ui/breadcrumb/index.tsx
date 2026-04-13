@@ -1,4 +1,4 @@
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { ChevronRight, Ellipsis } from "lucide-react";
 import {
   breadcrumbList,

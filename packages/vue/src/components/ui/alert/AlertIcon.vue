@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { Slot } from "@/components/ui/slot";
 import { alertIcon } from "@midoneui/core/styles/alert.styles";
 

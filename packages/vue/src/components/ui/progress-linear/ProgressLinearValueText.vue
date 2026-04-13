@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { progressValueText } from "@midoneui/core/styles/progress-linear.styles";
 import type { Api } from "@zag-js/progress";
 import { inject } from "vue";

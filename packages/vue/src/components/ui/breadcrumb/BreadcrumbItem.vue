@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { breadcrumbItem } from "@midoneui/core/styles/breadcrumb.styles";
 
 const { class: className, ...props } = defineProps<{

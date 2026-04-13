@@ -2,7 +2,7 @@
 import * as menu from "@zag-js/menu";
 import type { Props } from "@zag-js/menu";
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";
 import { menuRoot } from "@midoneui/core/styles/menu.styles";

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { datePickerTableHead } from "@midoneui/core/styles/datepicker.styles";
 import type { Api } from "@zag-js/date-picker";
 import { inject } from "vue";

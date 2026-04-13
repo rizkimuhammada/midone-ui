@@ -2,10 +2,12 @@
 import { ref, provide, onMounted, onUnmounted } from "vue";
 import type { SideMenuContext } from "./types";
 import { sideMenuRoot } from "@midoneui/core/styles/side-menu.styles";
+import { clsx } from "clsx";
 
-const { width = "275px", collapsedWidth = "110px" } = defineProps<{
+const { width = "275px", collapsedWidth = "110px", class: className } = defineProps<{
   width?: string;
   collapsedWidth?: string;
+  class?: string;
 }>();
 
 const compactMenu = ref(localStorage.getItem("compactMenu") === "true");
@@ -73,7 +75,7 @@ provide<SideMenuContext>("sideMenu", {
     v-bind="$attrs"
     data-scope="side-menu"
     data-part="root"
-    :class="sideMenuRoot"
+    :class="clsx(sideMenuRoot, className)"
     :style="{
       '--sm-width': width,
       '--sm-collapsed-width': collapsedWidth,

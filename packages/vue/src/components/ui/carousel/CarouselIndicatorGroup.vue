@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { carouselIndicatorGroup } from "@midoneui/core/styles/carousel.styles";
 import type { Api } from "@zag-js/carousel";
 import { inject } from "vue";

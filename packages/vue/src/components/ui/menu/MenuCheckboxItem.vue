@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Api, OptionItemProps } from "@zag-js/menu";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { Check } from "lucide-vue-next";
 import { menuItem } from "@midoneui/core/styles/menu.styles";
 import { inject } from "vue";

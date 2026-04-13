@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { selectPositioner } from "@midoneui/core/styles/select.styles";
 import { Slot } from "@/components/ui/slot";
 import type { Api } from "@zag-js/select";

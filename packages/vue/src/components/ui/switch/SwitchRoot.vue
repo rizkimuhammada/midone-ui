@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import * as zagSwitch from "@zag-js/switch";
 import type { Props } from "@zag-js/switch";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { switchRoot } from "@midoneui/core/styles/switch.styles";
 import { SwitchHiddenInput, SwitchControl, SwitchLabel } from ".";
 import { normalizeProps, useMachine } from "@zag-js/vue";

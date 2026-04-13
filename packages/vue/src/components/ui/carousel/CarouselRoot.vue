@@ -3,7 +3,7 @@ import * as carousel from "@zag-js/carousel";
 import { useMachine, normalizeProps } from "@zag-js/vue";
 import type { Props } from "@zag-js/carousel";
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { carouselRoot } from "@midoneui/core/styles/carousel.styles";
 import { computed, provide } from "vue";
 import CarouselIndicatorGroup from "./CarouselIndicatorGroup.vue";

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { carouselIndicator } from "@midoneui/core/styles/carousel.styles";
 import type { Api, IndicatorProps } from "@zag-js/carousel";
 import { inject } from "vue";

@@ -1,4 +1,4 @@
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { textarea } from "@midoneui/core/styles/textarea.styles";
 
 function Textarea({

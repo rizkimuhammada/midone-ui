@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { sheetContent } from "@midoneui/core/styles/sheet.styles";
 import { Box } from "@/components/ui/box";
 import { SheetBackdrop, SheetPositioner } from "@/components/ui/sheet";

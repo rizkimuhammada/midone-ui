@@ -1,4 +1,4 @@
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn"
 import { ChevronDown } from "lucide-react";
 import {
   popoverRoot,

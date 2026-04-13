@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { comboboxItemIndicator } from "@midoneui/core/styles/combobox.styles";
 import { Check } from "lucide-vue-next";
 import type { Api, ItemProps } from "@zag-js/combobox";

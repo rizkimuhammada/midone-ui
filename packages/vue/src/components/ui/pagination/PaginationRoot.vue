@@ -2,7 +2,7 @@
 import * as pagination from "@zag-js/pagination";
 import type { Props } from "@zag-js/pagination";
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";
 import { paginationRoot } from "@midoneui/core/styles/pagination.styles";

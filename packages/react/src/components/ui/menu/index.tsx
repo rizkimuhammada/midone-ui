@@ -1,4 +1,4 @@
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import { ChevronDown, ChevronRight, Check, Dot } from "lucide-react";

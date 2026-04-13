@@ -2,7 +2,7 @@
 import * as popover from "@zag-js/popover";
 import type { Props } from "@zag-js/popover";
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";
 import { popoverRoot } from "@midoneui/core/styles/popover.styles";

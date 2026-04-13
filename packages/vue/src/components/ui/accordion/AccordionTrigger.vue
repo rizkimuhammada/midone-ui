@@ -4,7 +4,7 @@ import {
   accordionTrigger,
   accordionItemIndicator,
 } from "@midoneui/core/styles/accordion.styles";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { inject } from "vue";
 import { Slot } from "@/components/ui/slot";
 import type { Api, ItemProps } from "@zag-js/accordion";

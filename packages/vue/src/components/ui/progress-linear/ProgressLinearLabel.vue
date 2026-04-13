@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { progressLabel } from "@midoneui/core/styles/progress-linear.styles";
 import { Label } from "@/components/ui/label";
 import { Slot } from "@/components/ui/slot";

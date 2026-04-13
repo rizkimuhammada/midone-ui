@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
 import { CheckIcon } from "lucide-vue-next";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { checkboxControl } from "@midoneui/core/styles/checkbox.styles";
 import { CheckboxIndicator } from ".";
 import type { Api } from "@zag-js/checkbox";

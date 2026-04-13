@@ -2,7 +2,7 @@
 import * as scrollArea from "@zag-js/scroll-area";
 import type { Props } from "@zag-js/scroll-area";
 import { useMachine, normalizeProps } from "@zag-js/vue";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { computed, provide } from "vue";
 import { scrollAreaRoot } from "@midoneui/core/styles/scroll-area.styles";
 import {

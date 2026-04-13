@@ -10,7 +10,7 @@ import {
   boxVariants,
   type BoxVariants,
 } from "@midoneui/core/styles/box.styles";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { createContext, useContext, useId } from "react";
 import * as accordion from "@zag-js/accordion";
 import type { Api, Props, ItemProps } from "@zag-js/accordion";

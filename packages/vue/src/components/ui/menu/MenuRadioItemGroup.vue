@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { menuRadioItemGroup } from "@midoneui/core/styles/menu.styles";
 import { Slot } from "@/components/ui/slot";
 import { inject, provide } from "vue";

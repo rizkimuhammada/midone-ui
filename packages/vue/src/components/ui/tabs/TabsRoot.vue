@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import * as tabs from "@zag-js/tabs";
 import type { Props } from "@zag-js/tabs";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { tabsRoot } from "@midoneui/core/styles/tabs.styles";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";

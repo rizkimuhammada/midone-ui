@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { X } from "lucide-vue-next";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { Slot } from "@/components/ui/slot";
 import { alertCloseTrigger } from "@midoneui/core/styles/alert.styles";
 import { inject } from "vue";

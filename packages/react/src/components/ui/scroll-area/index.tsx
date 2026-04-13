@@ -2,7 +2,7 @@ import * as scrollArea from "@zag-js/scroll-area";
 import type { Api } from "@zag-js/scroll-area";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import { createContext, useContext, useId } from "react";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import {
     scrollAreaRoot,
     scrollAreaViewport,

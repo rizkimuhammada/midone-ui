@@ -1,5 +1,5 @@
 import { CheckIcon } from "lucide-react";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import {
   checkboxRoot,
   checkboxLabel,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, provide, onMounted, onUnmounted } from "vue";
+import { ref, provide } from "vue";
 import type { TopMenuContext } from "./types";
 
 const mobileMenuOpen = ref(false);

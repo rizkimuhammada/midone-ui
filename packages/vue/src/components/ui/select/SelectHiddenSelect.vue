@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { selectHiddenSelect } from "@midoneui/core/styles/select.styles";
 import type { Api } from "@zag-js/select";
 import { inject } from "vue";

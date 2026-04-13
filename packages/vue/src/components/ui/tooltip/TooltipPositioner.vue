@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { tooltipPositioner } from "@midoneui/core/styles/tooltip.styles";
 import { Slot } from "@/components/ui/slot";
 import type { Api } from "@zag-js/tooltip";

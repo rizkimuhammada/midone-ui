@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import type { Api } from "@zag-js/checkbox";
 import { checkboxLabel } from "@midoneui/core/styles/checkbox.styles";
 import { label } from "@midoneui/core/styles/label.styles";

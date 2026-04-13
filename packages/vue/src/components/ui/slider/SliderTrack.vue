@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { sliderTrack } from "@midoneui/core/styles/slider.styles";
 import { Slot } from "@/components/ui/slot";
 import type { Api } from "@zag-js/slider";

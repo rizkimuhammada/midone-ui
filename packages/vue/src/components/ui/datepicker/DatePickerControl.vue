@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { datePickerControl } from "@midoneui/core/styles/datepicker.styles";
 import type { Api } from "@zag-js/date-picker";
 import { DatePickerInput, DatePickerTrigger, DatePickerClearTrigger } from ".";

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { selectControl } from "@midoneui/core/styles/select.styles";
 import { SelectTrigger, SelectValueText } from ".";
 import type { Api } from "@zag-js/select";

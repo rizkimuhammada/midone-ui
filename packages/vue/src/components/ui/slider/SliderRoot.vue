@@ -2,7 +2,7 @@
 import * as slider from "@zag-js/slider";
 import type { Props } from "@zag-js/slider";
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";
 import { sliderRoot } from "@midoneui/core/styles/slider.styles";

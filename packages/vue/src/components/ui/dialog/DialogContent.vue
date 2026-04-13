@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { dialogContent } from "@midoneui/core/styles/dialog.styles";
 import { Box } from "@/components/ui/box";
 import { DialogBackdrop, DialogPositioner } from "@/components/ui/dialog";

@@ -1,4 +1,4 @@
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn"
 import {
   fileIconRoot,
   fileIconIcon,
@@ -11,7 +11,7 @@ import { Slot } from "@/components/ui/slot";
 
 export interface FileIconProps
   extends React.ComponentPropsWithoutRef<"div">,
-    FileIconVariants {
+  FileIconVariants {
   asChild?: boolean;
   type?: string;
   src?: string;

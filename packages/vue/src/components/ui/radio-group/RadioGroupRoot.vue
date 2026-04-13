@@ -2,7 +2,7 @@
 import * as radioGroup from "@zag-js/radio-group";
 import type { Props } from "@zag-js/radio-group";
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";
 import { radioGroupRoot } from "@midoneui/core/styles/radio-group.styles";

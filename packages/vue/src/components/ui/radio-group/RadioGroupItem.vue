@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { radioGroupItem } from "@midoneui/core/styles/radio-group.styles";
 import { Slot } from "@/components/ui/slot";
 import { RadioGroupItemHiddenInput, RadioGroupItemControl, RadioGroupItemText } from ".";

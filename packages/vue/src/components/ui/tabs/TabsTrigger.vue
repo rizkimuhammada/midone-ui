@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { tabsTrigger } from "@midoneui/core/styles/tabs.styles";
 import type { Api, TriggerProps } from "@zag-js/tabs";
 import { inject } from "vue";

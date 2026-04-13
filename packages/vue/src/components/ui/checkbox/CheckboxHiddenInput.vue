@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Api } from "@zag-js/checkbox";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { checkboxHiddenInput } from "@midoneui/core/styles/checkbox.styles";
 import { inject } from "vue";
 

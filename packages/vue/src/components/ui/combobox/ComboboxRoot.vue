@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { comboboxRoot } from "@midoneui/core/styles/combobox.styles";
 import { provide, computed, ref } from "vue";
 import * as combobox from "@zag-js/combobox";

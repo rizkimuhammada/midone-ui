@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { datePickerPresetTrigger } from "@midoneui/core/styles/datepicker.styles";
 import { Button } from "@/components/ui/button";
 import type { Api, PresetTriggerProps } from "@zag-js/date-picker";

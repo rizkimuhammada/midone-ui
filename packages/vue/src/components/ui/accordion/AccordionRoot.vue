@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { accordionRootVariants } from "@midoneui/core/styles/accordion.styles";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { provide, computed } from "vue";
 import * as accordion from "@zag-js/accordion";
 import type { Props } from "@zag-js/accordion";

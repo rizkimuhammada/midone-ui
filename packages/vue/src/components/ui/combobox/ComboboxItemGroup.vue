@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { comboboxItemGroup } from "@midoneui/core/styles/combobox.styles";
 import { ComboboxItemGroupLabel } from "@/components/ui/combobox";
 import type { Api } from "@zag-js/combobox";

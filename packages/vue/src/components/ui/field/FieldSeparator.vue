@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { fieldSeparator } from "@midoneui/core/styles/field.styles";
 import { Separator } from "@/components/ui/separator";
 

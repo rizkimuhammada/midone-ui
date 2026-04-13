@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus, Minus, MapPin, Compass, Expand, X } from "lucide-react";
 import type { FeatureCollection, Point } from "geojson";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { map } from "@midoneui/core/styles/map.styles";
 
 function Map({

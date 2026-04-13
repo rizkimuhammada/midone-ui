@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { ChevronDown } from "lucide-vue-next";
 import { menuIndicator } from "@midoneui/core/styles/menu.styles";
 import { Slot } from "@/components/ui/slot";

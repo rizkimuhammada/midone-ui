@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Api } from "@zag-js/avatar";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { avatarFallback } from "@midoneui/core/styles/avatar.styles";
 import { inject } from "vue";
 import { Slot } from "@/components/ui/slot";

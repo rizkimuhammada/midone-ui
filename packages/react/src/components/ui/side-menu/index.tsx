@@ -5,7 +5,8 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
+import { clsx } from "clsx";
 import { ScrollAreaRoot } from "@/components/ui/scroll-area";
 import {
   sideMenuRoot,
@@ -142,7 +143,7 @@ export function SideMenuRoot({
       <div
         data-scope="side-menu"
         data-part="root"
-        className={cn(sideMenuRoot, className)}
+        className={clsx(sideMenuRoot, className)}
         style={
           {
             "--sm-width": width,

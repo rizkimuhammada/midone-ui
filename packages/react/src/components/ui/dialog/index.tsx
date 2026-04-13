@@ -1,4 +1,4 @@
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { Box } from "@/components/ui/box";
 import { X } from "lucide-react";
 import {

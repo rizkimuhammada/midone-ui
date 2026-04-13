@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="TType extends ChartType">
 import ChartJs from "chart.js/auto";
 import { ref, onMounted } from "vue";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { chart } from "@midoneui/core/styles/chart.styles";
 import type { ChartType, ChartConfiguration } from "chart.js";
 

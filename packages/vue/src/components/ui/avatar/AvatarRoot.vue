@@ -3,7 +3,7 @@ import * as avatar from "@zag-js/avatar";
 import { provide, computed } from "vue";
 import { useMachine, normalizeProps } from "@zag-js/vue";
 import type { Props } from "@zag-js/avatar";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { avatarRootVariants, type AvatarRootVariants } from "@midoneui/core/styles/avatar.styles";
 import { Slot } from "@/components/ui/slot";
 import AvatarFallback from "./AvatarFallback.vue";

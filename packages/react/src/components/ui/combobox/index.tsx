@@ -1,4 +1,4 @@
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";

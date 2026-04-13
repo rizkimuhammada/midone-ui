@@ -2,7 +2,7 @@
 import * as progress from "@zag-js/progress";
 import type { Props } from "@zag-js/progress";
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide } from "vue";
 import { progressRoot } from "@midoneui/core/styles/progress-circular.styles";

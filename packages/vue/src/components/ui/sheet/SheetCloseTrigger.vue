@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { sheetCloseTrigger } from "@midoneui/core/styles/sheet.styles";
 import { Button } from "@/components/ui/button";
 import type { Api } from "@zag-js/dialog";

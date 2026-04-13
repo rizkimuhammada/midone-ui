@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { datePickerNextTrigger } from "@midoneui/core/styles/datepicker.styles";
 import { MoveRight } from "lucide-vue-next";
 import type { Api } from "@zag-js/date-picker";

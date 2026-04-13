@@ -1,5 +1,5 @@
 import { createContext, useContext, useId } from "react";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
 import {
   carouselRoot,

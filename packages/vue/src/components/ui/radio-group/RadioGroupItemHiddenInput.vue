@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { radioGroupItemHiddenInput } from "@midoneui/core/styles/radio-group.styles";
 import type { Api, ItemProps } from "@zag-js/radio-group";
 import { inject } from "vue";

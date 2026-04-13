@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { type Api } from "@zag-js/menu";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { inject } from "vue";
 import { menuPositioner } from "@midoneui/core/styles/menu.styles";
 import { Slot } from "@/components/ui/slot";

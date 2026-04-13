@@ -1,5 +1,5 @@
 import * as lucideIcons from "lucide-react";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 
 export type Icon = keyof typeof lucideIcons;
 

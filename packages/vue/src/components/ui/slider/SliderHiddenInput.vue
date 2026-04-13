@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { sliderHiddenInput } from "@midoneui/core/styles/slider.styles";
 import type { Api, ThumbProps } from "@zag-js/slider";
 import { inject } from "vue";

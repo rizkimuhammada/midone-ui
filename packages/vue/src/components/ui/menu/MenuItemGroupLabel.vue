@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { menuItemGroupLabel } from "@midoneui/core/styles/menu.styles";
 import { inject } from "vue";
 import { type Api } from "@zag-js/menu";

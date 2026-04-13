@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { comboboxLabel } from "@midoneui/core/styles/combobox.styles";
 import { Label } from "@/components/ui/label";
 import { inject } from "vue";

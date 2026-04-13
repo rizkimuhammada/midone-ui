@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-vue-next";
 import { carouselPrevTrigger } from "@midoneui/core/styles/carousel.styles";

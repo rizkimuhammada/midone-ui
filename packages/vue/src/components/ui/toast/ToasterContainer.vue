@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import * as toast from "@zag-js/toast";
 import { toasterContainer } from "@midoneui/core/styles/toast.styles";
 import type { Store } from "@zag-js/toast";

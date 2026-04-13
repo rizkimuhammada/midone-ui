@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { dialogDescription } from "@midoneui/core/styles/dialog.styles";
 import type { Api } from "@zag-js/dialog";
 import { inject } from "vue";

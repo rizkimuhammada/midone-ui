@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { selectItem } from "@midoneui/core/styles/select.styles";
 import { Slot } from "@/components/ui/slot";
 import { SelectItemIndicator, SelectItemText } from ".";

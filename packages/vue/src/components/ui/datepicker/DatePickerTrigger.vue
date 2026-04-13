@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { datePickerTrigger } from "@midoneui/core/styles/datepicker.styles";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "lucide-vue-next";

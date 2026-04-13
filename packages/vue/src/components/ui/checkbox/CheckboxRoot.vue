@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { checkboxRoot } from "@midoneui/core/styles/checkbox.styles";
 import * as checkbox from "@zag-js/checkbox";
 import { useMachine, normalizeProps } from "@zag-js/vue";

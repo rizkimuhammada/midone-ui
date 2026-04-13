@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { fieldError } from "@midoneui/core/styles/field.styles";
 import { computed } from "vue";
 

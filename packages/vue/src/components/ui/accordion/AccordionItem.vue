@@ -4,7 +4,7 @@ import {
   boxVariants,
   type BoxVariants,
 } from "@midoneui/core/styles/box.styles";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { inject, provide } from "vue";
 import { Slot } from "@/components/ui/slot";
 import type { Api, ItemProps } from "@zag-js/accordion";

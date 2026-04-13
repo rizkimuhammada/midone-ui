@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { switchLabel } from "@midoneui/core/styles/switch.styles";
 import { label } from "@midoneui/core/styles/label.styles";
 import type { Api } from "@zag-js/switch";

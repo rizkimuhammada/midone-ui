@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, forwardRef } from "react";
-import { cn } from "@midoneui/core/utils/cn";
 
 interface TopMenuContextValue {
   mobileMenuOpen: boolean;
@@ -21,7 +20,7 @@ export const useTopMenu = () => {
 export const TopMenuRoot = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => {
+>(({ children, ...props }, ref) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const openMobileMenu = (event: React.MouseEvent) => {
@@ -41,7 +40,6 @@ export const TopMenuRoot = forwardRef<
       <div
         ref={ref}
         data-component="top-menu-root"
-        className={className}
         {...props}
       >
         {children}
@@ -56,7 +54,7 @@ TopMenuRoot.displayName = "TopMenuRoot";
 export const TopMenuNav = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => {
+>(({ children, ...props }, ref) => {
   const { mobileMenuOpen } = useTopMenu();
 
   return (
@@ -64,7 +62,6 @@ export const TopMenuNav = forwardRef<
       ref={ref}
       data-component="top-menu-nav"
       data-mobile-menu-open={mobileMenuOpen}
-      className={cn(className)}
       {...props}
     >
       {children}
@@ -78,14 +75,13 @@ TopMenuNav.displayName = "TopMenuNav";
 export const TopMenuMobileOpen = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => {
+>(({ children, ...props }, ref) => {
   const { openMobileMenu } = useTopMenu();
 
   return (
     <div
       ref={ref}
       data-component="top-menu-mobile-open"
-      className={cn("cursor-pointer", className)}
       onClick={openMobileMenu}
       {...props}
     >
@@ -100,7 +96,7 @@ TopMenuMobileOpen.displayName = "TopMenuMobileOpen";
 export const TopMenuMobileClose = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => {
+>(({ children, ...props }, ref) => {
   const { closeMobileMenu, mobileMenuOpen } = useTopMenu();
 
   return (
@@ -108,7 +104,6 @@ export const TopMenuMobileClose = forwardRef<
       ref={ref}
       data-component="top-menu-mobile-close"
       data-mobile-menu-open={mobileMenuOpen}
-      className={cn("cursor-pointer", className)}
       onClick={closeMobileMenu}
       {...props}
     >

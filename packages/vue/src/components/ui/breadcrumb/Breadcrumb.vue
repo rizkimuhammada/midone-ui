@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { ChevronRight, Ellipsis } from "lucide-vue-next";
 import {
   MenuRoot,

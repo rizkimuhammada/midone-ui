@@ -1,4 +1,4 @@
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { label } from "@midoneui/core/styles/label.styles";
 
 function Label({

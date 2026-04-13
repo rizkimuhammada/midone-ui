@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
 import { ChevronsUpDownIcon } from "lucide-vue-next";
 import { comboboxTrigger } from "@midoneui/core/styles/combobox.styles";

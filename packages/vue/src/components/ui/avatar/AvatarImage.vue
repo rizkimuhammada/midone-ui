@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { avatarImage } from "@midoneui/core/styles/avatar.styles";
 import { inject } from "vue";
 import type { Api } from "@zag-js/avatar";

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import * as select from "@zag-js/select";
 import type { Props } from "@zag-js/select";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide, ref } from "vue";
 import { selectRoot } from "@midoneui/core/styles/select.styles";

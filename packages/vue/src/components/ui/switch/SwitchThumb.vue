@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { switchThumb } from "@midoneui/core/styles/switch.styles";
 import type { Api } from "@zag-js/switch";
 import { inject } from "vue";

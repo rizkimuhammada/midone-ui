@@ -5,7 +5,7 @@ import { ref, onMounted } from "vue";
 import { Button } from "@/components/ui/button";
 import { Plus, Minus, MapPin, Compass, Expand, X } from "lucide-vue-next";
 import type { FeatureCollection, Point } from "geojson";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { map } from "@midoneui/core/styles/map.styles";
 
 const mapRef = ref();

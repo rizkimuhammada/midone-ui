@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { radioGroupItemControl } from "@midoneui/core/styles/radio-group.styles";
 import { Slot } from "@/components/ui/slot";
 import type { Api, ItemProps } from "@zag-js/radio-group";

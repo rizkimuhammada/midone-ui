@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { sliderLabel } from "@midoneui/core/styles/slider.styles";
 import { Slot } from "@/components/ui/slot";
 import { Label } from "@/components/ui/label";

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
 import type { Api } from "@zag-js/checkbox";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { checkboxIndicator } from "@midoneui/core/styles/checkbox.styles";
 import { inject } from "vue";
 

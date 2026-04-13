@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { type Api } from "@zag-js/popover";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { inject } from "vue";
 import { popoverArrowTip } from "@midoneui/core/styles/popover.styles";
 

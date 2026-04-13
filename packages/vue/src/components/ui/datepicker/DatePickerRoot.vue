@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { datePickerRoot, datePickerPresets } from "@midoneui/core/styles/datepicker.styles";
 import { DatePickerPositioner, DatePickerContent, DatePickerLabel, DatePickerControl } from ".";
 import { provide, computed, ref } from "vue";

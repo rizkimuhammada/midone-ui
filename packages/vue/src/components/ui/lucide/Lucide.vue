@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as lucideIcons from 'lucide-vue-next'
-import { cn } from '@midoneui/core/utils/cn'
+import { cn } from '@/utils/cn'
 import { computed, type HTMLAttributes } from 'vue'
 
 export type Icon = keyof typeof lucideIcons

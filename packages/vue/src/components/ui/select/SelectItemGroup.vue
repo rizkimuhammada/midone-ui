@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { selectItemGroup } from "@midoneui/core/styles/select.styles";
 import { SelectItemGroupLabel } from "@/components/ui/select";
 import type { Api } from "@zag-js/select";

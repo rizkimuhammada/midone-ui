@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import { Label } from "@/components/ui/label";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { Check, ChevronDownIcon } from "lucide-react";
 import {
   selectRoot,

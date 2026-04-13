@@ -2,7 +2,7 @@
 import { Slot } from "@/components/ui/slot";
 import { type Api, type ItemProps } from "@zag-js/menu";
 import { inject } from "vue";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { menuItem } from "@midoneui/core/styles/menu.styles";
 
 const {

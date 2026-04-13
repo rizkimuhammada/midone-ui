@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Slot } from "@/components/ui/slot";
-import { cn } from "@midoneui/core/utils/cn";
+import { cn } from "@/utils/cn";
 import { comboboxItemText } from "@midoneui/core/styles/combobox.styles";
 import type { Api, ItemProps } from "@zag-js/combobox";
 import { inject } from "vue";
