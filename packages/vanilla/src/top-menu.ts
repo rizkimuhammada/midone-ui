@@ -1,6 +1,5 @@
 import { cn } from "@midoneui/core/src/utils/cn";
 import {
-  topMenuRoot,
   topMenuNav,
   topMenuMobileOpen,
   topMenuMobileClose,
@@ -19,8 +18,6 @@ function initTopMenu() {
           el.setAttribute("data-mobile-menu-open", String(mobileMenuOpen));
         });
       };
-
-      root.className = cn(topMenuRoot, root.className);
 
       root.querySelectorAll<HTMLElement>("[data-component]").forEach((el) => {
         const componentName = el.getAttribute("data-component");
@@ -48,7 +45,7 @@ function initTopMenu() {
                 closeIconWrapper.className,
               );
             const closeIcon = el.querySelector("svg");
-            if (closeIcon) closeIcon.classList.add(topMenuMobileCloseIcon);
+            if (closeIcon && topMenuMobileCloseIcon) closeIcon.classList.add(topMenuMobileCloseIcon);
 
             el.addEventListener("click", (e) => {
               e.preventDefault();

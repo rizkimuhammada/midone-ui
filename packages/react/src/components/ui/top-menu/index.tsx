@@ -41,7 +41,7 @@ export const TopMenuRoot = forwardRef<
       <div
         ref={ref}
         data-component="top-menu-root"
-        className={cn(className)}
+        className={className}
         {...props}
       >
         {children}

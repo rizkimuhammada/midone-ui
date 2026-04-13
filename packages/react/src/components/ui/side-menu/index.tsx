@@ -191,18 +191,16 @@ export function SideMenuPanel({
 export function SideMenuInner({
   children,
   className,
+  reverse = false,
   ...props
-}: React.ComponentProps<"div">) {
-  const { compactMenu, compactMenuOnHover, mobileMenuOpen } =
-    useSideMenuContext();
-
+}: React.ComponentProps<"div"> & {
+  reverse?: boolean;
+}) {
   return (
     <div
       data-scope="side-menu"
       data-part="inner"
-      data-compact-menu={compactMenu}
-      data-compact-menu-on-hover={compactMenuOnHover}
-      data-mobile-menu-open={mobileMenuOpen}
+      data-reverse={reverse}
       className={cn(sideMenuInner, className)}
       {...props}
     >

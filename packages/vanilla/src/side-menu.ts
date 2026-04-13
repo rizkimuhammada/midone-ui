@@ -39,6 +39,10 @@ const syncState = () => {
       el.getAttribute("data-part") ||
       (component ? component.replace("side-menu-", "") : null);
 
+    if (part === "inner" && !el.closest('[data-part="area"]')) {
+      return;
+    }
+
     if (part === "area") {
       el.setAttribute("data-compact-menu", String(compactMenu && !compactMenuOnHover));
       return;
