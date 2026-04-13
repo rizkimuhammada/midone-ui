@@ -186,7 +186,7 @@ function Preview({
         <div
           {...api.getContentProps({ value: "preview" })}
           className={cn([
-            "mt-4 backdrop-blur-md border border-foreground/20 bg-background/50 min-h-100 flex flex-col md:flex-row gap-3 items-center justify-center px-5 py-8 sm:p-8 lg:py-20 lg:px-20",
+            "mt-4 backdrop-blur-md border border-foreground/20 bg-background/50 min-h-100 flex flex-col gap-3 items-center justify-center px-5 py-8 sm:p-8 lg:py-20 lg:px-20",
             className,
           ])}
         >

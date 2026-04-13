@@ -5,16 +5,9 @@ import { MobileMenuContext, FrameworkContext } from "../../App";
 import { X } from "lucide-react";
 import {
   SelectRoot,
-  SelectControl,
-  SelectTrigger,
-  SelectValueText,
-  SelectContent,
   SelectItemGroup,
-  SelectItemGroupLabel,
   SelectItem,
-  SelectItemText,
 } from "@/components/ui/select";
-import * as select from "@zag-js/select";
 
 function Main({ className }: React.ComponentProps<"div">) {
   const { showMenu, setShowMenu } = useContext(MobileMenuContext);
@@ -196,14 +189,6 @@ function Main({ className }: React.ComponentProps<"div">) {
       isNew: false,
     },
   ];
-  const collection = select.collection({
-    items: [
-      { label: "React", code: "react" },
-      { label: "Vue", code: "vue" },
-      { label: "Vanilla", code: "vanilla" },
-    ],
-    itemToValue: (item) => item.label,
-  });
 
   return (
     <div
@@ -226,29 +211,19 @@ function Main({ className }: React.ComponentProps<"div">) {
           Select a Framework
         </div>
         <SelectRoot
-          collection={collection}
           className="w-[80%] mt-2"
+          placeholder="Select a Framework"
           value={framework}
           onValueChange={(val) => {
             localStorage.setItem("framework", val.value[0]);
             setFramework(val.value);
           }}
         >
-          <SelectControl>
-            <SelectTrigger>
-              <SelectValueText placeholder="Select a Framework" />
-            </SelectTrigger>
-          </SelectControl>
-          <SelectContent>
-            <SelectItemGroup>
-              <SelectItemGroupLabel>Frameworks</SelectItemGroupLabel>
-              {collection.items.map((item) => (
-                <SelectItem key={item.code} item={item}>
-                  <SelectItemText>{item.label}</SelectItemText>
-                </SelectItem>
-              ))}
-            </SelectItemGroup>
-          </SelectContent>
+          <SelectItemGroup label="Frameworks">
+            <SelectItem value="React" />
+            <SelectItem value="Vue" />
+            <SelectItem value="Vanilla">Vanilla</SelectItem>
+          </SelectItemGroup>
         </SelectRoot>
       </div>
       <div className="flex flex-col">
