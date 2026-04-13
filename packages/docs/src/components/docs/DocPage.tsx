@@ -207,7 +207,7 @@ function DocPage({ reactMd, vueMd, vanillaMd }: DocPageProps) {
   return (
     <>
       <Wrapper>
-        <div className="flex flex-col gap-20">
+        <div className="flex flex-col gap-14">
           {/* Header */}
           <div>
             <Title>{data.title}</Title>
@@ -224,8 +224,7 @@ function DocPage({ reactMd, vueMd, vanillaMd }: DocPageProps) {
           </div>
 
           {/* Preview */}
-          <div id="preview">
-            <SectionTitle>Preview</SectionTitle>
+          <div id="preview" className="-mt-10">
             <Preview>
               {() => ({
                 preview: <LivePreview code={reactData.preview} />,
