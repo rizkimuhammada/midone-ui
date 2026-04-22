@@ -9,6 +9,9 @@ import { SwitchRoot, SwitchControl, SwitchLabel } from "@/components/ui/switch";
         <SwitchRoot label="Airplane Mode" />
       </div>
       <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
+        <SwitchRoot size="sm" label="Airplane Mode" />
+      </div>
+      <div class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap">
         <SwitchRoot>
           <SwitchControl />
           <SwitchLabel class="font-normal">

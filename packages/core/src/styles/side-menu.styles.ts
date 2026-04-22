@@ -3,7 +3,7 @@ export const sideMenuRoot = "";
 
 // SideMenuPanel
 export const sideMenuPanel =
-  "side-menu xl:ml-0 transition-[margin] duration-300 fixed top-0 left-0 z-50 group before:content-[''] before:fixed before:inset-0 before:bg-black/80 dark:before:bg-foreground/5 before:backdrop-blur before:xl:hidden after:content-[''] [&[data-mobile-menu-open=true]]:ml-0 [&[data-mobile-menu-open=true]]:before:block before:hidden ml-[calc(var(--sm-width)*-1)] xl:ml-0 w-[var(--sm-width)]";
+  "side-menu xl:ml-0 transition-[margin] duration-300 fixed top-0 left-0 z-50 group before:content-[''] before:fixed before:inset-0 before:bg-black/80 dark:before:bg-foreground/5 before:backdrop-blur before:xl:hidden after:content-[''] [&[data-mobile-menu-open=true]]:ml-0 [&[data-mobile-menu-open=true]]:before:block before:hidden ml-[calc(var(--sm-width)*-1)] xl:ml-0";
 
 // SideMenuMobileClose
 export const sideMenuMobileClose =

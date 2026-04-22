@@ -10,6 +10,11 @@ import { Input } from "@/components/ui/input";
       >
         <Input type="email" placeholder="Email" />
       </div>
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
+        <Input size="sm" type="email" placeholder="Email" />
+      </div>
     </div>
   </div>
 </template>

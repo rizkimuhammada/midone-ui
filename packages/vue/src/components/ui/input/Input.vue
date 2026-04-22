@@ -1,17 +1,18 @@
 <script lang="ts" setup>
 import { cn } from "@/utils/cn";
-import { input } from "@midoneui/core/styles/input.styles";
+import { inputVariants, type InputVariants } from "@midoneui/core/styles/input.styles";
 
 const {
   class: className,
   type,
+  size,
   ...props
-} = defineProps<{
+} = defineProps<InputVariants & {
   class?: string;
   type?: string;
 }>();
 </script>
 
 <template>
-  <input :type="type" :class="cn(input, className)" v-bind="{ ...props }" />
+  <input :type="type" :class="cn(inputVariants({ size }), className)" v-bind="{ ...props }" />
 </template>

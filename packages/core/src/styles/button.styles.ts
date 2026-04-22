@@ -19,10 +19,10 @@ export const buttonVariants = cva(
         warning: "after:from-warning/40 bg-warning text-warning-foreground",
       },
       size: {
-        sm: "h-9 rounded-(--radius) px-3 text-sm",
-        default: "h-10 rounded-(--radius) px-4 text-sm",
-        lg: "h-11 rounded-(--radius) px-5 text-base",
-        xl: "h-13 rounded-(--radius) px-6 text-base",
+        sm: "h-8 rounded-(--radius) px-2.5 text-xs",
+        default: "h-9 rounded-(--radius) px-3.5 text-sm",
+        lg: "h-10 rounded-(--radius) px-4.5 text-base",
+        xl: "h-12 rounded-(--radius) px-5.5 text-lg",
       },
       look: {
         filled: [

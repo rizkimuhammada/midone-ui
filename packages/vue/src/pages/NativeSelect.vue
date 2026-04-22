@@ -25,6 +25,19 @@ import {
       <div
         class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
       >
+        <NativeSelect size="sm" class="w-56">
+          <NativeSelectOption value="">Select status</NativeSelectOption>
+          <NativeSelectOption value="todo">Todo</NativeSelectOption>
+          <NativeSelectOption value="in-progress"
+            >In Progress</NativeSelectOption
+          >
+          <NativeSelectOption value="done">Done</NativeSelectOption>
+          <NativeSelectOption value="cancelled">Cancelled</NativeSelectOption>
+        </NativeSelect>
+      </div>
+      <div
+        class="justify-center items-center flex gap-2 border-b border-e border-foreground/10 p-5 flex-wrap"
+      >
         <NativeSelect class="w-56">
           <NativeSelectOption value="">Select department</NativeSelectOption>
           <NativeSelectOptionGroup label="Engineering">

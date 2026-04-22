@@ -2,7 +2,7 @@
 import * as zagSwitch from "@zag-js/switch";
 import type { Props } from "@zag-js/switch";
 import { cn } from "@/utils/cn";
-import { switchRoot } from "@midoneui/core/styles/switch.styles";
+import { switchRoot, type SwitchControlVariants } from "@midoneui/core/styles/switch.styles";
 import { SwitchHiddenInput, SwitchControl, SwitchLabel } from ".";
 import { normalizeProps, useMachine } from "@zag-js/vue";
 import { computed, provide, useSlots } from "vue";
@@ -12,9 +12,10 @@ const {
   class: className,
   asChild = false,
   checked = undefined,
+  size,
   label,
   ...props
-} = defineProps<Partial<Props> & { class?: string; asChild?: boolean; label?: string }>();
+} = defineProps<Partial<Props> & { class?: string; asChild?: boolean; label?: string; size?: SwitchControlVariants["size"] }>();
 
 const service = useMachine(zagSwitch.machine, {
   ...props,
@@ -25,6 +26,7 @@ const slots = useSlots();
 const api = computed(() => zagSwitch.connect(service, normalizeProps));
 
 provide("switchApi", api);
+provide("switchSize", size);
 </script>
 
 <template>

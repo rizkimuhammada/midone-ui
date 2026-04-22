@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { cn } from "@/utils/cn";
-import { switchControl } from "@midoneui/core/styles/switch.styles";
+import { switchControlVariants, type SwitchControlVariants } from "@midoneui/core/styles/switch.styles";
 import { SwitchThumb } from ".";
 import type { Api } from "@zag-js/switch";
 import { inject } from "vue";
@@ -16,11 +16,12 @@ const {
 }>();
 
 const api = inject<Api>("switchApi");
+const size = inject<SwitchControlVariants["size"]>("switchSize");
 </script>
 
 <template>
   <Slot
-    :class="cn(switchControl, className)"
+    :class="cn(switchControlVariants({ size }), className)"
     v-bind="{ ...props, ...$attrs, ...api?.getControlProps() }"
   >
     <slot v-if="asChild" />
